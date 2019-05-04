@@ -457,7 +457,7 @@ void SceneUpdateActors_b()
     }
   }
 
-  if (script_ptr == 0)
+  if (script_ptr == 0 || (BGscript_active && await_input)) // Allows idle move if bg script is only checking buttons.
   {
     if (IS_FRAME_64)
     {
@@ -593,6 +593,7 @@ void SceneUpdateActors_b()
       }
       ptr += jump;
     }
+    ptr += jump;
   }
 
   // Cycle through animation frames
@@ -634,7 +635,7 @@ void SceneUpdateActorMovement_b(UBYTE i)
   SceneRenderActor_b(i);
 
   // Dont check collisions when running script
-  if (script_ptr != 0 && (actor_move_settings & ACTOR_NOCLIP))
+  if ((script_ptr != 0 && !BGscript_active) && (actor_move_settings & ACTOR_NOCLIP))
   {
     if (i == 0)
     {
@@ -846,7 +847,7 @@ static void SceneHandleInput()
   }
 
   // Can't move while script is running
-  if (script_ptr != 0 || emote_timer != 0 || fade_running)
+  if ((script_ptr != 0 && !BGscript_active) || emote_timer != 0 || fade_running) 
   {
     actors[0].moving = FALSE;
     return;

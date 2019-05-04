@@ -82,7 +82,9 @@ import {
   TIMER_RESTART,
   TIMER_DISABLE,
   TEXT_WITH_AVATAR,
-  MENU
+  MENU,
+  SET_BG_SCRIPT,
+  CLEAR_BG_SCRIPT
 } from "../events/scriptCommands";
 import {
   getActorIndex,
@@ -986,6 +988,16 @@ class ScriptBuilder {
   timerDisable = () => {
     const output = this.output;
     output.push(cmd(TIMER_DISABLE));
+  };
+
+  setBGScript = () => {
+    const output = this.output;
+    output.push(cmd(SET_BG_SCRIPT));
+  };
+
+  clearBGScript = () => {
+    const output = this.output;
+    output.push(cmd(CLEAR_BG_SCRIPT));
   };
 
   // Helpers

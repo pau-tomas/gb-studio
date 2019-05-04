@@ -16,6 +16,16 @@ extern UWORD script_ptr_y;
 extern UBYTE script_action_complete;
 extern UBYTE script_continue;
 extern UBYTE script_actor;
+extern UBYTE BG_ptr_bank;
+extern UWORD BG_ptr;
+extern UWORD BG_start_ptr;
+extern UBYTE BGscript_active;
+extern UBYTE BGscript_actor;
+
+// Max call stack depth
+#define STACK_SIZE 8
+extern UWORD script_stack[STACK_SIZE];
+extern UBYTE script_stack_ptr;
 
 // Max call stack depth
 #define STACK_SIZE 8
@@ -119,5 +129,7 @@ void Script_ResetTimer_b();
 void Script_RemoveTimerScript_b();
 void Script_TextWithAvatar_b();
 void Script_TextMenu_b();
+void Script_SetBGscript_b();
+void Script_ClearBGscript_b();
 
 #endif

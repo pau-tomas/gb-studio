@@ -17,6 +17,12 @@ UBYTE script_cmd_args[6] = {0};
 UBYTE script_cmd_args_len;
 SCRIPT_CMD_FN last_fn;
 
+UBYTE BG_ptr_bank = 0;
+UWORD BG_ptr = 0;
+UWORD BG_start_ptr = 0;
+UBYTE BGscript_active = FALSE;
+UBYTE BGscript_actor;
+
 UBYTE script_stack_ptr = 0;
 UWORD script_stack[STACK_SIZE] = {0};
 UWORD script_start_stack[STACK_SIZE] = {0};
@@ -114,7 +120,9 @@ SCRIPT_CMD script_cmds[] = {
     {Script_ResetTimer_b, 0},         // 0x59
     {Script_RemoveTimerScript_b, 0},  // 0x5A
     {Script_TextWithAvatar_b, 3},     // 0x5B
-    {Script_TextMenu_b, 6}            // 0x5C
+    {Script_TextMenu_b, 6},           // 0x5C
+    {Script_SetBGscript_b, 0},        // 0x5D
+    {Script_ClearBGscript_b, 0}       // 0x5E
 };
 
 UBYTE ScriptLastFnComplete();
@@ -122,6 +130,8 @@ UBYTE ScriptLastFnComplete();
 void ScriptStart(BANK_PTR *events_ptr)
 {
   UBYTE rnd;
+  wait_time = 0;
+  await_input = 0;
   script_ptr_bank = events_ptr->bank;
   script_ptr = ((UWORD)bank_data_ptrs[script_ptr_bank]) + events_ptr->offset;
 
@@ -129,6 +139,16 @@ void ScriptStart(BANK_PTR *events_ptr)
   initrand(rnd);
 
   script_start_ptr = script_ptr;
+  // BGscript halt most loose functions, ^ wait time needed an exception too, and await input reset line.
+  if (BGscript_active)
+  {
+    actors[BGscript_actor].pos.x = ((actors[BGscript_actor].pos.x) >> 3 << 3);
+    actors[BGscript_actor].pos.y = ((actors[BGscript_actor].pos.y) >> 3 << 3);
+    actors[BGscript_actor].moving = FALSE;
+    actor_move_settings &= ~ACTOR_MOVE_ENABLED;
+    BGscript_active = FALSE;
+  }
+  script_action_complete = TRUE;
 }
 
 void ScriptRunnerUpdate()
@@ -161,9 +181,21 @@ void ScriptRunnerUpdate()
       return;
     }
     LOG("SCRIPT FINISHED\n");
-    script_ptr_bank = 0;
-    script_ptr = 0;
-    return;
+    if (BG_ptr != 0 && !BGscript_active)
+    {
+      script_ptr_bank = BG_ptr_bank; 
+      script_ptr = BG_ptr;
+      script_start_ptr = BG_start_ptr;
+      script_actor = BGscript_actor;
+      BGscript_active = TRUE; 
+      return; 
+    }
+    else
+    {
+      script_ptr_bank = 0;
+      script_ptr = 0;
+      return;
+    }
   }
 
   script_cmd_args_len = script_cmds[script_cmd_index].args_len;

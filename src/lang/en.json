@@ -194,6 +194,8 @@
   "FIELD_CUSTOM_EVENT_DESCRIPTION_PLACEHOLDER": "Describe the purpose of this custom event",
   "FIELD_LOCAL": "Local",
   "FIELD_GLOBAL": "Global",
+  "FIELD_SET_BG_SCRIPT": "Allow player movement while this script runs in the Background. Stops & Resumes when another script Starts & Ends. *EXPERIMENTAL*",
+  "FIELD_CLEAR_BG_SCRIPT": "Removes the BG script from memory so it can not restart. Continues running script. *EXPERIMENTAL*",
 
   "// 7": "Asset Viewer ---------------------------------------------",
   "ASSET_SEARCH": "Search...",
@@ -302,6 +304,8 @@
   "EVENT_TIMER_RESTART": "Timer: Restart timer",
   "EVENT_TIMER_DISABLE": "Timer: Disable timer script",
   "EVENT_MENU": "Text: Display Menu",
+  "EVENT_SET_BG_SCRIPT": "Set as Background Script",
+  "EVENT_CLEAR_BG_SCRIPT": "Clear Background Script",
 
   "// 10": "Menu -----------------------------------------------------",
 

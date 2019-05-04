@@ -91,6 +91,8 @@ export const TIMER_RESTART = "TIMER_RESTART";
 export const TIMER_DISABLE = "TIMER_DISABLE";
 export const TEXT_WITH_AVATAR = "TEXT_WITH_AVATAR";
 export const MENU = "MENU";
+export const SET_BG_SCRIPT = "SET_BG_SCRIPT";
+export const CLEAR_BG_SCRIPT = "CLEAR_BG_SCRIPT";
 
 export const scriptCommands = [
   END,
@@ -185,7 +187,9 @@ export const scriptCommands = [
   TIMER_RESTART,
   TIMER_DISABLE,
   TEXT_WITH_AVATAR,
-  MENU
+  MENU,
+  SET_BG_SCRIPT,
+  CLEAR_BG_SCRIPT
 ];
 
 export const commandIndex = key => {

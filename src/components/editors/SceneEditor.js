@@ -3,6 +3,7 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { clipboard } from "electron";
 import { connect } from "react-redux";
+import cx from "classnames";
 import * as actions from "../../actions";
 import BackgroundSelect from "../forms/BackgroundSelect";
 import { FormField, ToggleableFormField } from "../library/Forms";
