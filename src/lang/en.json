@@ -147,6 +147,8 @@
   "FIELD_COLOR4_NAME": "Really Dark Green",
   "FIELD_CASE": "Case",
   "FIELD_WHEN": "When",
+  "FIELD_SET_TO_VALUE_IF": "Set to '{value}' if",
+
 
   "// 7": "Asset Viewer ---------------------------------------------",
   "ASSET_SEARCH": "Search...",
@@ -240,6 +242,7 @@
   "EVENT_CODE": "Code: Custom Script",
   "EVENT_NOTES": "Notes",
   "EVENT_CASE": "Case Variable Value",
+  "EVENT_MENU": "Text: Menu",
 
   "// 10": "Menu -----------------------------------------------------",
 

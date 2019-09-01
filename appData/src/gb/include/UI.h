@@ -42,5 +42,6 @@ void UIOnInteract();
 UBYTE UIAtDest();
 void UISetColor(UBYTE color);
 void UISetTextSpeed(UBYTE in, UBYTE out);
+void UIShowMenu(UWORD flag_index, UWORD line);
 
 #endif

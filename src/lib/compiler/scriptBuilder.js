@@ -71,7 +71,8 @@ import {
   NEXT_FRAME,
   JUMP,
   SET_INPUT_SCRIPT,
-  REMOVE_INPUT_SCRIPT
+  REMOVE_INPUT_SCRIPT,
+  MENU
 } from "../events/scriptCommands";
 import {
   getActorIndex,
@@ -274,6 +275,23 @@ class ScriptBuilder {
     output.push(hi(stringIndex));
     output.push(lo(stringIndex));
   };
+
+  textMenu = (setVariable, options) => {
+    const output = this.output;
+    const { strings, variables } = this.options;
+    const menuText = options.join("\n");
+    let stringIndex = strings.indexOf(menuText);
+    if (stringIndex === -1) {
+      strings.push(menuText);
+      stringIndex = strings.length - 1;
+    }
+    const variableIndex = getVariableIndex(setVariable, variables);
+    output.push(cmd(MENU));
+    output.push(hi(variableIndex));
+    output.push(lo(variableIndex));
+    output.push(hi(stringIndex));
+    output.push(lo(stringIndex));
+  }
 
   textSetOpenInstant = () => {
     const output = this.output;

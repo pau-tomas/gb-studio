@@ -22,6 +22,7 @@ UBYTE text_x;
 UBYTE text_y;
 UBYTE text_drawn;
 UBYTE text_count;
+UBYTE text_tile_count;
 UBYTE text_wait;
 UBYTE text_in_speed = 1;
 UBYTE text_out_speed = 1;
@@ -32,6 +33,11 @@ UBYTE tmp_text_out_speed = 1;
 UBYTE choice_enabled = 0;
 UBYTE choice_index = 0;
 UWORD choice_flag;
+
+UBYTE menu_enabled = 0;
+BYTE menu_index = 0;
+UWORD menu_flag;
+UBYTE menu_num_options;
 
 const unsigned char ui_cursor_tiles[1] = {0xCB};
 const unsigned char ui_bg_tiles[1] = {0xC4};
@@ -107,7 +113,14 @@ void UIShowText(UWORD line)
   POP_BANK;
 
   height = tmp_text_lines[0];
-  UIDrawDialogueFrame(height);
+  if (menu_enabled)
+  {
+    UIDrawFrame(0, 0, 8, height);
+  }
+  else 
+  {
+    UIDrawDialogueFrame(height);
+  }
 
   for (i = 1, k = 0; i < 81; i++)
   {
@@ -149,12 +162,21 @@ void UIShowText(UWORD line)
     ++k;
   }
 
-  UISetPos(0, MENU_CLOSED_Y);
-  UIMoveTo(0, MENU_CLOSED_Y - ((height + 2) << 3), text_in_speed);
+  if (menu_enabled)
+  {
+    UISetPos(88, MENU_CLOSED_Y);
+    UIMoveTo(88, MENU_CLOSED_Y - ((height + 2) << 3), text_in_speed);
+  }
+  else 
+  {
+    UISetPos(0, MENU_CLOSED_Y);
+    UIMoveTo(0, MENU_CLOSED_Y - ((height + 2) << 3), text_in_speed);
+  }
   text_drawn = FALSE;
   text_x = 0;
   text_y = 0;
   text_count = 0;
+  text_tile_count = 0;
 }
 
 void UIShowChoice(UWORD flag_index, UWORD line)
@@ -165,6 +187,21 @@ void UIShowChoice(UWORD flag_index, UWORD line)
   UIShowText(line);
   set_win_tiles(1, 1, 1, 1, ui_cursor_tiles);
   set_win_tiles(1, 2, 1, 1, ui_bg_tiles);
+}
+
+void UIShowMenu(UWORD flag_index, UWORD line)
+{
+  UBYTE i;
+  menu_index = 0;
+  menu_flag = flag_index;
+  menu_enabled = TRUE;
+  text_draw_speed = 0;
+  UIShowText(line);
+  menu_num_options = tmp_text_lines[0];
+  for (i = 1; i <= menu_num_options; i++) 
+  {
+    set_win_tiles(1, i, 1, 1, menu_index + 1 == i ? ui_cursor_tiles : ui_bg_tiles);
+  }
 }
 
 void UISetTextBuffer(unsigned char *text)
@@ -232,12 +269,13 @@ void UIDrawTextBufferChar()
       text_y++;
     }
 
-    if (text_lines[text_count] != '\b')
+    if (text_lines[text_count] != '\b' && text_lines[text_count] != '\n')
     {
-      i = text_x + (18 * text_y);
+      i = text_tile_count;
       SetBankedBkgData(FONT_BANK, TEXT_BUFFER_START + i, 1, ptr + ((UWORD)letter * 16));
-      tile = TEXT_BUFFER_START + text_x + (text_y * 18);
-      set_win_tiles(text_x + 1 + choice_enabled, text_y + 1, 1, 1, &tile);
+      tile = TEXT_BUFFER_START + i;
+      set_win_tiles(text_x + 1 + (choice_enabled || menu_enabled), text_y + 1, 1, 1, &tile);
+      text_tile_count++;
     }
 
     if (text_lines[text_count] == '\b')
@@ -301,18 +339,31 @@ UBYTE UIIsClosed()
 
 void UIOnInteract()
 {
+  UBYTE i;
+
   if (JOY_PRESSED(J_A))
   {
     if (text_drawn && text_count != 0)
     {
       text_count = 0;
       text_lines[0] = '\0';
+      text_tile_count = 0;
       if (choice_enabled)
       {
         script_variables[choice_flag] = !choice_index;
         choice_enabled = FALSE;
+        UIMoveTo(0, MENU_CLOSED_Y, text_out_speed);
+      } 
+      else if (menu_enabled)
+      {
+        script_variables[menu_flag] = menu_index + 1;
+        menu_enabled = FALSE;
+        UIMoveTo(88, MENU_CLOSED_Y, text_out_speed);
       }
-      UIMoveTo(0, MENU_CLOSED_Y, text_out_speed);
+      else
+      {
+        UIMoveTo(0, MENU_CLOSED_Y, text_out_speed);
+      }
     }
   }
   else if (choice_enabled)
@@ -334,9 +385,38 @@ void UIOnInteract()
     {
       text_count = 0;
       text_lines[0] = '\0';
+      text_tile_count = 0;
       script_variables[choice_flag] = FALSE;
       choice_enabled = FALSE;
       UIMoveTo(0, MENU_CLOSED_Y, text_out_speed);
+    }
+  }
+  else if (menu_enabled)
+  {
+    if (JOY_PRESSED(J_UP))
+    {
+      menu_index = MAX(menu_index - 1, 0);
+      for (i = 1; i <= menu_num_options; i++) 
+      {
+        set_win_tiles(1, i, 1, 1, menu_index + 1 == i ? ui_cursor_tiles : ui_bg_tiles);
+      }
+    }
+    else if (JOY_PRESSED(J_DOWN))
+    {
+      menu_index = MIN(menu_index + 1, menu_num_options - 1);
+      for (i = 1; i <= menu_num_options; i++) 
+      {
+        set_win_tiles(1, i, 1, 1, menu_index + 1 == i ? ui_cursor_tiles : ui_bg_tiles);
+      }
+    }
+    else if (JOY_PRESSED(J_B))
+    {
+      text_count = 0;
+      text_lines[0] = '\0';
+      text_tile_count = 0;
+      script_variables[menu_flag] = 0;
+      menu_enabled = FALSE;
+      UIMoveTo(88, MENU_CLOSED_Y, text_out_speed);
     }
   }
 }

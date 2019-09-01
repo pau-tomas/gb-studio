@@ -80,6 +80,7 @@ export const ACTOR_SET_FRAME = "ACTOR_SET_FRAME";
 export const ACTOR_SET_FLIP = "ACTOR_SET_FLIP";
 export const TEXT_MULTI = "TEXT_MULTI";
 export const ACTOR_SET_FRAME_TO_VALUE = "ACTOR_SET_FRAME_TO_VALUE";
+export const MENU = "MENU";
 
 export const scriptCommands = [
   END,
@@ -163,7 +164,8 @@ export const scriptCommands = [
   ACTOR_SET_FRAME,
   ACTOR_SET_FLIP,
   TEXT_MULTI,
-  ACTOR_SET_FRAME_TO_VALUE
+  ACTOR_SET_FRAME_TO_VALUE,
+  MENU
 ];
 
 export const commandIndex = key => {
