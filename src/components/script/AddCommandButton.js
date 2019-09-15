@@ -11,6 +11,10 @@ import {
 import l10n from "../../lib/helpers/l10n";
 import trimlines from "../../lib/helpers/trimlines";
 import events from "../../lib/events";
+import { ProcedureShape } from "../../reducers/stateShape";
+import { connect } from "react-redux";
+import compileEntityEvents from "../../lib/compiler/compileEntityEvents";
+import { walkEvents } from "../../lib/helpers/eventSystem";
 
 class AddCommandButton extends Component {
   constructor(props) {
@@ -116,7 +120,58 @@ class AddCommandButton extends Component {
   };
 
   fullList = () => {
-    const { type } = this.props;
+    const { type, procedures } = this.props;
+    
+    Object.values(procedures)
+      .map((procedure, i) => {
+      const variables = Object.values(procedure.variables).map(v => {
+        return {
+          label: `${v.name} - ${v.id}`,
+          defaultValue: "LAST_VARIABLE",
+          key: `v__${v.id}`,
+          type: "variable"
+        };
+      });
+      const actors = Object.values(procedure.actors).map((a) => {
+        return {
+          label: `${a.name} - ${a.id}`,
+          defaultValue: "player",
+          key: a.id,
+          type: "actor"
+        };
+      });
+      const key = `EVENT_CALL_PROCEDURE_${i}`;
+      const name = procedure.name;
+      const searchName = `${name.toUpperCase()} ${key.toUpperCase()}`;
+      events[key] = {
+        compile: (input, helpers) => {
+          const script = JSON.parse(JSON.stringify(procedure.script));
+          walkEvents(script, e => {
+            if (!e.args) return;
+
+            if (e.args.actorId && e.args.actordId !== "player") {
+              e.args.actorId = input[e.args.actorId];
+            }
+            if (e.args.variable) {
+              e.args.variable = input[`v__${e.args.variable}`];
+            }
+            if (e.args.vectorX) {
+              e.args.vectorX = input[`v__${e.args.vectorX}`];           
+            }
+            if (e.args.vectorY) {
+              e.args.vectorY = input[`v__${e.args.vectorY}`];
+            }
+          });
+          console.log(script);
+          compileEntityEvents(script, helpers);
+        },
+        fields: [].concat(variables, actors),
+        id: key,
+        name,
+        searchName
+      };
+    });
+
     return Object.keys(events)
       .filter(key => {
         return (
@@ -232,7 +287,15 @@ class AddCommandButton extends Component {
 
 AddCommandButton.propTypes = {
   onAdd: PropTypes.func.isRequired,
-  type: PropTypes.string.isRequired
+  type: PropTypes.string.isRequired,
+  procedures: PropTypes.objectOf(ProcedureShape).isRequired
 };
 
-export default AddCommandButton;
+function mapStateToProps(state) {
+  const procedures = state.entities.present.entities.procedures || {};
+  return {
+    procedures
+  }
+};
+
+export default connect(mapStateToProps)(AddCommandButton);

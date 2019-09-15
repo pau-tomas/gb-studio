@@ -251,9 +251,12 @@ class ActionMini extends Component {
                     </small>
                   </span>
                 ) : (
-                  (commented ? "// " : "") + l10n(command) ||
-                  (events[command] && events[command].name) ||
-                  command
+                  <span>
+                    {commented ? "// " : ""} 
+                    {l10n(command) || 
+                      (events[command] && events[command].name) || 
+                      command}
+                  </span>
                 )}
               </div>
             )}
@@ -744,10 +747,13 @@ ScriptEditor.propTypes = {
 };
 
 ScriptEditor.defaultProps = {
+  variableIds: [],
+  musicIds: [],
+  spriteSheetIds: [],
   value: [
     {
       id: uuid(),
-      command: EVENT_END
+      command: EVENT_END,
     }
   ]
 };
@@ -755,14 +761,21 @@ ScriptEditor.defaultProps = {
 function mapStateToProps(state, props) {
   const { result, entities } = state.entities.present;
   return {
-    variableIds: result.variables,
+    variableIds: props.variableIds || result.variables,
     sceneIds: result.scenes,
-    actorIds: entities.scenes[state.editor.scene].actors,
+    actorIds: props.actorIds || entities.scenes[state.editor.scene].actors,
     musicIds: result.music,
     spriteSheetIds: result.spriteSheets,
     value: props.value && props.value.length > 0 ? props.value : undefined
   };
 }
+
+// function mergeProps(state, dispatch, props) {
+//   return {
+//     ...state,
+//     actorIds: props.actorIds || state.actorIds
+//   }
+// }
 
 const mapDispatchToProps = {
   selectScriptEvent: actions.selectScriptEvent,
@@ -772,5 +785,6 @@ const mapDispatchToProps = {
 
 export default connect(
   mapStateToProps,
-  mapDispatchToProps
+  mapDispatchToProps,
+  // mergeProps
 )(ScriptEditor);

@@ -10,6 +10,7 @@ import {
   SPRITE_REMOVE,
   EDIT_PROJECT,
   EDIT_PROJECT_SETTINGS,
+  EDIT_PROCEDURE,
   ADD_SCENE,
   MOVE_SCENE,
   EDIT_SCENE,
@@ -35,13 +36,15 @@ import {
   BACKGROUND_REMOVE,
   MUSIC_LOAD_SUCCESS,
   MUSIC_REMOVE,
-  SCROLL_WORLD
+  SCROLL_WORLD,
+  ADD_PROCEDURE
 } from "../actions/actionTypes";
 import clamp from "../lib/helpers/clamp";
 import {
   patchEvents,
   regenerateEventIds,
-  mapEvents
+  mapEvents,
+  walkEvents
 } from "../lib/helpers/eventSystem";
 import initialState from "./initialState";
 
@@ -143,12 +146,14 @@ const sceneSchema = new schema.Entity("scenes", {
   actors: [actorSchema],
   triggers: [triggerSchema]
 });
+const proceduresSchema = new schema.Entity("procedures");
 const projectSchema = {
   scenes: [sceneSchema],
   backgrounds: [backgroundSchema],
   music: [musicSchema],
   spriteSheets: [spriteSheetsSchema],
-  variables: [variablesSchema]
+  variables: [variablesSchema],
+  procedures: [proceduresSchema]
 };
 
 export const normalizeProject = projectData => {
@@ -493,6 +498,70 @@ const editScene = (state, action) => {
 const removeScene = (state, action) => {
   return removeEntity(state, "scenes", action.sceneId);
 };
+
+const addProcedure = (state, action) => {
+  const newProcedure = Object.assign(
+    {
+      id: action.id,
+      name: 'Procedure Name',
+      variables: {},
+      actors: {},
+      script: {}
+    }
+  );
+  return addEntity(state, "procedures", newProcedure);
+};
+
+const editProcedure = (state, action) => {
+
+  const patch = {...action.values};
+
+  if (patch.script) {
+    const variables = {};
+    const actors = {};
+
+    walkEvents(action.values.script, (e) => {
+      if (!e.args) return;
+      if (e.args.actorId) {
+        actors[e.args.actorId] = {
+          id: e.args.actorId,
+          scope: "procedure",
+          name: `Actor ${e.args.actorId}`
+        };
+      }
+      if (e.args.variable) {
+        const letter = String.fromCharCode('A'.charCodeAt(0) + parseInt(e.args.variable));
+        variables[e.args.variable] = {
+          id: e.args.variable,
+          scope: "procedure",
+          name: `Variable ${letter}`
+        };
+      }
+      if (e.args.vectorX) {
+        const letter = String.fromCharCode('A'.charCodeAt(0) + parseInt(e.args.vectorX)).toUpperCase();
+        variables[e.args.vectorX] = {
+          id: e.args.vectorX,
+          scope: "procedure",
+          name: `Variable ${letter}`
+        };
+      }
+      if (e.args.vectorY) {
+        const letter = String.fromCharCode('A'.charCodeAt(0) + parseInt(e.args.vectorY)).toUpperCase();
+        variables[e.args.vectorY] = {
+          id: e.args.vectorY,
+          scope: "procedure",
+          name: `Variable ${letter}`
+        };
+      }
+    });
+
+    patch.variables = {...variables};
+    patch.actors = {...actors};
+  }
+
+  return editEntity(state, "procedures", action.id, patch);
+};
+
 
 const addActor = (state, action) => {
   const scene = state.entities.scenes[action.sceneId];
@@ -976,6 +1045,8 @@ export default function project(state = initialState.entities, action) {
       return editProject(state, action);
     case EDIT_PROJECT_SETTINGS:
       return editProjectSettings(state, action);
+    case EDIT_PROCEDURE:
+      return editProcedure(state, action);
     case SPRITE_LOAD_SUCCESS:
       return loadSprite(state, action);
     case SPRITE_REMOVE:
@@ -988,6 +1059,8 @@ export default function project(state = initialState.entities, action) {
       return loadMusic(state, action);
     case MUSIC_REMOVE:
       return removeMusic(state, action);
+    case ADD_PROCEDURE:
+      return addProcedure(state, action);
     case ADD_SCENE:
       return addScene(state, action);
     case MOVE_SCENE:

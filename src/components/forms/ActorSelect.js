@@ -122,7 +122,13 @@ ActorSelect.defaultProps = {
 };
 
 function mapStateToProps(state) {
-  const actors = getSceneActors(state, { id: state.editor.scene });
+  const actors = state.editor.scene != "" ? 
+    getSceneActors(state, { id: state.editor.scene }) : 
+    Array.from(Array(10).keys()).map(n => 
+      ({ 
+        id : String(n).padStart(3, "_")
+      })
+    );
   const settings = state.entities.present.result.settings;
   const playerSpriteSheetId = settings.playerSpriteSheetId;
   return {

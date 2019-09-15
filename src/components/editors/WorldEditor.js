@@ -31,13 +31,13 @@ class WorldEditor extends Component {
   };
 
   render() {
-    const { project, selectSidebar } = this.props;
+    const { project, selectSidebar, selectProcedure, addProcedure } = this.props;
 
-    if (!project || !project.scenes) {
+    if (!project || !project.scenes || !project.procedures) {
       return <div />;
     }
 
-    const { name, author, notes, scenes, settings } = project;
+    const { name, author, notes, scenes, settings, procedures } = project;
     const {
       startSceneId,
       playerSpriteSheetId,
@@ -93,9 +93,7 @@ class WorldEditor extends Component {
               />
             </ToggleableFormField>
           </div>
-        </SidebarColumn>
 
-        <SidebarColumn>
           {scenes.length > 0 && (
             <div>
               <SidebarHeading title={l10n("SIDEBAR_STARTING_SCENE")} />
@@ -185,6 +183,32 @@ class WorldEditor extends Component {
             </div>
           )}
         </SidebarColumn>
+
+        <SidebarColumn>
+          <SidebarHeading title={l10n("GLOBAL PROCEDURES")} />
+          <ul>{ procedures
+            .map(procedure => {
+              return (
+                <li
+                  key={procedure}
+                  onClick={() => {
+                    selectProcedure(procedure);
+                  }}
+                >{procedure}
+                </li>
+              );
+            })
+          }
+          </ul>
+          <Button 
+            onClick={() => {
+              addProcedure();
+          }}
+          >
+            Add Procedure
+          </Button>
+        </SidebarColumn>
+
       </Sidebar>
     );
   }
@@ -194,10 +218,12 @@ WorldEditor.propTypes = {
   project: ProjectShape.isRequired,
   editProject: PropTypes.func.isRequired,
   editProjectSettings: PropTypes.func.isRequired,
-  selectSidebar: PropTypes.func.isRequired
+  selectSidebar: PropTypes.func.isRequired,
+  selectProcedure: PropTypes.func.isRequired,
+  addProcedure: PropTypes.func.isRequired,
 };
 
-function mapStateToProps(state, props) {
+function mapStateToProps(state) {
   const project = state.entities.present.result;
   return {
     project
@@ -207,7 +233,9 @@ function mapStateToProps(state, props) {
 const mapDispatchToProps = {
   selectSidebar: actions.selectSidebar,
   editProject: actions.editProject,
-  editProjectSettings: actions.editProjectSettings
+  editProjectSettings: actions.editProjectSettings,
+  selectProcedure: actions.selectProcedure,
+  addProcedure: actions.addProcedure
 };
 
 export default connect(
