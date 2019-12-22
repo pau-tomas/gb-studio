@@ -674,7 +674,7 @@ void Script_TextMenu_b()
 /*
  * Command: PlayerSetSprite
  * ----------------------------
- * Change sprite used by player
+ * Change sprite used by Actor
  */
 void Script_PlayerSetSprite_b()
 {
@@ -688,15 +688,29 @@ void Script_PlayerSetSprite_b()
   sprite_ptr = ((UWORD)bank_data_ptrs[sprite_bank_ptr.bank]) + sprite_bank_ptr.offset;
   sprite_frames = ReadBankedUBYTE(sprite_bank_ptr.bank, sprite_ptr);
   sprite_len = MUL_4(sprite_frames);
-  SetBankedSpriteData(sprite_bank_ptr.bank, 0, sprite_len, sprite_ptr + 1);
-  actors[0].sprite = 0;
-  actors[0].frame = 0;
-  actors[0].sprite_type = sprite_frames == 6 ? SPRITE_ACTOR_ANIMATED : sprite_frames == 3 ? SPRITE_ACTOR : SPRITE_STATIC;
-  actors[0].frames_len = sprite_frames == 6 ? 2 : sprite_frames == 3 ? 1 : sprite_frames;
-  SceneRenderActor(0);
+  SetBankedSpriteData(sprite_bank_ptr.bank, MUL_4(actors[script_actor].sprite), sprite_len, sprite_ptr + 1);
+  //actors[script_actor].sprite = 0;
 
-  // Keep new sprite when switching scene
-  map_next_sprite = sprite_index;
+  if (script_actor == 0) {
+    actors[script_actor].frame = 0;
+    actors[script_actor].sprite_type = sprite_frames == 6 ? SPRITE_ACTOR_ANIMATED : sprite_frames == 3 ? SPRITE_ACTOR : SPRITE_STATIC;
+    actors[script_actor].frames_len = sprite_frames == 6 ? 2 : sprite_frames == 3 ? 1 : sprite_frames;
+    // Keep new sprite when switching scene
+    map_next_sprite = sprite_index;
+    SceneRenderActor(script_actor);
+  }
+  else {
+    for (sprite_index = 0; sprite_index != MAX_ACTORS; sprite_index++)
+    {
+      if (actors[script_actor].sprite == actors[sprite_index].sprite)
+      {
+        actors[sprite_index].frame = 0;
+        actors[sprite_index].sprite_type = sprite_frames == 6 ? SPRITE_ACTOR_ANIMATED : sprite_frames == 3 ? SPRITE_ACTOR : SPRITE_STATIC;
+        actors[sprite_index].frames_len = sprite_frames == 6 ? 2 : sprite_frames == 3 ? 1 : sprite_frames;
+        SceneRenderActor(sprite_index);
+      }
+    }
+  }
 
   script_ptr += 1 + script_cmd_args_len;
   script_continue = TRUE;

@@ -265,7 +265,7 @@
   "EVENT_ACTOR_SHOW": "Actor: Show",
   "EVENT_ACTOR_HIDE": "Actor: Hide",
   "EVENT_ACTOR_INVOKE": "Actor: Invoke Script",
-  "EVENT_PLAYER_SET_SPRITE": "Actor: Set Player Sprite Sheet",
+  "EVENT_PLAYER_SET_SPRITE": "Actor: Set Sprite Sheet",
   "EVENT_SHOW_SPRITES": "Sprites: Show All",
   "EVENT_HIDE_SPRITES": "Sprites: Hide All",
   "EVENT_OVERLAY_SHOW": "Overlay: Show",
