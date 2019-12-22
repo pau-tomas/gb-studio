@@ -28,6 +28,7 @@ import events from "../../lib/events";
 import GBScriptEditor from "../library/GBScriptEditor";
 import rerenderCheck from "../../lib/helpers/reactRerenderCheck";
 import { CustomEventShape } from "../../reducers/stateShape";
+import { getActorsLookup, getSpriteSheetsLookup } from "../../reducers/entitiesReducer";
 
 const genKey = (id, key, index) => `${id}_${key}_${index || 0}`;
 
@@ -76,7 +77,7 @@ class ScriptEventInput extends Component {
   };
 
   render() {
-    const { type, id, value, args, field, entityId } = this.props;
+    const { type, id, value, args, field, entityId, filter } = this.props;
 
     if (type === "textarea") {
       return (
@@ -159,7 +160,7 @@ class ScriptEventInput extends Component {
         <SpriteSheetSelect
           id={id}
           value={value}
-          filter={field.filter}
+          filter={filter}
           optional={field.optional}
           onChange={this.onChange}
         />
@@ -254,6 +255,7 @@ ScriptEventInput.propTypes = {
   type: PropTypes.string,
   field: PropTypes.shape().isRequired,
   args: PropTypes.shape(),
+  filter: PropTypes.func,
   value: PropTypes.oneOfType([
     PropTypes.number,
     PropTypes.string,
@@ -332,7 +334,7 @@ class ScriptEventField extends Component {
   };
 
   render() {
-    const { eventId, field, value, args, entityId } = this.props;
+    const { eventId, field, value, args, entityId, filter } = this.props;
 
     let label = field.label;
     if (label && label.replace) {
@@ -362,6 +364,7 @@ class ScriptEventField extends Component {
               entityId={entityId}
               type={field.type}
               field={field}
+              filter={filter}
               index={valueIndex}
               value={value[valueIndex]}
               args={args}
@@ -392,6 +395,7 @@ class ScriptEventField extends Component {
         entityId={entityId}
         type={field.type}
         field={field}
+        filter={filter}
         value={value}
         args={args}
         onChange={this.onChange}
@@ -427,6 +431,7 @@ ScriptEventField.propTypes = {
   eventId: PropTypes.string.isRequired,
   entityId: PropTypes.string.isRequired,
   field: PropTypes.shape().isRequired,
+  filter: PropTypes.func,
   args: PropTypes.shape(),
   value: PropTypes.oneOfType([
     PropTypes.number,
@@ -489,7 +494,7 @@ class ScriptEventBlock extends Component {
   }
 
   renderFields = fields => {
-    const { id, value, renderEvents, onChange, entityId } = this.props;
+    const { id, value, renderEvents, onChange, entityId, actors, spriteSheets } = this.props;
     return fields.map((field, index) => {
       if (field.hide) {
         return null;
@@ -513,6 +518,22 @@ class ScriptEventBlock extends Component {
         }
       }
 
+      let fieldFilter;
+      if (field.filter) {
+        if (field.filter.for === "actor") {
+          const actorId = value[field.filter.id] || "";
+          if (actorId && actorId !== "player") {
+            let actor = actors[actorId === "$self$" ? entityId : actorId];
+            let spriteSheet = spriteSheets[actor.spriteSheetId];
+            fieldFilter = (sprite) => {
+              return sprite.numFrames <= spriteSheet.numFrames;
+            }
+          }
+        } else if (typeof field.filter === "function") {
+          fieldFilter = field.filter;
+        }  
+      }
+
       if (field.type === "events") {
         return renderEvents(field.key);
       }
@@ -527,6 +548,7 @@ class ScriptEventBlock extends Component {
           eventId={id}
           entityId={entityId}
           field={field}
+          filter={fieldFilter}
           value={fieldValue}
           args={value}
           onChange={onChange}
@@ -560,8 +582,12 @@ ScriptEventBlock.defaultProps = {
 
 function mapStateToProps(state) {
   const customEvents = state.entities.present.entities.customEvents || {};
+  const actors = getActorsLookup(state);
+  const spriteSheets = getSpriteSheetsLookup(state);
   return {
-    customEvents
+    customEvents,
+    actors,
+    spriteSheets
   };
 }
 

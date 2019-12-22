@@ -5,12 +5,22 @@ export const fields = [
     label: "Actors sharing a sprite will also change!",
     key: "actorId",
     type: "actor",
-    defaultValue: "player"
+    defaultValue: "player",
+    postUpdate: (args) => {
+      return {
+        ...args,
+        spriteSheetId: args.actorId
+      }
+    }
   },
   {
     label: "Sprite Animation, Keep equal or less length!",
     key: "spriteSheetId",
     type: "sprite",
+    filter: {
+      for: "actor",
+      id: "actorId"
+    },
     defaultValue: "LAST_SPRITE"
   }
 ];
