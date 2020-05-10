@@ -1,5 +1,6 @@
 _divslong.o
 _divulong.o
+_memcpy.o
 _modslong.o
 _modulong.o
 _mullong.o

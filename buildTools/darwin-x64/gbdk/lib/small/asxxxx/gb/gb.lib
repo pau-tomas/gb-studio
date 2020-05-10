@@ -1,9 +1,11 @@
+__sdcc_call_hl.o
 arand.o
 cgb.o
 cpy_data.o
 crt0.o
 delay.o
 digits.o
+div.o
 drawing.o
 f_ibm_sh.o
 f_italic.o
@@ -25,6 +27,7 @@ hiramcpy.o
 ibmfixed.o
 init_tt.o
 input.o
+mul.o
 mv_bkg.o
 mv_spr.o
 mv_win.o
