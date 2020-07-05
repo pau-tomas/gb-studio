@@ -22,10 +22,15 @@ export const fields = [
     key: "speed",
     type: "cameraSpeed",
     defaultValue: 1
-  }
+  },
+  {
+    type: "checkbox",
+    label: "Increase text draw speed if 'A' is pressed",
+    key: "skipWaitOnA",
+  }, 
 ];
 
 export const compile = (input, helpers) => {
   const { textSetAnimSpeed } = helpers;
-  textSetAnimSpeed(input.speedIn, input.speedOut, input.speed);
+  textSetAnimSpeed(input.speedIn, input.speedOut, input.speed, input.skipWaitOnA);
 };

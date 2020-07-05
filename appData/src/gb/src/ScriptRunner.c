@@ -91,7 +91,7 @@ SCRIPT_CMD script_cmds[] = {
     {Script_LoadVectors_b, 4},        // 0x41
     {Script_ActorSetMoveSpeed_b, 1},  // 0x42
     {Script_ActorSetAnimSpeed_b, 1},  // 0x43
-    {Script_TextSetAnimSpeed_b, 3},   // 0x44
+    {Script_TextSetAnimSpeed_b, 4},   // 0x44
     {Script_ScenePushState_b, 0},     // 0x45
     {Script_ScenePopState_b, 1},      // 0x46
     {Script_ActorInvoke_b, 0},        // 0x47

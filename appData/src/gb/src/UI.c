@@ -27,8 +27,10 @@ UBYTE text_wait;
 UBYTE text_in_speed = 1;
 UBYTE text_out_speed = 1;
 UBYTE text_draw_speed = 1;
+UBYTE text_skip_wait_on_a = FALSE;
 UBYTE tmp_text_in_speed = 1;
 UBYTE tmp_text_out_speed = 1;
+UBYTE tmp_skip_text_wait = FALSE;
 UBYTE text_num_lines = 0;
 
 UBYTE avatar_enabled = 0;
@@ -330,7 +332,7 @@ void UIDrawTextBufferChar()
       text_y++;
     }
 
-    if (text_draw_speed == 0 || menu_enabled)
+    if (text_draw_speed == 0 || menu_enabled || tmp_skip_text_wait)
     {
       UIDrawTextBufferChar();
     }
@@ -390,6 +392,7 @@ void UICloseDialogue()
   menu_enabled = FALSE;
   menu_layout = 0;
   avatar_enabled = FALSE;
+  tmp_skip_text_wait = FALSE;
 }
 
 void UIOnInteract()
@@ -414,6 +417,10 @@ void UIOnInteract()
       {
         UICloseDialogue();
       }
+    } 
+    else if (text_skip_wait_on_a && text_count > 1) 
+    {
+      tmp_skip_text_wait = TRUE;
     }
   }
   else if (menu_enabled)

@@ -1441,6 +1441,7 @@ void Script_TextSetAnimSpeed_b()
   text_in_speed = script_cmd_args[0];
   text_out_speed = script_cmd_args[1];
   text_draw_speed = script_cmd_args[2];
+  text_skip_wait_on_a = script_cmd_args[3];
   script_ptr += 1 + script_cmd_args_len;
   script_continue = TRUE;
 }

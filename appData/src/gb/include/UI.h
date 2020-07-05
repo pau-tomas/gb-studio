@@ -11,6 +11,8 @@
 #define TEXT_BUFFER_START 0xCC
 #define MENU_LAYOUT_INITIAL_X 88
 
+#define TEXT_SKIP_WAIT_ON_A_PRESSED  0x01U
+
 #define MENU_CANCEL_ON_LAST_OPTION  0x01U
 #define MENU_CANCEL_ON_B_PRESSED    0x02U
 
@@ -26,6 +28,7 @@ extern UBYTE win_speed;
 extern UBYTE text_in_speed;
 extern UBYTE text_out_speed;
 extern UBYTE text_draw_speed;
+extern UBYTE text_skip_wait_on_a;
 extern UBYTE tmp_text_in_speed;
 extern UBYTE tmp_text_out_speed;
 
