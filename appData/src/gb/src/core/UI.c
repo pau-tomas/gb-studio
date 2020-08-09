@@ -23,6 +23,9 @@ void UIShowMenu_b(UWORD flag_index,
                   UWORD bank_offset,
                   UBYTE layout,
                   UBYTE cancel_config);
+void UIDrawMenuCursor_b();
+void UIDrawText_b(UBYTE index);
+void UIDrawTile_b(UBYTE value, UBYTE max, UBYTE index);
 
 UBYTE ui_block = FALSE;
 UBYTE win_pos_x;
@@ -57,6 +60,9 @@ UBYTE menu_layout = FALSE;
 unsigned char text_lines[80] = "";
 unsigned char tmp_text_lines[80] = "";
 
+UBYTE overlay_tile_count = 0;
+UIElement ui_elements[256];
+
 void UIInit() {
   PUSH_BANK(UI_BANK);
   ui_block = FALSE;
@@ -87,6 +93,79 @@ void UIDrawDialogueFrame(UBYTE h) {
   PUSH_BANK(UI_BANK);
   UIDrawDialogueFrame_b(h);
   POP_BANK;
+}
+
+void UIDrawText(UBYTE bank, UWORD bank_offset, UBYTE index)
+{
+  UBYTE* ptr;
+
+  strcpy(tmp_text_lines, "");
+
+  ptr = (BankDataPtr(bank)) + bank_offset;
+
+  PUSH_BANK(bank);
+  strcat(tmp_text_lines, ptr);
+  POP_BANK;
+
+  PUSH_BANK(UI_BANK);
+  UIDrawText_b(index);
+  POP_BANK;
+}
+
+void UIDrawTile(UBYTE bank, UWORD bank_offset, UBYTE value, UBYTE max, UBYTE index)
+{
+  UBYTE* ptr;
+
+  strcpy(tmp_text_lines, "");
+
+  ptr = (BankDataPtr(bank)) + bank_offset;
+
+  PUSH_BANK(bank);
+  strcat(tmp_text_lines, ptr);
+  POP_BANK;
+
+  PUSH_BANK(UI_BANK);
+  UIDrawTile_b(value, max, index);
+  POP_BANK;
+}
+
+void UIDrawHUD() 
+{
+  BankPtr hud_bank_ptr;
+  UBYTE* hud_ptr;
+  UBYTE i, tileset_index, hud_width, hud_height;
+  
+  BankPtr tileset_bank_ptr;
+  UBYTE* tileset_ptr;
+  UBYTE tileset_size;
+
+  BankPtr ui_element_bank_ptr;
+  UBYTE* element_ptr;
+
+  ReadBankedBankPtr(DATA_PTRS_BANK, &hud_bank_ptr, (BankPtr*)&hud_bank_ptrs);
+  hud_ptr = (BankDataPtr(hud_bank_ptr.bank)) + hud_bank_ptr.offset;
+  tileset_index = ReadBankedUBYTE(hud_bank_ptr.bank, hud_ptr);
+  hud_width = ReadBankedUBYTE(hud_bank_ptr.bank, hud_ptr + 1u);
+  hud_height = ReadBankedUBYTE(hud_bank_ptr.bank, hud_ptr + 2u);
+  PUSH_BANK(hud_bank_ptr.bank);
+  set_win_tiles(0, 0, hud_width, hud_height, hud_ptr + 3u);
+  POP_BANK;
+
+  // Load Image Tileset
+  ReadBankedBankPtr(DATA_PTRS_BANK, &tileset_bank_ptr, &tileset_bank_ptrs[tileset_index]);
+  tileset_ptr = (BankDataPtr(tileset_bank_ptr.bank)) + tileset_bank_ptr.offset;
+  tileset_size = ReadBankedUBYTE(tileset_bank_ptr.bank, tileset_ptr);
+  SetBankedBkgData(tileset_bank_ptr.bank, HUD_BUFFER_START, tileset_size, tileset_ptr + 1u);
+
+  overlay_tile_count = tileset_size;
+
+  ReadBankedBankPtr(DATA_PTRS_BANK, &ui_element_bank_ptr, &ui_element_bank_ptrs[0]);
+  element_ptr = (BankDataPtr(ui_element_bank_ptr.bank)) + ui_element_bank_ptr.offset;
+  for (i = 0; i < NUM_UI_ELEMENTS; i++)
+  {
+    ui_elements[i].pos.x = ReadBankedUBYTE(ui_element_bank_ptr.bank, element_ptr + i * 2);
+    ui_elements[i].pos.y = ReadBankedUBYTE(ui_element_bank_ptr.bank, element_ptr + 1 + i * 2);
+  }
 }
 
 void UIShowText(UBYTE bank, UWORD bank_offset) {

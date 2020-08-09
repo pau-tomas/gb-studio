@@ -392,6 +392,7 @@
   "EVENT_ACTOR_SET_ANIMATE": "Actor: Set Animate While Stationary",
   "EVENT_IF_COLOR_SUPPORTED": "If Device Supports Color",
   "EVENT_FADE_SETTINGS": "Fade: Change Settings",
+  "EVENT_OVERLAY_TEXT": "Overlay: Display Item",
 
   "// 10": "Menu -----------------------------------------------------",
 

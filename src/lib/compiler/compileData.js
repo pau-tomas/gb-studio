@@ -10,7 +10,7 @@ import {
   eventHasArg,
   walkSceneEvents,
 } from "../helpers/eventSystem";
-import compileImages from "./compileImages";
+import { compileBackgroundImages, compileHudImages } from "./compileImages";
 import { indexBy, flatten } from "../helpers/array";
 import ggbgfx from "./ggbgfx";
 import {
@@ -59,6 +59,7 @@ export const EVENT_END_DATA_COMPILE = "EVENT_END_DATA_COMPILE";
 export const EVENT_MSG_PRE_VARIABLES = "Preparing variables...";
 export const EVENT_MSG_PRE_STRINGS = "Preparing strings...";
 export const EVENT_MSG_PRE_IMAGES = "Preparing images...";
+export const EVENT_MSG_PRE_HUD = "Preparing hud...";
 export const EVENT_MSG_PRE_UI_IMAGES = "Preparing ui...";
 export const EVENT_MSG_PRE_SPRITES = "Preparing sprites...";
 export const EVENT_MSG_PRE_AVATARS = "Preparing avatars...";
@@ -134,6 +135,7 @@ const compile = async (
         variables: precompiled.variables,
         eventPaletteIndexes: precompiled.eventPaletteIndexes,
         labels: {},
+        uiElements: precompiled.uiElements,
         entityType,
         entityIndex,
         entity,
@@ -249,6 +251,28 @@ const compile = async (
     );
   });
 
+  // Add HUD map data
+  const hudPtrs = precompiled.usedHuds.map(hud => {
+    return banked.push(
+      [].concat(
+        hud.tilesetIndex,
+        Math.floor(hud.width),
+        Math.floor(hud.height),
+        hud.data
+      )
+    );
+  });
+ 
+  // Add dynamic UI elements for HUD data
+  const uiElementsPtrs = precompiled.uiElements.map(element => {
+    return banked.push(
+      [].concat(
+        element.x,
+        element.y
+      )
+    )
+  })
+  
   // Add sprite data
   const spritePtrs = precompiled.usedSprites.map((sprite) => {
     return banked.push([].concat(sprite.frames, sprite.data));
@@ -404,11 +428,13 @@ const compile = async (
     tileset_bank_ptrs: fixEmptyDataPtrs(tileSetPtrs),
     background_bank_ptrs: fixEmptyDataPtrs(backgroundPtrs),
     background_attr_bank_ptrs: fixEmptyDataPtrs(backgroundAttrPtrs),
+    hud_bank_ptrs: fixEmptyDataPtrs(hudPtrs),
     palette_bank_ptrs: fixEmptyDataPtrs(palettePtrs),
     sprite_bank_ptrs: fixEmptyDataPtrs(spritePtrs),
     scene_bank_ptrs: fixEmptyDataPtrs(scenePtrs),
     collision_bank_ptrs: fixEmptyDataPtrs(collisionPtrs),
     avatar_bank_ptrs: fixEmptyDataPtrs(avatarPtrs),
+    ui_element_bank_ptrs: fixEmptyDataPtrs(uiElementsPtrs)
   };
 
   const bankHeader = banked.exportCHeader(bankOffset);
@@ -467,6 +493,7 @@ const compile = async (
       `#define EMOTES_SPRITE_BANK ${emotesSpritePtr.bank}\n` +
       `#define EMOTES_SPRITE_BANK_OFFSET ${emotesSpritePtr.offset}\n` +
       `#define NUM_VARIABLES ${variablesLen}\n` +
+      `#define NUM_UI_ELEMENTS ${precompiled.uiElements.length}\n` +
       `#define TMP_VAR_1 ${precompiled.variables.indexOf(TMP_VAR_1)}\n` + 
       `#define TMP_VAR_2 ${precompiled.variables.indexOf(TMP_VAR_2)}\n` + 
       `\n`
@@ -567,8 +594,7 @@ const precompile = async (
     usedBackgrounds,
     backgroundLookup,
     backgroundData,
-    usedTilesets,
-    usedTilesetLookup,
+    usedBackgroundTilesets
   } = await precompileBackgrounds(
     projectData.backgrounds,
     projectData.scenes,
@@ -576,6 +602,22 @@ const precompile = async (
     tmpPath,
     { warnings }
   );
+
+  progress(EVENT_MSG_PRE_HUD);
+  const {
+    usedHuds,
+    hudLookup,
+    hudData,
+    usedHudTilesets
+  } = await precompileHud(
+    usedBackgroundTilesets.length,
+    projectRoot,
+    tmpPath,
+    { warnings }
+  );
+
+  const usedTilesets = usedBackgroundTilesets.concat(usedHudTilesets);
+  const usedTilesetLookup = {};
 
   progress(EVENT_MSG_PRE_UI_IMAGES);
   const {
@@ -640,9 +682,12 @@ const precompile = async (
     strings,
     usedBackgrounds,
     backgroundLookup,
+    usedHuds,
+    hudLookup,
     usedTilesets,
     usedTilesetLookup,
     backgroundData,
+    hudData,
     usedSprites,
     usedMusic,
     sceneData,
@@ -655,7 +700,8 @@ const precompile = async (
     scenePaletteIndexes,
     sceneActorPaletteIndexes,
     actorPaletteIndexes,
-    eventPaletteIndexes
+    eventPaletteIndexes,
+    uiElements: []
   };
 };
 
@@ -737,7 +783,7 @@ export const precompileBackgrounds = async (
       scenes.find((scene) => scene.backgroundId === background.id)
   );
   const backgroundLookup = indexById(usedBackgrounds);
-  const backgroundData = await compileImages(
+  const backgroundData = await compileBackgroundImages(
     usedBackgrounds,
     projectRoot,
     tmpPath,
@@ -762,10 +808,65 @@ export const precompileBackgrounds = async (
   });
   return {
     usedBackgrounds: usedBackgroundsWithData,
-    usedTilesets,
+    usedBackgroundTilesets: usedTilesets,
     // usedTilesetLookup,
     backgroundLookup,
     // backgroundData
+  };
+};
+
+export const precompileHud = async (
+  usedTilesetLength,
+  projectRoot,
+  tmpPath,
+  { warnings } = {}
+) => {
+  const usedHuds = [ { 
+    id: "hud", 
+    filename: "hud.png", 
+    width: 20, 
+    height: 3,
+    imageWidth: 160,
+    imageHeight: 24
+  } ];
+  const hudLookup = indexById(usedHuds);
+  const hudData = await compileHudImages(
+    usedHuds,
+    projectRoot,
+    tmpPath,
+    {
+      warnings
+    }
+  );
+  const usedTilesets = [];
+  const usedTilesetLookup = {};
+  Object.keys(hudData.tilesets).forEach(tileKey => {
+    usedTilesetLookup[tileKey] = usedTilesets.length;
+    usedTilesets.push(hudData.tilesets[tileKey]);
+  });
+  const usedHudsWithData = usedHuds.map(hudImage => {
+    if (
+      hudImage.imageWidth / 8 !== hudImage.width ||
+      hudImage.imageHeight / 8 !== hudImage.height
+    ) {
+      warnings(
+        `Background '${
+          hudImage.filename
+        }' has invalid dimensions and may not appear correctly. Width and height must be multiples of 8px and no larger than 160px.`
+      );
+    }
+    return {
+      ...hudImage,
+      tilesetIndex: (usedTilesetLength + 
+        usedTilesetLookup[hudData.tilemapsTileset[hudImage.id]]),
+      // HUD tilemaps start at tile 192 (first UI tile)
+      data: hudData.tilemaps[hudImage.id].map((i) => i + 192) 
+    };
+  });
+  return {
+    usedHuds: usedHudsWithData,
+    usedHudTilesets: usedTilesets,
+    hudLookup,
   };
 };
 

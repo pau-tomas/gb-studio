@@ -27,6 +27,8 @@ export const OVERLAY_SHOW = "OVERLAY_SHOW";
 export const OVERLAY_HIDE = "OVERLAY_HIDE";
 export const OVERLAY_SET_POSITION = "OVERLAY_SET_POSITION";
 export const OVERLAY_MOVE_TO = "OVERLAY_MOVE_TO";
+export const OVERLAY_TEXT = "OVERLAY_TEXT";
+export const OVERLAY_TILE = "OVERLAY_TILE";
 export const AWAIT_INPUT = "AWAIT_INPUT";
 export const MUSIC_PLAY = "MUSIC_PLAY";
 export const MUSIC_STOP = "MUSIC_STOP";
@@ -214,6 +216,8 @@ export const scriptCommands = [
   ACTOR_SET_ANIMATE,
   IF_COLOR_SUPPORTED,
   FADE_SET_SETTINGS,
+  OVERLAY_TEXT,
+  OVERLAY_TILE
 ];
 
 export const commandIndex = key => {

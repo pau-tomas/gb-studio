@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 
-const colors = ["black", "white"];
+const colors = ["black", "white", "HUD"];
 
 class OverlayColorSelect extends Component {
   render() {

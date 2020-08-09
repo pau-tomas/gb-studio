@@ -94,6 +94,12 @@ function mapStateToProps(state) {
           name: "Emotes",
           filename: `emotes.png`,
           _v: uiVersion
+        },
+        {
+          id: "hud",
+          name: "Hud",
+          filename: `hud.png`,
+          _v: uiVersion
         }
       ]
     : [];

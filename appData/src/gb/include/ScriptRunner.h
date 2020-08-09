@@ -187,5 +187,7 @@ void Script_ActorStopUpdate_b();
 void Script_ActorSetAnimate_b();
 void Script_IfColorSupported_b();
 void Script_FadeSetSettings_b();
+void Script_OverlayText_b();
+void Script_OverlayTile_b();
 
 #endif

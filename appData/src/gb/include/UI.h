@@ -2,6 +2,7 @@
 #define UI_H
 
 #include <gb/gb.h>
+#include "Math.h"
 
 #define UI_BANK 1
 #define MENU_OPEN_Y 112
@@ -11,6 +12,13 @@
 #define MENU_LAYOUT_INITIAL_X 88
 #define MENU_CANCEL_ON_LAST_OPTION 0x01U
 #define MENU_CANCEL_ON_B_PRESSED 0x02U
+
+#define HUD_BUFFER_START 0xC0U
+
+typedef struct _UI_ELEMENT {
+  Pos pos;
+  UBYTE start_tile;
+} UIElement;
 
 extern UBYTE ui_block;
 extern unsigned char text_lines[80];
@@ -41,6 +49,8 @@ extern BYTE menu_index;
 extern UBYTE menu_num_options;
 extern UWORD menu_flag;
 extern UBYTE menu_cancel_on_b;
+extern UBYTE overlay_tile_count;
+extern UIElement ui_elements[256];
 
 /**
  * Initialise UI
@@ -147,6 +157,12 @@ void UIShowChoice(UWORD flag_index, UBYTE bank, UWORD bank_offset);
  * @param cancel_config bit flag for cancel handling configuration
  */
 void UIShowMenu(UWORD flag_index, UBYTE bank, UWORD bank_offset, UBYTE layout, UBYTE cancel_config);
+
+void UIDrawText(UBYTE bank, UWORD bank_offset, UBYTE index);
+
+void UIDrawTile(UBYTE bank, UWORD bank_offset, UBYTE value, UBYTE max, UBYTE index);
+
+void UIDrawHUD();
 
 /**
  * Check if UI is currently closed

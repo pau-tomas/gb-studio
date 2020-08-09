@@ -12,7 +12,7 @@ const imageBuildCache = {};
 let lastOutput = null;
 let lastOutputIds = "";
 
-const compileImages = async (imgs, projectPath, tmpPath, { warnings }) => {
+const compileImages = (imgPath, maxTilesetTiles) => async (imgs, projectPath, tmpPath, { warnings }) => {
   const tilesetLookups = [];
   const tilesetIndexes = [];
   const output = {
@@ -25,7 +25,7 @@ const compileImages = async (imgs, projectPath, tmpPath, { warnings }) => {
   // Build lookups
   for (let i = 0; i < imgs.length; i++) {
     const img = imgs[i];
-    const filename = assetFilename(projectPath, "backgrounds", img);
+    const filename = assetFilename(projectPath, imgPath, img);
     let tilesetLookup;
 
     const imageModifiedTime = await getFileModifiedTime(filename);
@@ -78,7 +78,7 @@ const compileImages = async (imgs, projectPath, tmpPath, { warnings }) => {
         Object.keys(mergedLookup).length -
         Object.keys(tilesetLookups[j]).length;
 
-      if (mergedLength <= MAX_TILESET_TILES && diffLength < minDiffLength) {
+      if (mergedLength <= maxTilesetTiles && diffLength < minDiffLength) {
         minLookup = mergedLookup;
         minIndex = j;
         minDiffLength = diffLength;
@@ -117,7 +117,7 @@ const compileImages = async (imgs, projectPath, tmpPath, { warnings }) => {
     if (tilesetLookups[i]) {
       await ggbgfx.tileLookupToImage(
         tilesetLookups[i],
-        `${tmpPath}/tileset_${i}.png`
+        `${tmpPath}/${imgPath}_tileset_${i}.png`
       );
 
       output.tilesets[i] = ggbgfx.tilesLookupToTilesIntArray(tilesetLookups[i]);
@@ -126,8 +126,8 @@ const compileImages = async (imgs, projectPath, tmpPath, { warnings }) => {
 
   for (let i = 0; i < imgs.length; i++) {
     const tilemap = await ggbgfx.imageAndTilesetToTilemapIntArray(
-      assetFilename(projectPath, "backgrounds", imgs[i]),
-      `${tmpPath}/tileset_${tilesetIndexes[i]}.png`
+      assetFilename(projectPath, imgPath, imgs[i]),
+      `${tmpPath}/${imgPath}_tileset_${tilesetIndexes[i]}.png`
     );
     output.tilemaps[imgs[i].id] = tilemap;
     output.tilemapsTileset[imgs[i].id] = tilesetIndexes[i];
@@ -139,4 +139,10 @@ const compileImages = async (imgs, projectPath, tmpPath, { warnings }) => {
   return output;
 };
 
-export default compileImages;
+export const compileBackgroundImages = async (imgs, projectPath, tmpPath, { warnings }) => {
+  return compileImages("backgrounds", MAX_TILESET_TILES)(imgs, projectPath, tmpPath, MAX_TILESET_TILES, { warnings });
+};
+
+export const compileHudImages = async (imgs, projectPath, tmpPath, { warnings }) => {
+  return compileImages("ui", 64)(imgs, projectPath, tmpPath, { warnings });
+};

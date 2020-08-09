@@ -96,7 +96,9 @@ import {
   ACTOR_STOP_UPDATE,
   ACTOR_SET_ANIMATE,
   IF_COLOR_SUPPORTED,
-  FADE_SET_SETTINGS
+  FADE_SET_SETTINGS,
+  OVERLAY_TEXT,
+  OVERLAY_TILE
 } from "../events/scriptCommands";
 import {
   getActorIndex,
@@ -743,7 +745,11 @@ class ScriptBuilder {
   overlayShow = (color = "white", x = 0, y = 0) => {
     const output = this.output;
     output.push(cmd(OVERLAY_SHOW));
-    output.push(color === "white" ? 1 : 0);
+    if (color === "HUD") {
+      output.push(2);
+    } else {
+      output.push(color === "white" ? 1 : 0);
+    }
     output.push(x);
     output.push(y);
   };
@@ -759,6 +765,43 @@ class ScriptBuilder {
     output.push(x);
     output.push(y);
     output.push(speed);
+  };
+
+  overlayText = (inputText = "", x = 0, y = 0) => {
+    const output = this.output;
+    const { strings, variables, event, uiElements } = this.options;
+    const text = this.replaceVariables(inputText, variables, event);
+    let stringIndex = strings.indexOf(text);
+    if (stringIndex === -1) {
+      strings.push(text);
+      stringIndex = strings.length - 1;
+    }
+    const uiElementIndex = this.getUIElementIndex(uiElements, x, y);    
+    output.push(cmd(OVERLAY_TEXT));
+    output.push(`__REPLACE:STRING_BANK:${stringIndex}`);
+    output.push(`__REPLACE:STRING_HI:${stringIndex}`);
+    output.push(`__REPLACE:STRING_LO:${stringIndex}`);
+    output.push(uiElementIndex);
+  };
+
+  overlayTile = (tile = " ", emptyTile = " ", tileVar = 0, maxValue = 0, x = 0, y = 0) => {
+    const output = this.output;
+    const { variables, strings, uiElements } = this.options;
+    const variableIndex = this.getVariableIndex(tileVar, variables);
+    let stringIndex = strings.indexOf(tile + emptyTile);
+    if (stringIndex === -1) {
+      strings.push(tile + emptyTile);
+      stringIndex = strings.length - 1;
+    }
+    const uiElementIndex = this.getUIElementIndex(uiElements, x, y);
+    output.push(cmd(OVERLAY_TILE));
+    output.push(`__REPLACE:STRING_BANK:${stringIndex}`);
+    output.push(`__REPLACE:STRING_HI:${stringIndex}`);
+    output.push(`__REPLACE:STRING_LO:${stringIndex}`);
+    output.push(hi(variableIndex));
+    output.push(lo(variableIndex));
+    output.push(maxValue);
+    output.push(uiElementIndex);
   };
 
   // Control Flow
@@ -1303,6 +1346,20 @@ class ScriptBuilder {
           return getVariableCharSymbol(index);
         })        
     );
+  };
+
+  getUIElementIndex = (uiElements, x, y) => {
+    let uiElementIndex = uiElements.findIndex(e => e.id === `${x},${y}`);
+    if (uiElementIndex === -1) {
+      uiElements.push({
+        id: `${x},${y}`,
+        x,
+        y
+      });
+      uiElementIndex = uiElements.length - 1;
+    }
+    console.log(uiElements);
+    return uiElementIndex;
   };
 }
 

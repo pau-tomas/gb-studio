@@ -154,7 +154,9 @@ const SCRIPT_CMD script_cmds[] = {
     {Script_ActorSetAnimate_b, 1},     // 0x68
     {Script_IfColorSupported_b, 2},    // 0x69
     {Script_FadeSetSettings_b, 1},     // 0x6A
-};
+    {Script_OverlayText_b, 4},         // 0x6B
+    {Script_OverlayTile_b, 7}          // 0x6C
+  };
 
 void ScriptTimerUpdate_b() {
   // Don't update timer while a non-background script is running
@@ -919,7 +921,13 @@ void Script_CameraShake_b() {
  * Load image into window buffer and position.
  */
 void Script_ShowOverlay_b() {
-  UISetColor(script_cmd_args[0]);
+  UBYTE color = script_cmd_args[0];
+  if (color != 2)
+  {
+    UISetColor(color);
+  } else {
+    UIDrawHUD();
+  }
   UISetPos(script_cmd_args[1] << 3, script_cmd_args[2] << 3);
 }
 
@@ -949,6 +957,28 @@ void Script_OverlaySetPos_b() {
 void Script_OverlayMoveTo_b() {
   UIMoveTo(script_cmd_args[0] << 3, script_cmd_args[1] << 3, script_cmd_args[2]);
   active_script_ctx.script_update_fn = ScriptUpdate_AwaitUIAtDest;
+}
+
+/*
+ * Command: OverlayText
+ * ----------------------------
+ * 
+ */
+void Script_OverlayText_b()
+{
+  UIDrawText(script_cmd_args[0], (script_cmd_args[1] * 256) + script_cmd_args[2], script_cmd_args[3]);
+}
+
+/*
+ * Command: OverlayTile
+ * ----------------------------
+ */
+void Script_OverlayTile_b()
+{
+  UWORD ptr = (script_cmd_args[3] * 256) + script_cmd_args[4];
+  UBYTE value = script_variables[ptr];
+  UBYTE max = script_cmd_args[5];
+  UIDrawTile(script_cmd_args[0], (script_cmd_args[1] * 256) + script_cmd_args[2], value, max, script_cmd_args[6]);
 }
 
 /*

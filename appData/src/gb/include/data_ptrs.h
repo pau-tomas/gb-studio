@@ -22,6 +22,7 @@
 #define EMOTES_SPRITE_BANK 6
 #define EMOTES_SPRITE_BANK_OFFSET 3744
 #define NUM_VARIABLES 113
+#define NUM_UI_ELEMENTS 64
 #define TMP_VAR_1 100
 #define TMP_VAR_2 102
 
@@ -33,6 +34,8 @@ extern const BankPtr sprite_bank_ptrs[];
 extern const BankPtr scene_bank_ptrs[];
 extern const BankPtr collision_bank_ptrs[];
 extern const BankPtr avatar_bank_ptrs[];
+extern const BankPtr hud_bank_ptrs[];
+extern const BankPtr ui_element_bank_ptrs[];
 extern const unsigned int bank_data_ptrs[];
 extern const unsigned int music_tracks[];
 extern const unsigned char music_banks[];

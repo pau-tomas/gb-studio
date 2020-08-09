@@ -223,6 +223,125 @@ void UISetColor_b(UBYTE color) {
   }
 }
 
+void UIDrawText_b(UBYTE index) {
+  UINT16 id = 0;
+  UBYTE* ptr;
+  UBYTE letter, i, len, start_tile, tile;
+  UWORD var_index;
+  unsigned char value_string[6];
+  UBYTE j, k;
+  UBYTE value;
+  unsigned char text[64] = "";
+
+  len = strlen(tmp_text_lines);
+
+  for (i = 1, k = 0; i < len; i++)
+  {
+    // Replace variable references in text
+    if (tmp_text_lines[i] == '$')
+    {
+      if(tmp_text_lines[i + 3] == '$') {
+        var_index = (10 * (tmp_text_lines[i + 1] - '0')) + (tmp_text_lines[i + 2] - '0');
+      } else if(tmp_text_lines[i + 4] == '$') {
+        var_index = (100 * (tmp_text_lines[i + 1] - '0')) + (10 * (tmp_text_lines[i + 2] - '0')) + (tmp_text_lines[i + 3] - '0');
+      } else {
+        text[k] = tmp_text_lines[i];
+        ++k;
+        continue;
+      }
+
+      value = script_variables[var_index];
+      j = 0;
+
+      if (value == 0)
+      {
+        text[k] = '0';
+      }
+      else
+      {
+        // itoa implementation
+        while (value != 0)
+        {
+          value_string[j++] = '0' + (value % 10);
+          value /= 10;
+        }
+        j--;
+        while (j != 255)
+        {
+          text[k] = value_string[j];
+          k++;
+          j--;
+        }
+        k--;
+      }
+      // Jump though input past variable placeholder
+      if(var_index >= 100) {
+        i += 4;
+      } else {
+        i += 3;
+      }
+    }
+    else
+    {
+      text[k] = tmp_text_lines[i];
+    }
+    ++k;
+  }
+
+  if (ui_elements[index].start_tile == 0)
+  {
+    start_tile = HUD_BUFFER_START + overlay_tile_count;
+    ui_elements[index].start_tile = start_tile;
+  } else {
+    start_tile = ui_elements[index].start_tile;
+  }
+
+  ptr = BankDataPtr(FONT_BANK) + FONT_BANK_OFFSET;
+  for (i = 0; i < k; i++)
+  {
+    id = 0x9C00 + (ui_elements[index].pos.x + i) + (ui_elements[index].pos.y * 32);  
+    letter = text[i] - 32;
+    tile = start_tile + i;
+    SetBankedBkgData(FONT_BANK, tile, 1, ptr + ((UWORD)letter * 16));
+    SetTile(id, tile);    
+  }
+  overlay_tile_count += k;
+}
+
+void UIDrawTile_b(UBYTE value, UBYTE max, UBYTE index) {
+  UINT16 id = 0;
+  UBYTE* ptr;
+  UBYTE letter, i, fullTile, emptyTile;
+
+  ptr = BankDataPtr(FONT_BANK) + FONT_BANK_OFFSET;
+
+  letter = tmp_text_lines[1] - 32;
+  if (ui_elements[index].start_tile == 0)
+  {
+    fullTile = HUD_BUFFER_START + overlay_tile_count;
+    ui_elements[index].start_tile = fullTile;
+  } else {
+    fullTile = ui_elements[index].start_tile;
+  }
+  SetBankedBkgData(FONT_BANK, fullTile, 1, ptr + ((UWORD)letter * 16));
+  overlay_tile_count++;
+
+  letter = tmp_text_lines[2] - 32;
+  emptyTile = fullTile + 1;
+  SetBankedBkgData(FONT_BANK, emptyTile, 1, ptr + ((UWORD)letter * 16));
+  overlay_tile_count++;
+  
+  for (i = 0; i < max; i++) {
+    id = 0x9C00 + (ui_elements[index].pos.x + i) + (ui_elements[index].pos.y * 32);  
+    if (i < value)
+    {
+      SetTile(id, fullTile);    
+    } else {
+      SetTile(id, emptyTile);    
+    }
+  }
+}
+
 void UIShowText_b() {
   UWORD var_index;
   UBYTE i, j, k;
