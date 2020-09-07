@@ -14,6 +14,11 @@ ifdef PROFILE
 CFLAGS += -Wf--profile
 endif
 
+ifdef SGB_BORDER
+	CFLAGS += -DSGB
+	LFLAGS += -Wl-yp0x146=0x03 -Wl-yp0x14B=0x33
+endif
+
 ASM = $(foreach dir,src/core,$(notdir $(wildcard $(dir)/*.s))) 
 CLASSES = $(foreach dir,src,$(notdir $(wildcard $(dir)/*.c))) 
 CORE_CLASSES = $(foreach dir,src/core,$(notdir $(wildcard $(dir)/*.c))) 

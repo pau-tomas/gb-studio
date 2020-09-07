@@ -19,6 +19,7 @@
 #include "gbt_player.h"
 #include "data_ptrs.h"
 #include "main.h"
+#include "sgb_border.h"
 
 UBYTE game_time;
 UINT16 next_state;
@@ -75,6 +76,15 @@ void lcd_update() {
 }
 
 int core_start() {
+
+#ifdef SGB
+  if (check_sgb2()) {
+    LoadSGBData();
+    PUSH_BANK(SGB_BORDER_TILES_BANK)
+    init_sgb();
+    POP_BANK;
+  }
+#endif
 
 #ifdef CGB
   if (_cpu == CGB_TYPE) {

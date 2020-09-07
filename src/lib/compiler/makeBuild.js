@@ -102,6 +102,8 @@ const makeBuild = async ({
     env.PROFILE = true;
   }
 
+  env.SGB_BORDER = true;
+
   // Modify BankManager.h to set MBC1 memory controller
   if (isMBC1(settings.cartType)) {
     let bankHeader = await fs.readFile(`${buildRoot}/include/BankManager.h`, "utf8");

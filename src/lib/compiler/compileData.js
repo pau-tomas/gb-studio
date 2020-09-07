@@ -46,6 +46,7 @@ import {
 import { textNumLines } from "../helpers/trimlines";
 import compileSprites from "./compileSprites";
 import compileAvatars from "./compileAvatars";
+import precompileSGB from "./compileSGB";
 
 const indexById = indexBy("id");
 
@@ -106,6 +107,25 @@ const compile = async (
   const frameImagePtr = banked.push(precompiled.frameTiles);
   const cursorImagePtr = banked.push(precompiled.cursorTiles);
   const emotesSpritePtr = banked.push(precompiled.emotesSprite);
+
+  const sgbBorderTilesPtr = banked.push(
+    [].concat(
+      // precompiled.sgbBorderTileset.length / 16, 
+      precompiled.sgbBorderTileset
+  ));
+  const sgbBorderMapPtr = banked.push(
+    [].concat(
+      // precompiled.sgbBorderMap.length / 16,
+      precompiled.sgbBorderMap
+  ));
+  const sgbBorderPalettesPtr = banked.push(
+    [].concat(
+      // precompiled.sgbBorderPalettes.length / 16,
+      precompiled.sgbBorderPalettes
+  ));
+  console.log(sgbBorderTilesPtr);
+  console.log(sgbBorderMapPtr);
+  console.log(sgbBorderPalettesPtr);
 
   progress(EVENT_MSG_COMPILING_EVENTS);
   // Hacky small wait to allow console to update before event loop is blocked
@@ -462,6 +482,12 @@ const compile = async (
       `#define CURSOR_BANK_OFFSET ${cursorImagePtr.offset}\n` +
       `#define EMOTES_SPRITE_BANK ${emotesSpritePtr.bank}\n` +
       `#define EMOTES_SPRITE_BANK_OFFSET ${emotesSpritePtr.offset}\n` +
+      `#define SGB_BORDER_TILES_BANK ${sgbBorderTilesPtr.bank}\n` +
+      `#define SGB_BORDER_TILES_BANK_OFFSET ${sgbBorderTilesPtr.offset}\n` +
+      `#define SGB_BORDER_MAP_BANK ${sgbBorderMapPtr.bank}\n` +
+      `#define SGB_BORDER_MAP_BANK_OFFSET ${sgbBorderMapPtr.offset}\n` +
+      `#define SGB_BORDER_PAL_BANK ${sgbBorderPalettesPtr.bank}\n` +
+      `#define SGB_BORDER_PAL_BANK_OFFSET ${sgbBorderPalettesPtr.offset}\n` +
       `#define NUM_VARIABLES ${variablesLen}\n` +
       `#define TMP_VAR_1 ${precompiled.variables.indexOf(TMP_VAR_1)}\n` + 
       `#define TMP_VAR_2 ${precompiled.variables.indexOf(TMP_VAR_2)}\n` + 
@@ -627,6 +653,8 @@ const precompile = async (
     }    
   )
 
+  const { sgbBorderTileset, sgbBorderMap, sgbBorderPalettes } = await precompileSGB();
+
   progress(EVENT_MSG_PRE_COMPLETE);
 
   return {
@@ -649,7 +677,10 @@ const precompile = async (
     scenePaletteIndexes,
     sceneActorPaletteIndexes,
     actorPaletteIndexes,
-    eventPaletteIndexes
+    eventPaletteIndexes,
+    sgbBorderTileset, 
+    sgbBorderMap, 
+    sgbBorderPalettes
   };
 };
 
