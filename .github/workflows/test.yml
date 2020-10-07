@@ -7,7 +7,7 @@ on:
     branches: [ action-test ]
     paths:
       - 'appData/src/gb/**'
-      - !'appData/src/gb/engine_version'
+      - '!appData/src/gb/engine_version'
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
