@@ -27,7 +27,7 @@ jobs:
         run: echo "::set-env name=NOW::$(date +'%Y%m%d%H%M%S')"
 
       - name: Update engine_version file
-        run:  echo echo 2.0.0-e$NOW > $GITHUB_WORKSPACE/appData/src/gb/engine_version 
+        run:  echo 2.0.0-e$NOW > $GITHUB_WORKSPACE/appData/src/gb/engine_version 
 
       - name: Get the list of updated files
         run: git diff --name-only ${{ github.event.before }} ${{ github.sha }}
