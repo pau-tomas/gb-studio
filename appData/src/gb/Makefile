@@ -1,6 +1,6 @@
 CC = lcc -Wa-l -Wl-m -Wl-j -Wl-yt$(CART_TYPE) -Iinclude
 
-ROM_BUILD_DIR = build/rom
+ROM_BUILD_DIR = build/romoooo
 
 OBJ_DIR = obj
 SOURCE_DIR = src
