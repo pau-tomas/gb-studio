@@ -23,8 +23,13 @@ jobs:
         with:
           fetch-depth: 0
      
-      # Runs a single command using the runners shell
-      - name: Run a one-line script
+      - name: Set current date as env variable
+        run: echo "::set-env name=NOW::$(date +'%Y%m%d%H%M%S')"
+
+      - name: Update engine_version file
+        run:  echo echo 2.0.0-e$NOW > ${process.env.GITHUB_WORKSPACE}/appData/src/gb/engine_version 
+
+      - name: Get the list of updated files
         run: git diff --name-only ${{ github.event.before }} ${{ github.sha }}
 
       # Runs a set of commands using the runners shell
