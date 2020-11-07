@@ -1724,7 +1724,7 @@ const editCustomEvent: CaseReducer<
         if (isVariableField(e.command, arg, args)) {
           const addVariable = (variable: string, type?: "8bit" | "16bit") => {
             const letter = String.fromCharCode(
-              "A".charCodeAt(0) + parseInt(variable)
+              "A".charCodeAt(0) + parseInt(variable[1])
             );
             const newType = variables[variable]?.type === "16bit" ? "16bit" : type;
             variables[variable] = {
@@ -1769,9 +1769,9 @@ const editCustomEvent: CaseReducer<
         const variablePtrs = text.match(/\$V[0-9]\$/g);
         if (variablePtrs) {
           variablePtrs.forEach((variablePtr: string) => {
-            const variable = variablePtr[2];
+            const variable = `V${variablePtr[2]}`;
             const letter = String.fromCharCode(
-              "A".charCodeAt(0) + parseInt(variable, 10)
+              "A".charCodeAt(0) + parseInt(variable[1], 10)
             ).toUpperCase();
             variables[variable] = {
               id: variable,

@@ -1375,7 +1375,7 @@ class ScriptBuilder {
         })   
         // Replace Custom Event variables
         .replace(/\$V([0-9])\$/g, (match, customVariable) => {
-          const mappedVariable = event.args[`$variable[${customVariable}]$`];
+          const mappedVariable = event.args[`$variable[V${customVariable}]$`];
           const index = this.getVariableIndex(mappedVariable, variables);
           return getVariableSymbol(index);
         })

@@ -54,7 +54,7 @@ export const namedCustomEventVariables = (
 ): NamedVariable[] => {
   if (customEvent) {
     return customEventVariables.map((variable) => ({
-      id: variable,
+      id: customEventVariableCode(variable),
       code: customEventVariableCode(variable),
       name: customEventVariableName(variable, customEvent),
       group: "",
