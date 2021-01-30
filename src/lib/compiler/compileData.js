@@ -21,7 +21,8 @@ import {
   EVENT_END,
   EVENT_PLAYER_SET_SPRITE,
   EVENT_PALETTE_SET_BACKGROUND,
-  EVENT_PALETTE_SET_UI
+  EVENT_PALETTE_SET_UI,
+  EVENT_CALL_CUSTOM_EVENT
 } from "./eventTypes";
 import { projectTemplatesRoot, MAX_ACTORS, MAX_TRIGGERS, DMG_PALETTE, TMP_VAR_1, TMP_VAR_2 } from "../../consts";
 import {
@@ -136,84 +137,115 @@ const compile = async (
   const variablesLookup = keyBy(projectData.variables, "id");
   const variableAliasLookup = {};
 
-  // Add event data
-  let scriptCounter = 0;
-  const eventPtrs = precompiled.sceneData.map((scene, sceneIndex) => {
-    const compileScript = (
-      script,
+  const compileSceneScript = (scene, sceneIndex) => (
+    script,
+    entityType,
+    entity,
+    entityIndex,
+    loop,
+    lock,
+    scriptType,
+  ) => {
+    let entityCode = "";
+    let scriptTypeCode = "interact";
+
+
+    if (entityType === "actor") {
+      const scriptLookup = {
+        script: "interact",
+        updateScript: "update",
+        hit1Script: "hit1",
+        hit2Script: "hit2",
+        hit3Script: "hit3",
+      }
+      entityCode = `a${entityIndex}`;
+      scriptTypeCode = scriptLookup[scriptType] || scriptTypeCode;
+    } else if (entityType === "trigger") {
+      entityCode = `t${entityIndex}`;
+      scriptTypeCode = "interact";
+    } else if (entityType === "scene") {
+      const scriptLookup = {
+        script: "init",
+        playerHit1Script: "p_hit1",
+        playerHit2Script: "p_hit2",
+        playerHit3Script: "p_hit3",
+      }        
+      scriptTypeCode = scriptLookup[scriptType] || scriptTypeCode;
+    } else if (entityType === "customEvent") {
+      entityCode = `e${entityIndex}`;
+      scriptTypeCode = "function";
+    }    
+          
+    const scriptName = sceneIndex >= 0 ? `script_s${sceneIndex}${entityCode}_${scriptTypeCode}` : `script_${entityCode}_${scriptTypeCode}`
+
+    if (script.length < 2) {
+      return null;
+    }
+
+    const compiledScript = compileEntityEvents(scriptName, script, {
+      scene,
+      sceneIndex,
+      scenes: precompiled.sceneData,
+      music: precompiled.usedMusic,
+      sprites: precompiled.usedSprites,
+      avatars: precompiled.usedAvatars,
+      backgrounds: precompiled.usedBackgrounds,
+      strings: precompiled.strings,
+      variables: precompiled.variables,
+      variablesLookup,
+      variableAliasLookup,
+      eventPaletteIndexes: precompiled.eventPaletteIndexes,
+      labels: {},
       entityType,
-      entity,
       entityIndex,
+      entity,
+      warnings,
       loop,
       lock,
-      scriptType,
-    ) => {
-      let entityCode = "";
-      let scriptTypeCode = "interact";
+      engineFields: precompiledEngineFields,
+      output: [],
+    });
 
-      if (entityType === "actor") {
-        const scriptLookup = {
-          script: "interact",
-          updateScript: "update",
-          hit1Script: "hit1",
-          hit2Script: "hit2",
-          hit3Script: "hit3",
-        }
-        entityCode = `a${entityIndex}`;
-        scriptTypeCode = scriptLookup[scriptType] || scriptTypeCode;
+    output[`${scriptName}.s`] = compiledScript;
+    output[`${scriptName}.h`] = compileScriptHeader(scriptName);
+    return scriptName;
+  };
+    
+  // Add Custom Event data
+  const customEventsPtrs = precompiled.customEvents.map((event, eventIndex) => {
+    const scene = {
+      actors: Object.values(event.actors)
+    };
+    const sceneIndex = -1;
+    const compileScript = compileSceneScript(scene, sceneIndex);
+
+    const bankEntityEvents = (entityType, entityScriptField = "script") => (entity, entityIndex) => {
+      if(!entity[entityScriptField] || entity[entityScriptField].length <= 1) {
+        return {
+          bank: 0,
+          offset: 0
+        };
       }
-      else if (entityType === "trigger") {
-        entityCode = `t${entityIndex}`;
-        scriptTypeCode = "interact";
-      }  else if (entityType === "scene") {
-        const scriptLookup = {
-          script: "init",
-          playerHit1Script: "p_hit1",
-          playerHit2Script: "p_hit2",
-          playerHit3Script: "p_hit3",
-        }        
-        scriptTypeCode = scriptLookup[scriptType] || scriptTypeCode;
-      }       
-            
-      const scriptName = `script_s${sceneIndex}${entityCode}_${scriptTypeCode}`
-
-      if (script.length < 2) {
-        return null;
-      }
-
-      const compiledScript = compileEntityEvents(scriptName, script, {
-        scene,
-        sceneIndex,
-        scenes: precompiled.sceneData,
-        music: precompiled.usedMusic,
-        sprites: precompiled.usedSprites,
-        avatars: precompiled.usedAvatars,
-        backgrounds: precompiled.usedBackgrounds,
-        strings: precompiled.strings,
-        variables: precompiled.variables,
-        variablesLookup,
-        variableAliasLookup,
-        eventPaletteIndexes: precompiled.eventPaletteIndexes,
-        labels: {},
-        entityType,
-        entityIndex,
-        entity,
-        warnings,
-        loop,
-        lock,
-        engineFields: precompiledEngineFields,
-        output: [],
-      });
-
-
-      output[`${scriptName}.s`] = compiledScript;
-      output[`${scriptName}.h`] = compileScriptHeader(scriptName);
-      return scriptName;
+      const lockScript = entityScriptField === "script" && !entity.collisionGroup;
+      return compileScript(
+        entity[entityScriptField], 
+        entityType, 
+        entity, 
+        entityIndex, 
+        false,
+        false,
+        entityScriptField
+      );
     };
 
-    const bankSceneEvents = (scene, sceneIndex) => {
+    return bankEntityEvents("customEvent")(event, eventIndex);
+  });
 
-      
+  // Add event data
+  const eventPtrs = precompiled.sceneData.map((scene, sceneIndex) => {
+    const compileScript = compileSceneScript(scene, sceneIndex);
+    
+    const bankSceneEvents = (scene, sceneIndex) => {
       // // Compile start scripts for actors
       // scene.actors.forEach((actor, actorIndex) => {
       //   const actorStartScript = (actor.startScript || []).filter(
@@ -474,6 +506,9 @@ const precompile = async (
   progress(EVENT_MSG_PRE_STRINGS);
   const strings = precompileStrings(projectData.scenes);
 
+  progress(EVENT_MSG_PRE_EVENTS);
+  const customEvents = projectData.customEvents; //precompileCustomEvents(projectData.customEvents, projectData.scenes);
+
   progress(EVENT_MSG_PRE_IMAGES);
   const {
     usedBackgrounds,
@@ -550,6 +585,7 @@ const precompile = async (
   return {
     variables,
     strings,
+    customEvents,
     usedBackgrounds,
     backgroundLookup,
     usedTilesets,
@@ -641,6 +677,19 @@ export const precompileStrings = (scenes) => {
     return ["NOSTRINGS"];
   }
   return strings;
+};
+
+export const precompileCustomEvents = (events, scenes) => {
+  const customEventIds = [];
+  walkScenesEvents(scenes, cmd => {
+    if (cmd.command === EVENT_CALL_CUSTOM_EVENT) {
+      customEventIds.push(cmd.args.customEventId);
+    }
+  });
+  const usedEvents = events.filter(event => 
+    customEventIds.indexOf(event.id) > -1
+  );
+  return usedEvents;
 };
 
 export const precompileBackgrounds = async (

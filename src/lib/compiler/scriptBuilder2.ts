@@ -630,6 +630,11 @@ class ScriptBuilder {
     this._addCmd("VM_STOP");
   };
 
+  _retFar = (n: number) => {
+    this._addComment(`Return from far call and dispose ${n} argument on stack`);
+    this._addCmd("VM_RET_FAR_N", n)
+  };
+
   // --------------------------------------------------------------------------
   // Actors
 
@@ -1441,6 +1446,10 @@ class ScriptBuilder {
   scriptEnd = () => {
     this._stop();
   };
+
+  retFar = (n: number) => {
+    this._retFar(n);
+  }
 
   compileEvents = (path: ScriptEvent[]) => {
     const { compileEvents } = this.options;

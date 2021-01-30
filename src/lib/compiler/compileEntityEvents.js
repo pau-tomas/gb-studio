@@ -31,7 +31,11 @@ const compileEntityEvents = (scriptName, input = [], options = {}) => {
     ...(entityType === "trigger" && {
       actor: entity.name || `Trigger ${entityIndex + 1}`,
     }),
+    ...(entityType === "customEvent") && {
+      event: entity.name || `Event ${entityIndex + 1}`
+    }
   };
+
 
   const compileEventsWithScriptBuilder = (scriptBuilder, subInput = []) => {
     // eslint-disable-next-line global-require
@@ -112,7 +116,11 @@ const compileEntityEvents = (scriptName, input = [], options = {}) => {
         scriptBuilder.nextFrameAwait();
         scriptBuilder.labelGoto(loopId);
       }
-      scriptBuilder.scriptEnd();
+      if (entityType === "customEvent") {
+        scriptBuilder.retFar(1);
+      } else {
+        scriptBuilder.scriptEnd();
+      }
 
       if (scriptBuilder.byteSize > 16383) {
         warnings(
