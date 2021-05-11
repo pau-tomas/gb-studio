@@ -11,6 +11,7 @@ const watchProject = async (
     onAddFont = () => {},
     onAddAvatar = () => {},
     onAddEmote = () => {},
+    onAddTileset = () => {},
     onChangedSprite = () => {},
     onChangedBackground = () => {},
     onChangedUI = () => {},
@@ -18,6 +19,7 @@ const watchProject = async (
     onChangedFont = () => {},
     onChangedAvatar = () => {},
     onChangedEmote = () => {},
+    onChangedTileset = () => {},
     onRemoveSprite = () => {},
     onRemoveBackground = () => {},
     onRemoveUI = () => {},
@@ -25,6 +27,7 @@ const watchProject = async (
     onRemoveFont = () => {},
     onRemoveAvatar = () => {},
     onRemoveEmote = () => {},
+    onRemoveTileset = () => {},
     onChangedEngineSchema = () => {},
   }
 ) => {
@@ -36,6 +39,7 @@ const watchProject = async (
   const avatarsRoot = `${projectRoot}/assets/avatars`;
   const emotesRoot = `${projectRoot}/assets/emotes`;
   const uiRoot = `${projectRoot}/assets/ui`;
+  const tilesetsRoot = `${projectRoot}/assets/tilesets`;
   const pluginsRoot = `${projectRoot}/plugins`;
   const engineSchema = `${projectRoot}/assets/engine/engine.json`;
 
@@ -130,6 +134,17 @@ const watchProject = async (
     .on("change", onChangedEmote)
     .on("unlink", onRemoveEmote);
 
+  const tilesetsWatcher = chokidar
+    .watch(tilesetsRoot, {
+      ignored: /^.*\.(?!(png|PNG)$)[^.]+$/,
+      ignoreInitial: true,
+      persistent: true,
+      awaitWriteFinish,
+    })
+    .on("add", onAddTileset)
+    .on("change", onChangedTileset)
+    .on("unlink", onRemoveTileset);
+
   const engineSchemaWatcher = chokidar
     .watch(engineSchema, {
       ignoreInitial: true,
@@ -161,6 +176,8 @@ const watchProject = async (
         onAddAvatar(filename);
       } else if (subfolder === "emotes") {
         onAddEmote(filename);
+      } else if (subfolder === "tilesets") {
+        onAddTilesets(filename);
       }
     })
     .on("change", (filename) => {
@@ -177,6 +194,8 @@ const watchProject = async (
         onChangedAvatar(filename);
       } else if (subfolder === "emotes") {
         onChangedEmote(filename);
+      } else if (subfolder === "tilesets") {
+        onChangedTileset(filename);
       }
     })
     .on("unlink", (filename) => {
@@ -193,6 +212,8 @@ const watchProject = async (
         onRemoveAvatar(filename);
       } else if (subfolder === "emotes") {
         onRemoveEmote(filename);
+      } else if (subfolder === "tilesets") {
+        onRemoveTileset(filename);
       }
     });
 
@@ -204,6 +225,7 @@ const watchProject = async (
     fontsWatcher.close();
     avatarsWatcher.close();
     emotesWatcher.close();
+    tilesetsWatcher.close();
     engineSchemaWatcher.close();
     pluginsWatcher.close();
   };

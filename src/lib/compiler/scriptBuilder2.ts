@@ -26,7 +26,7 @@ import shuntingYard from "../rpn/shuntingYard";
 import { PrecompiledFontData } from "./compileFonts";
 import { encodeString } from "../helpers/encodings";
 import { PrecompiledMusicTrack } from "./compileMusic";
-import { emoteSymbol, spriteSheetSymbol } from "./compileData2";
+import { emoteSymbol, spriteSheetSymbol, tilesetExtraSymbol } from "./compileData2";
 import { DMG_PALETTE } from "../../consts";
 import {
   isPropertyField,
@@ -72,6 +72,7 @@ interface ScriptBuilderOptions {
   music: PrecompiledMusicTrack[];
   avatars: ScriptBuilderEntity[];
   emotes: ScriptBuilderEntity[];
+  tilesets: ScriptBuilderEntity[];
   palettes: Palette[];
   customEvents: CustomEvent[];
   characterEncoding: string;
@@ -359,6 +360,7 @@ class ScriptBuilder {
       music: options.music || [],
       avatars: options.avatars || [],
       emotes: options.emotes || [],
+      tilesets: options.tilesets || [],
       palettes: options.palettes || [],
       customEvents: options.customEvents || [],
       characterEncoding: options.characterEncoding || "",
@@ -1432,6 +1434,16 @@ class ScriptBuilder {
     b4: number
   ) => {
     this._addCmd(".CGB_PAL", r1, g1, b1, r2, g2, b2, r3, g3, b3, r4, g4, b4);
+  };
+
+  _replaceTileXY = (x: number, y: number, symbol: string, tileVar: string) => {
+    this._addCmd(
+      "VM_REPLACE_TILE_XY",
+      x, y,
+      `___bank_${symbol}`,
+      `_${symbol}`,
+      tileVar,
+    );
   };
 
   _callFar = (symbol: string) => {
@@ -3483,6 +3495,21 @@ class ScriptBuilder {
     }
     this._addNL();
   };
+
+  backgroundSetTile = (
+    tilesetId: string,
+    tileVar: string,
+    x: number,
+    y: number,
+  ) => {
+    const { tilesets } = this.options;
+    const tilesetIndex = tilesets.findIndex((t) => t.id === tilesetId);
+
+    this._addComment(`Set Tile`);
+    const variableAlias = this.getVariableAlias(tileVar);
+    this._replaceTileXY(x, y, tilesetExtraSymbol(tilesetIndex), variableAlias);
+    this._addNL();
+  }
 
   _compilePath = (path: ScriptEvent[] | ScriptBuilderPathFunction = []) => {
     const { compileEvents } = this.options;

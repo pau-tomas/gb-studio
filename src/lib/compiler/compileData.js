@@ -31,6 +31,7 @@ import compileSprites from "./compileSprites";
 import compileAvatars from "./compileAvatars";
 import compileEmotes from "./compileEmotes";
 import compileFonts from "./compileFonts";
+import compileTilesets from "./compileTilesets";
 import { precompileEngineFields } from "../helpers/engineFields";
 import {
   compileBackground,
@@ -53,6 +54,9 @@ import {
   compileSpriteSheetHeader,
   compileTileset,
   compileTilesetHeader,
+  compileExtraTileset,
+  compileExtraTilesetHeader,
+  tilesetExtraSymbol,
   paletteSymbol,
   compilePalette,
   compilePaletteHeader,
@@ -102,6 +106,7 @@ export const EVENT_MSG_PRE_SCENES = "Preparing scenes...";
 export const EVENT_MSG_PRE_EVENTS = "Preparing events...";
 export const EVENT_MSG_PRE_MUSIC = "Preparing music...";
 export const EVENT_MSG_PRE_FONTS = "Preparing fonts...";
+export const EVENT_MSG_PRE_TILESETS = "Preparing tilesets...";
 
 export const EVENT_MSG_PRE_COMPLETE = "Preparation complete";
 export const EVENT_MSG_COMPILING_EVENTS = "Compiling events...";
@@ -214,6 +219,7 @@ const compile = async (
         sprites: precompiled.usedSprites,
         avatars: precompiled.usedAvatars,
         emotes: precompiled.usedEmotes,
+        tilesets: precompiled.usedExtraTilesets,
         backgrounds: precompiled.usedBackgrounds,
         strings: precompiled.strings,
         variables: precompiled.variables,
@@ -334,6 +340,14 @@ const compile = async (
   precompiled.usedTilesets.forEach((tileset, tilesetIndex) => {
     output[`tileset_${tilesetIndex}.c`] = compileTileset(tileset, tilesetIndex);
     output[`tileset_${tilesetIndex}.h`] = compileTilesetHeader(
+      tileset,
+      tilesetIndex
+    );
+  });
+
+  precompiled.usedExtraTilesetsData.forEach((tileset, tilesetIndex) => {
+    output[`tileset_extra_${tilesetIndex}.c`] = compileExtraTileset(tileset, tilesetIndex);
+    output[`tileset_extra_${tilesetIndex}.h`] = compileExtraTilesetHeader(
       tileset,
       tilesetIndex
     );
@@ -638,6 +652,19 @@ const precompile = async (
     }
   );
 
+  progress(EVENT_MSG_PRE_TILESETS);
+  const { 
+    usedExtraTilesets,
+    usedExtraTilesetsData,  
+  } = await precompileTilesets(
+    projectData.tilesets,
+    projectData.scenes,
+    projectRoot,
+    {
+      warnings,
+    }
+  );
+
   progress(EVENT_MSG_PRE_SCENES);
   const sceneData = precompileScenes(
     projectData.scenes,
@@ -679,6 +706,8 @@ const precompile = async (
     usedSprites,
     usedMusic,
     usedFonts,
+    usedExtraTilesets,
+    usedExtraTilesetsData,
     sceneData,
     frameTiles,
     cursorTiles,
@@ -1274,6 +1303,47 @@ export const precompileFonts = async (
   const fontData = await compileFonts(usedFonts, projectRoot, { warnings });
 
   return { usedFonts: fontData };
+};
+
+export const precompileTilesets = async (
+  tilesets,
+  scenes,
+  projectRoot,
+  { warnings } = {}
+) => {
+  
+  const usedTilesetIds = [];
+
+  const addTileset = (id) => {
+    // If never seen this tileset before add it to the list
+    if (usedTilesetIds.indexOf(id) === -1) {
+      usedTilesetIds.push(id);
+    }
+  };
+
+  walkScenesEvents(scenes, (cmd) => {
+    if (cmd.args && cmd.args.tilesetId !== undefined) {
+      addTileset(cmd.args.tilesetId);
+    }
+  });
+
+  const usedTilesets = [].concat(
+    tilesets.filter((tileset) => {
+      return usedTilesetIds.indexOf(tileset.id) > -1;
+    })
+  );
+
+  const tilesetData = await compileTilesets(usedTilesets, projectRoot, warnings); 
+
+  const usedTilesetsData = [];
+  tilesetData.forEach((tileset) => {
+    usedTilesetsData.push(tileset.data);
+  });
+
+  return { 
+    usedExtraTilesets: tilesetData,
+    usedExtraTilesetsData: usedTilesetsData,
+  }
 };
 
 export const precompileScenes = (

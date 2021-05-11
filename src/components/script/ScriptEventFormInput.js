@@ -34,6 +34,7 @@ import { Input } from "../ui/form/Input";
 import { Select } from "../ui/form/Select";
 import { AvatarSelect } from "../forms/AvatarSelect";
 import { EmoteSelect } from "../forms/EmoteSelect";
+import { TilesetSelect } from "../forms/TilesetSelect";
 
 const argValue = (arg) => {
   if(arg && arg.value !== undefined) {
@@ -339,6 +340,15 @@ class ScriptEventFormInput extends Component {
         <AvatarSelect id={id} value={String(value)} onChange={this.onChange} optional={field.optional} />
       );
     } 
+    if (type === "tileset") {
+      return (
+        <TilesetSelect
+          id={id}
+          value={value}
+          onChange={this.onChange}
+        />
+      );
+    }
     if (type === "operator") {
       return <OperatorSelect id={id} value={value} onChange={this.onChange} />;
     }

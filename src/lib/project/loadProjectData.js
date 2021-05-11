@@ -7,6 +7,7 @@ import loadAllMusicData from "./loadMusicData";
 import loadAllFontData from "./loadFontData";
 import loadAllAvatarData from "./loadAvatarData";
 import loadAllEmoteData from "./loadEmoteData";
+import loadAllTilesetData from "./loadTilesetData";
 import migrateProject from "./migrateProject";
 import { indexByFn, indexBy } from "../helpers/array";
 import { setDefault } from "../helpers/setDefault";
@@ -42,6 +43,7 @@ const loadProject = async (projectPath) => {
     fonts,
     avatars,
     emotes,
+    tilesets,
   ] = await Promise.all([
     loadAllBackgroundData(projectRoot),
     loadAllSpriteData(projectRoot),
@@ -49,6 +51,7 @@ const loadProject = async (projectPath) => {
     loadAllFontData(projectRoot),
     loadAllAvatarData(projectRoot),
     loadAllEmoteData(projectRoot),
+    loadAllTilesetData(projectRoot),
   ]);
 
   // Merge stored backgrounds data with file system data
@@ -209,6 +212,26 @@ const loadProject = async (projectPath) => {
     return entity;
   };
 
+  // Merge stored tileset data with file system data
+  const oldTilesetByFilename = indexByFilename(json.tilesets || []);
+  const oldTilesetByInode = indexByInode(json.tilesets || []);
+
+  const fixedTilesetIds = tilesets
+    .map((tileset) => {
+      const oldTileset =
+        oldTilesetByFilename[elemKey(tileset)] ||
+        oldTilesetByInode[tileset.inode];
+      if (oldTileset) {
+        return {
+          ...tileset,
+          id: oldTileset.id,
+          _v: oldTileset._v,
+        };
+      }
+      return tileset;
+    })
+    .sort(sortByName);
+  
   // Fix ids on actors and triggers
   const fixedScenes = (json.scenes || []).map((scene) => {
     return {
@@ -293,6 +316,7 @@ const loadProject = async (projectPath) => {
       fonts: fixedFontIds,
       avatars: fixedAvatarIds,
       emotes: fixedEmoteIds,
+      tilesets: fixedTilesetIds,
       scenes: fixedScenes,
       customEvents: fixedCustomEvents,
       palettes: fixedPalettes,

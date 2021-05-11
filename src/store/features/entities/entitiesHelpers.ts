@@ -17,6 +17,7 @@ const musicSchema = new schema.Entity("music");
 const fontSchema = new schema.Entity("fonts");
 const avatarSchema = new schema.Entity("avatars");
 const emoteSchema = new schema.Entity("emotes");
+const tilesetSchema = new schema.Entity("tilesets");
 const actorSchema = new schema.Entity("actors");
 const triggerSchema = new schema.Entity("triggers");
 /*
@@ -58,6 +59,7 @@ const projectSchema = {
   fonts: [fontSchema],
   avatars: [avatarSchema],
   emotes: [emoteSchema],
+  tilesets: [tilesetSchema],
   spriteSheets: [spriteSheetsSchema],
   variables: [variablesSchema],
   customEvents: [customEventsSchema],
@@ -84,6 +86,7 @@ export const denormalizeEntities = (
     fonts: state.fonts.ids,
     avatars: state.avatars.ids,
     emotes: state.emotes.ids,
+    tilesets: state.tilesets.ids,
     variables: state.variables.ids,
     engineFieldValues: state.engineFieldValues.ids,
   };
@@ -102,6 +105,7 @@ export const denormalizeEntities = (
     fonts: state.fonts.entities,
     avatars: state.avatars.entities,
     emotes: state.emotes.entities,
+    tilesets: state.tilesets.entities,
     variables: state.variables.entities,
     engineFieldValues: state.engineFieldValues.entities,
   };

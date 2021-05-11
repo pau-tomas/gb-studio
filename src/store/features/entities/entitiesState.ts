@@ -71,6 +71,7 @@ import {
   ObjPalette,
   Avatar,
   Emote,
+  Tileset,
 } from "./entitiesTypes";
 import {
   normalizeEntities,
@@ -91,6 +92,7 @@ const inodeToRecentMusic: Dictionary<Music> = {};
 const inodeToRecentFont: Dictionary<Font> = {};
 const inodeToRecentAvatar: Dictionary<Avatar> = {};
 const inodeToRecentEmote: Dictionary<Emote> = {};
+const inodeToRecentTileset: Dictionary<Tileset> = {};
 
 const actorsAdapter = createEntityAdapter<Actor>();
 const triggersAdapter = createEntityAdapter<Trigger>();
@@ -118,6 +120,9 @@ const avatarsAdapter = createEntityAdapter<Avatar>({
 const emotesAdapter = createEntityAdapter<Emote>({
   sortComparer: sortByFilename,
 });
+const tilesetsAdapter = createEntityAdapter<Tileset>({
+  sortComparer: sortByFilename,
+});
 const variablesAdapter = createEntityAdapter<Variable>();
 const engineFieldValuesAdapter = createEntityAdapter<EngineFieldValue>();
 
@@ -136,6 +141,7 @@ export const initialState: EntitiesState = {
   fonts: fontsAdapter.getInitialState(),
   avatars: avatarsAdapter.getInitialState(),
   emotes: emotesAdapter.getInitialState(),
+  tilesets: tilesetsAdapter.getInitialState(),
   variables: variablesAdapter.getInitialState(),
   engineFieldValues: engineFieldValuesAdapter.getInitialState(),
 };
@@ -396,6 +402,7 @@ const loadProject: CaseReducer<
   fontsAdapter.setAll(state.fonts, entities.fonts || {});
   avatarsAdapter.setAll(state.avatars, entities.avatars || {});
   emotesAdapter.setAll(state.emotes, entities.emotes || {});
+  tilesetsAdapter.setAll(state.tilesets, entities.tilesets || {});
   customEventsAdapter.setAll(state.customEvents, entities.customEvents || {});
   variablesAdapter.setAll(state.variables, entities.variables || {});
   engineFieldValuesAdapter.setAll(
@@ -683,6 +690,45 @@ const removeEmote: CaseReducer<
   if (existingAsset) {
     inodeToRecentEmote[existingAsset.inode] = clone(existingAsset);
     emotesAdapter.removeOne(state.emotes, existingAsset.id);
+  }
+};
+
+const loadTileset: CaseReducer<
+  EntitiesState,
+  PayloadAction<{
+    data: Tileset;
+  }>
+> = (state, action) => {
+  const tilesets = localTilesetSelectors.selectAll(state);
+  const existingAsset =
+    tilesets.find(matchAsset(action.payload.data)) ||
+    inodeToRecentTileset[action.payload.data.inode];
+  const existingId = existingAsset?.id;
+
+  if (existingId) {
+    delete inodeToRecentTileset[action.payload.data.inode];
+    tilesetsAdapter.upsertOne(state.tilesets, {
+      ...existingAsset,
+      ...action.payload.data,
+      id: existingId,
+    });
+  } else {
+    tilesetsAdapter.addOne(state.tilesets, action.payload.data);
+  }
+};
+
+const removeTileset: CaseReducer<
+  EntitiesState,
+  PayloadAction<{
+    filename: string;
+    plugin: string | undefined;
+  }>
+> = (state, action) => {
+  const tilesets = localTilesetSelectors.selectAll(state);
+  const existingAsset = tilesets.find(matchAsset(action.payload));
+  if (existingAsset) {
+    inodeToRecentTileset[existingAsset.inode] = clone(existingAsset);
+    tilesetsAdapter.removeOne(state.tilesets, existingAsset.id);
   }
 };
 
@@ -2893,6 +2939,9 @@ const localAvatarSelectors = avatarsAdapter.getSelectors(
 const localEmoteSelectors = emotesAdapter.getSelectors(
   (state: EntitiesState) => state.emotes
 );
+const localTilesetSelectors = tilesetsAdapter.getSelectors(
+  (state: EntitiesState) => state.tilesets
+);
 const localCustomEventSelectors = customEventsAdapter.getSelectors(
   (state: EntitiesState) => state.customEvents
 );
@@ -2939,6 +2988,9 @@ export const avatarSelectors = avatarsAdapter.getSelectors(
 );
 export const emoteSelectors = emotesAdapter.getSelectors(
   (state: RootState) => state.project.present.entities.emotes
+);
+export const tilesetSelectors = tilesetsAdapter.getSelectors(
+  (state: RootState) => state.project.present.entities.tilesets
 );
 export const variableSelectors = variablesAdapter.getSelectors(
   (state: RootState) => state.project.present.entities.variables

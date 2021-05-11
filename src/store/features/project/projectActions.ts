@@ -13,6 +13,7 @@ import {
   Font,
   Avatar,
   Emote,
+  Tileset,
 } from "../entities/entitiesTypes";
 import type { RootState } from "../../configureStore";
 import loadProjectData from "../../../lib/project/loadProjectData";
@@ -29,6 +30,7 @@ import { denormalizeEntities } from "../entities/entitiesHelpers";
 import { matchAsset } from "../entities/entitiesHelpers";
 import { loadAvatarData } from "../../../lib/project/loadAvatarData";
 import { loadEmoteData } from "../../../lib/project/loadEmoteData";
+import { loadTilesetData } from "../../../lib/project/loadTilesetData";
 
 let saving = false;
 
@@ -374,6 +376,43 @@ const removeEmote = createAsyncThunk<
 });
 
 /**************************************************************************
+ * Tilesets
+ */
+
+ const loadTileset = createAsyncThunk<{ data: Font }, string>(
+  "project/loadTileset",
+  async (filename, thunkApi) => {
+    const state = thunkApi.getState() as RootState;
+
+    const projectRoot = state.document && state.document.root;
+    const data = (await loadTilesetData(projectRoot)(filename)) as
+      | Tileset
+      | undefined;
+
+    if (!data) {
+      throw new Error("Unable to load tileset");
+    }
+
+    return {
+      data,
+    };
+  }
+);
+
+const removeTileset = createAsyncThunk<
+  { filename: string; plugin: string | undefined },
+  string
+>("project/removeTileset", async (filename, thunkApi) => {
+  const state = thunkApi.getState() as RootState;
+  const projectRoot = state.document && state.document.root;
+  const { file, plugin } = parseAssetPath(filename, projectRoot, "tilesets");
+  return {
+    filename: file,
+    plugin,
+  };
+});
+
+/**************************************************************************
  * UI
  */
 
@@ -452,6 +491,8 @@ export default {
   removeAvatar,
   loadEmote,
   removeEmote,
+  loadTileset,
+  removeTileset,
   loadUI,
   addFileToProject,
   reloadAssets,

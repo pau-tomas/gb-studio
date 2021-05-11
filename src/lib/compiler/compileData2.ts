@@ -131,6 +131,9 @@ const tilemapAttrSymbol = (tilemapAttrIndex: number): string =>
 const tilesetSymbol = (tilesetIndex: number): string =>
   `tileset_${tilesetIndex}`;
 
+export const tilesetExtraSymbol = (tilesetIndex: number): string =>
+  `tileset_extra_${tilesetIndex}`;
+
 export const spriteSheetSymbol = (spriteSheetIndex: number): string =>
   `spritesheet_${spriteSheetIndex}`;
 
@@ -633,6 +636,27 @@ export const compileTilesetHeader = (
   toDataHeader(
     TILESET_TYPE,
     tilesetSymbol(tilesetIndex),
+    `// Tileset Extra: ${tilesetIndex}`
+  );
+
+export const compileExtraTileset = (tileset: Uint8Array, tilesetIndex: number) =>
+  toStructDataFile(
+    TILESET_TYPE,
+    tilesetExtraSymbol(tilesetIndex),
+    `// Tileset Extra: ${tilesetIndex}`,
+    {
+      n_tiles: Math.ceil(tileset.length / 16),
+      tiles: Array.from(tileset.length > 0 ? tileset : [0]).map(toHex),
+    }
+  );
+
+export const compileExtraTilesetHeader = (
+  tileset: Uint8Array,
+  tilesetIndex: number
+) =>
+  toDataHeader(
+    TILESET_TYPE,
+    tilesetExtraSymbol(tilesetIndex),
     `// Tileset: ${tilesetIndex}`
   );
 

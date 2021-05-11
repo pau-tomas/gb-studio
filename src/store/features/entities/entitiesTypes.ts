@@ -101,6 +101,20 @@ export type Emote = {
   _v: number;
 };
 
+export type Tileset = {
+  id: string;
+  name: string;
+  filename: string;
+  width: number;
+  height: number;
+  imageWidth: number;
+  imageHeight: number;
+  tileColors: number[];
+  plugin?: string;
+  inode: string;
+  _v: number;
+};
+
 export type MusicSettings = {
   disableSpeedConversion?: boolean;
 };
@@ -265,6 +279,7 @@ export interface EntitiesState {
   fonts: EntityState<Font>;
   avatars: EntityState<Avatar>;
   emotes: EntityState<Emote>;
+  tilesets: EntityState<Tileset>;
   variables: EntityState<Variable>;
   engineFieldValues: EntityState<EngineFieldValue>;
 }
