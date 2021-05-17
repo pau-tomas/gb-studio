@@ -13,6 +13,7 @@ import {
   Palette,
   ScriptEvent,
   Variable,
+  Tileset,
 } from "../../store/features/entities/entitiesTypes";
 import { Dictionary } from "@reduxjs/toolkit";
 import { EngineFieldSchema } from "../../store/features/engine/engineState";
@@ -500,7 +501,9 @@ class ScriptBuilder {
         if (token.type === "VAL") {
           rpn = rpn.int16(token.value);
         } else if (token.type === "VAR") {
-          const ref = this.getVariableAlias(token.symbol.replace(/\$/g, ""));
+          console.log(token.symbol);
+          const ref = token.symbol.replace(/\$/g, "");
+          console.log(ref);
           rpn = rpn.refVariable(ref);
         } else if (token.type === "FUN") {
           const op = funToScriptOperator(token.function);
@@ -898,6 +901,7 @@ class ScriptBuilder {
       },
       refVariable: (variable: string) => {
         const variableAlias = this.getVariableAlias(variable);
+        console.log(variableAlias);
         if (this._isArg(variableAlias)) {
           return rpn.refInd(this._stackOffset(variableAlias));
         } else {
@@ -3501,14 +3505,43 @@ class ScriptBuilder {
     tileVar: string,
     x: number,
     y: number,
+    w = 1,
+    h = 1,
   ) => {
     const { tilesets } = this.options;
     const tilesetIndex = tilesets.findIndex((t) => t.id === tilesetId);
+    if (tilesetIndex > -1) {
+      const tilesetWidth = (tilesets[tilesetIndex] as Tileset).width;
 
-    this._addComment(`Set Tile`);
-    const variableAlias = this.getVariableAlias(tileVar);
-    this._replaceTileXY(x, y, tilesetExtraSymbol(tilesetIndex), variableAlias);
-    this._addNL();
+      this._addComment(`Set Tile`);
+      const variableAlias = this.getVariableAlias(tileVar);
+
+      for (let i = 0; i < w; i++) {
+        for (let j = 0; j < h; j++) {
+
+          if (this._isArg(variableAlias)) {
+            this._stackPushInd(variableAlias);
+          } else {
+            this._stackPush(variableAlias);
+          }
+
+          this._rpn() 
+            .int8((i + j * tilesetWidth))
+            .operator(".ADD")
+            .stop();
+          this._addNL();              
+    
+          this._replaceTileXY(x + i, y + j, tilesetExtraSymbol(tilesetIndex), ".ARG0");
+
+          this._stackPop(1);
+
+          this._addNL();
+        }
+      }
+    } else {
+      console.warn("Tileset not found", tilesetId);
+      return;
+    }
   }
 
   _compilePath = (path: ScriptEvent[] | ScriptBuilderPathFunction = []) => {

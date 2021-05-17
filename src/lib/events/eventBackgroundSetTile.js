@@ -38,6 +38,24 @@ const fields = [
       number: 0,
       variable: "LAST_VARIABLE",
     }
+  },
+  {
+    key: "w",
+    label: l10n("FIELD_W"),
+    type: "number",
+    min: 0,
+    max: 255,
+    width: "50%",
+    defaultValue: 0,
+  },
+  {
+    key: "h",
+    label: l10n("FIELD_H"),
+    type: "number",
+    min: 0,
+    max: 255,
+    width: "50%",
+    defaultValue: 0,
   }
 ];
 
@@ -47,9 +65,7 @@ const compile = (input, helpers) => {
     input.tile,
     temporaryEntityVariable(0)
   );
-  console.log(input.tile);
-  console.log(tileVar);
-  backgroundSetTile(input.tilesetId, tileVar, input.x, input.y);
+  backgroundSetTile(input.tilesetId, tileVar, input.x, input.y, input.w, input.h);
 };
 
 module.exports = {
