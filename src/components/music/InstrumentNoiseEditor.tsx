@@ -8,6 +8,7 @@ import { CheckboxField } from "../ui/form/CheckboxField";
 import { FormDivider, FormRow } from "../ui/form/FormLayout";
 import { SliderField } from "../ui/form/SliderField";
 import { InstrumentLengthForm } from "./InstrumentLengthForm";
+import { VolumeEnvelopeForm as VolumeEnvelopeForm } from "./VolumeEnvelopeForm";
 
 interface InstrumentNoiseEditorProps {
   id: string;
@@ -84,6 +85,13 @@ export const InstrumentNoiseEditor = ({
           }}
         />
       </FormRow>
+
+      <VolumeEnvelopeForm
+        volume={instrument.initial_volume}
+        volume_sweep_change={instrument.volume_sweep_change}
+        length={instrument.length || 0}
+        onChange={onChangeField("volume_sweep_change" || "initial_volume" || "length")}
+      />
 
       <FormDivider />
 
