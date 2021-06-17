@@ -7,6 +7,7 @@ import { FormDivider, FormField, FormRow } from "../ui/form/FormLayout";
 import { Select } from "../ui/form/Select";
 import { SliderField } from "../ui/form/SliderField";
 import { InstrumentLengthForm } from "./InstrumentLengthForm";
+import { VolumeEnvelopeForm as VolumeEnvelopeForm } from "./VolumeEnvelopeForm";
 
 const dutyOptions = [
   {
@@ -140,6 +141,13 @@ export const InstrumentDutyEditor = ({
           }}
         />
       </FormRow>
+
+      <VolumeEnvelopeForm
+        volume={instrument.initial_volume}
+        volume_sweep_change={instrument.volume_sweep_change}
+        length={instrument.length || 0}
+        onChange={onChangeField("volume_sweep_change" || "initial_volume" || "length")}
+      />
 
       <FormDivider />
 
