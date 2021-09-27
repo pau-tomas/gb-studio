@@ -21,7 +21,7 @@ import { Button } from "ui/buttons/Button";
 import { Music } from "store/features/entities/entitiesTypes";
 import { saveSongFile } from "store/features/trackerDocument/trackerDocumentState";
 import { InstrumentSelect } from "./InstrumentSelect";
-import { Select } from "ui/form/Select";
+import { Select, Option } from "ui/form/Select";
 import { PianoRollToolType } from "store/features/tracker/trackerState";
 import { ipcRenderer } from "electron";
 import l10n from "lib/helpers/l10n";
@@ -280,6 +280,32 @@ const SongEditorToolsPanel = ({ selectedSong }: SongEditorToolsPanelProps) => {
   const themePianoIcon =
     themeContext.type === "light" ? <PianoIcon /> : <PianoInverseIcon />;
 
+  const midiDevices = useSelector(
+    (state: RootState) => state.tracker.midiDevices
+  );
+  const selectedMidiDevice = useSelector(
+    (state: RootState) => state.tracker.selectedMidiDevice
+  );
+  const setSelectedMidiDevice = useCallback(
+    (id: string) => {
+      dispatch(trackerActions.setSelectedMidiDevice(id));
+    },
+    [dispatch]
+  );
+  const [midiDeviceOptions, setMidiDeviceOptions] = useState<Option[]>([]);
+  useEffect(() => {
+    const newMidiDeviceOptions = midiDevices.map((m: WebMidi.MIDIInput) => {
+      return {
+        value: m.id,
+        label: m.name,
+      } as Option;
+    });
+    setMidiDeviceOptions(newMidiDeviceOptions);
+    if (selectedMidiDevice === null && midiDevices.length > 0) {
+      setSelectedMidiDevice(midiDevices[0].id);
+    }
+  }, [midiDevices, selectedMidiDevice, setSelectedMidiDevice]);
+
   return (
     <>
       <FloatingPanelSwitchView>
@@ -295,7 +321,6 @@ const SongEditorToolsPanel = ({ selectedSong }: SongEditorToolsPanelProps) => {
           {view === "roll" ? <TrackerIcon /> : themePianoIcon}
         </Button>
       </FloatingPanelSwitchView>
-
       <FloatingPanelTools>
         <Button
           variant="transparent"
@@ -375,6 +400,22 @@ const SongEditorToolsPanel = ({ selectedSong }: SongEditorToolsPanelProps) => {
               options={octaveOffsetOptions}
               onChange={(newValue: OctaveOffsetOptions) => {
                 setOctaveOffset(newValue.value);
+              }}
+            />
+          </>
+        ) : (
+          ""
+        )}
+        {view === "tracker" && midiDeviceOptions.length > 0 ? (
+          <>
+            <FloatingPanelDivider />
+            <Select
+              value={midiDeviceOptions.find(
+                (i) => i.value === selectedMidiDevice
+              )}
+              options={midiDeviceOptions}
+              onChange={(newValue: Option) => {
+                setSelectedMidiDevice(newValue.value);
               }}
             />
           </>
