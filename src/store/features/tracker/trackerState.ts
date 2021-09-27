@@ -24,6 +24,8 @@ export interface TrackerState {
   selectedPatternCells: number[];
   selection: [number, number, number, number];
   selectedEffectCell: number | null;
+  midiDevices: WebMidi.MIDIInput[];
+  selectedMidiDevice: string | null;
 }
 
 export const initialState: TrackerState = {
@@ -47,6 +49,8 @@ export const initialState: TrackerState = {
   selectedPatternCells: [],
   selection: [-1, -1, -1, -1],
   selectedEffectCell: null,
+  midiDevices: [],
+  selectedMidiDevice: null,
 };
 
 const trackerSlice = createSlice({
@@ -113,6 +117,12 @@ const trackerSlice = createSlice({
     setSelectedEffectCell: (state, _action: PayloadAction<number | null>) => {
       state.selectedPatternCells = [];
       state.selectedEffectCell = _action.payload;
+    },
+    setMidiDevices: (state, _action: PayloadAction<WebMidi.MIDIInput[]>) => {
+      state.midiDevices = _action.payload;
+    },
+    setSelectedMidiDevice: (state, _action: PayloadAction<string | null>) => {
+      state.selectedMidiDevice = _action.payload;
     },
   },
   extraReducers: (builder) =>

@@ -402,6 +402,135 @@ export const SongTracker = ({
     [isMouseDown, selectionOrigin]
   );
 
+  const handleMidiKeys = useCallback(
+    (pitch: number) => {
+      console.log("HANDLE MIDI KEY", pitch, activeField);
+      const note = pitch - 48;
+      if (note < 0 || note > 72) {
+        console.log(`Note out of range - MIDI pitch: ${pitch} | Note: ${note}`);
+        return;
+      }
+      if (activeField !== undefined) {
+        dispatch(
+          trackerDocumentActions.editPatternCell({
+            patternId: patternId,
+            cell: [
+              Math.floor(activeField / 16),
+              Math.floor(activeField / 4) % 4,
+            ],
+            changes: {
+              note: note,
+            },
+          })
+        );
+        setActiveField(activeField + ROW_SIZE * editStep);
+      }
+    },
+    [activeField, dispatch, editStep, patternId]
+  );
+
+  const handleMidiMessage = useCallback(
+    (event: any) => {
+      const notesOn = new Map();
+
+      // MIDI commands we care about. See
+      // http://webaudio.github.io/web-midi-api/#a-simple-monophonic-sine-wave-midi-synthesizer.
+      const NOTE_ON = 9;
+      const NOTE_OFF = 8;
+
+      const cmd = event.data[0] >> 4;
+      const pitch = event.data[1];
+      const velocity = event.data.length > 2 ? event.data[2] : 1;
+
+      // You can use the timestamp to figure out the duration of each note.
+      const timestamp = Date.now();
+
+      // Note that not all MIDI controllers send a separate NOTE_OFF command for every NOTE_ON.
+      if (cmd === NOTE_OFF || (cmd === NOTE_ON && velocity === 0)) {
+        console.log(
+          `🎧 from ${event.srcElement.name} note off: pitch:${pitch}, velocity: ${velocity}`
+        );
+
+        // Complete the note!
+        const note = notesOn.get(pitch);
+        if (note) {
+          console.log(`🎵 pitch:${pitch}, duration:${timestamp - note} ms.`);
+          notesOn.delete(pitch);
+        }
+      } else if (cmd === NOTE_ON) {
+        console.log(
+          `🎧 from ${event.srcElement.name} note off: pitch:${pitch}, velocity: {velocity}`
+        );
+
+        // One note can only be on at once.
+        notesOn.set(pitch, timestamp);
+
+        handleMidiKeys(pitch);
+      }
+    },
+    [handleMidiKeys]
+  );
+
+  const midiDevices = useSelector(
+    (state: RootState) => state.tracker.midiDevices
+  );
+
+  useEffect(() => {
+    async function requestMidi() {
+      console.log("REQUEST MIDI ACCESS");
+      try {
+        const midi = await navigator.requestMIDIAccess({ sysex: true });
+        midi.onstatechange = (event: any) => {
+          console.log("MIDI STATE CHANGE", event);
+          initDevices(event.target);
+        };
+        initDevices(midi);
+      } catch (e) {
+        console.log("Something went wrong", e);
+      }
+    }
+    requestMidi();
+
+    function initDevices(midi: WebMidi.MIDIAccess) {
+      // Reset.
+      const midiIn = [];
+
+      // MIDI devices that send you data.
+      const inputs = midi.inputs.values();
+      for (
+        let input = inputs.next();
+        input && !input.done;
+        input = inputs.next()
+      ) {
+        midiIn.push(input.value);
+      }
+      dispatch(trackerActions.setMidiDevices(midiIn));
+
+      console.log(midiIn);
+    }
+  }, [dispatch]);
+
+  const selectedMidiDevice = useSelector(
+    (state: RootState) => state.tracker.selectedMidiDevice
+  );
+  useEffect(() => {
+    if (midiDevices.length > 0) {
+      const activeMidiDevice = midiDevices.find(
+        (m) => m.id === selectedMidiDevice
+      );
+
+      if (activeMidiDevice) {
+        activeMidiDevice.addEventListener("midimessage", handleMidiMessage);
+        return () => {
+          activeMidiDevice.removeEventListener(
+            "midimessage",
+            handleMidiMessage
+          );
+        };
+      }
+    }
+  }, [handleMidiMessage, midiDevices, selectedMidiDevice]);
+
   const handleKeys = useCallback(
     (e: KeyboardEvent) => {
       const editPatternCell =
@@ -730,7 +859,7 @@ export const SongTracker = ({
 
   const onBlur = useCallback(
     (_e: React.FocusEvent<HTMLDivElement>) => {
-      setActiveField(undefined);
+      // setActiveField(undefined);
     },
     [setActiveField]
   );

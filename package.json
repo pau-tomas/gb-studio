@@ -51,6 +51,7 @@
     "@types/react-select": "^3.0.22",
     "@types/react-window": "^1.8.2",
     "@types/styled-components": "^5.1.4",
+    "@types/webmidi": "^2.0.6",
     "@vercel/webpack-asset-relocator-loader": "^1.7.0",
     "about-window": "^1.13.2",
     "chokidar": "^3.5.1",
