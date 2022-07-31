@@ -96,6 +96,7 @@ export const SongTracker = ({
   const [selectionRect, setSelectionRect] =
     useState<SelectionRect | undefined>();
   const [isSelecting, setIsSelecting] = useState(false);
+  const [isMouseDown, setIsMouseDown] = useState(false);
 
   useEffect(() => {
     const newSelectedTrackerFields = [];
@@ -121,6 +122,17 @@ export const SongTracker = ({
     setSelectedTrackerFields(newSelectedTrackerFields);
     //console.log("new selection within rect: " + newSelectedTrackerFields);
   }, [selectionOrigin, selectionRect]);
+
+  const [selectedTrackerRows, setSelectedTrackerRows] = useState<number[]>();
+  useEffect(() => {
+    const newSelectedTrackerRows = selectedTrackerFields?.map((f) =>
+      Math.floor(f / ROW_SIZE)
+    );
+
+    console.log(newSelectedTrackerRows);
+
+    setSelectedTrackerRows(newSelectedTrackerRows);
+  }, [selectedTrackerFields]);
 
   const [playbackState, setPlaybackState] = useState([0, 0]);
 
@@ -246,6 +258,8 @@ export const SongTracker = ({
       const rowId = e.target.dataset["row"];
 
       if (!!fieldId) {
+        setIsMouseDown(true);
+
         if (e.shiftKey) {
           setIsSelecting(true);
 
@@ -290,25 +304,36 @@ export const SongTracker = ({
 
   const handleMouseUp = useCallback(
     (e: any) => {
-      const fieldId = e.target.dataset["fieldid"];
+      if (isMouseDown) {
+        setIsMouseDown(false);
+      }
+    },
+    [isMouseDown]
+  );
 
-      if (!!fieldId) {
-        const newActiveField =
-          ((parseInt(fieldId) % NUM_FIELDS) + NUM_FIELDS) % NUM_FIELDS;
+  const handleMouseMove = useCallback(
+    (e: any) => {
+      if (isMouseDown) {
+        const fieldId = e.target.dataset["fieldid"];
 
-        if (selectionOrigin) {
-          const x2 = newActiveField % ROW_SIZE;
-          const y2 = Math.floor(newActiveField / ROW_SIZE);
+        if (!!fieldId) {
+          const newActiveField =
+            ((parseInt(fieldId) % NUM_FIELDS) + NUM_FIELDS) % NUM_FIELDS;
 
-          const x = Math.min(selectionOrigin.x, x2);
-          const y = Math.min(selectionOrigin.y, y2);
-          const width = Math.abs(selectionOrigin.x - x2);
-          const height = Math.abs(selectionOrigin.y - y2);
-          setSelectionRect({ x, y, width, height });
+          if (selectionOrigin) {
+            const x2 = newActiveField % ROW_SIZE;
+            const y2 = Math.floor(newActiveField / ROW_SIZE);
+
+            const x = Math.min(selectionOrigin.x, x2);
+            const y = Math.min(selectionOrigin.y, y2);
+            const width = Math.abs(selectionOrigin.x - x2);
+            const height = Math.abs(selectionOrigin.y - y2);
+            setSelectionRect({ x, y, width, height });
+          }
         }
       }
     },
-    [selectionOrigin]
+    [isMouseDown, selectionOrigin]
   );
 
   const handleKeys = useCallback(
@@ -622,6 +647,7 @@ export const SongTracker = ({
     window.addEventListener("keyup", handleKeysUp);
     window.addEventListener("mousedown", handleMouseDown);
     window.addEventListener("mouseup", handleMouseUp);
+    window.addEventListener("mousemove", handleMouseMove);
     window.addEventListener("wheel", handleWheel);
 
     return () => {
@@ -629,6 +655,7 @@ export const SongTracker = ({
       window.removeEventListener("keyup", handleKeysUp);
       window.removeEventListener("mousedown", handleMouseDown);
       window.removeEventListener("mouseup", handleMouseUp);
+      window.removeEventListener("mousemove", handleMouseMove);
       window.removeEventListener("wheel", handleWheel);
     };
   });
@@ -764,6 +791,7 @@ export const SongTracker = ({
               Math.floor(activeField / ROW_SIZE) === i;
             const isPlaying =
               playbackState[0] === sequenceId && playbackState[1] === i;
+            const isSelected = selectedTrackerRows?.indexOf(i) !== -1;
             return (
               <span ref={isPlaying ? playingRowRef : null}>
                 <SongRow
@@ -776,7 +804,7 @@ export const SongTracker = ({
                   isPlaying={isPlaying}
                   ref={activeFieldRef}
                   selectedTrackerFields={
-                    !isPlaying ? selectedTrackerFields || [] : []
+                    !isPlaying && isSelected ? selectedTrackerFields || [] : []
                   }
                 />
               </span>
