@@ -479,7 +479,7 @@ export const SongTracker = ({
     async function requestMidi() {
       console.log("REQUEST MIDI ACCESS");
       try {
-        const midi = await navigator.requestMIDIAccess();
+        const midi = await navigator.requestMIDIAccess({ sysex: true });
         midi.onstatechange = (event: any) => {
           console.log("MIDI STATE CHANGE", event);
           initDevices(event.target);
