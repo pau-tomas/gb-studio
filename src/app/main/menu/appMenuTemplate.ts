@@ -16,23 +16,17 @@ export default ({
   submenu: [
     {
       label: l10n("MENU_ABOUT"),
-      click() {
-        openAbout();
-      },
+      click: openAbout,
     },
     {
       label: l10n("MENU_CHECK_FOR_UPDATES"),
-      click: () => {
-        checkForUpdates();
-      },
+      click: checkForUpdates,
     },
     { type: "separator" },
     {
       label: l10n("MENU_PREFERENCES"),
       accelerator: "CommandOrControl+,",
-      click: () => {
-        openPreferences();
-      },
+      click: openPreferences,
     },
     { type: "separator" },
     { role: "services" },

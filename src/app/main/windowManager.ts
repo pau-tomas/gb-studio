@@ -6,7 +6,7 @@ declare const SPLASH_WINDOW_WEBPACK_ENTRY: string;
 export default class WindowManager {
   splashWindow?: BrowserWindow;
 
-  // constructor() {}
+  constructor() {}
 
   createWindow() {
     const win = new BrowserWindow({
@@ -26,7 +26,7 @@ export default class WindowManager {
     this.splashWindow = win;
   }
 
-  start() {
+  init() {
     app.whenReady().then(() => {
       this.createWindow();
       app.on("activate", () => {
