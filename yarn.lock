@@ -679,6 +679,11 @@
   resolved "https://registry.yarnpkg.com/@bcoe/v8-coverage/-/v8-coverage-0.2.3.tgz#75a2e8b51cb758a7553d6804a5932d7aace75c39"
   integrity sha512-0hYQ8SB4Db5zvZB4axdMHGwEaQjkZzFjQiN9LVYvIFB2nSUHW9tYpxWriPrWDASIxiaXax83REcLxuSdnGPZtw==
 
+"@byte.london/byteguards@^1.1.3":
+  version "1.1.3"
+  resolved "https://registry.yarnpkg.com/@byte.london/byteguards/-/byteguards-1.1.3.tgz#f5f18b7bb1439dc63921f4809891c5e3e4e2ac27"
+  integrity sha512-2XmbbOfRgMGUjLTmrecYRiHO4CsbTqn5zK8r0D/BnJ0EFKKoKl7zNuiHJFmKCOwrugykWoJ/mQNXHog5wdYAYw==
+
 "@discoveryjs/json-ext@^0.5.0":
   version "0.5.3"
   resolved "https://registry.yarnpkg.com/@discoveryjs/json-ext/-/json-ext-0.5.3.tgz#90420f9f9c6d3987f176a19a7d8e764271a2f55d"

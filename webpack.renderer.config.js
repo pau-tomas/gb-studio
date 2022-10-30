@@ -21,7 +21,7 @@ const srcPath = (subdir) => {
 
 module.exports = {
   // Put your normal webpack config below here
-  target: "electron-renderer",
+  target: "web",
   module: {
     rules,
   },
@@ -29,36 +29,36 @@ module.exports = {
     minimize: false,
     splitChunks: {
       cacheGroups: {
-        "vendor-react": {
-          name: "vendor-react",
-          test: /[\\/]node_modules[\\/](react.*?|redux.*?)[\\/]/,
-          chunks: "initial",
-          priority: 2,
-        },
-        "vendor-scriptracker": {
-          name: "vendor-scriptracker",
-          test: /[\\/]src[\\/]lib[\\/]vendor[\\/]scriptracker[\\/]/,
-          chunks: "all",
-          priority: 2,
-        },
-        "vendor-hotloader": {
-          name: "vendor-hotloader",
-          test: /[\\/]node_modules[\\/]@hot-loader[\\/]/,
-          chunks: "all",
-          priority: 2,
-        },
-        "vendor-lodash": {
-          name: "vendor-lodash",
-          test: /[\\/]node_modules[\\/]lodash[\\/]/,
-          chunks: "all",
-          priority: 2,
-        },
-        "vendor-chokidar": {
-          name: "vendor-chokidar",
-          test: /[\\/]node_modules[\\/]chokidar[\\/]/,
-          chunks: "all",
-          priority: 2,
-        },
+        // "vendor-react": {
+        //   name: "vendor-react",
+        //   test: /[\\/]node_modules[\\/](react.*?|redux.*?)[\\/]/,
+        //   chunks: "initial",
+        //   priority: 2,
+        // },
+        // "vendor-scriptracker": {
+        //   name: "vendor-scriptracker",
+        //   test: /[\\/]src[\\/]lib[\\/]vendor[\\/]scriptracker[\\/]/,
+        //   chunks: "all",
+        //   priority: 2,
+        // },
+        // "vendor-hotloader": {
+        //   name: "vendor-hotloader",
+        //   test: /[\\/]node_modules[\\/]@hot-loader[\\/]/,
+        //   chunks: "all",
+        //   priority: 2,
+        // },
+        // "vendor-lodash": {
+        //   name: "vendor-lodash",
+        //   test: /[\\/]node_modules[\\/]lodash[\\/]/,
+        //   chunks: "all",
+        //   priority: 2,
+        // },
+        // "vendor-chokidar": {
+        //   name: "vendor-chokidar",
+        //   test: /[\\/]node_modules[\\/]chokidar[\\/]/,
+        //   chunks: "all",
+        //   priority: 2,
+        // },
       },
     },
   },
