@@ -1,53 +1,52 @@
 import React, { useEffect, useState } from "react";
-import Path from "path";
-import { ipcRenderer, remote } from "electron";
-import settings from "electron-settings";
-import FocusLock, { AutoFocusInside } from "react-focus-lock";
-import { FlexGrow } from "ui/spacing/Spacing";
-import {
-  SplashAppTitle,
-  SplashContent,
-  SplashCreateButton,
-  SplashCredits,
-  SplashCreditsBackground,
-  SplashCreditsCloseButton,
-  SplashCreditsContent,
-  SplashCreditsContributor,
-  SplashCreditsTitle,
-  SplashEasterEggButton,
-  SplashForm,
-  SplashInfoMessage,
-  SplashLogo,
-  SplashOpenButton,
-  SplashProject,
-  SplashProjectClearButton,
-  SplashScroll,
-  SplashSidebar,
-  SplashTab,
-  SplashTemplateSelect,
-  SplashWrapper,
-} from "ui/splash/Splash";
-import createProject, { ERR_PROJECT_EXISTS } from "lib/project/createProject";
+// import Path from "path";
+// import { ipcRenderer, remote } from "electron";
+// import settings from "electron-settings";
+// import FocusLock, { AutoFocusInside } from "react-focus-lock";
+// import { FlexGrow } from "ui/spacing/Spacing";
+// import {
+//   SplashAppTitle,
+//   SplashContent,
+//   SplashCreateButton,
+//   SplashCredits,
+//   SplashCreditsBackground,
+//   SplashCreditsCloseButton,
+//   SplashCreditsContent,
+//   SplashCreditsContributor,
+//   SplashCreditsTitle,
+//   SplashEasterEggButton,
+//   SplashForm,
+//   SplashInfoMessage,
+//   SplashLogo,
+//   SplashOpenButton,
+//   SplashProject,
+//   SplashProjectClearButton,
+//   SplashScroll,
+//   SplashSidebar,
+//   SplashTab,
+//   SplashTemplateSelect,
+//   SplashWrapper,
+// } from "ui/splash/Splash";
+// import createProject, { ERR_PROJECT_EXISTS } from "lib/project/createProject";
 import GlobalStyle from "ui/globalStyle";
 import ThemeProvider from "ui/theme/ThemeProvider";
-import logoFile from "ui/icons/GBStudioLogo.png";
-import { FormField, FormRow } from "ui/form/FormLayout";
-import { TextField } from "ui/form/TextField";
-import { CloseIcon, DotsIcon } from "ui/icons/Icons";
-import { Button } from "ui/buttons/Button";
-import l10n from "lib/helpers/l10n";
-import contributors from "../../../contributors.json";
-import gbs2Preview from "../../assets/templatePreview/gbs2.mp4";
-import gbhtmlPreview from "../../assets/templatePreview/gbhtml.mp4";
-import blankPreview from "../../assets/templatePreview/blank.png";
+// import logoFile from "ui/icons/GBStudioLogo.png";
+// import { FormField, FormRow } from "ui/form/FormLayout";
+// import { TextField } from "ui/form/TextField";
+// import { CloseIcon, DotsIcon } from "ui/icons/Icons";
+// import { Button } from "ui/buttons/Button";
+// import l10n from "lib/helpers/l10n";
+// import contributors from "../../../contributors.json";
+// import gbs2Preview from "../../assets/templatePreview/gbs2.mp4";
+// import gbhtmlPreview from "../../assets/templatePreview/gbhtml.mp4";
+// import blankPreview from "../../assets/templatePreview/blank.png";
 import useWindowFocus from "ui/hooks/use-window-focus";
-import initElectronL10n from "lib/helpers/initElectronL10n";
+// import initElectronL10n from "lib/helpers/initElectronL10n";
+import { l10n } from "../../app/splash/api";
 
 // Make sure localisation has loaded so that
 // l10n function can be used at top level
-initElectronL10n();
-
-const { dialog, shell } = remote;
+// initElectronL10n();
 
 declare const DOCS_URL: string;
 
@@ -68,48 +67,48 @@ type TemplateInfo = {
 const splashTabs = ["new", "recent"] as const;
 type SplashTabSection = typeof splashTabs[number];
 
-const templates: TemplateInfo[] = [
-  {
-    id: "gbs2",
-    name: l10n("SPLASH_SAMPLE_PROJECT"),
-    preview: gbs2Preview,
-    videoPreview: true,
-    description: l10n("SPLASH_SAMPLE_PROJECT_DESCRIPTION"),
-  },
-  {
-    id: "gbhtml",
-    name: `${l10n("SPLASH_SAMPLE_PROJECT")} (GBS 1.0)`,
-    preview: gbhtmlPreview,
-    videoPreview: true,
-    description: l10n("SPLASH_SAMPLE_PROJECT_ORIGINAL_DESCRIPTION"),
-  },
-  {
-    id: "blank",
-    name: l10n("SPLASH_BLANK_PROJECT"),
-    preview: blankPreview,
-    videoPreview: false,
-    description: l10n("SPLASH_BLANK_PROJECT_DESCRIPTION"),
-  },
-];
+// const templates: TemplateInfo[] = [
+//   {
+//     id: "gbs2",
+//     name: l10n("SPLASH_SAMPLE_PROJECT"),
+//     preview: gbs2Preview,
+//     videoPreview: true,
+//     description: l10n("SPLASH_SAMPLE_PROJECT_DESCRIPTION"),
+//   },
+//   {
+//     id: "gbhtml",
+//     name: `${l10n("SPLASH_SAMPLE_PROJECT")} (GBS 1.0)`,
+//     preview: gbhtmlPreview,
+//     videoPreview: true,
+//     description: l10n("SPLASH_SAMPLE_PROJECT_ORIGINAL_DESCRIPTION"),
+//   },
+//   {
+//     id: "blank",
+//     name: l10n("SPLASH_BLANK_PROJECT"),
+//     preview: blankPreview,
+//     videoPreview: false,
+//     description: l10n("SPLASH_BLANK_PROJECT_DESCRIPTION"),
+//   },
+// ];
 
 const getLastUsedPath = () => {
-  const storedPath = String(settings.get("__lastUsedPath"));
-  if (storedPath && storedPath !== "undefined") {
-    return Path.normalize(storedPath);
-  }
-  return remote.app.getPath("documents");
+  // const storedPath = String(settings.get("__lastUsedPath"));
+  // if (storedPath && storedPath !== "undefined") {
+  //   return Path.normalize(storedPath);
+  // }
+  // return remote.app.getPath("documents");
 };
 
 const setLastUsedPath = (path: string) => {
-  settings.set("__lastUsedPath", path);
+  // settings.set("__lastUsedPath", path);
 };
 
 const getLastUsedTab = () => {
-  return String(settings.get("__lastUsedSplashTab")) || "info";
+  // return String(settings.get("__lastUsedSplashTab")) || "info";
 };
 
 const setLastUsedTab = (tab: string) => {
-  settings.set("__lastUsedSplashTab", tab);
+  // settings.set("__lastUsedSplashTab", tab);
 };
 
 const toSplashTab = (tab: string): SplashTabSection => {
@@ -136,107 +135,106 @@ export default () => {
   const windowFocus = useWindowFocus();
 
   useEffect(() => {
-    ipcRenderer.send("request-recent-projects");
-    ipcRenderer.once("recent-projects", (_, projectPaths: string[]) => {
-      if (projectPaths && projectPaths.length > 0) {
-        setRecentProjects(
-          projectPaths
-            .map((projectPath: string) => ({
-              name: Path.basename(projectPath),
-              dir: Path.dirname(projectPath),
-              path: projectPath,
-            }))
-            .reverse()
-        );
-      }
-    });
+    // ipcRenderer.send("request-recent-projects");
+    // ipcRenderer.once("recent-projects", (_, projectPaths: string[]) => {
+    //   if (projectPaths && projectPaths.length > 0) {
+    //     setRecentProjects(
+    //       projectPaths
+    //         .map((projectPath: string) => ({
+    //           name: Path.basename(projectPath),
+    //           dir: Path.dirname(projectPath),
+    //           path: projectPath,
+    //         }))
+    //         .reverse()
+    //     );
+    //   }
+    // });
   }, []);
 
   const onSetTab = (tab: SplashTabSection) => () => {
-    setSection(tab);
-    setLastUsedTab(tab);
+    // setSection(tab);
+    // setLastUsedTab(tab);
   };
 
   const onOpen = () => {
-    ipcRenderer.send("open-project-picker");
+    // ipcRenderer.send("open-project-picker");
   };
 
   const onOpenRecent = (projectPath: string) => () => {
-    ipcRenderer.send("open-project", { projectPath });
+    // ipcRenderer.send("open-project", { projectPath });
   };
 
   const onChangeName = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const newName = e.currentTarget.value;
-    setName(newName);
-    setNameError("");
+    // const newName = e.currentTarget.value;
+    // setName(newName);
+    // setNameError("");
   };
 
   const onChangePath = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const newPath = e.currentTarget.value;
-    setLastUsedPath(newPath);
-    setPath(newPath);
-    setPathError("");
+    // const newPath = e.currentTarget.value;
+    // setLastUsedPath(newPath);
+    // setPath(newPath);
+    // setPathError("");
   };
 
   const onSelectFolder = async () => {
-    const path = await dialog.showOpenDialog({
-      properties: ["openDirectory"],
-    });
-    if (path.filePaths[0]) {
-      const newPath = Path.normalize(`${path.filePaths}/`);
-      setLastUsedPath(newPath);
-      setPath(newPath);
-      setPathError("");
-    }
+    // const path = await dialog.showOpenDialog({
+    //   properties: ["openDirectory"],
+    // });
+    // if (path.filePaths[0]) {
+    //   const newPath = Path.normalize(`${path.filePaths}/`);
+    //   setLastUsedPath(newPath);
+    //   setPath(newPath);
+    //   setPathError("");
+    // }
   };
 
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    if (!name) {
-      setNameError(l10n("ERROR_PLEASE_ENTER_PROJECT_NAME"));
-      return;
-    }
-
-    if (!path) {
-      setPathError(l10n("ERROR_PLEASE_ENTER_PROJECT_PATH"));
-      return;
-    }
-
-    try {
-      setCreating(true);
-      const projectPath = await createProject({
-        name,
-        target: templateId,
-        path,
-      });
-      ipcRenderer.send("open-project", { projectPath });
-    } catch (err) {
-      console.error(err);
-      if (err === ERR_PROJECT_EXISTS) {
-        setNameError(l10n("ERROR_PROJECT_ALREADY_EXISTS"));
-        setCreating(false);
-      } else if (
-        String(err.message).startsWith("ENOTDIR") ||
-        String(err.message).startsWith("EEXIST")
-      ) {
-        setPathError(l10n("ERROR_PROJECT_PATH_INVALID"));
-        setCreating(false);
-      } else {
-        setPathError(err.message);
-        setCreating(false);
-      }
-    }
+    // e.preventDefault();
+    // if (!name) {
+    //   setNameError(l10n("ERROR_PLEASE_ENTER_PROJECT_NAME"));
+    //   return;
+    // }
+    // if (!path) {
+    //   setPathError(l10n("ERROR_PLEASE_ENTER_PROJECT_PATH"));
+    //   return;
+    // }
+    // try {
+    //   setCreating(true);
+    //   const projectPath = await createProject({
+    //     name,
+    //     target: templateId,
+    //     path,
+    //   });
+    //   ipcRenderer.send("open-project", { projectPath });
+    // } catch (err) {
+    //   console.error(err);
+    //   if (err === ERR_PROJECT_EXISTS) {
+    //     setNameError(l10n("ERROR_PROJECT_ALREADY_EXISTS"));
+    //     setCreating(false);
+    //   } else if (
+    //     String(err.message).startsWith("ENOTDIR") ||
+    //     String(err.message).startsWith("EEXIST")
+    //   ) {
+    //     setPathError(l10n("ERROR_PROJECT_PATH_INVALID"));
+    //     setCreating(false);
+    //   } else {
+    //     setPathError(err.message);
+    //     setCreating(false);
+    //   }
+    // }
   };
 
   const clearRecent = () => {
-    setRecentProjects([]);
-    ipcRenderer.send("clear-recent-projects");
+    // setRecentProjects([]);
+    // ipcRenderer.send("clear-recent-projects");
   };
 
   return (
     <ThemeProvider>
       <GlobalStyle />
-      <SplashWrapper focus={windowFocus}>
+      XYZ111
+      {/* <SplashWrapper focus={windowFocus}>
         <SplashSidebar>
           <SplashLogo>
             <img src={logoFile} alt="GB Studio" />
@@ -252,7 +250,9 @@ export default () => {
           >
             {l10n("SPLASH_RECENT")}
           </SplashTab>
-          <SplashTab onClick={() => shell.openExternal(DOCS_URL)}>
+          <SplashTab
+          // onClick={() => shell.openExternal(DOCS_URL)}
+          >
             {l10n("SPLASH_DOCUMENTATION")}
           </SplashTab>
           <FlexGrow />
@@ -347,7 +347,7 @@ export default () => {
                 <SplashCreditsContributor
                   key={contributor.id}
                   contributor={contributor}
-                  onClick={() => shell.openExternal(contributor.html_url)}
+                  // onClick={() => shell.openExternal(contributor.html_url)}
                 />
               ))}
             </SplashCreditsContent>
@@ -363,7 +363,7 @@ export default () => {
             </SplashCreditsCloseButton>
           </SplashCredits>
         </FocusLock>
-      )}
+      )} */}
     </ThemeProvider>
   );
 };

@@ -2,6 +2,7 @@
 import { Menu, app, shell } from "electron";
 import initIPC from "./ipc";
 import appMenuTemplate from "./menu/appMenuTemplate";
+import devMenuTemplate from "./menu/devMenuTemplate";
 import editMenuTemplate from "./menu/editMenuTemplate";
 import fileMenuTemplate from "./menu/fileMenuTemplate";
 import gameMenuTemplate from "./menu/gameMenuTemplate";
@@ -13,11 +14,13 @@ import WindowManager from "./windowManager";
 
 const windowManager = new WindowManager();
 
+const isDevMode = !!process.execPath.match(/[\\/]electron/);
+
 const openDocs = () => shell.openExternal("https://www.gbstudio.dev/docs/");
 const openLearnMore = () => shell.openExternal("https://www.gbstudio.dev");
 
-const setApplicationMenu = () => {
-  const isProjectOpen = () => false;
+const setApplicationMenu = (projectOpen: boolean) => {
+  const isProjectOpen = () => projectOpen;
   const menus = [
     appMenuTemplate({
       openAbout: () => {},
@@ -26,9 +29,9 @@ const setApplicationMenu = () => {
     }),
     fileMenuTemplate({
       isProjectOpen,
-      openNewProject: () => {},
+      openNewProject: () => windowManager.openSplashWindow("new"),
       openProject: () => {},
-      switchProject: () => {},
+      switchProject: () => windowManager.openSplashWindow("recent"),
       saveProject: () => {},
       saveProjectAs: () => {},
       reloadAssets: () => {},
@@ -69,6 +72,7 @@ const setApplicationMenu = () => {
       zoomOut: () => {},
       zoomReset: () => {},
     }),
+    ...(isDevMode ? [devMenuTemplate] : []),
     windowMenuTemplate({
       platform: process.platform,
     }),
@@ -82,7 +86,9 @@ const setApplicationMenu = () => {
 };
 
 app.on("ready", () => {
-  windowManager.init();
+  windowManager.init({
+    setApplicationMenu,
+  });
   initIPC({ windowManager });
-  setApplicationMenu();
+  setApplicationMenu(false);
 });

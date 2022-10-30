@@ -1,44 +1,115 @@
 import { app, BrowserWindow } from "electron";
+import { checkForUpdate } from "lib/helpers/updateChecker";
 
 declare const SPLASH_WINDOW_PRELOAD_WEBPACK_ENTRY: string;
 declare const SPLASH_WINDOW_WEBPACK_ENTRY: string;
 
+type SplashTab = "info" | "new" | "recent";
+
+const isDevMode = !!process.execPath.match(/[\\/]electron/);
+
+interface WindowManagerProps {
+  setApplicationMenu: (projectOpen: boolean) => void;
+}
+
 export default class WindowManager {
+  keepOpen = false;
   splashWindow?: BrowserWindow;
+  hasCheckedForUpdate = false;
+  setApplicationMenu?: (projectOpen: boolean) => void;
 
-  constructor() {}
-
-  createWindow() {
+  createSplashWindow(forceTab?: SplashTab) {
     const win = new BrowserWindow({
-      width: 800,
-      height: 600,
+      width: 640,
+      height: 400,
+      useContentSize: true,
+      resizable: false,
+      maximizable: false,
+      titleBarStyle: "hiddenInset",
+      fullscreenable: false,
+      show: false,
+      autoHideMenuBar: true,
       webPreferences: {
-        contextIsolation: true,
-        preload: SPLASH_WINDOW_PRELOAD_WEBPACK_ENTRY, //path.join(__dirname, 'preload.js')
+        nodeIntegration: true,
+        devTools: isDevMode,
+        preload: SPLASH_WINDOW_PRELOAD_WEBPACK_ENTRY,
       },
     });
 
-    const forceTab = "";
+    if (!win) return;
+    this.splashWindow = win;
 
-    win.loadFile("index.html");
+    this.setApplicationMenu?.(false);
     win.loadURL(`${SPLASH_WINDOW_WEBPACK_ENTRY}?tab=${forceTab || ""}`);
 
-    this.splashWindow = win;
+    win.webContents.on("did-finish-load", () => {
+      setTimeout(() => {
+        win?.show();
+        if (!this.hasCheckedForUpdate) {
+          this.hasCheckedForUpdate = true;
+          checkForUpdate();
+        }
+      }, 40);
+    });
+
+    win.on("closed", () => {
+      this.splashWindow = undefined;
+    });
   }
 
-  init() {
+  setSplashTab(tab?: SplashTab) {
+    if (this.splashWindow) {
+      this.splashWindow.loadURL(
+        `${SPLASH_WINDOW_WEBPACK_ENTRY}?tab=${tab || ""}`
+      );
+    }
+  }
+
+  waitUntilSplashClosed(): Promise<void> {
+    return new Promise((resolve) => {
+      const check = () => {
+        if (!this.splashWindow) {
+          resolve();
+        } else {
+          setTimeout(check, 10);
+        }
+      };
+      check();
+    });
+  }
+
+  async openSplashWindow(forceTab?: SplashTab) {
+    this.keepOpen = true;
+    if (this.splashWindow) {
+      this.setSplashTab(forceTab);
+      // this.splashWindow.close();
+      // await this.waitUntilSplashClosed();
+    }
+    // if (mainWindow) {
+    //   mainWindow.close();
+    //   await waitUntilWindowClosed();
+    // }
+    await this.createSplashWindow(forceTab);
+    this.keepOpen = false;
+  }
+
+  init({ setApplicationMenu }: WindowManagerProps) {
+    this.setApplicationMenu = setApplicationMenu;
+
     app.whenReady().then(() => {
-      this.createWindow();
+      this.createSplashWindow();
       app.on("activate", () => {
         if (BrowserWindow.getAllWindows().length === 0) {
-          this.createWindow();
+          this.createSplashWindow();
         }
       });
     });
 
     app.on("window-all-closed", () => {
       if (process.platform !== "darwin") {
-        app.quit();
+        if (!this.keepOpen) {
+          app.quit();
+        }
       }
     });
   }

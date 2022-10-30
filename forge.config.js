@@ -69,11 +69,11 @@ module.exports = {
             //   ],
             // },
             {
-              html: "./src/app/splash/splash.html",
-              js: "./src/renderer/splash/index.tsx",
+              html: "./src/app/splash/index.html",
+              js: "./src/app/splash/index.tsx",
               name: "splash_window",
               preload: {
-                js: "./src/renderer/splash/preload.ts",
+                js: "./src/app/splash/preload.ts",
               },
               // additionalChunks: [
               //   "vendor-react",

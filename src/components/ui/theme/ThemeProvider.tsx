@@ -1,15 +1,14 @@
 import React, { FC, useEffect, useState } from "react";
-import { ipcRenderer, remote } from "electron";
 import { ThemeProvider } from "styled-components";
 import lightTheme from "./lightTheme";
 import darkTheme from "./darkTheme";
 import lightThemeWin from "./lightThemeWin";
 import darkThemeWin from "./darkThemeWin";
 import neonTheme from "./neonTheme";
-import settings from "electron-settings";
 import { ThemeInterface } from "./ThemeInterface";
+import API from "app/splash/api";
 
-const { nativeTheme } = remote;
+// const { nativeTheme } = remote;
 
 const themeIds = ["dark", "light", "neon"] as const;
 type ThemeId = typeof themeIds[number];
@@ -59,8 +58,8 @@ const Provider: FC = ({ children }) => {
   useEffect(() => {
     const updateAppTheme = () => {
       const themeId = toThemeId(
-        settings.get?.("theme"),
-        nativeTheme?.shouldUseDarkColors
+        API.theme.getThemeSetting(),
+        API.theme.getShouldUseDarkColors()
       );
       if (process.platform === "darwin") {
         setTheme(themes[themeId]);
@@ -68,15 +67,7 @@ const Provider: FC = ({ children }) => {
         setTheme(windowsThemes[themeId]);
       }
     };
-
-    nativeTheme?.on("updated", () => {
-      updateAppTheme();
-    });
-
-    ipcRenderer?.on("update-theme", () => {
-      updateAppTheme();
-    });
-
+    API.theme.onChange(updateAppTheme);
     updateAppTheme();
   }, []);
   return <ThemeProvider theme={theme}>{children}</ThemeProvider>;
