@@ -1,7 +1,7 @@
 import React, { useLayoutEffect, useRef, useState, FC } from "react";
 import styled, { css, keyframes } from "styled-components";
 import { Button } from "../buttons/Button";
-// import projectIcon from "../icons/gbsproj.png";
+import projectIcon from "../icons/gbsproj.png";
 
 declare const VERSION: string;
 declare const COMMITHASH: string;
@@ -619,7 +619,7 @@ export const SplashProjectPath = styled.span`
 
 export const SplashProject: FC<SplashProjectProps> = ({ project, onClick }) => (
   <SplashProjectWrapper onClick={onClick}>
-    {/* <img src={projectIcon} alt="" /> */}
+    <img src={projectIcon} alt="" />
     <SplashProjectDetails>
       <SplashProjectName>{project.name}</SplashProjectName>
       <SplashProjectPath>{project.path}</SplashProjectPath>

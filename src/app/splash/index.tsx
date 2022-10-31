@@ -26,7 +26,7 @@ window.addEventListener("error", (error) => {
           error.error.stack &&
           error.error.stack
             .split("\n")
-            .map((line) => `<div>${line}</div>`)
+            .map((line: string) => `<div>${line}</div>`)
             .join("")
         }
       </div>

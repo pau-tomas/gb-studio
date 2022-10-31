@@ -37,16 +37,17 @@ import logoFile from "ui/icons/GBStudioLogo.png";
 // import { Button } from "ui/buttons/Button";
 // import l10n from "lib/helpers/l10n";
 import contributors from "../../../contributors.json";
-// import gbs2Preview from "../../assets/templatePreview/gbs2.mp4";
-// import gbhtmlPreview from "../../assets/templatePreview/gbhtml.mp4";
-// import blankPreview from "../../assets/templatePreview/blank.png";
+import gbs2Preview from "../../assets/templatePreview/gbs2.mp4";
+import gbhtmlPreview from "../../assets/templatePreview/gbhtml.mp4";
+import blankPreview from "../../assets/templatePreview/blank.png";
 import useWindowFocus from "ui/hooks/use-window-focus";
-// import initElectronL10n from "lib/helpers/initElectronL10n";
 import { l10n } from "../../app/splash/api";
 import { Button } from "ui/buttons/Button";
-import { CloseIcon } from "ui/icons/Icons";
+import { CloseIcon, DotsIcon } from "ui/icons/Icons";
 import {
   SplashAppTitle,
+  SplashContent,
+  SplashCreateButton,
   SplashCredits,
   SplashCreditsBackground,
   SplashCreditsCloseButton,
@@ -54,10 +55,16 @@ import {
   SplashCreditsContributor,
   SplashCreditsTitle,
   SplashEasterEggButton,
+  SplashForm,
+  SplashInfoMessage,
   SplashLogo,
   SplashOpenButton,
+  SplashProject,
+  SplashProjectClearButton,
+  SplashScroll,
   SplashSidebar,
   SplashTab,
+  SplashTemplateSelect,
   SplashWrapper,
   // SplashCredits,
   // SplashCreditsBackground,
@@ -68,6 +75,8 @@ import {
 } from "ui/splash/Splash";
 import { FlexGrow } from "ui/spacing/Spacing";
 import SplashAPI from "../../app/splash/api";
+import { FormRow, FormField } from "ui/form/FormLayout";
+import { TextField } from "ui/form/TextField";
 
 // Make sure localisation has loaded so that
 // l10n function can be used at top level
@@ -92,36 +101,43 @@ type TemplateInfo = {
 const splashTabs = ["new", "recent"] as const;
 type SplashTabSection = typeof splashTabs[number];
 
-// const templates: TemplateInfo[] = [
-//   {
-//     id: "gbs2",
-//     name: l10n("SPLASH_SAMPLE_PROJECT"),
-//     preview: gbs2Preview,
-//     videoPreview: true,
-//     description: l10n("SPLASH_SAMPLE_PROJECT_DESCRIPTION"),
-//   },
-//   {
-//     id: "gbhtml",
-//     name: `${l10n("SPLASH_SAMPLE_PROJECT")} (GBS 1.0)`,
-//     preview: gbhtmlPreview,
-//     videoPreview: true,
-//     description: l10n("SPLASH_SAMPLE_PROJECT_ORIGINAL_DESCRIPTION"),
-//   },
-//   {
-//     id: "blank",
-//     name: l10n("SPLASH_BLANK_PROJECT"),
-//     preview: blankPreview,
-//     videoPreview: false,
-//     description: l10n("SPLASH_BLANK_PROJECT_DESCRIPTION"),
-//   },
-// ];
+const templates: TemplateInfo[] = [
+  {
+    id: "gbs2",
+    name: l10n("SPLASH_SAMPLE_PROJECT"),
+    preview: gbs2Preview,
+    videoPreview: true,
+    description: l10n("SPLASH_SAMPLE_PROJECT_DESCRIPTION"),
+  },
+  {
+    id: "gbhtml",
+    name: `${l10n("SPLASH_SAMPLE_PROJECT")} (GBS 1.0)`,
+    preview: gbhtmlPreview,
+    videoPreview: true,
+    description: l10n("SPLASH_SAMPLE_PROJECT_ORIGINAL_DESCRIPTION"),
+  },
+  {
+    id: "blank",
+    name: l10n("SPLASH_BLANK_PROJECT"),
+    preview: blankPreview,
+    videoPreview: false,
+    description: l10n("SPLASH_BLANK_PROJECT_DESCRIPTION"),
+  },
+];
 
-const getLastUsedPath = () => {
-  // const storedPath = String(settings.get("__lastUsedPath"));
-  // if (storedPath && storedPath !== "undefined") {
-  //   return Path.normalize(storedPath);
-  // }
-  // return remote.app.getPath("documents");
+const getLastUsedPath = async () => {
+  console.log("GET LAST UYSED");
+  const storedPath = await SplashAPI.settings.get("__lastUsedPath");
+  console.log("GET LAST UYSED 2");
+  console.log("GET LAST UYSED 3", storedPath);
+
+  if (storedPath) {
+    console.log("STORED PATH", storedPath);
+    return SplashAPI.path.normalize(storedPath);
+  }
+  console.log("DOC PATH", SplashAPI.path.getDocumentsPath());
+
+  return SplashAPI.path.getDocumentsPath();
 };
 
 const setLastUsedPath = (path: string) => {
@@ -153,7 +169,7 @@ export default () => {
   const [openCredits, setOpenCredits] = useState(false);
   const [recentProjects, setRecentProjects] = useState<ProjectInfo[]>([]);
   const [name, setName] = useState<string>(l10n("SPLASH_DEFAULT_PROJECT_NAME"));
-  const [path, setPath] = useState<string>(getLastUsedPath());
+  const [path, setPath] = useState<string>("");
   const [nameError, setNameError] = useState("");
   const [pathError, setPathError] = useState("");
   const [creating, setCreating] = useState(false);
@@ -170,17 +186,18 @@ export default () => {
           }))
           .reverse()
       );
+      setPath(await getLastUsedPath());
     }
     fetchData();
   }, []);
 
   const onSetTab = (tab: SplashTabSection) => () => {
-    // setSection(tab);
-    // setLastUsedTab(tab);
+    setSection(tab);
+    setLastUsedTab(tab);
   };
 
   const onOpen = () => {
-    // ipcRenderer.send("open-project-picker");
+    SplashAPI.project.openProjectFilePicker();
   };
 
   const onOpenRecent = (projectPath: string) => () => {
@@ -201,15 +218,16 @@ export default () => {
   };
 
   const onSelectFolder = async () => {
+    const directory = await SplashAPI.path.chooseDirectory();
     // const path = await dialog.showOpenDialog({
     //   properties: ["openDirectory"],
     // });
-    // if (path.filePaths[0]) {
-    //   const newPath = Path.normalize(`${path.filePaths}/`);
-    //   setLastUsedPath(newPath);
-    //   setPath(newPath);
-    //   setPathError("");
-    // }
+    if (directory) {
+      //   const newPath = Path.normalize(`${path.filePaths}/`);
+      setLastUsedPath(directory);
+      setPath(directory);
+      setPathError("");
+    }
   };
 
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -272,9 +290,7 @@ export default () => {
           >
             {l10n("SPLASH_RECENT")}
           </SplashTab>
-          <SplashTab
-          // onClick={() => shell.openExternal(DOCS_URL)}
-          >
+          <SplashTab onClick={() => SplashAPI.openExternal(DOCS_URL)}>
             {l10n("SPLASH_DOCUMENTATION")}
           </SplashTab>
           <FlexGrow />
@@ -282,7 +298,7 @@ export default () => {
             {l10n("SPLASH_OPEN")}
           </SplashOpenButton>
         </SplashSidebar>
-        {/* 
+
         {section === "new" && (
           <SplashContent>
             <SplashForm onSubmit={!creating ? onSubmit : undefined}>
@@ -357,7 +373,6 @@ export default () => {
             )}
           </SplashScroll>
         )}
-              )} */}
       </SplashWrapper>
 
       {openCredits && (
