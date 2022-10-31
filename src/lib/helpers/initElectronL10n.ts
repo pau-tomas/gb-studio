@@ -1,4 +1,4 @@
-import electron from "electron";
+import { app } from "electron";
 import settings from "electron-settings";
 import { loadLanguage } from "./l10n";
 
@@ -8,9 +8,8 @@ const initElectronL10n = () => {
   if (hasInitialised) {
     return;
   }
-  const app = electron.app || (electron.remote && electron.remote.app);
-  const settingsLocale = app && settings.get("locale");
-  const systemLocale = app ? app.getLocale() : "en";
+  const settingsLocale = settings.get("locale");
+  const systemLocale = app.getLocale();
   const appLocale = String(settingsLocale || systemLocale);
   loadLanguage(appLocale);
   hasInitialised = true;

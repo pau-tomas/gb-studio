@@ -1,5 +1,6 @@
 // import { app, BrowserWindow, ipcMain, shell } from "electron";
 import { Menu, app, shell } from "electron";
+import initElectronL10n from "lib/helpers/initElectronL10n";
 import initIPC from "./ipc";
 import appMenuTemplate from "./menu/appMenuTemplate";
 import devMenuTemplate from "./menu/devMenuTemplate";
@@ -86,6 +87,7 @@ const setApplicationMenu = (projectOpen: boolean) => {
 };
 
 app.on("ready", () => {
+  initElectronL10n();
   windowManager.init({
     setApplicationMenu,
   });
