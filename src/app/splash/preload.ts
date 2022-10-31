@@ -5,7 +5,7 @@ import { contextBridge, ipcRenderer, nativeTheme } from "electron";
 import path from "path";
 import l10n from "lib/helpers/l10n";
 
-contextBridge.exposeInMainWorld("SplashAPI", {
+export const SplashAPI = {
   platform: process.platform,
   l10n: (key: string, params?: Record<string, string | number>) =>
     l10n(key, params),
@@ -18,11 +18,14 @@ contextBridge.exposeInMainWorld("SplashAPI", {
       ipcRenderer?.on("update-theme", callback);
     },
   },
-  getRecentProjects: () => ipcRenderer.invoke("get-recent-projects"),
+  getRecentProjects: (): Promise<string[]> =>
+    ipcRenderer.invoke("get-recent-projects"),
   path: {
     basename: (input: string) => path.basename(input),
     dirname: (input: string) => path.dirname(input),
   },
-});
+} as const;
+
+contextBridge.exposeInMainWorld("SplashAPI", SplashAPI);
 
 export default contextBridge;
