@@ -36,18 +36,23 @@ import logoFile from "ui/icons/GBStudioLogo.png";
 // import { CloseIcon, DotsIcon } from "ui/icons/Icons";
 // import { Button } from "ui/buttons/Button";
 // import l10n from "lib/helpers/l10n";
-// import contributors from "../../../contributors.json";
+import contributors from "../../../contributors.json";
 // import gbs2Preview from "../../assets/templatePreview/gbs2.mp4";
 // import gbhtmlPreview from "../../assets/templatePreview/gbhtml.mp4";
 // import blankPreview from "../../assets/templatePreview/blank.png";
 import useWindowFocus from "ui/hooks/use-window-focus";
 // import initElectronL10n from "lib/helpers/initElectronL10n";
 import { l10n } from "../../app/splash/api";
-import { AutoFocusInside } from "react-focus-lock";
 import { Button } from "ui/buttons/Button";
 import { CloseIcon } from "ui/icons/Icons";
 import {
   SplashAppTitle,
+  SplashCredits,
+  SplashCreditsBackground,
+  SplashCreditsCloseButton,
+  SplashCreditsContent,
+  SplashCreditsContributor,
+  SplashCreditsTitle,
   SplashEasterEggButton,
   SplashLogo,
   SplashOpenButton,
@@ -355,7 +360,7 @@ export default () => {
               )} */}
       </SplashWrapper>
 
-      {/* {openCredits && (
+      {openCredits && (
         <FocusLock>
           <SplashCredits>
             <SplashCreditsBackground />
@@ -365,7 +370,7 @@ export default () => {
                 <SplashCreditsContributor
                   key={contributor.id}
                   contributor={contributor}
-                  // onClick={() => shell.openExternal(contributor.html_url)}
+                  onClick={() => SplashAPI.openExternal(contributor.html_url)}
                 />
               ))}
             </SplashCreditsContent>
@@ -381,7 +386,7 @@ export default () => {
             </SplashCreditsCloseButton>
           </SplashCredits>
         </FocusLock>
-      )} */}
+      )}
     </ThemeProvider>
   );
 };

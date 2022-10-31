@@ -9,7 +9,7 @@ contextBridge.exposeInMainWorld("SplashAPI", {
   platform: process.platform,
   l10n: (key: string, params?: Record<string, string | number>) =>
     l10n(key, params),
-  openExternal: (path: string) => ipcRenderer.invoke("open-item-folder", path),
+  openExternal: (path: string) => ipcRenderer.invoke("open-external", path),
   theme: {
     getShouldUseDarkColors: () => nativeTheme?.shouldUseDarkColors,
     getThemeSetting: () => ipcRenderer.invoke("settings-get", "theme"),

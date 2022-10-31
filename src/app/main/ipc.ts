@@ -17,6 +17,20 @@ export default ({ windowManager }: IPCOptions) => {
     shell.showItemInFolder(file);
   });
 
+  ipcMain.handle("open-external", async (_event, url) => {
+    if (!isString(url)) throw new Error("Invalid URL");
+    const allowedExternalDomains = [
+      "https://www.gbstudio.dev",
+      "https://www.itch.io",
+      "https://github.com",
+    ];
+    const match = allowedExternalDomains.some((domain) =>
+      url.startsWith(domain)
+    );
+    if (!match) throw new Error("URL not allowed");
+    shell.openExternal(url);
+  });
+
   ipcMain.handle("settings-get", async (_event, key) => {
     if (!isString(key)) throw new Error("Invalid setting key");
     return settings.get(key);
