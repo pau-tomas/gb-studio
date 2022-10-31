@@ -80,16 +80,16 @@ export default class WindowManager {
 
   async openSplashWindow(forceTab?: SplashTab) {
     this.keepOpen = true;
-    if (this.splashWindow) {
-      this.setSplashTab(forceTab);
-      // this.splashWindow.close();
-      // await this.waitUntilSplashClosed();
-    }
+
     // if (mainWindow) {
     //   mainWindow.close();
     //   await waitUntilWindowClosed();
     // }
-    await this.createSplashWindow(forceTab);
+    if (this.splashWindow) {
+      this.setSplashTab(forceTab);
+    } else {
+      await this.createSplashWindow(forceTab);
+    }
     this.keepOpen = false;
   }
 
