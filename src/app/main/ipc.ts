@@ -1,7 +1,9 @@
 import { ipcMain, shell } from "electron";
 import settings from "electron-settings";
-import { isString } from "@byte.london/byteguards";
+import { isString, isArray } from "@byte.london/byteguards";
 import WindowManager from "./windowManager";
+
+const isStringArray = isArray(isString);
 
 interface IPCOptions {
   windowManager: WindowManager;
@@ -18,5 +20,11 @@ export default ({ windowManager }: IPCOptions) => {
   ipcMain.handle("settings-get", async (_event, key) => {
     if (!isString(key)) throw new Error("Invalid setting key");
     return settings.get(key);
+  });
+
+  ipcMain.handle("get-recent-projects", async () => {
+    const recentProjects = settings.get("recentProjects");
+    if (!isStringArray(recentProjects)) return [];
+    return recentProjects;
   });
 };

@@ -7,6 +7,11 @@ export interface SplashAPI {
     getThemeSetting: () => Promise<unknown>;
     onChange: (callback: () => void) => Promise<void>;
   };
+  getRecentProjects: () => Promise<string[]>;
+  path: {
+    basename: (input: string) => string;
+    dirname: (input: string) => string;
+  };
 }
 
 declare global {

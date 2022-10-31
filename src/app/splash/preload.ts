@@ -2,6 +2,7 @@
 // https://www.electronjs.org/docs/latest/tutorial/process-model#preload-scripts
 
 import { contextBridge, ipcRenderer, nativeTheme } from "electron";
+import path from "path";
 import l10n from "lib/helpers/l10n";
 
 contextBridge.exposeInMainWorld("SplashAPI", {
@@ -16,6 +17,11 @@ contextBridge.exposeInMainWorld("SplashAPI", {
       nativeTheme?.on("updated", callback);
       ipcRenderer?.on("update-theme", callback);
     },
+  },
+  getRecentProjects: () => ipcRenderer.invoke("get-recent-projects"),
+  path: {
+    basename: (input: string) => path.basename(input),
+    dirname: (input: string) => path.dirname(input),
   },
 });
 

@@ -62,6 +62,7 @@ import {
   // SplashCreditsCloseButton,
 } from "ui/splash/Splash";
 import { FlexGrow } from "ui/spacing/Spacing";
+import SplashAPI from "../../app/splash/api";
 
 // Make sure localisation has loaded so that
 // l10n function can be used at top level
@@ -154,20 +155,18 @@ export default () => {
   const windowFocus = useWindowFocus();
 
   useEffect(() => {
-    // ipcRenderer.send("request-recent-projects");
-    // ipcRenderer.once("recent-projects", (_, projectPaths: string[]) => {
-    //   if (projectPaths && projectPaths.length > 0) {
-    //     setRecentProjects(
-    //       projectPaths
-    //         .map((projectPath: string) => ({
-    //           name: Path.basename(projectPath),
-    //           dir: Path.dirname(projectPath),
-    //           path: projectPath,
-    //         }))
-    //         .reverse()
-    //     );
-    //   }
-    // });
+    async function fetchData() {
+      setRecentProjects(
+        (await SplashAPI.getRecentProjects())
+          .map((projectPath) => ({
+            name: SplashAPI.path.basename(projectPath),
+            dir: SplashAPI.path.dirname(projectPath),
+            path: projectPath,
+          }))
+          .reverse()
+      );
+    }
+    fetchData();
   }, []);
 
   const onSetTab = (tab: SplashTabSection) => () => {
