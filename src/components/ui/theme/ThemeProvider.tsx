@@ -6,9 +6,7 @@ import lightThemeWin from "./lightThemeWin";
 import darkThemeWin from "./darkThemeWin";
 import neonTheme from "./neonTheme";
 import { ThemeInterface } from "./ThemeInterface";
-import API from "app/splash/api";
-
-// const { nativeTheme } = remote;
+import API from "../../../app/splash/api";
 
 const themeIds = ["dark", "light", "neon"] as const;
 type ThemeId = typeof themeIds[number];
@@ -56,12 +54,12 @@ const toThemeId = (
 const Provider: FC = ({ children }) => {
   const [theme, setTheme] = useState<ThemeInterface>(lightTheme);
   useEffect(() => {
-    const updateAppTheme = () => {
+    const updateAppTheme = async () => {
       const themeId = toThemeId(
-        API.theme.getThemeSetting(),
-        API.theme.getShouldUseDarkColors()
+        await API.theme.getThemeSetting(),
+        await API.theme.getShouldUseDarkColors()
       );
-      if (process.platform === "darwin") {
+      if (API.platform === "darwin") {
         setTheme(themes[themeId]);
       } else {
         setTheme(windowsThemes[themeId]);

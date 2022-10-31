@@ -25,6 +25,9 @@ module.exports = {
   module: {
     rules,
   },
+  output: {
+    hashFunction: "sha256",
+  },
   optimization: {
     minimize: false,
     splitChunks: {

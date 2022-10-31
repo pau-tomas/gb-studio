@@ -3,9 +3,9 @@ export interface SplashAPI {
   l10n: (key: string, params?: Record<string, string | number>) => string;
   openExternal: (path: string) => Promise<void>;
   theme: {
-    getShouldUseDarkColors: () => boolean;
-    getThemeSetting: () => string;
-    onChange: (callback: () => void) => void;
+    getShouldUseDarkColors: () => Promise<boolean>;
+    getThemeSetting: () => Promise<unknown>;
+    onChange: (callback: () => void) => Promise<void>;
   };
 }
 

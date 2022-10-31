@@ -2,7 +2,12 @@ import "focus-visible";
 import { createGlobalStyle } from "styled-components";
 
 const GlobalStyle = createGlobalStyle`
+  html {
+    height: 100%;
+  }
+
   body {
+    height: 100%;
     margin: 0;
     padding: 0;
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica,
@@ -10,6 +15,10 @@ const GlobalStyle = createGlobalStyle`
     font-size: 13px;
     user-select: none;
     caret-color: ${(props) => props.theme.colors.highlight};
+  }
+
+  #App {
+    height: 100%;
   }
 
   #MenuPortal {

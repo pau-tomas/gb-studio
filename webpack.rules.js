@@ -44,11 +44,8 @@ module.exports = [
   },
   {
     test: /\.(png|jpe?g|gif|mp4)$/i,
+    type: "asset/resource",
     exclude: /(node_modules|.webpack)/,
-    loader: "file-loader",
-    options: {
-      publicPath: "..", // move up from 'main_window'
-    },
   },
   {
     test: /[\\/]appData[\\/]wasm[\\/](.*)[\\/](.*).wasm$/,

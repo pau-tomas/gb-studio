@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 // import Path from "path";
 // import { ipcRenderer, remote } from "electron";
 // import settings from "electron-settings";
-// import FocusLock, { AutoFocusInside } from "react-focus-lock";
+import FocusLock, { AutoFocusInside } from "react-focus-lock";
 // import { FlexGrow } from "ui/spacing/Spacing";
 // import {
 //   SplashAppTitle,
@@ -30,7 +30,7 @@ import React, { useEffect, useState } from "react";
 // import createProject, { ERR_PROJECT_EXISTS } from "lib/project/createProject";
 import GlobalStyle from "ui/globalStyle";
 import ThemeProvider from "ui/theme/ThemeProvider";
-// import logoFile from "ui/icons/GBStudioLogo.png";
+import logoFile from "ui/icons/GBStudioLogo.png";
 // import { FormField, FormRow } from "ui/form/FormLayout";
 // import { TextField } from "ui/form/TextField";
 // import { CloseIcon, DotsIcon } from "ui/icons/Icons";
@@ -43,6 +43,25 @@ import ThemeProvider from "ui/theme/ThemeProvider";
 import useWindowFocus from "ui/hooks/use-window-focus";
 // import initElectronL10n from "lib/helpers/initElectronL10n";
 import { l10n } from "../../app/splash/api";
+import { AutoFocusInside } from "react-focus-lock";
+import { Button } from "ui/buttons/Button";
+import { CloseIcon } from "ui/icons/Icons";
+import {
+  SplashAppTitle,
+  SplashEasterEggButton,
+  SplashLogo,
+  SplashOpenButton,
+  SplashSidebar,
+  SplashTab,
+  SplashWrapper,
+  // SplashCredits,
+  // SplashCreditsBackground,
+  // SplashCreditsContent,
+  // SplashCreditsTitle,
+  // SplashCreditsContributor,
+  // SplashCreditsCloseButton,
+} from "ui/splash/Splash";
+import { FlexGrow } from "ui/spacing/Spacing";
 
 // Make sure localisation has loaded so that
 // l10n function can be used at top level
@@ -233,8 +252,7 @@ export default () => {
   return (
     <ThemeProvider>
       <GlobalStyle />
-      XYZ111
-      {/* <SplashWrapper focus={windowFocus}>
+      <SplashWrapper focus={windowFocus}>
         <SplashSidebar>
           <SplashLogo>
             <img src={logoFile} alt="GB Studio" />
@@ -260,7 +278,7 @@ export default () => {
             {l10n("SPLASH_OPEN")}
           </SplashOpenButton>
         </SplashSidebar>
-
+        {/* 
         {section === "new" && (
           <SplashContent>
             <SplashForm onSubmit={!creating ? onSubmit : undefined}>
@@ -335,9 +353,10 @@ export default () => {
             )}
           </SplashScroll>
         )}
+              )} */}
       </SplashWrapper>
 
-      {openCredits && (
+      {/* {openCredits && (
         <FocusLock>
           <SplashCredits>
             <SplashCreditsBackground />
