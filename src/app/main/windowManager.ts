@@ -3,6 +3,8 @@ import { checkForUpdate } from "lib/helpers/updateChecker";
 
 declare const SPLASH_WINDOW_PRELOAD_WEBPACK_ENTRY: string;
 declare const SPLASH_WINDOW_WEBPACK_ENTRY: string;
+declare const PREFERENCES_WINDOW_PRELOAD_WEBPACK_ENTRY: string;
+declare const PREFERENCES_WINDOW_WEBPACK_ENTRY: string;
 
 type SplashTab = "info" | "new" | "recent";
 
@@ -15,10 +17,11 @@ interface WindowManagerProps {
 export default class WindowManager {
   keepOpen = false;
   splashWindow?: BrowserWindow;
+  preferencesWindow?: BrowserWindow;
   hasCheckedForUpdate = false;
   setApplicationMenu?: (projectOpen: boolean) => void;
 
-  createSplashWindow(forceTab?: SplashTab) {
+  private createSplashWindow(forceTab?: SplashTab) {
     const win = new BrowserWindow({
       width: 640,
       height: 400,
@@ -40,6 +43,7 @@ export default class WindowManager {
     this.splashWindow = win;
 
     this.setApplicationMenu?.(false);
+    win.setMenu(null);
     win.loadURL(`${SPLASH_WINDOW_WEBPACK_ENTRY}?tab=${forceTab || ""}`);
 
     win.webContents.on("did-finish-load", () => {
@@ -54,6 +58,38 @@ export default class WindowManager {
 
     win.on("closed", () => {
       this.splashWindow = undefined;
+    });
+  }
+
+  private createPreferences() {
+    const win = new BrowserWindow({
+      width: 600,
+      height: 400,
+      resizable: false,
+      maximizable: false,
+      fullscreenable: false,
+      show: false,
+      autoHideMenuBar: true,
+      webPreferences: {
+        nodeIntegration: true,
+        devTools: isDevMode,
+        preload: PREFERENCES_WINDOW_PRELOAD_WEBPACK_ENTRY,
+      },
+    });
+    if (!win) return;
+    this.preferencesWindow = win;
+
+    win.setMenu(null);
+    win.loadURL(PREFERENCES_WINDOW_WEBPACK_ENTRY);
+
+    win.webContents.on("did-finish-load", () => {
+      setTimeout(() => {
+        win?.show();
+      }, 40);
+    });
+
+    win.on("closed", () => {
+      this.preferencesWindow = undefined;
     });
   }
 
@@ -91,6 +127,14 @@ export default class WindowManager {
       await this.createSplashWindow(forceTab);
     }
     this.keepOpen = false;
+  }
+
+  async openPreferencesWindow() {
+    if (!this.preferencesWindow) {
+      this.createPreferences();
+    } else {
+      this.preferencesWindow.show();
+    }
   }
 
   init({ setApplicationMenu }: WindowManagerProps) {

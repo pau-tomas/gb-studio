@@ -20,6 +20,10 @@ const isDevMode = !!process.execPath.match(/[\\/]electron/);
 const openDocs = () => shell.openExternal("https://www.gbstudio.dev/docs/");
 const openLearnMore = () => shell.openExternal("https://www.gbstudio.dev");
 
+const openPreferences = () => {
+  windowManager.openPreferencesWindow();
+};
+
 const setApplicationMenu = (projectOpen: boolean) => {
   const isProjectOpen = () => projectOpen;
   const platform = process.platform;
@@ -29,7 +33,7 @@ const setApplicationMenu = (projectOpen: boolean) => {
           appMenuTemplate({
             openAbout: () => {},
             checkForUpdates: () => {},
-            openPreferences: () => {},
+            openPreferences,
           }),
         ]
       : []),
@@ -48,7 +52,7 @@ const setApplicationMenu = (projectOpen: boolean) => {
       undo: () => {},
       redo: () => {},
       pasteInPlace: () => {},
-      openPreferences: () => {},
+      openPreferences,
     }),
     ...(isProjectOpen()
       ? [

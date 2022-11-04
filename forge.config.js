@@ -81,16 +81,19 @@ module.exports = {
               //   "vendor-lodash",
               // ],
             },
-            // {
-            //   html: "./src/app/preferences/preferences.html",
-            //   js: "./src/app/preferences/PreferencesRoot.js",
-            //   name: "preferences_window",
-            //   additionalChunks: [
-            //     "vendor-react",
-            //     "vendor-hotloader",
-            //     "vendor-lodash",
-            //   ],
-            // },
+            {
+              html: "./src/app/preferences/index.html",
+              js: "./src/app/preferences/index.tsx",
+              name: "preferences_window",
+              preload: {
+                js: "./src/app/preferences/preload.ts",
+              },
+              // additionalChunks: [
+              //   "vendor-react",
+              //   "vendor-hotloader",
+              //   "vendor-lodash",
+              // ],
+            },
             // {
             //   html: "./src/app/music/music.html",
             //   js: "./src/app/music/MusicRoot.js",
