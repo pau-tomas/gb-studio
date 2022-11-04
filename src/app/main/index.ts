@@ -22,12 +22,17 @@ const openLearnMore = () => shell.openExternal("https://www.gbstudio.dev");
 
 const setApplicationMenu = (projectOpen: boolean) => {
   const isProjectOpen = () => projectOpen;
+  const platform = process.platform;
   const menus = [
-    appMenuTemplate({
-      openAbout: () => {},
-      checkForUpdates: () => {},
-      openPreferences: () => {},
-    }),
+    ...(platform === "darwin"
+      ? [
+          appMenuTemplate({
+            openAbout: () => {},
+            checkForUpdates: () => {},
+            openPreferences: () => {},
+          }),
+        ]
+      : []),
     fileMenuTemplate({
       isProjectOpen,
       openNewProject: () => windowManager.openSplashWindow("new"),
@@ -38,10 +43,12 @@ const setApplicationMenu = (projectOpen: boolean) => {
       reloadAssets: () => {},
     }),
     editMenuTemplate({
+      platform,
       isProjectOpen,
       undo: () => {},
       redo: () => {},
       pasteInPlace: () => {},
+      openPreferences: () => {},
     }),
     ...(isProjectOpen()
       ? [
@@ -75,11 +82,14 @@ const setApplicationMenu = (projectOpen: boolean) => {
     }),
     ...(isDevMode ? [devMenuTemplate] : []),
     windowMenuTemplate({
-      platform: process.platform,
+      platform,
     }),
     helpMenuTemplate({
+      platform,
       openDocs,
       openLearnMore,
+      openAbout: () => {},
+      checkForUpdates: () => {},
     }),
   ];
 

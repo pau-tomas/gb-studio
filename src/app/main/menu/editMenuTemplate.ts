@@ -2,17 +2,21 @@ import { MenuItemConstructorOptions } from "electron";
 import l10n from "lib/helpers/l10n";
 
 interface EditMenuTemplateProps {
+  platform: string;
   isProjectOpen: () => boolean;
   undo: () => void;
   redo: () => void;
   pasteInPlace: () => void;
+  openPreferences: () => void;
 }
 
 export default ({
+  platform,
   isProjectOpen,
   undo,
   redo,
   pasteInPlace,
+  openPreferences,
 }: EditMenuTemplateProps): MenuItemConstructorOptions => ({
   label: l10n("MENU_EDIT"),
   submenu: [
@@ -41,5 +45,20 @@ export default ({
       : []),
     { role: "delete", label: l10n("MENU_DELETE") },
     { role: "selectAll", label: l10n("MENU_SELECT_ALL") },
+    { type: "separator" },
+    ...(platform === "darwin"
+      ? ([
+          {
+            label: l10n("MENU_SPEECH"),
+            submenu: [{ role: "startSpeaking" }, { role: "stopSpeaking" }],
+          },
+        ] as MenuItemConstructorOptions[])
+      : ([
+          {
+            label: l10n("MENU_PREFERENCES"),
+            accelerator: "CommandOrControl+,",
+            click: openPreferences,
+          },
+        ] as MenuItemConstructorOptions[])),
   ],
 });
