@@ -83,4 +83,16 @@ export default ({ windowManager }: IPCOptions) => {
       // keepOpen = false;
     }
   });
+
+  ipcMain.handle("open-filepicker", () => {
+    const files = dialog.showOpenDialogSync({
+      properties: ["openFile"],
+    });
+    if (files && files[0]) {
+      console.log("FILE", files[0]);
+      console.log("NORM", path.normalize(files[0]));
+      return files[0];
+    }
+    return undefined;
+  });
 };

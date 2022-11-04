@@ -6,7 +6,16 @@ import lightThemeWin from "./lightThemeWin";
 import darkThemeWin from "./darkThemeWin";
 import neonTheme from "./neonTheme";
 import { ThemeInterface } from "./ThemeInterface";
-import API from "../../../app/splash/api";
+// import API from "../../../app/splash/api";
+
+const API = {
+  platform: "darwin",
+  theme: {
+    onChange: () => {},
+    getThemeSetting: () => undefined,
+    getShouldUseDarkColors: () => false,
+  },
+};
 
 const themeIds = ["dark", "light", "neon"] as const;
 type ThemeId = typeof themeIds[number];

@@ -41,7 +41,6 @@ import gbs2Preview from "../../assets/templatePreview/gbs2.mp4";
 import gbhtmlPreview from "../../assets/templatePreview/gbhtml.mp4";
 import blankPreview from "../../assets/templatePreview/blank.png";
 import useWindowFocus from "ui/hooks/use-window-focus";
-import { l10n } from "../../app/splash/api";
 import { Button } from "ui/buttons/Button";
 import { CloseIcon, DotsIcon } from "ui/icons/Icons";
 import {
@@ -77,6 +76,7 @@ import { FlexGrow } from "ui/spacing/Spacing";
 import SplashAPI from "../../app/splash/api";
 import { FormRow, FormField } from "ui/form/FormLayout";
 import { TextField } from "ui/form/TextField";
+import { l10n } from "lib/renderer/api/l10n";
 
 // Make sure localisation has loaded so that
 // l10n function can be used at top level

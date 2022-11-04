@@ -1,8 +1,4 @@
 import React, { useEffect, useState } from "react";
-import Path from "path";
-import settings from "electron-settings";
-import l10n from "lib/helpers/l10n";
-import getTmp from "lib/helpers/getTmp";
 import ThemeProvider from "ui/theme/ThemeProvider";
 import GlobalStyle from "ui/globalStyle";
 import { PreferencesWrapper } from "ui/preferences/Preferences";
@@ -12,10 +8,9 @@ import { Button } from "ui/buttons/Button";
 import { DotsIcon } from "ui/icons/Icons";
 import { FixedSpacer, FlexGrow } from "ui/spacing/Spacing";
 import { AppSelect } from "ui/form/AppSelect";
-import { ipcRenderer, remote } from "electron";
 import { OptionLabelWithInfo, Select } from "ui/form/Select";
-
-const { dialog } = remote;
+import { l10n } from "lib/renderer/api/l10n";
+import PreferencesAPI from "../../app/preferences/api";
 
 interface Options {
   value: number;
@@ -45,6 +40,8 @@ const trackerKeyBindingsOptionsInfo: string[] = [
   l10n("FIELD_UI_PIANO_INFO"),
 ];
 
+const getTmp = (_arg: boolean) => "";
+
 const Preferences = () => {
   const pathError = "";
   const [tmpPath, setTmpPath] = useState<string>("");
@@ -60,54 +57,68 @@ const Preferences = () => {
   );
 
   useEffect(() => {
-    setTmpPath(getTmp(false));
-    setImageEditorPath(String(settings.get("imageEditorPath") || ""));
-    setMusicEditorPath(String(settings.get("musicEditorPath") || ""));
-    setZoomLevel(Number(settings.get("zoomLevel") || 0));
-    setTrackerKeyBindings(Number(settings.get("trackerKeyBindings") || 0));
+    async function fetchData() {
+      setTmpPath(getTmp(false));
+      setImageEditorPath(
+        String((await PreferencesAPI.settings.get("imageEditorPath")) || "")
+      );
+      setMusicEditorPath(
+        String((await PreferencesAPI.settings.get("musicEditorPath")) || "")
+      );
+      setZoomLevel(
+        Number((await PreferencesAPI.settings.get("zoomLevel")) || 0)
+      );
+      setTrackerKeyBindings(
+        Number((await PreferencesAPI.settings.get("trackerKeyBindings")) || 0)
+      );
+    }
+    fetchData();
   }, []);
 
-  const onChangeTmpPath = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const onChangeTmpPath = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const newPath = e.currentTarget.value;
     setTmpPath(newPath);
-    settings.set("tmpDir", newPath);
+    await PreferencesAPI.settings.set("tmpDir", newPath);
   };
 
-  const onChangeImageEditorPath = (path: string) => {
+  const onChangeImageEditorPath = async (path: string) => {
     setImageEditorPath(path);
-    settings.set("imageEditorPath", path);
+    await PreferencesAPI.settings.set("imageEditorPath", path);
   };
 
-  const onChangeMusicEditorPath = (path: string) => {
+  const onChangeMusicEditorPath = async (path: string) => {
     setMusicEditorPath(path);
-    settings.set("musicEditorPath", path);
+    await PreferencesAPI.settings.set("musicEditorPath", path);
   };
 
-  const onChangeZoomLevel = (zoomLevel: number) => {
+  const onChangeZoomLevel = async (zoomLevel: number) => {
     setZoomLevel(zoomLevel);
-    settings.set("zoomLevel", zoomLevel);
-    ipcRenderer.send("window-zoom", zoomLevel);
+    await PreferencesAPI.settings.set("zoomLevel", zoomLevel);
+    // ipcRenderer.send("window-zoom", zoomLevel);
   };
 
-  const onChangeTrackerKeyBindings = (trackerKeyBindings: number) => {
+  const onChangeTrackerKeyBindings = async (trackerKeyBindings: number) => {
     setTrackerKeyBindings(trackerKeyBindings);
-    settings.set("trackerKeyBindings", trackerKeyBindings);
-    ipcRenderer.send("keybindings-updated");
+    await PreferencesAPI.settings.set("trackerKeyBindings", trackerKeyBindings);
+    // ipcRenderer.send("keybindings-updated");
   };
 
   const onSelectTmpFolder = async () => {
-    const path = await dialog.showOpenDialog({
-      properties: ["openDirectory"],
-    });
-    if (path.filePaths[0]) {
-      const newPath = Path.normalize(`${path.filePaths[0]}/`);
-      setTmpPath(newPath);
-      settings.set("tmpDir", newPath);
+    // const path = await dialog.showOpenDialog({
+    //   properties: ["openDirectory"],
+    // });
+    const directory = await PreferencesAPI.path.chooseDirectory();
+
+    if (directory) {
+      // const newPath = Path.normalize(`${path.filePaths[0]}/`);
+      setTmpPath(directory);
+      await PreferencesAPI.settings.set("tmpDir", directory);
     }
   };
 
-  const onRestoreDefaultTmpPath = () => {
-    settings.delete("tmpDir");
+  const onRestoreDefaultTmpPath = async () => {
+    // await PreferencesAPI.settings.delete("tmpDir");
+    // settings.delete("tmpDir");
     setTmpPath(getTmp(false));
   };
 

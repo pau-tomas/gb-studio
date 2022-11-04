@@ -4,7 +4,8 @@
 import { contextBridge, ipcRenderer, nativeTheme } from "electron";
 import path from "path";
 import l10n from "lib/helpers/l10n";
-import { L10NApi } from "../shared/api/l10nApi";
+import { L10NAPI } from "lib/renderer/api/preload/l10nPreload";
+import { DialogAPI } from "lib/renderer/api/preload/dialogPreload";
 
 type JsonValue = string | number | boolean | null;
 
@@ -36,6 +37,7 @@ export const PreferencesAPI = {
 } as const;
 
 contextBridge.exposeInMainWorld("PreferencesAPI", PreferencesAPI);
-contextBridge.exposeInMainWorld("L10NAPI", L10NApi);
+contextBridge.exposeInMainWorld("L10NAPI", L10NAPI);
+contextBridge.exposeInMainWorld("DialogAPI", DialogAPI);
 
 export default contextBridge;

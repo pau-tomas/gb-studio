@@ -4,7 +4,7 @@ import CRSelect from "react-select/creatable";
 import React, { CSSProperties, FC, ReactNode } from "react";
 import { setDefault } from "lib/helpers/setDefault";
 import { SearchIcon } from "../icons/Icons";
-import l10n from "lib/helpers/l10n";
+// import l10n from "lib/helpers/l10n";
 export { components } from "react-select";
 
 export interface Option {
@@ -259,7 +259,7 @@ export const SingleValueWithPreview: FC<SingleValueWithPreviewProps> = ({
 export const selectMenuStyleProps = {
   autoFocus: true,
   menuIsOpen: true,
-  placeholder: l10n("TOOLBAR_SEARCH"),
+  // placeholder: l10n("TOOLBAR_SEARCH"),
   backspaceRemovesValue: false,
   controlShouldRenderValue: false,
   isClearable: false,
