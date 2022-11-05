@@ -7,4 +7,6 @@ export const PreferencesWrapper = styled.div`
   height: 100%;
   padding: 10px;
   box-sizing: border-box;
+  background: ${(props) => props.theme.colors.document.background};
+  color: ${(props) => props.theme.colors.text};
 `;
