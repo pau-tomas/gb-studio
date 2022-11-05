@@ -3,8 +3,9 @@ import React, { FC } from "react";
 // import l10n from "lib/helpers/l10n";
 import { Select, Option } from "./Select";
 // import { remote } from "electron";
-import { l10n } from "lib/renderer/api/l10n";
-import { openFilePicker } from "lib/renderer/api/dialog";
+import { dialog, l10n } from "lib/renderer/api";
+
+const { openFilePicker } = dialog;
 
 // const { dialog } = remote;
 

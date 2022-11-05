@@ -1,4 +1,4 @@
-import type { API } from "./preload/apiPreload";
+import type { API } from "./preload";
 
 declare global {
   interface Window {
@@ -10,3 +10,4 @@ export default window.API;
 export const settings = window.API.settings;
 export const path = window.API.path;
 export const dialog = window.API.dialog;
+export const l10n = window.API.l10n;

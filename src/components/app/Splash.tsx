@@ -67,11 +67,9 @@ import {
   SplashWrapper,
 } from "ui/splash/Splash";
 import { FlexGrow } from "ui/spacing/Spacing";
-import SplashAPI from "../../app/splash/api";
 import { FormRow, FormField } from "ui/form/FormLayout";
 import { TextField } from "ui/form/TextField";
-import { l10n } from "lib/renderer/api/l10n";
-import API, { dialog, path, settings } from "lib/renderer/api/api";
+import API, { dialog, path, settings, l10n } from "lib/renderer/api";
 
 // Make sure localisation has loaded so that
 // l10n function can be used at top level
@@ -288,7 +286,7 @@ export default () => {
           >
             {l10n("SPLASH_RECENT")}
           </SplashTab>
-          <SplashTab onClick={() => SplashAPI.openExternal(DOCS_URL)}>
+          <SplashTab onClick={() => API.openExternal(DOCS_URL)}>
             {l10n("SPLASH_DOCUMENTATION")}
           </SplashTab>
           <FlexGrow />
@@ -383,7 +381,7 @@ export default () => {
                 <SplashCreditsContributor
                   key={contributor.id}
                   contributor={contributor}
-                  onClick={() => SplashAPI.openExternal(contributor.html_url)}
+                  onClick={() => API.openExternal(contributor.html_url)}
                 />
               ))}
             </SplashCreditsContent>

@@ -139,7 +139,6 @@ app.on("ready", () => {
     setApplicationMenu,
   });
   initIPC({
-    windowManager,
     onCreateProject,
     onSelectProjectToOpen,
     onOpenProject,

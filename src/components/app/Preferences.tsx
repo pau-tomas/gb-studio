@@ -9,8 +9,7 @@ import { DotsIcon } from "ui/icons/Icons";
 import { FixedSpacer, FlexGrow } from "ui/spacing/Spacing";
 import { AppSelect } from "ui/form/AppSelect";
 import { OptionLabelWithInfo, Select } from "ui/form/Select";
-import { l10n } from "lib/renderer/api/l10n";
-import PreferencesAPI from "../../app/preferences/api";
+import { settings, dialog, l10n } from "lib/renderer/api";
 
 interface Options {
   value: number;
@@ -59,17 +58,11 @@ const Preferences = () => {
   useEffect(() => {
     async function fetchData() {
       setTmpPath(getTmp(false));
-      setImageEditorPath(
-        String((await PreferencesAPI.settings.get("imageEditorPath")) || "")
-      );
-      setMusicEditorPath(
-        String((await PreferencesAPI.settings.get("musicEditorPath")) || "")
-      );
-      setZoomLevel(
-        Number((await PreferencesAPI.settings.get("zoomLevel")) || 0)
-      );
+      setImageEditorPath(String((await settings.get("imageEditorPath")) || ""));
+      setMusicEditorPath(String((await settings.get("musicEditorPath")) || ""));
+      setZoomLevel(Number((await settings.get("zoomLevel")) || 0));
       setTrackerKeyBindings(
-        Number((await PreferencesAPI.settings.get("trackerKeyBindings")) || 0)
+        Number((await settings.get("trackerKeyBindings")) || 0)
       );
     }
     fetchData();
@@ -78,28 +71,28 @@ const Preferences = () => {
   const onChangeTmpPath = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const newPath = e.currentTarget.value;
     setTmpPath(newPath);
-    await PreferencesAPI.settings.set("tmpDir", newPath);
+    await settings.set("tmpDir", newPath);
   };
 
   const onChangeImageEditorPath = async (path: string) => {
     setImageEditorPath(path);
-    await PreferencesAPI.settings.set("imageEditorPath", path);
+    await settings.set("imageEditorPath", path);
   };
 
   const onChangeMusicEditorPath = async (path: string) => {
     setMusicEditorPath(path);
-    await PreferencesAPI.settings.set("musicEditorPath", path);
+    await settings.set("musicEditorPath", path);
   };
 
   const onChangeZoomLevel = async (zoomLevel: number) => {
     setZoomLevel(zoomLevel);
-    await PreferencesAPI.settings.set("zoomLevel", zoomLevel);
+    await settings.set("zoomLevel", zoomLevel);
     // ipcRenderer.send("window-zoom", zoomLevel);
   };
 
   const onChangeTrackerKeyBindings = async (trackerKeyBindings: number) => {
     setTrackerKeyBindings(trackerKeyBindings);
-    await PreferencesAPI.settings.set("trackerKeyBindings", trackerKeyBindings);
+    await settings.set("trackerKeyBindings", trackerKeyBindings);
     // ipcRenderer.send("keybindings-updated");
   };
 
@@ -107,17 +100,17 @@ const Preferences = () => {
     // const path = await dialog.showOpenDialog({
     //   properties: ["openDirectory"],
     // });
-    const directory = await PreferencesAPI.path.chooseDirectory();
+    const directory = await dialog.chooseDirectory();
 
     if (directory) {
       // const newPath = Path.normalize(`${path.filePaths[0]}/`);
       setTmpPath(directory);
-      await PreferencesAPI.settings.set("tmpDir", directory);
+      await settings.set("tmpDir", directory);
     }
   };
 
   const onRestoreDefaultTmpPath = async () => {
-    // await PreferencesAPI.settings.delete("tmpDir");
+    // await settings.delete("tmpDir");
     // settings.delete("tmpDir");
     setTmpPath(getTmp(false));
   };

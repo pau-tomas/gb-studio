@@ -33,6 +33,8 @@ export const API = {
   dialog: {
     chooseDirectory: (): Promise<string | undefined> =>
       ipcRenderer.invoke("open-directory-picker"),
+    openFilePicker: (): Promise<string | undefined> =>
+      ipcRenderer.invoke("open-filepicker"),
   },
   project: {
     openProjectFilePicker: () => ipcRenderer.invoke("open-project-filepicker"),

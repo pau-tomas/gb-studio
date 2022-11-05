@@ -2,7 +2,6 @@ import { app, dialog, ipcMain, nativeTheme, shell } from "electron";
 import settings from "electron-settings";
 import path from "path";
 import { isString, isArray } from "@byte.london/byteguards";
-import WindowManager from "./windowManager";
 import loadProject from "lib/project/loadProjectData";
 
 const isStringArray = isArray(isString);
@@ -18,7 +17,6 @@ export interface CreateProjectOptions {
 }
 
 interface IPCOptions {
-  windowManager: WindowManager;
   onCreateProject: (
     input: CreateProjectInput,
     options?: CreateProjectOptions
@@ -28,7 +26,6 @@ interface IPCOptions {
 }
 
 export default ({
-  windowManager,
   onCreateProject,
   onSelectProjectToOpen,
   onOpenProject,

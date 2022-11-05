@@ -6,7 +6,7 @@ import lightThemeWin from "./lightThemeWin";
 import darkThemeWin from "./darkThemeWin";
 import neonTheme from "./neonTheme";
 import { ThemeInterface } from "./ThemeInterface";
-import API from "lib/renderer/api/api";
+import API from "lib/renderer/api";
 
 const themeIds = ["dark", "light", "neon"] as const;
 type ThemeId = typeof themeIds[number];
