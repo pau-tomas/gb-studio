@@ -24,12 +24,14 @@ interface IPCOptions {
     options?: CreateProjectOptions
   ) => Promise<void>;
   onSelectProjectToOpen: () => Promise<void>;
+  onOpenProject: (projectPath: string) => Promise<void>;
 }
 
 export default ({
   windowManager,
   onCreateProject,
   onSelectProjectToOpen,
+  onOpenProject,
 }: IPCOptions) => {
   ipcMain.handle("open-item-folder", async (_event, file) => {
     if (!isString(file)) throw new Error("Invalid file path");
@@ -98,6 +100,10 @@ export default ({
     }
     return undefined;
   });
+
+  ipcMain.handle("open-project", (_, projectPath: string) =>
+    onOpenProject(projectPath)
+  );
 
   ipcMain.handle(
     "create-project",
