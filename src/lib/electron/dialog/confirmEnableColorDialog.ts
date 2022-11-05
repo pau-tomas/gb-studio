@@ -1,8 +1,8 @@
-import electron from "electron";
+import { dialog, BrowserWindow } from "electron";
 import l10n from "../../helpers/l10n";
+import assertIsMainProcess from "../assertIsMainProcess";
 
-const dialog = electron.remote ? electron.remote.dialog : electron.dialog;
-const win = electron.remote?.getCurrentWindow();
+assertIsMainProcess();
 
 export default () => {
   const dialogOptions = {
@@ -14,6 +14,9 @@ export default () => {
     message: l10n("DIALOG_ENABLE_COLOR_MODE"),
     detail: l10n("DIALOG_ENABLE_COLOR_MODE_DESCRIPTION"),
   };
-
-  return dialog.showMessageBoxSync(win, dialogOptions);
+  const win = BrowserWindow.getFocusedWindow();
+  if (win) {
+    return dialog.showMessageBoxSync(win, dialogOptions);
+  }
+  return false;
 };

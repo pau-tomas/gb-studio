@@ -1,41 +1,8 @@
 import React, { useEffect, useState } from "react";
-// import Path from "path";
-// import { ipcRenderer, remote } from "electron";
-// import settings from "electron-settings";
 import FocusLock, { AutoFocusInside } from "react-focus-lock";
-// import { FlexGrow } from "ui/spacing/Spacing";
-// import {
-//   SplashAppTitle,
-//   SplashContent,
-//   SplashCreateButton,
-//   SplashCredits,
-//   SplashCreditsBackground,
-//   SplashCreditsCloseButton,
-//   SplashCreditsContent,
-//   SplashCreditsContributor,
-//   SplashCreditsTitle,
-//   SplashEasterEggButton,
-//   SplashForm,
-//   SplashInfoMessage,
-//   SplashLogo,
-//   SplashOpenButton,
-//   SplashProject,
-//   SplashProjectClearButton,
-//   SplashScroll,
-//   SplashSidebar,
-//   SplashTab,
-//   SplashTemplateSelect,
-//   SplashWrapper,
-// } from "ui/splash/Splash";
-// import createProject, { ERR_PROJECT_EXISTS } from "lib/project/createProject";
 import GlobalStyle from "ui/globalStyle";
 import ThemeProvider from "ui/theme/ThemeProvider";
 import logoFile from "ui/icons/GBStudioLogo.png";
-// import { FormField, FormRow } from "ui/form/FormLayout";
-// import { TextField } from "ui/form/TextField";
-// import { CloseIcon, DotsIcon } from "ui/icons/Icons";
-// import { Button } from "ui/buttons/Button";
-// import l10n from "lib/helpers/l10n";
 import contributors from "../../../contributors.json";
 import gbs2Preview from "../../assets/templatePreview/gbs2.mp4";
 import gbhtmlPreview from "../../assets/templatePreview/gbhtml.mp4";
@@ -70,10 +37,6 @@ import { FlexGrow } from "ui/spacing/Spacing";
 import { FormRow, FormField } from "ui/form/FormLayout";
 import { TextField } from "ui/form/TextField";
 import API, { dialog, path, settings, l10n } from "lib/renderer/api";
-
-// Make sure localisation has loaded so that
-// l10n function can be used at top level
-// initElectronL10n();
 
 declare const DOCS_URL: string;
 

@@ -1,20 +1,15 @@
-import React, { FC } from "react";
-// import Path from "path";
-// import l10n from "lib/helpers/l10n";
+import React from "react";
 import { Select, Option } from "./Select";
-// import { remote } from "electron";
-import { dialog, l10n } from "lib/renderer/api";
+import { dialog, l10n, path } from "lib/renderer/api";
 
 const { openFilePicker } = dialog;
-
-// const { dialog } = remote;
 
 interface AppSelectProps {
   value?: string;
   onChange?: (newValue: string) => void;
 }
 
-export const AppSelect: FC<AppSelectProps> = ({ value, onChange }) => {
+export const AppSelect = ({ value, onChange }: AppSelectProps) => {
   const options = ([] as Option[]).concat(
     [
       {
@@ -29,8 +24,7 @@ export const AppSelect: FC<AppSelectProps> = ({ value, onChange }) => {
     value
       ? {
           value,
-          label: "FIX_ME",
-          // label: Path.basename(value),
+          label: path.basename(value),
         }
       : []
   );
@@ -44,14 +38,6 @@ export const AppSelect: FC<AppSelectProps> = ({ value, onChange }) => {
       if (filePath) {
         onChange?.(filePath);
       }
-      // const path = await dialog.showOpenDialog({
-      //       properties: ["openFile"],
-      //     });
-      //     if (path.filePaths[0]) {
-      //       // const newPath = Path.normalize(path.filePaths[0]);
-      //       const newPath = "FIX_ME";
-      //       onChange?.(newPath);
-      //     }
     } else {
       onChange?.(newValue.value);
     }

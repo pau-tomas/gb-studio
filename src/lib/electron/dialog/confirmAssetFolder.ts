@@ -1,8 +1,9 @@
-import electron from "electron";
+import { dialog } from "electron";
 import { AssetFolder } from "../../project/assets";
 import l10n from "../../helpers/l10n";
+import assertIsMainProcess from "../assertIsMainProcess";
 
-const dialog = electron.remote ? electron.remote.dialog : electron.dialog;
+assertIsMainProcess();
 
 export default (folders: AssetFolder[]): AssetFolder | undefined => {
   const cancelId = folders.length;
