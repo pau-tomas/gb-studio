@@ -7,10 +7,16 @@ import copy from "../helpers/fsCopy";
 
 const ERR_PROJECT_EXISTS = "ERR_PROJECT_EXISTS";
 
-const createProject = async (options) => {
-  const projectFolderName = stripInvalidFilenameCharacters(options.name);
-  const projectPath = path.join(options.path, projectFolderName);
-  const templatePath = `${projectTemplatesRoot}/${options.target}`;
+export interface CreateProjectInput {
+  name: string;
+  template: string;
+  path: string;
+}
+
+const createProject = async (input: CreateProjectInput) => {
+  const projectFolderName = stripInvalidFilenameCharacters(input.name);
+  const projectPath = path.join(input.path, projectFolderName);
+  const templatePath = `${projectTemplatesRoot}/${input.template}`;
   const projectTmpDataPath = `${projectPath}/project.gbsproj`;
   const projectDataPath = `${projectPath}/${projectFolderName}.gbsproj`;
   const { username } = os.userInfo();

@@ -1,16 +1,36 @@
-import { app, dialog, ipcMain, shell } from "electron";
+import { app, dialog, ipcMain, nativeTheme, shell } from "electron";
 import settings from "electron-settings";
 import path from "path";
 import { isString, isArray } from "@byte.london/byteguards";
 import WindowManager from "./windowManager";
+import loadProject from "lib/project/loadProjectData";
 
 const isStringArray = isArray(isString);
 
-interface IPCOptions {
-  windowManager: WindowManager;
+export interface CreateProjectInput {
+  name: string;
+  template: string;
+  path: string;
 }
 
-export default ({ windowManager }: IPCOptions) => {
+export interface CreateProjectOptions {
+  openOnSuccess?: boolean;
+}
+
+interface IPCOptions {
+  windowManager: WindowManager;
+  onCreateProject: (
+    input: CreateProjectInput,
+    options?: CreateProjectOptions
+  ) => Promise<void>;
+  onSelectProjectToOpen: () => Promise<void>;
+}
+
+export default ({
+  windowManager,
+  onCreateProject,
+  onSelectProjectToOpen,
+}: IPCOptions) => {
   ipcMain.handle("open-item-folder", async (_event, file) => {
     if (!isString(file)) throw new Error("Invalid file path");
     shell.showItemInFolder(file);
@@ -37,8 +57,13 @@ export default ({ windowManager }: IPCOptions) => {
 
   ipcMain.handle("settings-set", async (_event, key, value) => {
     if (!isString(key)) throw new Error("Invalid setting key");
-    return settings.set(key, value);
+    settings.set(key, value);
   });
+
+  ipcMain.handle(
+    "get-theme-should-use-dark-colors",
+    () => nativeTheme.shouldUseDarkColors
+  );
 
   ipcMain.handle("get-recent-projects", async () => {
     const recentProjects = settings.get("recentProjects");
@@ -60,29 +85,7 @@ export default ({ windowManager }: IPCOptions) => {
     return undefined;
   });
 
-  ipcMain.handle("open-project-filepicker", () => {
-    const files = dialog.showOpenDialogSync({
-      properties: ["openFile"],
-      filters: [
-        {
-          name: "Projects",
-          extensions: ["gbsproj", "json"],
-        },
-      ],
-    });
-    if (files && files[0]) {
-      console.log("OPEN PROJECT", files[0]);
-      // keepOpen = true;
-      // if (mainWindow) {
-      //   mainWindow.close();
-      //   await waitUntilWindowClosed();
-      // }
-
-      // openProject(files[0]);
-
-      // keepOpen = false;
-    }
-  });
+  ipcMain.handle("open-project-filepicker", onSelectProjectToOpen);
 
   ipcMain.handle("open-filepicker", () => {
     const files = dialog.showOpenDialogSync({
@@ -95,4 +98,22 @@ export default ({ windowManager }: IPCOptions) => {
     }
     return undefined;
   });
+
+  ipcMain.handle(
+    "create-project",
+    async (_event, input: CreateProjectInput, options?: CreateProjectOptions) =>
+      onCreateProject(input, options)
+  );
+
+  ipcMain.handle("load-project", async (_event, projectPath: string) => {
+    return loadProject(projectPath);
+  });
+
+  ipcMain.handle(
+    "build-project",
+    async (_event, projectPath: string, projectData: unknown) => {
+      console.log("BUILD PROJECT");
+      console.log(projectData);
+    }
+  );
 };

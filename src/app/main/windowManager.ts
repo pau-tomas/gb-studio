@@ -1,4 +1,4 @@
-import { app, BrowserWindow } from "electron";
+import { app, BrowserWindow, nativeTheme } from "electron";
 import { checkForUpdate } from "lib/helpers/updateChecker";
 
 declare const SPLASH_WINDOW_PRELOAD_WEBPACK_ENTRY: string;
@@ -137,6 +137,10 @@ export default class WindowManager {
     }
   }
 
+  async openProject(projectPath: string) {
+    console.log("@TODO Open Project", projectPath);
+  }
+
   init({ setApplicationMenu }: WindowManagerProps) {
     this.setApplicationMenu = setApplicationMenu;
 
@@ -147,6 +151,10 @@ export default class WindowManager {
           this.createSplashWindow();
         }
       });
+    });
+
+    nativeTheme?.on("updated", () => {
+      this.splashWindow?.webContents.send("update-theme");
     });
 
     app.on("window-all-closed", () => {

@@ -1,24 +1,19 @@
-// See the Electron documentation for details on how to use preload scripts:
-// https://www.electronjs.org/docs/latest/tutorial/process-model#preload-scripts
-
-import { contextBridge, ipcRenderer, nativeTheme } from "electron";
+import { ipcRenderer } from "electron";
 import path from "path";
 import l10n from "lib/helpers/l10n";
-import { L10NAPI } from "lib/renderer/api/preload/l10nPreload";
-import { API } from "lib/renderer/api/preload/apiPreload";
 
 type JsonValue = string | number | boolean | null;
 
-export const SplashAPI = {
+export const API = {
   platform: process.platform,
   l10n: (key: string, params?: Record<string, string | number>) =>
     l10n(key, params),
   openExternal: (path: string) => ipcRenderer.invoke("open-external", path),
   theme: {
-    getShouldUseDarkColors: () => nativeTheme?.shouldUseDarkColors,
+    getShouldUseDarkColors: () =>
+      ipcRenderer.invoke("get-theme-should-use-dark-colors"),
     getThemeSetting: () => ipcRenderer.invoke("settings-get", "theme"),
     onChange: (callback: () => void) => {
-      nativeTheme?.on("updated", callback);
       ipcRenderer?.on("update-theme", callback);
     },
   },
@@ -27,24 +22,37 @@ export const SplashAPI = {
     dirname: (input: string) => path.dirname(input),
     normalize: (input: string) => path.normalize(input),
     getDocumentsPath: () => ipcRenderer.invoke("get-documents-path"),
-    chooseDirectory: (): Promise<string | undefined> =>
-      ipcRenderer.invoke("open-directory-picker"),
   },
   settings: {
     get: (key: string) => ipcRenderer.invoke("settings-get", key),
-    set: (key: string, value: JsonValue) =>
-      ipcRenderer.invoke("settings-set", key, value),
+    set: (key: string, value: JsonValue) => {
+      console.log("INVOKE SET", { key, value });
+      ipcRenderer.invoke("settings-set", key, value);
+    },
   },
-
+  dialog: {
+    chooseDirectory: (): Promise<string | undefined> =>
+      ipcRenderer.invoke("open-directory-picker"),
+  },
   project: {
     openProjectFilePicker: () => ipcRenderer.invoke("open-project-filepicker"),
     getRecentProjects: (): Promise<string[]> =>
       ipcRenderer.invoke("get-recent-projects"),
+    createProject: (
+      input: {
+        name: string;
+        template: string;
+        path: string;
+      },
+      options?: {
+        openOnSuccess?: boolean;
+      }
+    ) => ipcRenderer.invoke("create-project", input, options),
+    openProject: (filePath: string) =>
+      ipcRenderer.invoke("open-project", filePath),
+    loadProjectData: (projectPath: string) =>
+      ipcRenderer.invoke("load-project", projectPath),
+    buildProject: (projectPath: string, projectData: unknown) =>
+      ipcRenderer.invoke("build-project", projectPath, projectData),
   },
 } as const;
-
-contextBridge.exposeInMainWorld("SplashAPI", SplashAPI);
-contextBridge.exposeInMainWorld("L10NAPI", L10NAPI);
-contextBridge.exposeInMainWorld("API", API);
-
-export default contextBridge;

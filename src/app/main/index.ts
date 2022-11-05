@@ -1,6 +1,7 @@
 // import { app, BrowserWindow, ipcMain, shell } from "electron";
-import { Menu, app, shell } from "electron";
+import { Menu, app, shell, dialog } from "electron";
 import initElectronL10n from "lib/helpers/initElectronL10n";
+import { CreateProjectInput } from "lib/project/createProject";
 import initIPC from "./ipc";
 import appMenuTemplate from "./menu/appMenuTemplate";
 import devMenuTemplate from "./menu/devMenuTemplate";
@@ -12,6 +13,7 @@ import viewMenuTemplate from "./menu/viewMenuTemplate";
 import windowMenuTemplate from "./menu/windowMenuTemplate";
 // import MenuManager from "./menuManager";
 import WindowManager from "./windowManager";
+import createProject from "lib/project/createProject";
 
 const windowManager = new WindowManager();
 
@@ -22,6 +24,37 @@ const openLearnMore = () => shell.openExternal("https://www.gbstudio.dev");
 
 const openPreferences = () => {
   windowManager.openPreferencesWindow();
+};
+
+const onCreateProject = async (
+  input: CreateProjectInput,
+  options?: {
+    openOnSuccess?: boolean;
+  }
+): Promise<void> => {
+  const projectDataPath = await createProject(input);
+  if (options?.openOnSuccess) {
+    await onOpenProject(projectDataPath);
+  }
+};
+
+const onOpenProject = async (projectPath: string): Promise<void> => {
+  windowManager.openProject(projectPath);
+};
+
+const onSelectProjectToOpen = async () => {
+  const files = dialog.showOpenDialogSync({
+    properties: ["openFile"],
+    filters: [
+      {
+        name: "Projects",
+        extensions: ["gbsproj", "json"],
+      },
+    ],
+  });
+  if (files && files[0]) {
+    onOpenProject(files[0]);
+  }
 };
 
 const setApplicationMenu = (projectOpen: boolean) => {
@@ -40,7 +73,7 @@ const setApplicationMenu = (projectOpen: boolean) => {
     fileMenuTemplate({
       isProjectOpen,
       openNewProject: () => windowManager.openSplashWindow("new"),
-      openProject: () => {},
+      openProject: onSelectProjectToOpen,
       switchProject: () => windowManager.openSplashWindow("recent"),
       saveProject: () => {},
       saveProjectAs: () => {},
@@ -105,6 +138,6 @@ app.on("ready", () => {
   windowManager.init({
     setApplicationMenu,
   });
-  initIPC({ windowManager });
+  initIPC({ windowManager, onCreateProject, onSelectProjectToOpen });
   setApplicationMenu(false);
 });

@@ -65,18 +65,13 @@ import {
   SplashTab,
   SplashTemplateSelect,
   SplashWrapper,
-  // SplashCredits,
-  // SplashCreditsBackground,
-  // SplashCreditsContent,
-  // SplashCreditsTitle,
-  // SplashCreditsContributor,
-  // SplashCreditsCloseButton,
 } from "ui/splash/Splash";
 import { FlexGrow } from "ui/spacing/Spacing";
 import SplashAPI from "../../app/splash/api";
 import { FormRow, FormField } from "ui/form/FormLayout";
 import { TextField } from "ui/form/TextField";
 import { l10n } from "lib/renderer/api/l10n";
+import API, { dialog, path, settings } from "lib/renderer/api/api";
 
 // Make sure localisation has loaded so that
 // l10n function can be used at top level
@@ -127,29 +122,29 @@ const templates: TemplateInfo[] = [
 
 const getLastUsedPath = async () => {
   console.log("GET LAST UYSED");
-  const storedPath = await SplashAPI.settings.get("__lastUsedPath");
+  const storedPath = await settings.get("__lastUsedPath");
   console.log("GET LAST UYSED 2");
   console.log("GET LAST UYSED 3", storedPath);
 
   if (storedPath) {
     console.log("STORED PATH", storedPath);
-    return SplashAPI.path.normalize(storedPath);
+    return path.normalize(storedPath);
   }
-  console.log("DOC PATH", SplashAPI.path.getDocumentsPath());
+  console.log("DOC PATH", path.getDocumentsPath());
 
-  return SplashAPI.path.getDocumentsPath();
+  return path.getDocumentsPath();
 };
 
 const setLastUsedPath = (path: string) => {
-  // settings.set("__lastUsedPath", path);
+  settings.set("__lastUsedPath", path);
 };
 
-const getLastUsedTab = () => {
-  // return String(settings.get("__lastUsedSplashTab")) || "info";
+const getLastUsedTab = async () => {
+  return String(await settings.get("__lastUsedSplashTab")) || "info";
 };
 
 const setLastUsedTab = (tab: string) => {
-  // settings.set("__lastUsedSplashTab", tab);
+  settings.set("__lastUsedSplashTab", tab);
 };
 
 const toSplashTab = (tab: string): SplashTabSection => {
@@ -160,16 +155,12 @@ const toSplashTab = (tab: string): SplashTabSection => {
 };
 
 export default () => {
-  const urlParams = new URLSearchParams(window.location.search);
-  const forceTab = urlParams.get("tab");
-  const initialTab = toSplashTab(forceTab || getLastUsedTab());
-
   const [templateId, setTemplateId] = useState("gbs2");
-  const [section, setSection] = useState<SplashTabSection>(initialTab);
+  const [section, setSection] = useState<SplashTabSection>("new");
   const [openCredits, setOpenCredits] = useState(false);
   const [recentProjects, setRecentProjects] = useState<ProjectInfo[]>([]);
   const [name, setName] = useState<string>(l10n("SPLASH_DEFAULT_PROJECT_NAME"));
-  const [path, setPath] = useState<string>("");
+  const [dirPath, setPath] = useState<string>("");
   const [nameError, setNameError] = useState("");
   const [pathError, setPathError] = useState("");
   const [creating, setCreating] = useState(false);
@@ -178,15 +169,19 @@ export default () => {
   useEffect(() => {
     async function fetchData() {
       setRecentProjects(
-        (await SplashAPI.getRecentProjects())
+        (await API.project.getRecentProjects())
           .map((projectPath) => ({
-            name: SplashAPI.path.basename(projectPath),
-            dir: SplashAPI.path.dirname(projectPath),
+            name: path.basename(projectPath),
+            dir: path.dirname(projectPath),
             path: projectPath,
           }))
           .reverse()
       );
       setPath(await getLastUsedPath());
+      const urlParams = new URLSearchParams(window.location.search);
+      const forceTab = urlParams.get("tab");
+      const initialTab = toSplashTab(forceTab || (await getLastUsedTab()));
+      setSection(initialTab);
     }
     fetchData();
   }, []);
@@ -197,33 +192,29 @@ export default () => {
   };
 
   const onOpen = () => {
-    SplashAPI.project.openProjectFilePicker();
+    API.project.openProjectFilePicker();
   };
 
-  const onOpenRecent = (projectPath: string) => () => {
-    // ipcRenderer.send("open-project", { projectPath });
+  const onOpenRecent = (projectPath: string) => async () => {
+    await API.project.openProject(projectPath);
   };
 
   const onChangeName = (e: React.ChangeEvent<HTMLInputElement>) => {
-    // const newName = e.currentTarget.value;
-    // setName(newName);
-    // setNameError("");
+    const newName = e.currentTarget.value;
+    setName(newName);
+    setNameError("");
   };
 
-  const onChangePath = (e: React.ChangeEvent<HTMLInputElement>) => {
-    // const newPath = e.currentTarget.value;
-    // setLastUsedPath(newPath);
-    // setPath(newPath);
-    // setPathError("");
+  const onChangeDirPath = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const newPath = e.currentTarget.value;
+    setLastUsedPath(newPath);
+    setPath(newPath);
+    setPathError("");
   };
 
   const onSelectFolder = async () => {
-    const directory = await SplashAPI.path.chooseDirectory();
-    // const path = await dialog.showOpenDialog({
-    //   properties: ["openDirectory"],
-    // });
+    const directory = await dialog.chooseDirectory();
     if (directory) {
-      //   const newPath = Path.normalize(`${path.filePaths}/`);
       setLastUsedPath(directory);
       setPath(directory);
       setPathError("");
@@ -231,39 +222,46 @@ export default () => {
   };
 
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    // e.preventDefault();
-    // if (!name) {
-    //   setNameError(l10n("ERROR_PLEASE_ENTER_PROJECT_NAME"));
-    //   return;
-    // }
-    // if (!path) {
-    //   setPathError(l10n("ERROR_PLEASE_ENTER_PROJECT_PATH"));
-    //   return;
-    // }
-    // try {
-    //   setCreating(true);
-    //   const projectPath = await createProject({
-    //     name,
-    //     target: templateId,
-    //     path,
-    //   });
-    //   ipcRenderer.send("open-project", { projectPath });
-    // } catch (err) {
-    //   console.error(err);
-    //   if (err === ERR_PROJECT_EXISTS) {
-    //     setNameError(l10n("ERROR_PROJECT_ALREADY_EXISTS"));
-    //     setCreating(false);
-    //   } else if (
-    //     String(err.message).startsWith("ENOTDIR") ||
-    //     String(err.message).startsWith("EEXIST")
-    //   ) {
-    //     setPathError(l10n("ERROR_PROJECT_PATH_INVALID"));
-    //     setCreating(false);
-    //   } else {
-    //     setPathError(err.message);
-    //     setCreating(false);
-    //   }
-    // }
+    e.preventDefault();
+    if (!name) {
+      setNameError(l10n("ERROR_PLEASE_ENTER_PROJECT_NAME"));
+      return;
+    }
+    if (!dirPath) {
+      setPathError(l10n("ERROR_PLEASE_ENTER_PROJECT_PATH"));
+      return;
+    }
+    try {
+      setCreating(true);
+      await API.project.createProject(
+        {
+          name,
+          template: templateId,
+          path: dirPath,
+        },
+        {
+          openOnSuccess: true,
+        }
+      );
+    } catch (err) {
+      console.error(err);
+      // @TODO Fix project create error handling
+      /*
+      if (err === ERR_PROJECT_EXISTS) {
+        setNameError(l10n("ERROR_PROJECT_ALREADY_EXISTS"));
+        setCreating(false);
+      } else if (
+        String(err.message).startsWith("ENOTDIR") ||
+        String(err.message).startsWith("EEXIST")
+      ) {
+        setPathError(l10n("ERROR_PROJECT_PATH_INVALID"));
+        setCreating(false);
+      } else {
+        setPathError(err.message);
+        setCreating(false);
+      }
+      */
+    }
   };
 
   const clearRecent = () => {
@@ -318,8 +316,8 @@ export default () => {
                   label={l10n("SPLASH_PATH")}
                   errorLabel={pathError}
                   size="large"
-                  value={path}
-                  onChange={onChangePath}
+                  value={dirPath}
+                  onChange={onChangeDirPath}
                   additionalRight={
                     <Button onClick={onSelectFolder} type="button">
                       <DotsIcon />
