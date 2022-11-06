@@ -11,15 +11,16 @@ type SplashTab = "info" | "new" | "recent";
 const isDevMode = !!process.execPath.match(/[\\/]electron/);
 
 interface WindowManagerProps {
-  setApplicationMenu: (projectOpen: boolean) => void;
+  setApplicationMenu: () => void;
 }
 
 export default class WindowManager {
   keepOpen = false;
   splashWindow?: BrowserWindow;
   preferencesWindow?: BrowserWindow;
+  projectWindow?: BrowserWindow;
   hasCheckedForUpdate = false;
-  setApplicationMenu?: (projectOpen: boolean) => void;
+  setApplicationMenu?: () => void;
 
   private createSplashWindow(forceTab?: SplashTab) {
     const win = new BrowserWindow({
@@ -42,7 +43,7 @@ export default class WindowManager {
     if (!win) return;
     this.splashWindow = win;
 
-    this.setApplicationMenu?.(false);
+    this.setApplicationMenu?.();
     win.setMenu(null);
     win.loadURL(`${SPLASH_WINDOW_WEBPACK_ENTRY}?tab=${forceTab || ""}`);
 
@@ -139,6 +140,15 @@ export default class WindowManager {
 
   async openProject(projectPath: string) {
     console.log("@TODO Open Project", projectPath);
+  }
+
+  async notifyThemeUpdate() {
+    this.splashWindow?.webContents.send("update-theme");
+    this.preferencesWindow?.webContents.send("update-theme");
+  }
+
+  isProjectWindowOpen() {
+    return !!this.projectWindow;
   }
 
   init({ setApplicationMenu }: WindowManagerProps) {

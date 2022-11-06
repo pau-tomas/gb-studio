@@ -4,8 +4,9 @@ import l10n from "lib/helpers/l10n";
 interface ViewMenuTemplateProps {
   isProjectOpen: () => boolean;
   setSection: (section: string) => void;
-  getTheme: () => string | undefined;
-  setTheme: (theme: string | undefined) => void;
+  theme?: string;
+  setTheme: (theme: string) => void;
+  resetTheme: () => void;
   getLocale: () => string | undefined;
   getLocales: () => string[];
   setLocale: (locale: string | undefined) => void;
@@ -22,8 +23,9 @@ interface ViewMenuTemplateProps {
 export default ({
   isProjectOpen,
   setSection,
+  theme,
   setTheme,
-  getTheme,
+  resetTheme,
   setLocale,
   getLocale,
   getLocales,
@@ -95,9 +97,9 @@ export default ({
           id: "themeDefault",
           label: l10n("MENU_THEME_DEFAULT"),
           type: "checkbox",
-          checked: getTheme() === undefined,
+          checked: theme === undefined,
           click() {
-            setTheme(undefined);
+            resetTheme();
           },
         },
         { type: "separator" },
@@ -105,7 +107,7 @@ export default ({
           id: "themeLight",
           label: l10n("MENU_THEME_LIGHT"),
           type: "checkbox",
-          checked: getTheme() === "light",
+          checked: theme === "light",
           click() {
             setTheme("light");
           },
@@ -114,7 +116,7 @@ export default ({
           id: "themeDark",
           label: l10n("MENU_THEME_DARK"),
           type: "checkbox",
-          checked: getTheme() === "dark",
+          checked: theme === "dark",
           click() {
             setTheme("dark");
           },

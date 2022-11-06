@@ -14,6 +14,8 @@ import windowMenuTemplate from "./menu/windowMenuTemplate";
 // import MenuManager from "./menuManager";
 import WindowManager from "./windowManager";
 import createProject from "lib/project/createProject";
+import settings from "electron-settings";
+import { isString } from "@byte.london/byteguards";
 
 const windowManager = new WindowManager();
 
@@ -57,9 +59,23 @@ const onSelectProjectToOpen = async () => {
   }
 };
 
-const setApplicationMenu = (projectOpen: boolean) => {
-  const isProjectOpen = () => projectOpen;
+const onSetTheme = async (theme: string) => {
+  await settings.set("theme", theme);
+  windowManager.notifyThemeUpdate();
+  setApplicationMenu();
+};
+
+const onResetTheme = async () => {
+  await settings.delete("theme");
+  windowManager.notifyThemeUpdate();
+  setApplicationMenu();
+};
+
+const setApplicationMenu = async () => {
+  const isProjectOpen = () => windowManager.isProjectWindowOpen();
   const platform = process.platform;
+  const themeSetting = await settings.get("theme");
+  const theme = isString(themeSetting) ? themeSetting : undefined;
   const menus = [
     ...(platform === "darwin"
       ? [
@@ -103,8 +119,9 @@ const setApplicationMenu = (projectOpen: boolean) => {
     viewMenuTemplate({
       isProjectOpen,
       setSection: () => {},
-      getTheme: () => undefined,
-      setTheme: () => {},
+      theme,
+      setTheme: onSetTheme,
+      resetTheme: onResetTheme,
       getLocale: () => undefined,
       getLocales: () => [],
       setLocale: () => {},
@@ -143,5 +160,5 @@ app.on("ready", () => {
     onSelectProjectToOpen,
     onOpenProject,
   });
-  setApplicationMenu(false);
+  setApplicationMenu();
 });
