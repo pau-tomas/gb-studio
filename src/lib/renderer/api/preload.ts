@@ -40,6 +40,7 @@ export const API = {
     openProjectFilePicker: () => ipcRenderer.invoke("open-project-filepicker"),
     getRecentProjects: (): Promise<string[]> =>
       ipcRenderer.invoke("get-recent-projects"),
+    clearRecentProjects: () => ipcRenderer.invoke("clear-recent-projects"),
     createProject: (
       input: {
         name: string;

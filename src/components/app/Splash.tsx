@@ -226,8 +226,8 @@ export default () => {
   };
 
   const clearRecent = () => {
-    // setRecentProjects([]);
-    // ipcRenderer.send("clear-recent-projects");
+    setRecentProjects([]);
+    API.project.clearRecentProjects();
   };
 
   return (

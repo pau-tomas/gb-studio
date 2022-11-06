@@ -70,6 +70,11 @@ export default ({
     return recentProjects;
   });
 
+  ipcMain.handle("clear-recent-projects", async () => {
+    settings.set("recentProjects", []);
+    app.clearRecentDocuments();
+  });
+
   ipcMain.handle("get-documents-path", async (_event) => {
     return app.getPath("documents");
   });
