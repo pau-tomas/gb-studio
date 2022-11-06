@@ -74,12 +74,14 @@ const onResetTheme = async () => {
 
 const onSetLocale = async (locale: string) => {
   await settings.set("locale", locale);
+  initElectronL10n();
   setApplicationMenu();
   switchLanguageDialog();
 };
 
 const onResetLocale = async () => {
   await settings.delete("locale");
+  initElectronL10n();
   setApplicationMenu();
   switchLanguageDialog();
 };
