@@ -2,6 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom";
 import { AppContainer } from "react-hot-loader";
 import Splash from "components/app/Splash";
+import API from "lib/renderer/api";
 
 window.addEventListener("error", (error) => {
   if (error.message.indexOf("dead code elimination") > -1) {
@@ -31,7 +32,8 @@ window.addEventListener("error", (error) => {
   return false;
 });
 
-const render = () => {
+const render = async () => {
+  await API.l10nInit();
   ReactDOM.render(
     <AppContainer>
       <Splash />

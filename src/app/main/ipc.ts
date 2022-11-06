@@ -3,6 +3,7 @@ import settings from "electron-settings";
 import path from "path";
 import { isString, isArray } from "@byte.london/byteguards";
 import loadProject from "lib/project/loadProjectData";
+import { l10nStrings } from "lib/helpers/l10n";
 
 const isStringArray = isArray(isString);
 
@@ -124,4 +125,8 @@ export default ({
       console.log(projectData);
     }
   );
+
+  ipcMain.handle("l10n-get-lang-data", () => {
+    return l10nStrings;
+  });
 };

@@ -14,7 +14,7 @@ interface L10NParams {
 
 const localesPath = `${localesRoot}/*.json`;
 
-const l10nStrings: L10NLookup = en;
+export const l10nStrings: L10NLookup = en;
 
 export const locales = glob
   .sync(localesPath)
@@ -67,6 +67,12 @@ export const loadLanguage = (locale: string) => {
     console.trace();
   }
   return {};
+};
+
+export const setLanguageData = (data: L10NLookup) => {
+  for (const [key, value] of Object.entries(data)) {
+    l10nStrings[key] = value;
+  }
 };
 
 export const isRTL = (): boolean => {

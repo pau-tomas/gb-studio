@@ -1,5 +1,5 @@
 import { MenuItemConstructorOptions } from "electron";
-import l10n from "lib/helpers/l10n";
+import l10n, { locales } from "lib/helpers/l10n";
 
 interface ViewMenuTemplateProps {
   isProjectOpen: () => boolean;
@@ -7,9 +7,9 @@ interface ViewMenuTemplateProps {
   theme?: string;
   setTheme: (theme: string) => void;
   resetTheme: () => void;
-  getLocale: () => string | undefined;
-  getLocales: () => string[];
-  setLocale: (locale: string | undefined) => void;
+  locale: string | undefined;
+  setLocale: (locale: string) => void;
+  resetLocale: () => void;
   setShowCollisions: (value: boolean | undefined) => void;
   getShowConnections: () => string | undefined;
   setShowConnections: (value: string | undefined) => void;
@@ -27,8 +27,8 @@ export default ({
   setTheme,
   resetTheme,
   setLocale,
-  getLocale,
-  getLocales,
+  resetLocale,
+  locale,
   setShowCollisions,
   getShowConnections,
   setShowConnections,
@@ -130,20 +130,20 @@ export default ({
           id: "localeDefault",
           label: l10n("MENU_LANGUAGE_DEFAULT"),
           type: "checkbox",
-          checked: getLocale() === undefined,
+          checked: locale === undefined,
           click() {
-            setLocale(undefined);
+            resetLocale();
           },
         },
         { type: "separator" },
-        ...getLocales().map((locale) => {
+        ...locales.map((l) => {
           return {
-            id: `locale-${locale}`,
-            label: locale,
+            id: `locale-${l}`,
+            label: l,
             type: "checkbox",
-            checked: getLocale() === locale,
+            checked: locale === l,
             click() {
-              setLocale(locale);
+              setLocale(l);
             },
           } as MenuItemConstructorOptions;
         }),

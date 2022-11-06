@@ -16,6 +16,7 @@ import WindowManager from "./windowManager";
 import createProject from "lib/project/createProject";
 import settings from "electron-settings";
 import { isString } from "@byte.london/byteguards";
+import switchLanguageDialog from "lib/electron/dialog/switchLanguageDialog";
 
 const windowManager = new WindowManager();
 
@@ -71,11 +72,25 @@ const onResetTheme = async () => {
   setApplicationMenu();
 };
 
+const onSetLocale = async (locale: string) => {
+  await settings.set("locale", locale);
+  setApplicationMenu();
+  switchLanguageDialog();
+};
+
+const onResetLocale = async () => {
+  await settings.delete("locale");
+  setApplicationMenu();
+  switchLanguageDialog();
+};
+
 const setApplicationMenu = async () => {
   const isProjectOpen = () => windowManager.isProjectWindowOpen();
   const platform = process.platform;
   const themeSetting = await settings.get("theme");
   const theme = isString(themeSetting) ? themeSetting : undefined;
+  const localeSetting = await settings.get("locale");
+  const locale = isString(localeSetting) ? localeSetting : undefined;
   const menus = [
     ...(platform === "darwin"
       ? [
@@ -122,9 +137,9 @@ const setApplicationMenu = async () => {
       theme,
       setTheme: onSetTheme,
       resetTheme: onResetTheme,
-      getLocale: () => undefined,
-      getLocales: () => [],
-      setLocale: () => {},
+      locale,
+      setLocale: onSetLocale,
+      resetLocale: onResetLocale,
       setShowCollisions: () => {},
       getShowConnections: () => undefined,
       setShowConnections: () => {},

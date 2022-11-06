@@ -1,6 +1,6 @@
 import { ipcRenderer } from "electron";
 import path from "path";
-import l10n from "lib/helpers/l10n";
+import l10n, { setLanguageData } from "lib/helpers/l10n";
 
 type JsonValue = string | number | boolean | null;
 
@@ -8,6 +8,9 @@ export const API = {
   platform: process.platform,
   l10n: (key: string, params?: Record<string, string | number>) =>
     l10n(key, params),
+  l10nInit: async () => {
+    setLanguageData(await ipcRenderer.invoke("l10n-get-lang-data"));
+  },
   openExternal: (path: string) => ipcRenderer.invoke("open-external", path),
   theme: {
     getShouldUseDarkColors: () =>
