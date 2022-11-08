@@ -17,6 +17,7 @@ export const API = {
       ipcRenderer.invoke("set-zoom-level", zoomLevel),
     setTrackerKeyBindings: (value: number) =>
       ipcRenderer.invoke("set-tracker-keybindings", value),
+    openHelp: (page: string) => ipcRenderer.invoke("open-help", page),
   },
   theme: {
     getShouldUseDarkColors: () =>
@@ -44,6 +45,8 @@ export const API = {
       ipcRenderer.invoke("open-directory-picker"),
     openFilePicker: (): Promise<string | undefined> =>
       ipcRenderer.invoke("open-filepicker"),
+    showError: (title: string, content: string) =>
+      ipcRenderer.invoke("show-error", title, content),
   },
   project: {
     openProjectFilePicker: () => ipcRenderer.invoke("open-project-filepicker"),
@@ -66,5 +69,9 @@ export const API = {
       ipcRenderer.invoke("load-project", projectPath),
     buildProject: (projectPath: string, projectData: unknown) =>
       ipcRenderer.invoke("build-project", projectPath, projectData),
+    openPlayWindow: (outputRoot: string, sgbMode: boolean) =>
+      ipcRenderer.invoke("open-play", outputRoot, sgbMode),
+    openAsset: (filePath: string, type?: "music" | "image" | undefined) =>
+      ipcRenderer.invoke("open-asset", filePath, type),
   },
 } as const;

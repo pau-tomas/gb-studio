@@ -19,6 +19,8 @@ export default class WindowManager {
   splashWindow?: BrowserWindow;
   preferencesWindow?: BrowserWindow;
   projectWindow?: BrowserWindow;
+  playWindow?: BrowserWindow;
+  playWindowSgb?: boolean;
   hasCheckedForUpdate = false;
   setApplicationMenu?: () => void;
 
@@ -94,6 +96,35 @@ export default class WindowManager {
     });
   }
 
+  private createPlayWindow(url: string, sgb: boolean) {
+    if (this.playWindow && sgb !== this.playWindowSgb) {
+      this.playWindow.close();
+      this.playWindow = undefined;
+    }
+
+    const win = new BrowserWindow({
+      width: sgb ? 512 : 480,
+      height: sgb ? 448 : 432,
+      fullscreenable: false,
+      autoHideMenuBar: true,
+      useContentSize: true,
+      webPreferences: {
+        nodeIntegration: false,
+        webSecurity: process.env.NODE_ENV !== "development",
+      },
+    });
+
+    if (!win) return;
+    this.playWindow = win;
+
+    win.setMenu(null);
+    win.loadURL(`${url}?audio=true&sgb=${sgb ? "true" : "false"}`);
+
+    win.on("closed", () => {
+      this.playWindow = undefined;
+    });
+  }
+
   setSplashTab(tab?: SplashTab) {
     if (this.splashWindow) {
       this.splashWindow.loadURL(
@@ -140,6 +171,10 @@ export default class WindowManager {
 
   async openProject(projectPath: string) {
     console.log("@TODO Open Project", projectPath);
+  }
+
+  async openPlayWindow(url: string, sgbMode: boolean) {
+    this.createPlayWindow(url, sgbMode);
   }
 
   async notifyThemeUpdate() {

@@ -1,4 +1,4 @@
-import { remote } from "electron";
+import { clipboard } from "electron";
 import {
   ClipboardActors,
   ClipboardFormat,
@@ -22,7 +22,7 @@ import {
   NarrowClipboardType,
 } from "./clipboardTypes";
 
-export const clipboard = remote.clipboard;
+export { clipboard };
 
 const isClipboardMetaspriteTiles = (
   input: unknown

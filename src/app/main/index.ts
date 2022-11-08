@@ -1,5 +1,6 @@
 // import { app, BrowserWindow, ipcMain, shell } from "electron";
 import { Menu, app, shell, dialog } from "electron";
+import open from "open";
 import initElectronL10n from "lib/helpers/initElectronL10n";
 import { CreateProjectInput } from "lib/project/createProject";
 import initIPC from "./ipc";
@@ -47,6 +48,24 @@ const onOpenAbout = () => {
   });
 };
 
+const onOpenHelp = async (helpPage: string) => {
+  if (helpPage === "sprites") {
+    shell.openExternal("https://www.gbstudio.dev/docs/sprites/");
+  } else if (helpPage === "backgrounds") {
+    shell.openExternal("https://www.gbstudio.dev/docs/backgrounds/");
+  } else if (helpPage === "ui-elements") {
+    shell.openExternal("https://www.gbstudio.dev/docs/ui-elements/");
+  } else if (helpPage === "music") {
+    shell.openExternal("https://www.gbstudio.dev/docs/music/");
+  } else if (helpPage === "error") {
+    shell.openExternal("https://www.gbstudio.dev/docs/error/");
+  }
+};
+
+const onOpenPlayWindow = async (url: string, sgbMode: boolean) => {
+  windowManager.openPlayWindow(url, sgbMode);
+};
+
 const onCreateProject = async (
   input: CreateProjectInput,
   options?: {
@@ -75,6 +94,18 @@ const onSelectProjectToOpen = async () => {
   });
   if (files && files[0]) {
     onOpenProject(files[0]);
+  }
+};
+
+const onOpenAsset = async (filePath: string, type: string) => {
+  if (type === "image") {
+    const app = String(settings.get("imageEditorPath") || "") || undefined;
+    open(filePath, { app });
+  } else if (type === "music") {
+    const app = String(settings.get("musicEditorPath") || "") || undefined;
+    open(filePath, { app });
+  } else {
+    shell.openPath(filePath);
   }
 };
 
@@ -206,6 +237,9 @@ app.on("ready", () => {
     onOpenProject,
     onSetWindowZoom,
     onSetTrackerKeyBindings,
+    onOpenPlayWindow,
+    onOpenHelp,
+    onOpenAsset,
   });
   setApplicationMenu();
 });

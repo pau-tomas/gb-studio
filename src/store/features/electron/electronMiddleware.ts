@@ -1,5 +1,3 @@
-import { ipcRenderer, remote } from "electron";
-import settings from "electron-settings";
 import uniq from "lodash/uniq";
 import confirmDeleteCustomEvent from "lib/electron/dialog/confirmDeleteCustomEvent";
 import confirmEnableColorDialog from "lib/electron/dialog/confirmEnableColorDialog";
@@ -27,24 +25,16 @@ import { ScriptEvent } from "../entities/entitiesTypes";
 import entitiesActions from "../entities/entitiesActions";
 import { Dictionary } from "lodash";
 import actions from "./electronActions";
-import open from "open";
+import api, { dialog, settings } from "lib/renderer/api";
 
 const electronMiddleware: Middleware<Dispatch, RootState> =
   (store) => (next) => (action) => {
     if (actions.openHelp.match(action)) {
-      ipcRenderer.send("open-help", action.payload);
+      api.app.openHelp(action.payload);
     } else if (actions.openFolder.match(action)) {
-      remote.shell.openItem(action.payload);
+      api.openExternal(action.payload);
     } else if (actions.openFile.match(action)) {
-      if (action.payload.type === "image") {
-        const app = String(settings.get("imageEditorPath") || "") || undefined;
-        open(action.payload.filename, { app });
-      } else if (action.payload.type === "music") {
-        const app = String(settings.get("musicEditorPath") || "") || undefined;
-        open(action.payload.filename, { app });
-      } else {
-        remote.shell.openItem(action.payload.filename);
-      }
+      api.project.openAsset(action.payload.filename, action.payload.type);
     } else if (editorActions.resizeWorldSidebar.match(action)) {
       settings.set("worldSidebarWidth", action.payload);
     } else if (editorActions.resizeFilesSidebar.match(action)) {
@@ -69,15 +59,19 @@ const electronMiddleware: Middleware<Dispatch, RootState> =
         );
       }
     } else if (projectActions.loadProject.fulfilled.match(action)) {
-      ipcRenderer.send("project-loaded", action.payload.data.settings);
+      // ipcRenderer.send("project-loaded", action.payload.data.settings);
+      console.warn("@TODO disabled project-loaded IPC call");
     } else if (settingsActions.setShowNavigator.match(action)) {
-      ipcRenderer.send("set-show-navigator", action.payload);
+      // ipcRenderer.send("set-show-navigator", action.payload);
+      console.warn("@TODO disabled set-show-navigator IPC call");
     } else if (projectActions.loadProject.rejected.match(action)) {
-      const window = remote.getCurrentWindow();
-      window.close();
+      console.warn("@TODO disabled close project window on load project fail");
+      // const window = remote.getCurrentWindow();
+      // window.close();
     } else if (projectActions.closeProject.match(action)) {
-      const window = remote.getCurrentWindow();
-      window.close();
+      console.warn("@TODO disabled close project window on migration cancel");
+      // const window = remote.getCurrentWindow();
+      // window.close();
     } else if (entitiesActions.removeCustomEvent.match(action)) {
       const state = store.getState();
       const customEvent = customEventSelectors.selectById(
@@ -276,7 +270,7 @@ const electronMiddleware: Middleware<Dispatch, RootState> =
         });
       }
     } else if (actions.showErrorBox.match(action)) {
-      remote.dialog.showErrorBox(action.payload.title, action.payload.content);
+      dialog.showError(action.payload.title, action.payload.content);
     }
 
     next(action);

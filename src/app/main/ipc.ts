@@ -27,6 +27,9 @@ interface IPCOptions {
   onOpenProject: (projectPath: string) => Promise<void>;
   onSetWindowZoom: (zoomLevel: number) => Promise<void>;
   onSetTrackerKeyBindings: (zoomLevel: number) => Promise<void>;
+  onOpenPlayWindow: (outputRoot: string, sgbMode: boolean) => Promise<void>;
+  onOpenHelp: (page: string) => Promise<void>;
+  onOpenAsset: (filePath: string, type: string) => Promise<void>;
 }
 
 export default ({
@@ -35,6 +38,9 @@ export default ({
   onOpenProject,
   onSetWindowZoom,
   onSetTrackerKeyBindings,
+  onOpenPlayWindow,
+  onOpenHelp,
+  onOpenAsset,
 }: IPCOptions) => {
   ipcMain.handle("open-item-folder", async (_event, file) => {
     if (!isString(file)) throw new Error("Invalid file path");
@@ -53,6 +59,11 @@ export default ({
     );
     if (!match) throw new Error("URL not allowed");
     shell.openExternal(url);
+  });
+
+  ipcMain.handle("open-play", async (_event, outputRoot, sgbMode) => {
+    const url = `file://${outputRoot}/build/web/index.html`;
+    onOpenPlayWindow(url, sgbMode);
   });
 
   ipcMain.handle("settings-get", async (_event, key) => {
@@ -150,5 +161,15 @@ export default ({
 
   ipcMain.handle("set-tracker-keybindings", (_, value: number) => {
     onSetTrackerKeyBindings(value);
+  });
+
+  ipcMain.handle("open-help", (_event, page) => onOpenHelp(page));
+
+  ipcMain.handle("open-asset", (_event, filePath: string, type: string) =>
+    onOpenAsset(filePath, type)
+  );
+
+  ipcMain.handle("show-error", (_event, title: string, content: string) => {
+    dialog.showErrorBox(title, content);
   });
 };

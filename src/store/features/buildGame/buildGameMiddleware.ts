@@ -1,4 +1,3 @@
-import { ipcRenderer, remote } from "electron";
 import { Dispatch, Middleware } from "@reduxjs/toolkit";
 import Path from "path";
 import rimraf from "rimraf";
@@ -15,6 +14,7 @@ import confirmEjectEngineReplaceDialog from "lib/electron/dialog/confirmEjectEng
 import ejectEngineToDir from "lib/project/ejectEngineToDir";
 import actions from "./buildGameActions";
 import l10n from "lib/helpers/l10n";
+import api from "lib/renderer/api";
 
 const rmdir = promisify(rimraf);
 
@@ -91,7 +91,7 @@ const buildGameMiddleware: Middleware<Dispatch, RootState> =
             `${outputRoot}/build/${buildType}`,
             `${projectRoot}/build/${buildType}`
           );
-          remote.shell.openItem(`${projectRoot}/build/${buildType}`);
+          api.openExternal(`${projectRoot}/build/${buildType}`);
           dispatch(consoleActions.stdOut("-"));
           dispatch(
             consoleActions.stdOut(
@@ -111,12 +111,7 @@ const buildGameMiddleware: Middleware<Dispatch, RootState> =
         if (buildType === "web" && !exportBuild) {
           dispatch(consoleActions.stdOut("-"));
           dispatch(consoleActions.stdOut("Success! Starting emulator..."));
-
-          ipcRenderer.send(
-            "open-play",
-            `file://${outputRoot}/build/web/index.html`,
-            sgbEnabled && !colorEnabled
-          );
+          api.project.openPlayWindow(outputRoot, sgbEnabled && !colorEnabled);
         }
 
         const buildTime = Date.now() - buildStartTime;
@@ -135,7 +130,7 @@ const buildGameMiddleware: Middleware<Dispatch, RootState> =
           dispatch(consoleActions.stdOut(l10n("BUILD_CANCELLED")));
         } else {
           dispatch(navigationActions.setSection("build"));
-          dispatch(consoleActions.stdErr(e.toString()));
+          dispatch(consoleActions.stdErr(String(e)));
         }
         dispatch(consoleActions.completeConsole());
       }
@@ -178,7 +173,7 @@ const buildGameMiddleware: Middleware<Dispatch, RootState> =
       }
 
       ejectEngineToDir(outputDir).then(() => {
-        remote.shell.openItem(outputDir);
+        api.openExternal(outputDir);
       });
     } else if (actions.exportProject.match(action)) {
       const state = store.getState();
@@ -263,14 +258,14 @@ const buildGameMiddleware: Middleware<Dispatch, RootState> =
         dispatch(consoleActions.stdOut(`Build Time: ${buildTime}ms`));
         dispatch(consoleActions.completeConsole());
 
-        remote.shell.openItem(exportRoot);
+        api.openExternal(exportRoot);
       } catch (e) {
         if (typeof e === "string") {
           dispatch(navigationActions.setSection("build"));
           dispatch(consoleActions.stdErr(e));
         } else {
           dispatch(navigationActions.setSection("build"));
-          dispatch(consoleActions.stdErr(e.toString()));
+          dispatch(consoleActions.stdErr(String(e)));
         }
         dispatch(consoleActions.completeConsole());
         throw e;
