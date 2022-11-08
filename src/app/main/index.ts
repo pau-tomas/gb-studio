@@ -86,6 +86,16 @@ const onResetLocale = async () => {
   switchLanguageDialog();
 };
 
+const onSetWindowZoom = async (zoomLevel: number) => {
+  await settings.set("zoomLevel", zoomLevel);
+  windowManager.notifyWindowZoom(zoomLevel);
+};
+
+const onSetTrackerKeyBindings = async (value: number) => {
+  await settings.set("trackerKeyBindings", value);
+  windowManager.notifyTrackerKeyBindings(value);
+};
+
 const setApplicationMenu = async () => {
   const isProjectOpen = () => windowManager.isProjectWindowOpen();
   const platform = process.platform;
@@ -176,6 +186,8 @@ app.on("ready", () => {
     onCreateProject,
     onSelectProjectToOpen,
     onOpenProject,
+    onSetWindowZoom,
+    onSetTrackerKeyBindings,
   });
   setApplicationMenu();
 });

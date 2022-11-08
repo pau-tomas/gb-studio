@@ -25,12 +25,16 @@ interface IPCOptions {
   ) => Promise<void>;
   onSelectProjectToOpen: () => Promise<void>;
   onOpenProject: (projectPath: string) => Promise<void>;
+  onSetWindowZoom: (zoomLevel: number) => Promise<void>;
+  onSetTrackerKeyBindings: (zoomLevel: number) => Promise<void>;
 }
 
 export default ({
   onCreateProject,
   onSelectProjectToOpen,
   onOpenProject,
+  onSetWindowZoom,
+  onSetTrackerKeyBindings,
 }: IPCOptions) => {
   ipcMain.handle("open-item-folder", async (_event, file) => {
     if (!isString(file)) throw new Error("Invalid file path");
@@ -138,5 +142,13 @@ export default ({
 
   ipcMain.handle("l10n-get-lang-data", () => {
     return l10nStrings;
+  });
+
+  ipcMain.handle("set-zoom-level", (_event, zoomLevel: number) => {
+    onSetWindowZoom(zoomLevel);
+  });
+
+  ipcMain.handle("set-tracker-keybindings", (_, value: number) => {
+    onSetTrackerKeyBindings(value);
   });
 };

@@ -12,6 +12,12 @@ export const API = {
     setLanguageData(await ipcRenderer.invoke("l10n-get-lang-data"));
   },
   openExternal: (path: string) => ipcRenderer.invoke("open-external", path),
+  app: {
+    setZoomLevel: (zoomLevel: number) =>
+      ipcRenderer.invoke("set-zoom-level", zoomLevel),
+    setTrackerKeyBindings: (value: number) =>
+      ipcRenderer.invoke("set-tracker-keybindings", value),
+  },
   theme: {
     getShouldUseDarkColors: () =>
       ipcRenderer.invoke("get-theme-should-use-dark-colors"),

@@ -9,7 +9,7 @@ import { DotsIcon } from "ui/icons/Icons";
 import { FixedSpacer, FlexGrow } from "ui/spacing/Spacing";
 import { AppSelect } from "ui/form/AppSelect";
 import { OptionLabelWithInfo, Select } from "ui/form/Select";
-import { path, settings, dialog, l10n } from "lib/renderer/api";
+import { app, path, settings, dialog, l10n } from "lib/renderer/api";
 
 interface Options {
   value: number;
@@ -86,14 +86,12 @@ const Preferences = () => {
 
   const onChangeZoomLevel = async (zoomLevel: number) => {
     setZoomLevel(zoomLevel);
-    await settings.set("zoomLevel", zoomLevel);
-    // ipcRenderer.send("window-zoom", zoomLevel);
+    app.setZoomLevel(zoomLevel);
   };
 
   const onChangeTrackerKeyBindings = async (trackerKeyBindings: number) => {
     setTrackerKeyBindings(trackerKeyBindings);
-    await settings.set("trackerKeyBindings", trackerKeyBindings);
-    // ipcRenderer.send("keybindings-updated");
+    app.setTrackerKeyBindings(trackerKeyBindings);
   };
 
   const onSelectTmpFolder = async () => {

@@ -147,6 +147,14 @@ export default class WindowManager {
     this.preferencesWindow?.webContents.send("update-theme");
   }
 
+  async notifyWindowZoom(zoomLevel: number) {
+    this.projectWindow?.webContents.send("windowZoom", zoomLevel);
+  }
+
+  async notifyTrackerKeyBindings(value: number) {
+    this.projectWindow?.webContents.send("keybindings-update", value);
+  }
+
   isProjectWindowOpen() {
     return !!this.projectWindow;
   }
