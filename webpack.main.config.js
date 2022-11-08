@@ -1,15 +1,5 @@
 const plugins = require("./webpack.plugins");
-const CopyPlugin = require("copy-webpack-plugin");
 const Path = require("path");
-
-const mainPlugins = [].concat(
-  plugins,
-  new CopyPlugin({
-    patterns: [
-      { from: "node_modules/about-window", to: "node_modules/about-window" },
-    ],
-  })
-);
 
 const srcPath = (subdir) => {
   return Path.join(__dirname, "src", subdir);
@@ -26,7 +16,10 @@ module.exports = {
   module: {
     rules: require("./webpack.rules"),
   },
-  plugins: mainPlugins,
+  output: {
+    hashFunction: "sha256",
+  },
+  plugins,
   resolve: {
     extensions: [".js", ".ts", ".jsx", ".tsx", ".wasm", ".css"],
     alias: {
@@ -35,8 +28,5 @@ module.exports = {
       lib: srcPath("lib"),
       ui: srcPath("components/ui"),
     },
-  },
-  externals: {
-    "about-window": "about-window",
   },
 };
