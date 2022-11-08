@@ -17,6 +17,11 @@ import createProject from "lib/project/createProject";
 import settings from "electron-settings";
 import { isString } from "@byte.london/byteguards";
 import switchLanguageDialog from "lib/electron/dialog/switchLanguageDialog";
+import openAboutWindow from "about-window";
+import { assetsRoot } from "../../consts";
+import l10n from "lib/helpers/l10n";
+
+declare const COMMITHASH: string;
 
 const windowManager = new WindowManager();
 
@@ -27,6 +32,19 @@ const openLearnMore = () => shell.openExternal("https://www.gbstudio.dev");
 
 const openPreferences = () => {
   windowManager.openPreferencesWindow();
+};
+
+const onOpenAbout = () => {
+  return openAboutWindow({
+    icon_path: `${assetsRoot}/app/icon/app_icon.png`,
+    bug_link_text: `${l10n("FIELD_REPORT_BUG")} (git: ${COMMITHASH})`,
+    // eslint-disable-next-line camelcase
+    win_options: {
+      title: l10n("MENU_ABOUT"),
+    },
+    description: l10n("GBSTUDIO_DESCRIPTION"),
+    copyright: l10n("GBSTUDIO_COPYRIGHT"),
+  });
 };
 
 const onCreateProject = async (
@@ -107,7 +125,7 @@ const setApplicationMenu = async () => {
     ...(platform === "darwin"
       ? [
           appMenuTemplate({
-            openAbout: () => {},
+            openAbout: onOpenAbout,
             checkForUpdates: () => {},
             openPreferences,
           }),
@@ -169,7 +187,7 @@ const setApplicationMenu = async () => {
       platform,
       openDocs,
       openLearnMore,
-      openAbout: () => {},
+      openAbout: onOpenAbout,
       checkForUpdates: () => {},
     }),
   ];
