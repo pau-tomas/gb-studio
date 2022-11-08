@@ -9,7 +9,7 @@ import { DotsIcon } from "ui/icons/Icons";
 import { FixedSpacer, FlexGrow } from "ui/spacing/Spacing";
 import { AppSelect } from "ui/form/AppSelect";
 import { OptionLabelWithInfo, Select } from "ui/form/Select";
-import { settings, dialog, l10n } from "lib/renderer/api";
+import { path, settings, dialog, l10n } from "lib/renderer/api";
 
 interface Options {
   value: number;
@@ -39,7 +39,7 @@ const trackerKeyBindingsOptionsInfo: string[] = [
   l10n("FIELD_UI_PIANO_INFO"),
 ];
 
-const getTmp = (_arg: boolean) => "";
+const getTmp = () => path.getTmpPath();
 
 const Preferences = () => {
   const pathError = "";
@@ -57,7 +57,7 @@ const Preferences = () => {
 
   useEffect(() => {
     async function fetchData() {
-      setTmpPath(getTmp(false));
+      setTmpPath(await getTmp());
       setImageEditorPath(String((await settings.get("imageEditorPath")) || ""));
       setMusicEditorPath(String((await settings.get("musicEditorPath")) || ""));
       setZoomLevel(Number((await settings.get("zoomLevel")) || 0));
@@ -97,22 +97,16 @@ const Preferences = () => {
   };
 
   const onSelectTmpFolder = async () => {
-    // const path = await dialog.showOpenDialog({
-    //   properties: ["openDirectory"],
-    // });
     const directory = await dialog.chooseDirectory();
-
     if (directory) {
-      // const newPath = Path.normalize(`${path.filePaths[0]}/`);
       setTmpPath(directory);
       await settings.set("tmpDir", directory);
     }
   };
 
   const onRestoreDefaultTmpPath = async () => {
-    // await settings.delete("tmpDir");
-    // settings.delete("tmpDir");
-    setTmpPath(getTmp(false));
+    await settings.delete("tmpDir");
+    setTmpPath(await getTmp());
   };
 
   return (

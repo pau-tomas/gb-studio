@@ -25,13 +25,13 @@ export const API = {
     dirname: (input: string) => path.dirname(input),
     normalize: (input: string) => path.normalize(input),
     getDocumentsPath: () => ipcRenderer.invoke("get-documents-path"),
+    getTmpPath: () => ipcRenderer.invoke("get-tmp-path"),
   },
   settings: {
     get: (key: string) => ipcRenderer.invoke("settings-get", key),
-    set: (key: string, value: JsonValue) => {
-      console.log("INVOKE SET", { key, value });
-      ipcRenderer.invoke("settings-set", key, value);
-    },
+    set: (key: string, value: JsonValue) =>
+      ipcRenderer.invoke("settings-set", key, value),
+    delete: (key: string) => ipcRenderer.invoke("settings-delete", key),
   },
   dialog: {
     chooseDirectory: (): Promise<string | undefined> =>

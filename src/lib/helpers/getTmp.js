@@ -1,8 +1,7 @@
-import fs from "fs-extra";
 import os from "os";
 import isElectron from "./isElectron";
 
-export default (create = true) => {
+export default () => {
   let tmpPath = os.tmpdir();
   if (isElectron()) {
     // eslint-disable-next-line global-require
@@ -21,8 +20,5 @@ export default (create = true) => {
   } else if (process.platform === "win32") {
     tmpPath = "C:\\tmp";
   } else tmpPath = "/tmp";
-  if (create) {
-    fs.ensureDirSync(tmpPath);
-  }
   return tmpPath;
 };

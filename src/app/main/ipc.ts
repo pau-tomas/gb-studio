@@ -4,6 +4,7 @@ import path from "path";
 import { isString, isArray } from "@byte.london/byteguards";
 import loadProject from "lib/project/loadProjectData";
 import { l10nStrings } from "lib/helpers/l10n";
+import getTmp from "lib/helpers/getTmp";
 
 const isStringArray = isArray(isString);
 
@@ -60,6 +61,11 @@ export default ({
     settings.set(key, value);
   });
 
+  ipcMain.handle("settings-delete", async (_event, key) => {
+    if (!isString(key)) throw new Error("Invalid setting key");
+    settings.delete(key);
+  });
+
   ipcMain.handle(
     "get-theme-should-use-dark-colors",
     () => nativeTheme.shouldUseDarkColors
@@ -78,6 +84,10 @@ export default ({
 
   ipcMain.handle("get-documents-path", async (_event) => {
     return app.getPath("documents");
+  });
+
+  ipcMain.handle("get-tmp-path", async () => {
+    return getTmp();
   });
 
   ipcMain.handle("open-directory-picker", async () => {
