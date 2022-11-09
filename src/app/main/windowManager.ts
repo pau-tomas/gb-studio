@@ -49,14 +49,12 @@ export default class WindowManager {
     win.setMenu(null);
     win.loadURL(`${SPLASH_WINDOW_WEBPACK_ENTRY}?tab=${forceTab || ""}`);
 
-    win.webContents.on("did-finish-load", () => {
-      setTimeout(() => {
-        win?.show();
-        if (!this.hasCheckedForUpdate) {
-          this.hasCheckedForUpdate = true;
-          checkForUpdate();
-        }
-      }, 40);
+    win.once("ready-to-show", () => {
+      win.show();
+      if (!this.hasCheckedForUpdate) {
+        this.hasCheckedForUpdate = true;
+        checkForUpdate();
+      }
     });
 
     win.on("closed", () => {
@@ -85,10 +83,8 @@ export default class WindowManager {
     win.setMenu(null);
     win.loadURL(PREFERENCES_WINDOW_WEBPACK_ENTRY);
 
-    win.webContents.on("did-finish-load", () => {
-      setTimeout(() => {
-        win?.show();
-      }, 40);
+    win.once("ready-to-show", () => {
+      win.show();
     });
 
     win.on("closed", () => {
