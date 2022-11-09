@@ -83,17 +83,10 @@ const templates: TemplateInfo[] = [
 ];
 
 const getLastUsedPath = async () => {
-  console.log("GET LAST UYSED");
   const storedPath = await settings.get("__lastUsedPath");
-  console.log("GET LAST UYSED 2");
-  console.log("GET LAST UYSED 3", storedPath);
-
   if (storedPath) {
-    console.log("STORED PATH", storedPath);
     return path.normalize(storedPath);
   }
-  console.log("DOC PATH", path.getDocumentsPath());
-
   return path.getDocumentsPath();
 };
 
