@@ -44,6 +44,19 @@ const GlobalStyle = createGlobalStyle`
     box-shadow: none !important;
   }
 
+  .Rotating {
+    animation: Rotating 2s linear infinite;
+  }
+
+  @keyframes Rotating {
+    from {
+      transform: rotate(360deg);
+    }
+    to {
+      transform: rotate(0deg);
+    }
+  }  
+
   div::-webkit-scrollbar-track {
     border-radius: 0px;
     background-color: transparent;

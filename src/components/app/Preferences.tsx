@@ -10,6 +10,7 @@ import { FixedSpacer, FlexGrow } from "ui/spacing/Spacing";
 import { AppSelect } from "ui/form/AppSelect";
 import { OptionLabelWithInfo, Select } from "ui/form/Select";
 import { app, path, settings, dialog, l10n } from "lib/renderer/api";
+import { SkeletonInput } from "ui/skeleton/Skeleton";
 
 interface Options {
   value: number;
@@ -43,6 +44,7 @@ const getTmp = () => path.getTmpPath();
 
 const Preferences = () => {
   const pathError = "";
+  const [loading, setLoading] = useState(true);
   const [tmpPath, setTmpPath] = useState<string>("");
   const [imageEditorPath, setImageEditorPath] = useState<string>("");
   const [musicEditorPath, setMusicEditorPath] = useState<string>("");
@@ -64,6 +66,7 @@ const Preferences = () => {
       setTrackerKeyBindings(
         Number((await settings.get("trackerKeyBindings")) || 0)
       );
+      setLoading(false);
     }
     fetchData();
   }, []);
@@ -140,32 +143,44 @@ const Preferences = () => {
             name="musicEditorPath"
             label={l10n("FIELD_DEFAULT_IMAGE_EDITOR")}
           >
-            <AppSelect
-              value={imageEditorPath}
-              onChange={onChangeImageEditorPath}
-            />
+            {loading ? (
+              <SkeletonInput />
+            ) : (
+              <AppSelect
+                value={imageEditorPath}
+                onChange={onChangeImageEditorPath}
+              />
+            )}
           </FormField>
           <FormField
             name="musicEditorPath"
             label={l10n("FIELD_DEFAULT_MUSIC_EDITOR")}
           >
-            <AppSelect
-              value={musicEditorPath}
-              onChange={onChangeMusicEditorPath}
-            />
+            {loading ? (
+              <SkeletonInput />
+            ) : (
+              <AppSelect
+                value={musicEditorPath}
+                onChange={onChangeMusicEditorPath}
+              />
+            )}
           </FormField>
         </FormRow>
 
         <FixedSpacer height={10} />
         <FormRow>
           <FormField name="zoomLevel" label={l10n("FIELD_UI_ELEMENTS_SCALING")}>
-            <Select
-              value={currentZoomValue}
-              options={zoomOptions}
-              onChange={(newValue: Options) => {
-                onChangeZoomLevel(newValue.value);
-              }}
-            />
+            {loading ? (
+              <SkeletonInput />
+            ) : (
+              <Select
+                value={currentZoomValue}
+                options={zoomOptions}
+                onChange={(newValue: Options) => {
+                  onChangeZoomLevel(newValue.value);
+                }}
+              />
+            )}
           </FormField>
         </FormRow>
         <FixedSpacer height={10} />
@@ -174,32 +189,36 @@ const Preferences = () => {
             name="trackerKeyBindings"
             label={l10n("FIELD_UI_TRACKER_KEYBINDINGS")}
           >
-            <Select
-              value={currentTrackerKeyBindings}
-              options={trackerKeyBindingsOptions}
-              onChange={(newValue: Options) => {
-                onChangeTrackerKeyBindings(newValue.value);
-              }}
-              formatOptionLabel={(
-                option: Options,
-                { context }: { context: "menu" | "value" }
-              ) => {
-                return (
-                  <OptionLabelWithInfo
-                    info={
-                      context === "menu"
-                        ? trackerKeyBindingsOptionsInfo[option.value]
-                        : ""
-                    }
-                  >
-                    {option.label}
-                    {context === "value"
-                      ? ` (${trackerKeyBindingsOptionsInfo[option.value]})`
-                      : ""}
-                  </OptionLabelWithInfo>
-                );
-              }}
-            />
+            {loading ? (
+              <SkeletonInput />
+            ) : (
+              <Select
+                value={currentTrackerKeyBindings}
+                options={trackerKeyBindingsOptions}
+                onChange={(newValue: Options) => {
+                  onChangeTrackerKeyBindings(newValue.value);
+                }}
+                formatOptionLabel={(
+                  option: Options,
+                  { context }: { context: "menu" | "value" }
+                ) => {
+                  return (
+                    <OptionLabelWithInfo
+                      info={
+                        context === "menu"
+                          ? trackerKeyBindingsOptionsInfo[option.value]
+                          : ""
+                      }
+                    >
+                      {option.label}
+                      {context === "value"
+                        ? ` (${trackerKeyBindingsOptionsInfo[option.value]})`
+                        : ""}
+                    </OptionLabelWithInfo>
+                  );
+                }}
+              />
+            )}
           </FormField>
         </FormRow>
       </PreferencesWrapper>

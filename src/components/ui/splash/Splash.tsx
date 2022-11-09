@@ -147,6 +147,11 @@ export const SplashTab = styled.button<SplashTabProps>`
     background: rgba(128, 128, 128, 0.4);
   }
 
+  :disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+
   ${(props) => (props.selected ? SplashTabSelectedStyles : "")}
 `;
 
@@ -615,6 +620,15 @@ export const SplashProjectPath = styled.span`
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+`;
+
+export const SplashLoading = styled.form`
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  align-items: center;
+  justify-content: center;
 `;
 
 export const SplashProject: FC<SplashProjectProps> = ({ project, onClick }) => (

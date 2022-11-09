@@ -9,7 +9,7 @@ import gbhtmlPreview from "../../assets/templatePreview/gbhtml.mp4";
 import blankPreview from "../../assets/templatePreview/blank.png";
 import useWindowFocus from "ui/hooks/use-window-focus";
 import { Button } from "ui/buttons/Button";
-import { CloseIcon, DotsIcon } from "ui/icons/Icons";
+import { CloseIcon, DotsIcon, LoadingIcon } from "ui/icons/Icons";
 import {
   SplashAppTitle,
   SplashContent,
@@ -23,6 +23,7 @@ import {
   SplashEasterEggButton,
   SplashForm,
   SplashInfoMessage,
+  SplashLoading,
   SplashLogo,
   SplashOpenButton,
   SplashProject,
@@ -116,8 +117,9 @@ const toSplashTab = (tab: string): SplashTabSection => {
 };
 
 export default () => {
+  const [loading, setLoading] = useState(true);
   const [templateId, setTemplateId] = useState("gbs2");
-  const [section, setSection] = useState<SplashTabSection>("new");
+  const [section, setSection] = useState<SplashTabSection>();
   const [openCredits, setOpenCredits] = useState(false);
   const [recentProjects, setRecentProjects] = useState<ProjectInfo[]>([]);
   const [name, setName] = useState<string>(l10n("SPLASH_DEFAULT_PROJECT_NAME"));
@@ -143,6 +145,7 @@ export default () => {
       const forceTab = urlParams.get("tab");
       const initialTab = toSplashTab(forceTab || (await getLastUsedTab()));
       setSection(initialTab);
+      setLoading(false);
     }
     fetchData();
   }, []);
@@ -240,12 +243,17 @@ export default () => {
             <SplashEasterEggButton onClick={() => setOpenCredits(true)} />
           </SplashLogo>
           <SplashAppTitle />
-          <SplashTab selected={section === "new"} onClick={onSetTab("new")}>
+          <SplashTab
+            selected={section === "new"}
+            onClick={onSetTab("new")}
+            disabled={loading}
+          >
             {l10n("SPLASH_NEW")}
           </SplashTab>
           <SplashTab
             selected={section === "recent"}
             onClick={onSetTab("recent")}
+            disabled={loading}
           >
             {l10n("SPLASH_RECENT")}
           </SplashTab>
@@ -257,6 +265,14 @@ export default () => {
             {l10n("SPLASH_OPEN")}
           </SplashOpenButton>
         </SplashSidebar>
+
+        {loading && !section && (
+          <SplashContent>
+            <SplashLoading>
+              <LoadingIcon />
+            </SplashLoading>
+          </SplashContent>
+        )}
 
         {section === "new" && (
           <SplashContent>
