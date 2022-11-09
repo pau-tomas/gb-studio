@@ -252,7 +252,8 @@ export const loadUGESong = (data: ArrayBuffer): Song | null => {
           if (track < 2) mapping = duty_instrument_mapping;
           if (track === 2) mapping = wave_instrument_mapping;
           if (track === 3) mapping = noise_instrument_mapping;
-          if (instrument in mapping) cell.instrument = mapping[instrument];
+          if (mapping[instrument] !== undefined)
+            cell.instrument = mapping[instrument];
         }
         if (effectcode !== 0 || effectparam !== 0) {
           cell.effectcode = effectcode;

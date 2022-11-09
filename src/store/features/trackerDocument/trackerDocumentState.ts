@@ -60,7 +60,7 @@ export const addNewSongFile = createAsyncThunk<string | null, string>(
           return newPath;
         }
       } catch (e) {
-        throw new Error(e);
+        throw new Error(String(e));
       }
     };
     return await copy2(templatePath, path);
