@@ -1,6 +1,8 @@
 import { app, BrowserWindow, nativeTheme } from "electron";
 import { checkForUpdate } from "lib/helpers/updateChecker";
 
+declare const ABOUT_WINDOW_PRELOAD_WEBPACK_ENTRY: string;
+declare const ABOUT_WINDOW_WEBPACK_ENTRY: string;
 declare const SPLASH_WINDOW_PRELOAD_WEBPACK_ENTRY: string;
 declare const SPLASH_WINDOW_WEBPACK_ENTRY: string;
 declare const PREFERENCES_WINDOW_PRELOAD_WEBPACK_ENTRY: string;
@@ -16,6 +18,7 @@ interface WindowManagerProps {
 
 export default class WindowManager {
   keepOpen = false;
+  aboutWindow?: BrowserWindow;
   splashWindow?: BrowserWindow;
   preferencesWindow?: BrowserWindow;
   projectWindow?: BrowserWindow;
@@ -23,6 +26,38 @@ export default class WindowManager {
   playWindowSgb?: boolean;
   hasCheckedForUpdate = false;
   setApplicationMenu?: () => void;
+
+  private createAboutWindow() {
+    const win = new BrowserWindow({
+      width: 400,
+      height: 400,
+      useContentSize: true,
+      resizable: false,
+      maximizable: false,
+      fullscreenable: false,
+      show: false,
+      autoHideMenuBar: true,
+      webPreferences: {
+        nodeIntegration: true,
+        devTools: isDevMode,
+        preload: ABOUT_WINDOW_PRELOAD_WEBPACK_ENTRY,
+      },
+    });
+
+    if (!win) return;
+    this.aboutWindow = win;
+
+    win.setMenu(null);
+    win.loadURL(ABOUT_WINDOW_WEBPACK_ENTRY);
+
+    win.once("ready-to-show", () => {
+      win.show();
+    });
+
+    win.on("closed", () => {
+      this.aboutWindow = undefined;
+    });
+  }
 
   private createSplashWindow(forceTab?: SplashTab) {
     const win = new BrowserWindow({
@@ -165,6 +200,14 @@ export default class WindowManager {
     }
   }
 
+  async openAboutWindow() {
+    if (!this.aboutWindow) {
+      this.createAboutWindow();
+    } else {
+      this.aboutWindow.show();
+    }
+  }
+
   async openProject(projectPath: string) {
     console.log("@TODO Open Project", projectPath);
   }
@@ -176,6 +219,7 @@ export default class WindowManager {
   async notifyThemeUpdate() {
     this.splashWindow?.webContents.send("update-theme");
     this.preferencesWindow?.webContents.send("update-theme");
+    this.aboutWindow?.webContents.send("update-theme");
   }
 
   async notifyWindowZoom(zoomLevel: number) {
@@ -203,7 +247,7 @@ export default class WindowManager {
     });
 
     nativeTheme?.on("updated", () => {
-      this.splashWindow?.webContents.send("update-theme");
+      this.notifyThemeUpdate();
     });
 
     app.on("window-all-closed", () => {

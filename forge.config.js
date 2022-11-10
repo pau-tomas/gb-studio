@@ -104,6 +104,14 @@ module.exports = {
             //     "vendor-lodash",
             //   ],
             // },
+            {
+              html: "./src/app/about/index.html",
+              js: "./src/app/about/index.tsx",
+              name: "about_window",
+              preload: {
+                js: "./src/app/about/preload.ts",
+              },
+            },
           ],
         },
       },

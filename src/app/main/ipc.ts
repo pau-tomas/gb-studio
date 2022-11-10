@@ -5,6 +5,9 @@ import { isString, isArray } from "@byte.london/byteguards";
 import loadProject from "lib/project/loadProjectData";
 import { l10nStrings } from "lib/helpers/l10n";
 import getTmp from "lib/helpers/getTmp";
+import pkg from "../../../package.json";
+
+declare const COMMITHASH: string;
 
 const isStringArray = isArray(isString);
 
@@ -59,6 +62,16 @@ export default ({
     );
     if (!match) throw new Error("URL not allowed");
     shell.openExternal(url);
+  });
+
+  ipcMain.handle("get-app-info", async () => {
+    return {
+      name: app.getName(),
+      version: app.getVersion(),
+      homepage: pkg.homepage,
+      bugReportUrl: pkg.bugs.url,
+      commitHash: COMMITHASH,
+    };
   });
 
   ipcMain.handle("open-play", async (_event, outputRoot, sgbMode) => {

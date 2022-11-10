@@ -18,9 +18,6 @@ import createProject from "lib/project/createProject";
 import settings from "electron-settings";
 import { isString } from "@byte.london/byteguards";
 import switchLanguageDialog from "lib/electron/dialog/switchLanguageDialog";
-import openAboutWindow from "about-window";
-import { assetsRoot } from "../../consts";
-import l10n from "lib/helpers/l10n";
 
 declare const COMMITHASH: string;
 
@@ -36,16 +33,7 @@ const openPreferences = () => {
 };
 
 const onOpenAbout = () => {
-  return openAboutWindow({
-    icon_path: `${assetsRoot}/app/icon/app_icon.png`,
-    bug_link_text: `${l10n("FIELD_REPORT_BUG")} (git: ${COMMITHASH})`,
-    // eslint-disable-next-line camelcase
-    win_options: {
-      title: l10n("MENU_ABOUT"),
-    },
-    description: l10n("GBSTUDIO_DESCRIPTION"),
-    copyright: l10n("GBSTUDIO_COPYRIGHT"),
-  });
+  windowManager.openAboutWindow();
 };
 
 const onOpenHelp = async (helpPage: string) => {

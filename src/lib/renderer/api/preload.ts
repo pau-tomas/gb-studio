@@ -13,6 +13,8 @@ export const API = {
   },
   openExternal: (path: string) => ipcRenderer.invoke("open-external", path),
   app: {
+    processVersions: process.versions,
+    getInfo: () => ipcRenderer.invoke("get-app-info"),
     setZoomLevel: (zoomLevel: number) =>
       ipcRenderer.invoke("set-zoom-level", zoomLevel),
     setTrackerKeyBindings: (value: number) =>
@@ -23,9 +25,8 @@ export const API = {
     getShouldUseDarkColors: () =>
       ipcRenderer.invoke("get-theme-should-use-dark-colors"),
     getThemeSetting: () => ipcRenderer.invoke("settings-get", "theme"),
-    onChange: (callback: () => void) => {
-      ipcRenderer?.on("update-theme", callback);
-    },
+    onChange: (callback: () => void) =>
+      ipcRenderer.on("update-theme", callback),
   },
   path: {
     basename: (input: string) => path.basename(input),
