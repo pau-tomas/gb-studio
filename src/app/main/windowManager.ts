@@ -173,6 +173,8 @@ export default class WindowManager {
 
     mainWindowState.manage(win);
 
+    this.setApplicationMenu?.();
+
     win.loadURL(
       `${PROJECT_WINDOW_WEBPACK_ENTRY}?path=${encodeURIComponent(projectPath)}`
     );
