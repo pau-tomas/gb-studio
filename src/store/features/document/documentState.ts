@@ -1,5 +1,6 @@
 // import path from "path";
 import { createSlice, AnyAction } from "@reduxjs/toolkit";
+import api from "lib/renderer/api";
 import projectActions from "../project/projectActions";
 
 export interface DocumentState {
@@ -28,11 +29,10 @@ const documentSlice = createSlice({
         state.loaded = false;
       })
       .addCase(projectActions.loadProject.fulfilled, (state, action) => {
-        console.warn("@TODO Handle document state after load");
-        // state.path = action.payload.path;
-        // state.root = path.dirname(action.payload.path);
-        // state.modified = false;
-        // state.loaded = true;
+        state.path = action.payload.path;
+        state.root = api.path.dirname(action.payload.path);
+        state.modified = false;
+        state.loaded = true;
       })
       .addCase(projectActions.saveProject.pending, (state, _action) => {
         state.saving = true;

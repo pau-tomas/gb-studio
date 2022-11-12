@@ -28,6 +28,7 @@ import { SettingsState } from "../settings/settingsState";
 import { MetadataState } from "../metadata/metadataState";
 import parseAssetPath from "lib/helpers/path/parseAssetPath";
 import { denormalizeEntities } from "../entities/entitiesHelpers";
+import api from "lib/renderer/api";
 // import { loadAvatarData } from "lib/project/loadAvatarData";
 // import { loadEmoteData } from "lib/project/loadEmoteData";
 // import { loadSoundData } from "lib/project/loadSoundData";
@@ -120,14 +121,12 @@ const loadProject = createAsyncThunk<
   { data: ProjectData; path: string; modifiedSpriteIds: string[] },
   string
 >("project/loadProject", async (path) => {
-  // const { data, modifiedSpriteIds } = (await loadProjectData(path)) as {
-  //   data: ProjectData;
-  //   modifiedSpriteIds: string[];
-  // };
-
-  console.warn("@TODO Handle loadProject");
-  const data = {} as ProjectData;
-  const modifiedSpriteIds = [] as string[];
+  const { data, modifiedSpriteIds } = (await api.project.loadProjectData(
+    path
+  )) as {
+    data: ProjectData;
+    modifiedSpriteIds: string[];
+  };
 
   return {
     data,
