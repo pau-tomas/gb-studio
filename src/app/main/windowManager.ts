@@ -277,6 +277,19 @@ export default class WindowManager {
     }
   }
 
+  waitUntilProjectClosed(): Promise<void> {
+    return new Promise((resolve) => {
+      const check = () => {
+        if (!this.projectWindow) {
+          resolve();
+        } else {
+          setTimeout(check, 10);
+        }
+      };
+      check();
+    });
+  }
+
   waitUntilSplashClosed(): Promise<void> {
     return new Promise((resolve) => {
       const check = () => {
@@ -292,11 +305,10 @@ export default class WindowManager {
 
   async openSplashWindow(forceTab?: SplashTab) {
     this.keepOpen = true;
-
-    // if (mainWindow) {
-    //   mainWindow.close();
-    //   await waitUntilWindowClosed();
-    // }
+    if (this.projectWindow) {
+      this.projectWindow.close();
+      await this.waitUntilProjectClosed();
+    }
     if (this.splashWindow) {
       this.setSplashTab(forceTab);
     } else {
@@ -322,7 +334,19 @@ export default class WindowManager {
   }
 
   async openProject(projectPath: string) {
-    this.createProjectWindow(projectPath);
+    this.keepOpen = true;
+    if (this.splashWindow) {
+      this.splashWindow.close();
+    }
+    if (!this.projectWindow) {
+      this.createProjectWindow(projectPath);
+    } else {
+      this.keepOpen = true;
+      this.projectWindow.close();
+      await this.waitUntilProjectClosed();
+      this.createProjectWindow(projectPath);
+    }
+    this.keepOpen = false;
   }
 
   async openPlayWindow(url: string, sgbMode: boolean) {
