@@ -10,7 +10,7 @@ import { SequenceEditor } from "./SequenceEditor";
 import { SongRow } from "./SongRow";
 import scrollIntoView from "scroll-into-view-if-needed";
 import { SongGridHeaderCell } from "./SongGridHeaderCell";
-import { ipcRenderer } from "electron";
+// import { ipcRenderer } from "electron";
 import {
   getInstrumentTypeByChannel,
   getInstrumentListByType,
@@ -45,6 +45,18 @@ interface Position {
 const CHANNEL_FIELDS = 4;
 const ROW_SIZE = CHANNEL_FIELDS * 4;
 const NUM_FIELDS = ROW_SIZE * 64;
+
+const ipcRenderer = {
+  send: (...a: unknown[]) => {
+    console.warn("Implement SongTracker ipc API");
+  },
+  on: (...a: unknown[]) => {
+    console.warn("Implement SongTracker ipc API");
+  },
+  removeListener: (...a: unknown[]) => {
+    console.warn("Implement SongTracker ipc API");
+  },
+};
 
 const SongGrid = styled.div`
   white-space: nowrap;

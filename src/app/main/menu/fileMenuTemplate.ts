@@ -11,7 +11,7 @@ interface FileMenuTemplateProps {
   reloadAssets: () => void;
 }
 
-export default ({
+const fileMenuTemplate = ({
   isProjectOpen,
   openNewProject,
   openProject,
@@ -61,3 +61,5 @@ export default ({
     { role: "close", label: l10n("MENU_CLOSE") },
   ],
 });
+
+export default fileMenuTemplate;

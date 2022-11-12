@@ -1,6 +1,6 @@
 import Path from "path";
 import { ActionCreators } from "redux-undo";
-import { ipcRenderer, webFrame } from "electron";
+// import { ipcRenderer, webFrame } from "electron";
 import settings from "electron-settings";
 import debounce from "lodash/debounce";
 import mapValues from "lodash/mapValues";
@@ -24,6 +24,18 @@ import {
   initEngineFields,
   engineFieldsEmitter,
 } from "lib/project/engineFields";
+
+const ipcRenderer = {
+  send: (...a) => {
+    console.warn("Implement initProject ipc API");
+  },
+  on: (...a) => {
+    console.warn("Implement initProject ipc API");
+  },
+  removeListener: (...a) => {
+    console.warn("Implement initProject ipc API");
+  },
+};
 
 initElectronL10n();
 
@@ -172,7 +184,8 @@ const onZoom = (event, zoomType) => {
 };
 
 const onWindowZoom = (event, zoomLevel) => {
-  webFrame.setZoomLevel(zoomLevel);
+  // webFrame.setZoomLevel(zoomLevel);
+  console.warn("@TODO Handle setting zoom level");
 };
 
 const onRun = () => {

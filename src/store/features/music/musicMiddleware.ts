@@ -7,10 +7,10 @@ import actions from "./musicActions";
 import { musicSelectors } from "../entities/entitiesState";
 import { assetFilename } from "lib/helpers/gbstudio";
 import { MusicSettings } from "../entities/entitiesTypes";
-import { ipcRenderer } from "electron";
-import { readFile } from "fs-extra";
-import { loadUGESong } from "lib/helpers/uge/ugeHelper";
-import toArrayBuffer from "lib/helpers/toArrayBuffer";
+// import { ipcRenderer } from "electron";
+// import { readFile } from "fs-extra";
+// import { loadUGESong } from "lib/helpers/uge/ugeHelper";
+// import toArrayBuffer from "lib/helpers/toArrayBuffer";
 
 let modPlayer: ScripTracker;
 
@@ -40,28 +40,30 @@ function playMOD(filename: string, settings: MusicSettings) {
 }
 
 async function playUGE(filename: string, _settings: MusicSettings) {
-  const fileData = toArrayBuffer(await readFile(filename));
-  const data = loadUGESong(fileData);
-  const listener = async (_event: any, d: any) => {
-    if (d.action === "initialized") {
-      ipcRenderer.send("music-data-send", {
-        action: "play",
-        song: data,
-        position: [0, 0],
-      });
-    }
-  };
-  ipcRenderer.once("music-data", listener);
-  ipcRenderer.send("open-music");
+  // const fileData = toArrayBuffer(await readFile(filename));
+  // const data = loadUGESong(fileData);
+  // const listener = async (_event: any, d: any) => {
+  //   if (d.action === "initialized") {
+  //     ipcRenderer.send("music-data-send", {
+  //       action: "play",
+  //       song: data,
+  //       position: [0, 0],
+  //     });
+  //   }
+  // };
+  // ipcRenderer.once("music-data", listener);
+  // ipcRenderer.send("open-music");
+  console.warn("@TODO Handle play UGE init");
 }
 
 function pause() {
   if (modPlayer && modPlayer.isPlaying) {
     modPlayer.stop();
   }
-  if (ipcRenderer) {
-    ipcRenderer.send("close-music");
-  }
+  // if (ipcRenderer) {
+  //   ipcRenderer.send("close-music");
+  // }
+  console.warn("@TODO Handle close music");
 }
 
 const musicMiddleware: Middleware<Dispatch, RootState> =

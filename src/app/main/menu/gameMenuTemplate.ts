@@ -11,7 +11,7 @@ interface GameMenuTemplateProps {
   exportProjectData: () => void;
 }
 
-export default ({
+const gameMenuTemplate = ({
   runGame,
   buildROM,
   buildWeb,
@@ -68,3 +68,5 @@ export default ({
     },
   ],
 });
+
+export default gameMenuTemplate;

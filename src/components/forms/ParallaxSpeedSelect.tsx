@@ -1,5 +1,5 @@
 import React, { FC, useEffect, useState } from "react";
-import l10n from "lib/helpers/l10n";
+import { l10n } from "lib/renderer/api";
 import { Select } from "ui/form/Select";
 
 interface ParallaxSpeedSelectProps {

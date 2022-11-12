@@ -6,11 +6,11 @@ import { RootState } from "store/configureStore";
 import { SplitPaneVerticalDivider } from "ui/splitpane/SplitPaneDivider";
 import { SequenceEditor } from "./SequenceEditor";
 import { SplitPaneHeader } from "ui/splitpane/SplitPaneHeader";
-import l10n from "lib/helpers/l10n";
+import { l10n } from "lib/renderer/api";
 import { RollChannel } from "./RollChannel";
 import { RollChannelGrid } from "./RollChannelGrid";
 import { RollChannelSelectionArea } from "./RollChannelSelectionArea";
-import { clipboard, ipcRenderer } from "electron";
+// import { clipboard, ipcRenderer } from "electron";
 import trackerActions from "store/features/tracker/trackerActions";
 import { PatternCell } from "lib/helpers/uge/song/PatternCell";
 import { cloneDeep } from "lodash";
@@ -25,6 +25,7 @@ import {
 import { RollChannelEffectRow } from "./RollChannelEffectRow";
 import { WandIcon } from "ui/icons/Icons";
 import { RollChannelHover } from "./RollChannelHover";
+import { clipboard } from "store/features/clipboard/clipboardHelpers";
 
 const CELL_SIZE = 16;
 const MAX_NOTE = 71;
@@ -49,6 +50,18 @@ interface SongGridHeaderProps {
 interface SongGridFooterProps {
   cols: number;
 }
+
+const ipcRenderer = {
+  send: (...a: unknown[]) => {
+    console.warn("Implement SongPianoRoll ipc API");
+  },
+  on: (...a: unknown[]) => {
+    console.warn("Implement SongPianoRoll ipc API");
+  },
+  removeListener: (...a: unknown[]) => {
+    console.warn("Implement SongPianoRoll ipc API");
+  },
+};
 
 const Piano = styled.div`
   position: sticky;

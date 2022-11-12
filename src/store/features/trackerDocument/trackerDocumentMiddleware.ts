@@ -1,5 +1,5 @@
 import { ThunkMiddleware } from "redux-thunk";
-import confirmUnsavedChangesTrackerDialog from "lib/electron/dialog/confirmUnsavedChangesTrackerDialog";
+// import confirmUnsavedChangesTrackerDialog from "lib/electron/dialog/confirmUnsavedChangesTrackerDialog";
 import { RootState } from "store/configureStore";
 import editorActions from "../editor/editorActions";
 import { musicSelectors } from "../entities/entitiesState";
@@ -7,7 +7,7 @@ import navigationActions from "../navigation/navigationActions";
 import { saveSongFile } from "./trackerDocumentState";
 import trackerDocumentActions from "./trackerDocumentActions";
 import electronActions from "../electron/electronActions";
-import l10n from "lib/helpers/l10n";
+import { l10n } from "lib/renderer/api";
 
 const trackerMiddleware: ThunkMiddleware<RootState> =
   (store) => (next) => (action) => {
@@ -23,7 +23,9 @@ const trackerMiddleware: ThunkMiddleware<RootState> =
         // Display confirmation and stop action if
         const songsLookup = musicSelectors.selectEntities(state);
         const selectedSong = songsLookup[state.editor.selectedSongId];
-        const option = confirmUnsavedChangesTrackerDialog(selectedSong?.name);
+        // const option = confirmUnsavedChangesTrackerDialog(selectedSong?.name);
+        const option: number = 2;
+        console.warn("@TODO Handle cancel tracker document changes");
         switch (option) {
           case 0: // Save and continue
             store.dispatch(saveSongFile());

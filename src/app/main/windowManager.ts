@@ -1,10 +1,14 @@
-import { app, BrowserWindow, nativeTheme } from "electron";
+import { app, BrowserWindow, dialog, nativeTheme } from "electron";
+import windowStateKeeper from "electron-window-state";
+import l10n from "lib/helpers/l10n";
 import { checkForUpdate } from "lib/helpers/updateChecker";
 
 declare const ABOUT_WINDOW_PRELOAD_WEBPACK_ENTRY: string;
 declare const ABOUT_WINDOW_WEBPACK_ENTRY: string;
 declare const SPLASH_WINDOW_PRELOAD_WEBPACK_ENTRY: string;
 declare const SPLASH_WINDOW_WEBPACK_ENTRY: string;
+declare const PROJECT_WINDOW_PRELOAD_WEBPACK_ENTRY: string;
+declare const PROJECT_WINDOW_WEBPACK_ENTRY: string;
 declare const PREFERENCES_WINDOW_PRELOAD_WEBPACK_ENTRY: string;
 declare const PREFERENCES_WINDOW_WEBPACK_ENTRY: string;
 
@@ -18,11 +22,15 @@ interface WindowManagerProps {
 
 export default class WindowManager {
   keepOpen = false;
+  mainWindowCloseCancelled = false;
+  documentName = "";
+  documentEdited = false;
   aboutWindow?: BrowserWindow;
   splashWindow?: BrowserWindow;
   preferencesWindow?: BrowserWindow;
   projectWindow?: BrowserWindow;
   playWindow?: BrowserWindow;
+  musicWindow?: BrowserWindow;
   playWindowSgb?: boolean;
   hasCheckedForUpdate = false;
   setApplicationMenu?: () => void;
@@ -39,6 +47,8 @@ export default class WindowManager {
       autoHideMenuBar: true,
       webPreferences: {
         nodeIntegration: true,
+        webSecurity: true,
+        contextIsolation: true,
         devTools: isDevMode,
         preload: ABOUT_WINDOW_PRELOAD_WEBPACK_ENTRY,
       },
@@ -108,6 +118,8 @@ export default class WindowManager {
       autoHideMenuBar: true,
       webPreferences: {
         nodeIntegration: true,
+        webSecurity: true,
+        contextIsolation: true,
         devTools: isDevMode,
         preload: PREFERENCES_WINDOW_PRELOAD_WEBPACK_ENTRY,
       },
@@ -127,6 +139,106 @@ export default class WindowManager {
     });
   }
 
+  private createProjectWindow(projectPath: string) {
+    const mainWindowState = windowStateKeeper({
+      defaultWidth: 1000,
+      defaultHeight: 800,
+    });
+
+    // Create the browser window.
+    const win = new BrowserWindow({
+      x: mainWindowState.x,
+      y: mainWindowState.y,
+      width: Math.max(640, mainWindowState.width),
+      height: Math.max(600, mainWindowState.height),
+      minWidth: 640,
+      minHeight: 600,
+      titleBarStyle: "hiddenInset",
+      fullscreenable: true,
+      show: false,
+      webPreferences: {
+        nodeIntegration: true,
+        nodeIntegrationInWorker: true,
+        webSecurity: true,
+        contextIsolation: true,
+        devTools: isDevMode,
+        preload: PROJECT_WINDOW_PRELOAD_WEBPACK_ENTRY,
+      },
+    });
+
+    if (!win) return;
+    this.projectWindow = win;
+
+    this.mainWindowCloseCancelled = false;
+
+    mainWindowState.manage(win);
+
+    win.loadURL(
+      `${PROJECT_WINDOW_WEBPACK_ENTRY}?path=${encodeURIComponent(projectPath)}`
+    );
+
+    win.setRepresentedFilename(projectPath);
+
+    win.once("ready-to-show", () => {
+      win?.webContents.send("open-project", projectPath);
+      win.show();
+    });
+
+    win.on("enter-full-screen", () => {
+      win?.webContents.send("enter-full-screen");
+    });
+
+    win.on("leave-full-screen", () => {
+      win?.webContents.send("leave-full-screen");
+    });
+
+    win.on("page-title-updated", (e, title) => {
+      this.documentName = title
+        .replace(/^GB Studio -/, "")
+        .replace(/\(modified\)$/, "")
+        .trim();
+    });
+
+    win.on("close", (e) => {
+      if (this.documentEdited && win) {
+        this.mainWindowCloseCancelled = false;
+        const choice = dialog.showMessageBoxSync(win, {
+          type: "question",
+          buttons: [
+            l10n("DIALOG_SAVE"),
+            l10n("DIALOG_CANCEL"),
+            l10n("DIALOG_DONT_SAVE"),
+          ],
+          defaultId: 0,
+          cancelId: 1,
+          message: l10n("DIALOG_SAVE_CHANGES", { name: this.documentName }),
+          detail: l10n("DIALOG_SAVE_WARNING"),
+        });
+        if (choice === 0) {
+          // Save
+          e.preventDefault();
+          win.webContents.send("save-project-and-close");
+        } else if (choice === 1) {
+          // Cancel
+          e.preventDefault();
+          this.keepOpen = false;
+          this.mainWindowCloseCancelled = true;
+        } else {
+          // Don't Save
+        }
+      }
+    });
+
+    win.on("closed", () => {
+      this.projectWindow = undefined;
+      this.setApplicationMenu?.();
+
+      if (this.musicWindow) {
+        this.musicWindow.destroy();
+      }
+    });
+  }
+
   private createPlayWindow(url: string, sgb: boolean) {
     if (this.playWindow && sgb !== this.playWindowSgb) {
       this.playWindow.close();
@@ -141,7 +253,8 @@ export default class WindowManager {
       useContentSize: true,
       webPreferences: {
         nodeIntegration: false,
-        webSecurity: process.env.NODE_ENV !== "development",
+        webSecurity: true,
+        contextIsolation: true,
       },
     });
 
@@ -209,7 +322,7 @@ export default class WindowManager {
   }
 
   async openProject(projectPath: string) {
-    console.log("@TODO Open Project", projectPath);
+    this.createProjectWindow(projectPath);
   }
 
   async openPlayWindow(url: string, sgbMode: boolean) {

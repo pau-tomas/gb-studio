@@ -28,7 +28,7 @@ import {
 import actions from "./clipboardActions";
 import entitiesActions from "../entities/entitiesActions";
 import editorActions from "../editor/editorActions";
-import confirmReplaceCustomEvent from "lib/electron/dialog/confirmReplaceCustomEvent";
+// import confirmReplaceCustomEvent from "lib/electron/dialog/confirmReplaceCustomEvent";
 import { clipboard, copy, pasteAny } from "./clipboardHelpers";
 import {
   ClipboardTypeActors,
@@ -102,7 +102,9 @@ const generateCustomEventInsertActions = (
   if (existingEvent) {
     const existingEventIndex = existingCustomEvents.indexOf(existingEvent);
     const existingName = customEventName(existingEvent, existingEventIndex);
-    const cancel = confirmReplaceCustomEvent(existingName);
+    // const cancel = confirmReplaceCustomEvent(existingName);
+    const cancel = undefined;
+    console.warn("@TODO handle replace custom event modal");
     if (cancel) {
       return [];
     }

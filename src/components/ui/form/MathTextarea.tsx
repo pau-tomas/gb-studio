@@ -11,7 +11,7 @@ import shuntingYard from "lib/rpn/shuntingYard";
 import { RelativePortal } from "../layout/RelativePortal";
 import { SelectMenu, selectMenuStyleProps } from "./Select";
 import { VariableSelect } from "../../forms/VariableSelect";
-import l10n from "lib/helpers/l10n";
+import { l10n } from "lib/renderer/api";
 
 const varRegex = /\$([VLT0-9][0-9]*)\$/g;
 

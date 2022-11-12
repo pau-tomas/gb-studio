@@ -20,7 +20,7 @@ interface ViewMenuTemplateProps {
   zoomReset: () => void;
 }
 
-export default ({
+const viewMenuTemplate = ({
   isProjectOpen,
   setSection,
   theme,
@@ -223,3 +223,5 @@ export default ({
     },
   ],
 });
+
+export default viewMenuTemplate;

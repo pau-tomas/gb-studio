@@ -1,7 +1,7 @@
-import fs from "fs";
-import glob from "glob";
-import Path from "path";
-import { localesRoot } from "../../consts";
+// import fs from "fs";
+// import glob from "glob";
+// import Path from "path";
+// import { localesRoot } from "../../consts";
 
 interface EncodingData {
   name: string;
@@ -12,9 +12,10 @@ type EncodingDef = EncodingData & {
   id: string;
 };
 
-const encodingsPath = `${localesRoot}/encodings/*.json`;
+// const encodingsPath = `${localesRoot}/encodings/*.json`;
 
-export const encodings: EncodingDef[] = glob.sync(encodingsPath).map((path) => {
+export const encodings: EncodingDef[] =
+  []; /*glob.sync(encodingsPath).map((path) => {
   try {
     const data = JSON.parse(fs.readFileSync(path, "utf8"));
     return {
@@ -28,7 +29,8 @@ export const encodings: EncodingDef[] = glob.sync(encodingsPath).map((path) => {
       mapping: {},
     };
   }
-});
+});*/
+console.warn("Handle loading encodings");
 
 export const encodeChar = (
   char: string,

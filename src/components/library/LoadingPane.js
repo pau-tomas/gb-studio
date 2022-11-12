@@ -1,5 +1,5 @@
 import React from "react";
-import l10n from "lib/helpers/l10n";
+import { l10n } from "lib/renderer/api";
 import "./LoadingPane.css";
 
 const LoadingPane = () => (

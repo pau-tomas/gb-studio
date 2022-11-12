@@ -1,47 +1,50 @@
 import { Dispatch, Middleware } from "@reduxjs/toolkit";
-import Path from "path";
+// import Path from "path";
 import { RootState } from "store/configureStore";
-import migrateWarning from "lib/project/migrateWarning";
+// import migrateWarning from "lib/project/migrateWarning";
 import actions from "./projectActions";
-import { AssetFolder, potentialAssetFolders } from "lib/project/assets";
-import { copyFile } from "fs-extra";
-import confirmAssetFolder from "lib/electron/dialog/confirmAssetFolder";
+// import { AssetFolder, potentialAssetFolders } from "lib/project/assets";
+// import { copyFile } from "fs-extra";
+// import confirmAssetFolder from "lib/electron/dialog/confirmAssetFolder";
 
 const projectMiddleware: Middleware<Dispatch, RootState> =
   (store) => (next) => async (action) => {
     if (actions.openProject.match(action)) {
-      const shouldOpenProject = await migrateWarning(action.payload);
+      console.warn("@TODO Implement migrating project (move to main process)");
+      // const shouldOpenProject = await migrateWarning(action.payload);
 
-      if (!shouldOpenProject) {
-        store.dispatch(actions.closeProject());
-        return;
-      }
+      // if (!shouldOpenProject) {
+      //   store.dispatch(actions.closeProject());
+      //   return;
+      // }
 
-      actions.loadProject(action.payload)(store.dispatch, store.getState, {});
+      // actions.loadProject(action.payload)(store.dispatch, store.getState, {});
     } else if (actions.addFileToProject.match(action)) {
-      const filename = action.payload;
-      const projectRoot = store.getState().document.root;
-      const folders = await potentialAssetFolders(filename);
+      console.warn("@TODO Implement addFileToProject");
 
-      if (folders.length > 0) {
-        let copyFolder: AssetFolder | undefined = folders[0];
+      // const filename = action.payload;
+      // const projectRoot = store.getState().document.root;
+      // const folders = await potentialAssetFolders(filename);
 
-        if (folders.length > 1) {
-          copyFolder = await confirmAssetFolder(folders);
-        }
+      // if (folders.length > 0) {
+      //   let copyFolder: AssetFolder | undefined = folders[0];
 
-        if (copyFolder) {
-          const destPath = `${projectRoot}/assets/${copyFolder}/${Path.basename(
-            filename
-          )}`;
+      //   if (folders.length > 1) {
+      //     copyFolder = await confirmAssetFolder(folders);
+      //   }
 
-          const isInProject = Path.relative(filename, destPath) === "";
+      //   if (copyFolder) {
+      //     const destPath = `${projectRoot}/assets/${copyFolder}/${Path.basename(
+      //       filename
+      //     )}`;
 
-          if (!isInProject) {
-            await copyFile(filename, destPath);
-          }
-        }
-      }
+      //     const isInProject = Path.relative(filename, destPath) === "";
+
+      //     if (!isInProject) {
+      //       await copyFile(filename, destPath);
+      //     }
+      //   }
+      // }
     }
 
     // Run the reducers first so we can clear the project stack after loading

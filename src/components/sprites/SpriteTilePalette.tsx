@@ -8,7 +8,7 @@ import editorActions from "store/features/editor/editorActions";
 import entitiesActions from "store/features/entities/entitiesActions";
 import { roundDown8 } from "lib/helpers/8bit";
 import styled from "styled-components";
-import l10n from "lib/helpers/l10n";
+import { l10n } from "lib/renderer/api";
 import electronActions from "store/features/electron/electronActions";
 
 const PillWrapper = styled.div`

@@ -6,7 +6,7 @@ import { FlatList } from "ui/lists/FlatList";
 import editorActions from "store/features/editor/editorActions";
 import { Music } from "store/features/entities/entitiesTypes";
 import { EntityListItem } from "ui/lists/EntityListItem";
-import l10n from "lib/helpers/l10n";
+import { l10n, settings } from "lib/renderer/api";
 import { InstrumentType } from "store/features/editor/editorState";
 import {
   DutyInstrument,
@@ -23,7 +23,7 @@ import { NoSongsMessage } from "./NoSongsMessage";
 import { assetFilename } from "lib/helpers/gbstudio";
 import { addNewSongFile } from "store/features/trackerDocument/trackerDocumentState";
 import trackerActions from "store/features/tracker/trackerActions";
-import settings from "electron-settings";
+// import settings from "electron-settings";
 
 const COLLAPSED_SIZE = 30;
 
@@ -256,16 +256,21 @@ export const NavigatorSongs = ({
 
   const [syncInstruments, setSyncInstruments] = useState(true);
   useEffect(() => {
-    setSyncInstruments(
-      (settings.get("trackerSidebarSyncInstruments") ?? true) as boolean
-    );
+    async function fetchData() {
+      setSyncInstruments(
+        ((await settings.get("trackerSidebarSyncInstruments")) ??
+          true) as boolean
+      );
+    }
+    fetchData();
   }, []);
+
   const handleSyncInstruments = useCallback(
-    (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+    async (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
       e.stopPropagation();
 
       setSyncInstruments(!syncInstruments);
-      settings.set("trackerSidebarSyncInstruments", !syncInstruments);
+      await settings.set("trackerSidebarSyncInstruments", !syncInstruments);
     },
     [syncInstruments]
   );

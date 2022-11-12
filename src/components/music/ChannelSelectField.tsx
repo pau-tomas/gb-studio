@@ -10,7 +10,19 @@ import {
   EyeOpenIcon,
 } from "ui/icons/Icons";
 import styled from "styled-components";
-import { ipcRenderer } from "electron";
+// import { ipcRenderer } from "electron";
+
+const ipcRenderer = {
+  send: (...a: unknown[]) => {
+    console.warn("Implement ChannelSelectField ipc API");
+  },
+  on: (...a: unknown[]) => {
+    console.warn("Implement ChannelSelectField ipc API");
+  },
+  removeListener: (...a: unknown[]) => {
+    console.warn("Implement ChannelSelectField ipc API");
+  },
+};
 
 interface ChannelSelectFieldProps {
   name: string;

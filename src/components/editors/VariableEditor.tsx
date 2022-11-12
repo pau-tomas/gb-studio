@@ -19,7 +19,7 @@ import { MenuItem } from "ui/menu/Menu";
 import entitiesActions from "store/features/entities/entitiesActions";
 import editorActions from "store/features/editor/editorActions";
 import clipboardActions from "store/features/clipboard/clipboardActions";
-import l10n from "lib/helpers/l10n";
+import { l10n } from "lib/renderer/api";
 import { Sidebar, SidebarColumn } from "ui/sidebars/Sidebar";
 import { FlatList } from "ui/lists/FlatList";
 import { EntityListItem } from "ui/lists/EntityListItem";

@@ -4,8 +4,18 @@ import l10n, { setLanguageData } from "lib/helpers/l10n";
 
 type JsonValue = string | number | boolean | null;
 
+const wait = (seconds: number) => {
+  return new Promise((resolve) => setTimeout(resolve, seconds));
+};
+
+const delay = async <T>(promise: Promise<T>): Promise<T> => {
+  await wait(0);
+  return promise;
+};
+
 export const API = {
   platform: process.platform,
+
   l10n: (key: string, params?: Record<string, string | number>) =>
     l10n(key, params),
   l10nInit: async () => {
@@ -36,7 +46,7 @@ export const API = {
     getTmpPath: () => ipcRenderer.invoke("get-tmp-path"),
   },
   settings: {
-    get: (key: string) => ipcRenderer.invoke("settings-get", key),
+    get: (key: string) => delay(ipcRenderer.invoke("settings-get", key)),
     set: (key: string, value: JsonValue) =>
       ipcRenderer.invoke("settings-set", key, value),
     delete: (key: string) => ipcRenderer.invoke("settings-delete", key),

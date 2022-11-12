@@ -7,7 +7,7 @@ interface AppMenuTemplateProps {
   openPreferences: () => void;
 }
 
-export default ({
+const appMenuTemplate = ({
   openAbout,
   checkForUpdates,
   openPreferences,
@@ -38,3 +38,5 @@ export default ({
     { role: "quit" },
   ],
 });
+
+export default appMenuTemplate;

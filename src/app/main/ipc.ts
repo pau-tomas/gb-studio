@@ -35,7 +35,7 @@ interface IPCOptions {
   onOpenAsset: (filePath: string, type: string) => Promise<void>;
 }
 
-export default ({
+const initIPC = ({
   onCreateProject,
   onSelectProjectToOpen,
   onOpenProject,
@@ -186,3 +186,5 @@ export default ({
     dialog.showErrorBox(title, content);
   });
 };
+
+export default initIPC;

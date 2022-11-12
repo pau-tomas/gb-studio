@@ -1,6 +1,6 @@
 import { BrowserWindow } from "electron";
 
-export default {
+const devMenuTemplate = {
   label: "Development",
   submenu: [
     {
@@ -19,3 +19,5 @@ export default {
     },
   ],
 };
+
+export default devMenuTemplate;

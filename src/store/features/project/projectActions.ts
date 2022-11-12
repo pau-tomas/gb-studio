@@ -17,20 +17,20 @@ import {
   Sound,
 } from "../entities/entitiesTypes";
 import type { RootState } from "store/configureStore";
-import loadProjectData from "lib/project/loadProjectData";
-import saveProjectData from "lib/project/saveProjectData";
-import saveAsProjectData from "lib/project/saveAsProjectData";
-import { loadSpriteData } from "lib/project/loadSpriteData";
-import { loadBackgroundData } from "lib/project/loadBackgroundData";
-import { loadMusicData } from "lib/project/loadMusicData";
-import { loadFontData } from "lib/project/loadFontData";
+// import loadProjectData from "lib/project/loadProjectData";
+// import saveProjectData from "lib/project/saveProjectData";
+// import saveAsProjectData from "lib/project/saveAsProjectData";
+// import { loadSpriteData } from "lib/project/loadSpriteData";
+// import { loadBackgroundData } from "lib/project/loadBackgroundData";
+// import { loadMusicData } from "lib/project/loadMusicData";
+// import { loadFontData } from "lib/project/loadFontData";
 import { SettingsState } from "../settings/settingsState";
 import { MetadataState } from "../metadata/metadataState";
 import parseAssetPath from "lib/helpers/path/parseAssetPath";
 import { denormalizeEntities } from "../entities/entitiesHelpers";
-import { loadAvatarData } from "lib/project/loadAvatarData";
-import { loadEmoteData } from "lib/project/loadEmoteData";
-import { loadSoundData } from "lib/project/loadSoundData";
+// import { loadAvatarData } from "lib/project/loadAvatarData";
+// import { loadEmoteData } from "lib/project/loadEmoteData";
+// import { loadSoundData } from "lib/project/loadSoundData";
 
 let saving = false;
 
@@ -120,10 +120,14 @@ const loadProject = createAsyncThunk<
   { data: ProjectData; path: string; modifiedSpriteIds: string[] },
   string
 >("project/loadProject", async (path) => {
-  const { data, modifiedSpriteIds } = (await loadProjectData(path)) as {
-    data: ProjectData;
-    modifiedSpriteIds: string[];
-  };
+  // const { data, modifiedSpriteIds } = (await loadProjectData(path)) as {
+  //   data: ProjectData;
+  //   modifiedSpriteIds: string[];
+  // };
+
+  console.warn("@TODO Handle loadProject");
+  const data = {} as ProjectData;
+  const modifiedSpriteIds = [] as string[];
 
   return {
     data,
@@ -142,9 +146,11 @@ const loadBackground = createAsyncThunk<{ data: Background }, string>(
     const state = thunkApi.getState() as RootState;
 
     const projectRoot = state.document && state.document.root;
-    const data = (await loadBackgroundData(projectRoot)(filename)) as
-      | Background
-      | undefined;
+    // const data = (await loadBackgroundData(projectRoot)(filename)) as
+    //   | Background
+    //   | undefined;
+    console.warn("Handle loadBackground");
+    const data = undefined;
 
     if (!data) {
       throw new Error("Unable to load background");
@@ -179,9 +185,11 @@ const loadSprite = createAsyncThunk<{ data: SpriteSheet }, string>(
     const state = thunkApi.getState() as RootState;
 
     const projectRoot = state.document && state.document.root;
-    const data = (await loadSpriteData(projectRoot)(filename)) as
-      | SpriteSheet
-      | undefined;
+    // const data = (await loadSpriteData(projectRoot)(filename)) as
+    //   | SpriteSheet
+    //   | undefined;
+    console.warn("Handle loadSprite");
+    const data = undefined;
 
     if (!data) {
       throw new Error("Unable to load sprite sheet");
@@ -216,9 +224,11 @@ const loadMusic = createAsyncThunk<{ data: Music }, string>(
     const state = thunkApi.getState() as RootState;
 
     const projectRoot = state.document && state.document.root;
-    const data = (await loadMusicData(projectRoot)(filename)) as
-      | Music
-      | undefined;
+    // const data = (await loadMusicData(projectRoot)(filename)) as
+    //   | Music
+    //   | undefined;
+    console.warn("Handle loadMusic");
+    const data = undefined;
 
     if (!data) {
       throw new Error("Unable to load music");
@@ -253,9 +263,11 @@ const loadSound = createAsyncThunk<{ data: Sound }, string>(
     const state = thunkApi.getState() as RootState;
 
     const projectRoot = state.document && state.document.root;
-    const data = (await loadSoundData(projectRoot)(filename)) as
-      | Sound
-      | undefined;
+    // const data = (await loadSoundData(projectRoot)(filename)) as
+    //   | Sound
+    //   | undefined;
+    console.warn("Handle loadSound");
+    const data = undefined;
 
     if (!data) {
       throw new Error("Unable to load sound effect");
@@ -290,9 +302,11 @@ const loadFont = createAsyncThunk<{ data: Font }, string>(
     const state = thunkApi.getState() as RootState;
 
     const projectRoot = state.document && state.document.root;
-    const data = (await loadFontData(projectRoot)(filename)) as
-      | Font
-      | undefined;
+    // const data = (await loadFontData(projectRoot)(filename)) as
+    //   | Font
+    //   | undefined;
+    console.warn("Handle loadFont");
+    const data = undefined;
 
     if (!data) {
       throw new Error("Unable to load font");
@@ -327,9 +341,11 @@ const loadAvatar = createAsyncThunk<{ data: Avatar }, string>(
     const state = thunkApi.getState() as RootState;
 
     const projectRoot = state.document && state.document.root;
-    const data = (await loadAvatarData(projectRoot)(filename)) as
-      | Avatar
-      | undefined;
+    // const data = (await loadAvatarData(projectRoot)(filename)) as
+    //   | Avatar
+    //   | undefined;
+    console.warn("Handle loadAvatar");
+    const data = undefined;
 
     if (!data) {
       throw new Error("Unable to load avatar");
@@ -364,9 +380,11 @@ const loadEmote = createAsyncThunk<{ data: Emote }, string>(
     const state = thunkApi.getState() as RootState;
 
     const projectRoot = state.document && state.document.root;
-    const data = (await loadEmoteData(projectRoot)(filename)) as
-      | Emote
-      | undefined;
+    // const data = (await loadEmoteData(projectRoot)(filename)) as
+    //   | Emote
+    //   | undefined;
+    console.warn("Handle loadEmote");
+    const data = undefined;
 
     if (!data) {
       throw new Error("Unable to load emote");
@@ -443,10 +461,12 @@ const saveProject = createAsyncThunk<void, string | undefined>(
 
       if (newPath) {
         // Save As
-        await saveAsProjectData(state.document.path, newPath, data);
+        // await saveAsProjectData(state.document.path, newPath, data);
+        console.warn("@TODO Handle project save as");
       } else {
         // Save
-        await saveProjectData(state.document.path, data);
+        // await saveProjectData(state.document.path, data);
+        console.warn("@TODO Handle project save");
       }
     } catch (e) {
       console.error(e);

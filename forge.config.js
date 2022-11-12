@@ -56,18 +56,21 @@ module.exports = {
         renderer: {
           config: "./webpack.renderer.config.js",
           entryPoints: [
-            // {
-            //   html: "./src/app/project/project.html",
-            //   js: "./src/app/project/ProjectRoot.js",
-            //   name: "main_window",
-            //   additionalChunks: [
-            //     "vendor-react",
-            //     "vendor-scriptracker",
-            //     "vendor-hotloader",
-            //     "vendor-lodash",
-            //     "vendor-chokidar",
-            //   ],
-            // },
+            {
+              html: "./src/app/project/index.html",
+              js: "./src/app/project/index.tsx",
+              name: "project_window",
+              preload: {
+                js: "./src/app/project/preload.ts",
+              },
+              //   additionalChunks: [
+              //     "vendor-react",
+              //     "vendor-scriptracker",
+              //     "vendor-hotloader",
+              //     "vendor-lodash",
+              //     "vendor-chokidar",
+              //   ],
+            },
             {
               html: "./src/app/splash/index.html",
               js: "./src/app/splash/index.tsx",

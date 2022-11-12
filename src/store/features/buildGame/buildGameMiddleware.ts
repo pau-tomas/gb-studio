@@ -1,28 +1,30 @@
 import { Dispatch, Middleware } from "@reduxjs/toolkit";
-import Path from "path";
-import rimraf from "rimraf";
-import { promisify } from "util";
-import getTmp from "lib/helpers/getTmp";
-import { RootState } from "store/configureStore";
-import copy from "lib/helpers/fsCopy";
-import consoleActions from "../console/consoleActions";
-import navigationActions from "../navigation/navigationActions";
-import { denormalizeProject } from "../project/projectActions";
-import confirmEjectEngineDialog from "lib/electron/dialog/confirmEjectEngineDialog";
-import { statSync } from "fs-extra";
-import confirmEjectEngineReplaceDialog from "lib/electron/dialog/confirmEjectEngineReplaceDialog";
-import ejectEngineToDir from "lib/project/ejectEngineToDir";
+// import Path from "path";
+// import rimraf from "rimraf";
+// import { promisify } from "util";
+// import getTmp from "lib/helpers/getTmp";
+import type { RootState } from "store/configureStore";
+// import copy from "lib/helpers/fsCopy";
+// import consoleActions from "../console/consoleActions";
+// import navigationActions from "../navigation/navigationActions";
+// import { denormalizeProject } from "../project/projectActions";
+// import confirmEjectEngineDialog from "lib/electron/dialog/confirmEjectEngineDialog";
+// import { statSync } from "fs-extra";
+// import confirmEjectEngineReplaceDialog from "lib/electron/dialog/confirmEjectEngineReplaceDialog";
+// import ejectEngineToDir from "lib/project/ejectEngineToDir";
 import actions from "./buildGameActions";
-import l10n from "lib/helpers/l10n";
-import api from "lib/renderer/api";
+// import { l10n } from "lib/renderer/api";
+// import api from "lib/renderer/api";
 
-const rmdir = promisify(rimraf);
+// const rmdir = promisify(rimraf);
 
-const buildUUID = "_gbsbuild";
+// const buildUUID = "_gbsbuild";
 
 const buildGameMiddleware: Middleware<Dispatch, RootState> =
   (store) => (next) => async (action) => {
     if (actions.buildGame.match(action)) {
+      console.warn("@TODO Handle buildGame action");
+      /*
       const state = store.getState();
       const dispatch = store.dispatch.bind(store);
 
@@ -141,13 +143,19 @@ const buildGameMiddleware: Middleware<Dispatch, RootState> =
           dispatch(consoleActions.stdOut("Reloaded GB Studio Compiler"));
         });
       }
+      */
     } else if (actions.deleteBuildCache.match(action)) {
+      console.warn("@TODO Handle deletedBuildCache action");
+      /*
       const dispatch = store.dispatch.bind(store);
       const cacheRoot = Path.normalize(`${getTmp()}/_gbscache`);
       await rmdir(cacheRoot);
       dispatch(consoleActions.clearConsole());
       dispatch(consoleActions.stdOut("Cleared GB Studio caches"));
+      */
     } else if (actions.ejectEngine.match(action)) {
+      console.warn("@TODO Handle ejectEngine action");
+      /*
       const cancel = confirmEjectEngineDialog();
 
       if (cancel) {
@@ -175,7 +183,11 @@ const buildGameMiddleware: Middleware<Dispatch, RootState> =
       ejectEngineToDir(outputDir).then(() => {
         api.openExternal(outputDir);
       });
+      */
     } else if (actions.exportProject.match(action)) {
+      console.warn("@TODO Handle exportProject action");
+
+      /*
       const state = store.getState();
       const dispatch = store.dispatch.bind(store);
 
@@ -270,6 +282,7 @@ const buildGameMiddleware: Middleware<Dispatch, RootState> =
         dispatch(consoleActions.completeConsole());
         throw e;
       }
+      */
     }
 
     return next(action);
@@ -277,6 +290,6 @@ const buildGameMiddleware: Middleware<Dispatch, RootState> =
 
 export default buildGameMiddleware;
 
-if (module.hot) {
-  module.hot.accept("lib/compiler/buildProject");
-}
+// if (module.hot) {
+//   module.hot.accept("lib/compiler/buildProject");
+// }

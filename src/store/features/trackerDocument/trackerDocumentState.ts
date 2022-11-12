@@ -5,9 +5,9 @@ import {
   createSlice,
   PayloadAction,
 } from "@reduxjs/toolkit";
-import { pathExists, readFile } from "fs-extra";
+// import { pathExists, readFile } from "fs-extra";
 import cloneDeep from "lodash/cloneDeep";
-import { writeFileWithBackupAsync } from "lib/helpers/fs/writeFileWithBackup";
+// import { writeFileWithBackupAsync } from "lib/helpers/fs/writeFileWithBackup";
 import { PatternCell } from "lib/helpers/uge/song/PatternCell";
 import { Song } from "lib/helpers/uge/song/Song";
 import { loadUGESong, saveUGESong } from "lib/helpers/uge/ugeHelper";
@@ -36,6 +36,9 @@ export const initialState: TrackerDocumentState = {
 export const addNewSongFile = createAsyncThunk<string | null, string>(
   "tracker/addNewSong",
   async (path, _thunkApi): Promise<string | null> => {
+    console.warn("@TODO Handle tracker addNewSongFile");
+    return null;
+    /*
     const templatePath = `${projectTemplatesRoot}/gbhtml/assets/music/template.uge`;
     const copy2 = async (oPath: string, path: string) => {
       try {
@@ -64,18 +67,21 @@ export const addNewSongFile = createAsyncThunk<string | null, string>(
       }
     };
     return await copy2(templatePath, path);
+    */
   }
 );
 
 export const loadSongFile = createAsyncThunk<Song | null, string>(
   "tracker/loadSong",
   async (path, _thunkApi): Promise<Song | null> => {
-    const data = await readFile(path);
-    const song = loadUGESong(new Uint8Array(data).buffer);
-    if (song) {
-      song.filename = path;
-    }
-    return song;
+    // const data = await readFile(path);
+    // const song = loadUGESong(new Uint8Array(data).buffer);
+    // if (song) {
+    //   song.filename = path;
+    // }
+    // return song;
+    console.warn("@TODO Handle loadSongFile");
+    return null;
   }
 );
 
@@ -93,11 +99,12 @@ export const saveSongFile = createAsyncThunk<void, void>(
 
     const song = state.trackerDocument.present.song;
     const buffer = saveUGESong(song);
-    await writeFileWithBackupAsync(
-      song.filename,
-      new Uint8Array(buffer),
-      "utf8"
-    );
+    // await writeFileWithBackupAsync(
+    //   song.filename,
+    //   new Uint8Array(buffer),
+    //   "utf8"
+    // );
+    console.warn("@TODO Handle saving tracker document");
   }
 );
 

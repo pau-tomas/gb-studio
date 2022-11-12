@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import styled from "styled-components";
-import l10n from "lib/helpers/l10n";
+import { l10n } from "lib/renderer/api";
 import { SceneParallaxLayer } from "store/features/entities/entitiesTypes";
 import { CoordinateInput } from "ui/form/CoordinateInput";
 import { FormField } from "ui/form/FormLayout";

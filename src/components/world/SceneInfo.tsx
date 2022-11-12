@@ -20,7 +20,7 @@ import {
 } from "store/features/entities/entitiesState";
 import styled, { css } from "styled-components";
 import { TooltipWrapper } from "ui/tooltips/Tooltip";
-import l10n from "lib/helpers/l10n";
+import { l10n } from "lib/renderer/api";
 import { walkNormalisedSceneEvents } from "store/features/entities/entitiesHelpers";
 import { SpriteSheet } from "store/features/entities/entitiesTypes";
 import clamp from "lib/helpers/clamp";

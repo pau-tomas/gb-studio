@@ -5,12 +5,11 @@ import store from "store/configureStore";
 import App from "components/app/App";
 import AppContainerDnD from "components/app/AppContainerDnD";
 import ThemeProvider from "ui/theme/ThemeProvider";
-import "lib/electron/handleFullScreen";
 import GlobalStyle from "ui/globalStyle";
-import "./initProject";
-import "../../styles/App.css";
+import API from "lib/renderer/api";
 
-const render = () => {
+const render = async () => {
+  await API.l10nInit();
   ReactDOM.render(
     <Provider store={store}>
       <ThemeProvider>

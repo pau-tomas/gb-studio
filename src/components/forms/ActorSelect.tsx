@@ -15,7 +15,7 @@ import {
   sceneSelectors,
 } from "store/features/entities/entitiesState";
 import { actorName } from "store/features/entities/entitiesHelpers";
-import l10n from "lib/helpers/l10n";
+import { l10n } from "lib/renderer/api";
 import SpriteSheetCanvas from "components/world/SpriteSheetCanvas";
 import { ScriptEditorContext } from "components/script/ScriptEditorContext";
 

@@ -1,5 +1,5 @@
-import { readFile } from "fs-extra";
-import { PNG } from "pngjs";
+// import { readFile } from "fs-extra";
+// import { PNG } from "pngjs";
 
 /**
  * A data wrapper for an image using indexed colors with one 8-bit value per pixel
@@ -56,17 +56,23 @@ export const readFileToIndexedImage = async (
   filename: string,
   indexFn: ImageIndexFunction
 ): Promise<IndexedImage> => {
-  const fileData = await readFile(filename);
-  return new Promise((resolve, reject) => {
-    new PNG().parse(fileData, (err, data) => {
-      if (err) {
-        return reject(err);
-      }
-      resolve(
-        pixelDataToIndexedImage(data.width, data.height, data.data, indexFn)
-      );
-    });
-  });
+  console.warn("@TODO Implement readFileToIndexedImage in main process");
+  return {
+    width: 0,
+    height: 0,
+    data: new Uint8Array(),
+  };
+  // const fileData = await readFile(filename);
+  // return new Promise((resolve, reject) => {
+  //   new PNG().parse(fileData, (err, data) => {
+  //     if (err) {
+  //       return reject(err);
+  //     }
+  //     resolve(
+  //       pixelDataToIndexedImage(data.width, data.height, data.data, indexFn)
+  //     );
+  //   });
+  // });
 };
 
 /**

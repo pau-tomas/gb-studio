@@ -65,7 +65,7 @@ import {
 } from "./compileData2";
 import compileSGBImage from "./sgb";
 import { readFileToTilesData } from "../tiles/tileData";
-import l10n from "../helpers/l10n";
+import { l10n } from "lib/renderer/api";
 import { compileScriptEngineInit } from "./compileBootstrap";
 import { compileMusicTracks, compileMusicHeader } from "./compileMusic";
 import { chunk } from "../helpers/array2";

@@ -1,5 +1,5 @@
 import React, { FC } from "react";
-import l10n from "lib/helpers/l10n";
+import { l10n } from "lib/renderer/api";
 import { Select, SelectCommonProps } from "ui/form/Select";
 import { FlexGrow, FlexRow } from "ui/spacing/Spacing";
 

@@ -1,4 +1,4 @@
-import { ipcRenderer } from "electron";
+// import { ipcRenderer } from "electron";
 import React, { useCallback } from "react";
 import styled, { css } from "styled-components";
 import { Button } from "ui/buttons/Button";
@@ -14,6 +14,19 @@ interface SongGridHeaderCellProps {
 interface WrapperProps {
   size?: "normal" | "small";
 }
+
+const ipcRenderer = {
+  send: (...a: unknown[]) => {
+    console.warn("Implement SongGridHeaderCell ipc API");
+  },
+  on: (...a: unknown[]) => {
+    console.warn("Implement SongGridHeaderCell ipc API");
+  },
+  removeListener: (...a: unknown[]) => {
+    console.warn("Implement SongGridHeaderCell ipc API");
+  },
+};
+
 const Wrapper = styled.span<WrapperProps>`
   display: inline-block;
   align-items: center;

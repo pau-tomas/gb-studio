@@ -10,7 +10,7 @@ interface EditMenuTemplateProps {
   openPreferences: () => void;
 }
 
-export default ({
+const editMenuTemplate = ({
   platform,
   isProjectOpen,
   undo,
@@ -62,3 +62,5 @@ export default ({
         ] as MenuItemConstructorOptions[])),
   ],
 });
+
+export default editMenuTemplate;

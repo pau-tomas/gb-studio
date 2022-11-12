@@ -12,13 +12,13 @@ import musicActions from "../music/musicActions";
 import navigationActions from "../navigation/navigationActions";
 import actions from "./soundfxActions";
 import { soundSelectors } from "../entities/entitiesState";
-import { assetFilename } from "lib/helpers/gbstudio";
-import { ipcRenderer } from "electron";
-import { compileWav } from "lib/compiler/sounds/compileWav";
+// import { assetFilename } from "lib/helpers/gbstudio";
+// import { ipcRenderer } from "electron";
+// import { compileWav } from "lib/compiler/sounds/compileWav";
 import { Sound } from "../entities/entitiesTypes";
-import { compileVGM } from "lib/compiler/sounds/compileVGM";
-import { CompileSoundOptions } from "lib/compiler/sounds/compileSound";
-import { compileFXHammerSingle } from "lib/compiler/sounds/compileFXHammer";
+// import { compileVGM } from "lib/compiler/sounds/compileVGM";
+import type { CompileSoundOptions } from "lib/compiler/sounds/compileSound";
+// import { compileFXHammerSingle } from "lib/compiler/sounds/compileFXHammer";
 
 let oscillator: OscillatorNode | undefined = undefined;
 let bufferSource: AudioBufferSourceNode | undefined = undefined;
@@ -48,6 +48,7 @@ async function playSound(
   effectIndex: number,
   { projectRoot }: CompileSoundOptions
 ) {
+  /*
   const filename = assetFilename(projectRoot, "sounds", sound);
 
   let sfx = "";
@@ -74,6 +75,8 @@ async function playSound(
   };
   ipcRenderer.once("music-data", listener);
   ipcRenderer.send("open-music", sfx);
+  */
+  console.warn("@TODO handle playSound");
 }
 
 function pause() {

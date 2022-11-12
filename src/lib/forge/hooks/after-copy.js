@@ -33,7 +33,7 @@ function afterCopy(buildPath, electronVersion, platform, arch, callback) {
         dynamicChunks.map((dynamicChunk) => {
           const outputPath =
             buildPath +
-            "/.webpack/renderer/main_window/" +
+            "/.webpack/renderer/project_window/" +
             Path.basename(dynamicChunk);
           return fs.copy(dynamicChunk, outputPath, { filter: fileFilter });
         })

@@ -1,6 +1,6 @@
 import uniq from "lodash/uniq";
-import confirmDeleteCustomEvent from "lib/electron/dialog/confirmDeleteCustomEvent";
-import confirmEnableColorDialog from "lib/electron/dialog/confirmEnableColorDialog";
+// import confirmDeleteCustomEvent from "lib/electron/dialog/confirmDeleteCustomEvent";
+// import confirmEnableColorDialog from "lib/electron/dialog/confirmEnableColorDialog";
 import {
   walkEvents,
   walkSceneSpecificEvents,
@@ -8,7 +8,7 @@ import {
   filterEvents,
 } from "lib/helpers/eventSystem";
 import { EVENT_CALL_CUSTOM_EVENT } from "lib/compiler/eventTypes";
-import l10n from "lib/helpers/l10n";
+import { l10n } from "lib/renderer/api";
 import editorActions from "../editor/editorActions";
 import { getSettings } from "../settings/settingsState";
 import settingsActions from "../settings/settingsActions";
@@ -48,7 +48,9 @@ const electronMiddleware: Middleware<Dispatch, RootState> =
       const state = store.getState();
       const projectSettings = getSettings(state);
       if (!projectSettings.customColorsEnabled) {
-        const cancel = confirmEnableColorDialog();
+        // const cancel = confirmEnableColorDialog();
+        const cancel = undefined;
+        console.warn("@TODO Handle enable color dialog");
         if (cancel) {
           return;
         }
@@ -169,11 +171,13 @@ const electronMiddleware: Middleware<Dispatch, RootState> =
         ).sort();
 
         // Display confirmation and stop delete if cancelled
-        const cancel = confirmDeleteCustomEvent(
-          customEventName,
-          sceneNames,
-          usedTotal
-        );
+        // const cancel = confirmDeleteCustomEvent(
+        //   customEventName,
+        //   sceneNames,
+        //   usedTotal
+        // );
+        const cancel = undefined;
+        console.warn("@TODO Handle confirm delete custom event");
         if (cancel) {
           return;
         }

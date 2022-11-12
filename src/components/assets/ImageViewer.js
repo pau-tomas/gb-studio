@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import Button from "../library/Button";
-import l10n from "lib/helpers/l10n";
+import { l10n } from "lib/renderer/api";
 import { zoomForSection, assetFilename } from "lib/helpers/gbstudio";
 import BackgroundWarnings from "../world/BackgroundWarnings";
 import editorActions from "store/features/editor/editorActions";

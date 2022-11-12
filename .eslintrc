@@ -1,5 +1,5 @@
 {
-  "extends": ["plugin:@typescript-eslint/recommended", "react-app", "prettier", "plugin:react-hooks/recommended"],
+  "extends": ["plugin:@typescript-eslint/recommended", "react-app", "prettier"],
   "parser": "@typescript-eslint/parser",
   "plugins": ["babel"],
   "parserOptions": {
@@ -36,15 +36,52 @@
     "import/prefer-default-export": 0,
     "@typescript-eslint/explicit-module-boundary-types": 0,
     "@typescript-eslint/no-empty-function": 0,
-    "camelcase": ["error", {"allow": ["UNSAFE_componentWillReceiveProps", "icon_path", "bug_link_text"]}],
+    "camelcase": [
+      "error",
+      {
+        "allow": [
+          "UNSAFE_componentWillReceiveProps",
+          "icon_path",
+          "bug_link_text"
+        ]
+      }
+    ],
     "no-use-before-define": "off",
     "@typescript-eslint/no-use-before-define": ["error"],
-    "@typescript-eslint/no-unused-vars": ["error", { "argsIgnorePattern": "^_" }],
+    "@typescript-eslint/no-unused-vars": [
+      "error",
+      { "argsIgnorePattern": "^_" }
+    ],
     "no-unused-vars": "off",
-    "react-hooks/exhaustive-deps": ["warn", {
-      "additionalHooks": "useDebouncedCallback"
-    }]
+    "react-hooks/exhaustive-deps": [
+      "warn",
+      {
+        "additionalHooks": "useDebouncedCallback"
+      }
+    ]
   },
+  "overrides": [
+    {
+      "files": ["*.tsx"],
+      "rules": {
+        "no-restricted-imports": [
+          "error",
+          {
+            "paths": [
+              {
+                "name": "path",
+                "message": "Can't use path from a React component, use API instead!"
+              },
+              {
+                "name": "electron-settings",
+                "message": "Can't use electron-settings from a React component, use API instead!"
+              }
+            ]
+          }
+        ]
+      }
+    }
+  ],
   "env": {
     "browser": true,
     "node": true,

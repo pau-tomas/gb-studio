@@ -1,8 +1,8 @@
 import React, { FC, useCallback, useLayoutEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import Path from "path";
+// import Path from "path";
 import { FormField } from "../library/Forms";
-import l10n from "lib/helpers/l10n";
+import { l10n } from "lib/renderer/api";
 import castEventValue from "lib/helpers/castEventValue";
 import CustomControlsPicker from "../forms/CustomControlsPicker";
 import { PaletteSelect } from "../forms/PaletteSelect";
@@ -35,7 +35,7 @@ import { SpriteSheetSelect } from "../forms/SpriteSheetSelect";
 import { ColorAnimationText } from "../settings/ColorAnimationText";
 import { MusicDriverSelect } from "../forms/MusicDriverSelect";
 import { FormInfo } from "ui/form/FormInfo";
-import electronActions from "store/features/electron/electronActions";
+// import electronActions from "store/features/electron/electronActions";
 import CartSettingsEditor from "../settings/CartSettingsEditor";
 import { UIAssetPreview } from "components/forms/UIAssetPreviewButton";
 
@@ -163,13 +163,14 @@ const SettingsPage: FC = () => {
   );
 
   const openAsset = useCallback(
-    (path: string) => {
-      dispatch(
-        electronActions.openFile({
-          filename: Path.join(projectRoot, "assets", path),
-          type: "image",
-        })
-      );
+    (_path: string) => {
+      console.warn("@TODO Handle open asset from settings page");
+      // dispatch(
+      //   electronActions.openFile({
+      //     filename: Path.join(projectRoot, "assets", path),
+      //     type: "image",
+      //   })
+      // );
     },
     [dispatch, projectRoot]
   );

@@ -14,7 +14,7 @@ import {
   SpriteState,
 } from "store/features/entities/entitiesTypes";
 import { EntityListItem } from "ui/lists/EntityListItem";
-import l10n from "lib/helpers/l10n";
+import { l10n } from "lib/renderer/api";
 import { SplitPaneHeader } from "ui/splitpane/SplitPaneHeader";
 import { Button } from "ui/buttons/Button";
 import {

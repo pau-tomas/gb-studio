@@ -1,4 +1,4 @@
-import l10n from "lib/helpers/l10n";
+import { l10n } from "lib/renderer/api";
 import React from "react";
 import { UnitType, unitTypes } from "store/features/entities/entitiesTypes";
 import styled from "styled-components";

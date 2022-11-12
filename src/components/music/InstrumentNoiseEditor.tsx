@@ -1,7 +1,7 @@
 import React from "react";
 import { useDispatch } from "react-redux";
 import castEventValue from "lib/helpers/castEventValue";
-import l10n from "lib/helpers/l10n";
+import { l10n } from "lib/renderer/api";
 import trackerDocumentActions from "store/features/trackerDocument/trackerDocumentActions";
 import { NoiseInstrument } from "store/features/trackerDocument/trackerDocumentTypes";
 import { CheckboxField } from "ui/form/CheckboxField";
@@ -9,13 +9,25 @@ import { FormDivider, FormRow } from "ui/form/FormLayout";
 import { InstrumentLengthForm } from "./InstrumentLengthForm";
 import { InstrumentVolumeEditor } from "./InstrumentVolumeEditor";
 import { NoiseMacroEditorForm } from "./NoiseMacroEditorForm";
-import { ipcRenderer } from "electron";
+// import { ipcRenderer } from "electron";
 import { Button } from "ui/buttons/Button";
 
 interface InstrumentNoiseEditorProps {
   id: string;
   instrument?: NoiseInstrument;
 }
+
+const ipcRenderer = {
+  send: (...a: unknown[]) => {
+    console.warn("Implement InstrumentNoiseEditor ipc API");
+  },
+  on: (...a: unknown[]) => {
+    console.warn("Implement InstrumentNoiseEditor ipc API");
+  },
+  removeListener: (...a: unknown[]) => {
+    console.warn("Implement InstrumentNoiseEditor ipc API");
+  },
+};
 
 export const InstrumentNoiseEditor = ({
   instrument,

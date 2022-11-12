@@ -1,18 +1,13 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import l10n from "lib/helpers/l10n";
+import { l10n } from "lib/renderer/api";
 import { Button } from "ui/buttons/Button";
 import settingsActions from "store/features/settings/settingsActions";
 import { Input } from "ui/form/Input";
 import { SearchableSettingRow } from "ui/form/SearchableSettingRow";
 import { CardButtons } from "ui/cards/Card";
 import { SettingRowInput, SettingRowLabel } from "ui/form/SettingRow";
-import initElectronL10n from "lib/helpers/initElectronL10n";
-
-// Make sure localisation has loaded so that
-// l10n function can be used at top level
-initElectronL10n();
 
 const directions = [
   {

@@ -1,7 +1,7 @@
 import React, { FC, useEffect, useRef, useState } from "react";
 import { useSelector } from "react-redux";
 import styled, { css } from "styled-components";
-import l10n from "lib/helpers/l10n";
+import { l10n } from "lib/renderer/api";
 import { RootState } from "store/configureStore";
 import {
   paletteSelectors,

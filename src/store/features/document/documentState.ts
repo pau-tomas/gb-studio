@@ -1,4 +1,4 @@
-import path from "path";
+// import path from "path";
 import { createSlice, AnyAction } from "@reduxjs/toolkit";
 import projectActions from "../project/projectActions";
 
@@ -28,10 +28,11 @@ const documentSlice = createSlice({
         state.loaded = false;
       })
       .addCase(projectActions.loadProject.fulfilled, (state, action) => {
-        state.path = action.payload.path;
-        state.root = path.dirname(action.payload.path);
-        state.modified = false;
-        state.loaded = true;
+        console.warn("@TODO Handle document state after load");
+        // state.path = action.payload.path;
+        // state.root = path.dirname(action.payload.path);
+        // state.modified = false;
+        // state.loaded = true;
       })
       .addCase(projectActions.saveProject.pending, (state, _action) => {
         state.saving = true;
@@ -40,13 +41,14 @@ const documentSlice = createSlice({
         state.saving = false;
       })
       .addCase(projectActions.saveProject.fulfilled, (state, action) => {
-        state.saving = false;
-        state.modified = false;
-        if (action.meta.arg) {
-          // If "Save As" set new root path
-          state.path = action.meta.arg;
-          state.root = path.dirname(action.meta.arg);
-        }
+        console.warn("@TODO Handle document state after save");
+        // state.saving = false;
+        // state.modified = false;
+        // if (action.meta.arg) {
+        //   // If "Save As" set new root path
+        //   state.path = action.meta.arg;
+        //   state.root = path.dirname(action.meta.arg);
+        // }
       })
       .addMatcher(
         (action: AnyAction): action is AnyAction =>

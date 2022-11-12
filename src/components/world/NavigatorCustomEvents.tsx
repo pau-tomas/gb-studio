@@ -7,7 +7,7 @@ import editorActions from "store/features/editor/editorActions";
 import { CustomEvent } from "store/features/entities/entitiesTypes";
 import styled from "styled-components";
 import { CodeIcon } from "ui/icons/Icons";
-import l10n from "lib/helpers/l10n";
+import { l10n } from "lib/renderer/api";
 
 interface NavigatorCustomEventsProps {
   height: number;

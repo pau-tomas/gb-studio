@@ -1,4 +1,4 @@
-import { clipboard } from "electron";
+// import { clipboard } from "electron";
 import {
   ClipboardActors,
   ClipboardFormat,
@@ -21,6 +21,23 @@ import {
   ClipboardTypeTriggers,
   NarrowClipboardType,
 } from "./clipboardTypes";
+
+const clipboard = {
+  writeBuffer: (key: string, value: Buffer) => {
+    console.warn("@TODO Implement clipboard writeBuffer");
+  },
+  readBuffer: (key: string) => {
+    console.warn("@TODO Implement clipboard readBuffer");
+    return "";
+  },
+  writeText: (value: string) => {
+    console.warn("@TODO Implement clipboard writeText");
+  },
+  readText: () => {
+    console.warn("@TODO Implement clipboard readText");
+    return "";
+  },
+};
 
 export { clipboard };
 

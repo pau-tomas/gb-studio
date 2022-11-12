@@ -5,7 +5,7 @@ interface WindowMenuTemplateProps {
   platform: string;
 }
 
-export default ({
+const windowMenuTemplate = ({
   platform,
 }: WindowMenuTemplateProps): MenuItemConstructorOptions => ({
   role: "window",
@@ -21,3 +21,5 @@ export default ({
       : []),
   ],
 });
+
+export default windowMenuTemplate;

@@ -2,7 +2,7 @@ import React, { FC, useCallback, useEffect, useMemo, useState } from "react";
 import { Helmet } from "react-helmet";
 import { useDispatch, useSelector } from "react-redux";
 import debounce from "lodash/debounce";
-import l10n from "lib/helpers/l10n";
+import api, { l10n } from "lib/renderer/api";
 import { zoomForSection } from "lib/helpers/gbstudio";
 import editorActions from "store/features/editor/editorActions";
 import navigationActions from "store/features/navigation/navigationActions";
@@ -29,11 +29,6 @@ import { NavigationSection } from "store/features/navigation/navigationState";
 import { ZoomSection } from "store/features/editor/editorState";
 import useWindowFocus from "ui/hooks/use-window-focus";
 import useWindowSize from "ui/hooks/use-window-size";
-import initElectronL10n from "lib/helpers/initElectronL10n";
-
-// Make sure localisation has loaded so that
-// l10n function can be used at top level
-initElectronL10n();
 
 const sectionNames = {
   world: l10n("NAV_GAME_WORLD"),
@@ -88,8 +83,7 @@ const AppToolbar: FC = () => {
   const windowFocus = useWindowFocus();
   const windowSize = useWindowSize();
   const smallZoom = (windowSize.width || 0) < 900;
-  const showTitle =
-    process.platform === "darwin" && (windowSize.width || 0) > 800;
+  const showTitle = api.platform === "darwin" && (windowSize.width || 0) > 800;
 
   const onRun = useCallback(() => {
     dispatch(buildGameActions.buildGame({ buildType: "web" }));

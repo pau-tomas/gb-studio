@@ -19,8 +19,6 @@ import settings from "electron-settings";
 import { isString } from "@byte.london/byteguards";
 import switchLanguageDialog from "lib/electron/dialog/switchLanguageDialog";
 
-declare const COMMITHASH: string;
-
 const windowManager = new WindowManager();
 
 const isDevMode = !!process.execPath.match(/[\\/]electron/);

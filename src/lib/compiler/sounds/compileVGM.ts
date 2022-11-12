@@ -1,6 +1,6 @@
 import { readFile } from "fs-extra";
 import { decBin, decHexVal } from "lib/helpers/8bit";
-import { ungzip } from "node-gzip";
+// import { ungzip } from "node-gzip";
 
 const MIN_VGM_VERSION = 0x161;
 
@@ -50,7 +50,8 @@ export const compileVGM = async (
   let file = await readFile(filename);
 
   if (filename.toLowerCase().endsWith(".vgz")) {
-    file = await ungzip(file);
+    console.warn("@TODO Handle gzipped VGM files");
+    // file = await ungzip(file);
   }
 
   let ptr = 0;

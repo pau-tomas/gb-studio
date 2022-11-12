@@ -1,14 +1,14 @@
-import { Dictionary } from "@reduxjs/toolkit";
-import { EventLookup, isVariableField } from "lib/helpers/eventSystem";
-import {
-  actorName,
-  isUnionValue,
-  sceneName,
-  triggerName,
-  walkNormalisedActorEvents,
-  walkNormalisedSceneSpecificEvents,
-  walkNormalisedTriggerEvents,
-} from "store/features/entities/entitiesHelpers";
+// import { Dictionary } from "@reduxjs/toolkit";
+// import { EventLookup, isVariableField } from "lib/helpers/eventSystem";
+// import {
+//   actorName,
+//   isUnionValue,
+//   sceneName,
+//   triggerName,
+//   walkNormalisedActorEvents,
+//   walkNormalisedSceneSpecificEvents,
+//   walkNormalisedTriggerEvents,
+// } from "store/features/entities/entitiesHelpers";
 import {
   Actor,
   Scene,
@@ -51,6 +51,7 @@ export interface VariableUseResult {
 // eslint-disable-next-line no-restricted-globals
 const workerCtx: Worker = self as unknown as Worker;
 
+/*
 const onVariableEventContainingId =
   (
     id: string,
@@ -74,8 +75,11 @@ const onVariableEventContainingId =
       }
     }
   };
+*/
 
 workerCtx.onmessage = async (evt) => {
+  console.warn("@TODO Implement VariableUses worker");
+  /*
   const id = evt.data.id;
   const variableId: string = evt.data.variableId;
   const scenes: Scene[] = evt.data.scenes;
@@ -202,6 +206,7 @@ workerCtx.onmessage = async (evt) => {
   }
 
   workerCtx.postMessage({ id, uses } as VariableUseResult);
+  */
 };
 
 // -----------------------------------------------------------------

@@ -1,4 +1,4 @@
-import { ipcRenderer } from "electron";
+// import { ipcRenderer } from "electron";
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Song } from "lib/helpers/uge/song/Song";
@@ -9,6 +9,18 @@ interface UgePlayerProps {
   data: Song | null;
   onChannelStatusUpdate?: (channels: boolean[]) => void;
 }
+
+const ipcRenderer = {
+  send: (...a: unknown[]) => {
+    console.warn("Implement UgePlayer ipc API");
+  },
+  on: (...a: unknown[]) => {
+    console.warn("Implement UgePlayer ipc API");
+  },
+  removeListener: (...a: unknown[]) => {
+    console.warn("Implement UgePlayer ipc API");
+  },
+};
 
 export const UgePlayer = ({ data, onChannelStatusUpdate }: UgePlayerProps) => {
   const dispatch = useDispatch();

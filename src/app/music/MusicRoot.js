@@ -1,6 +1,18 @@
-import { ipcRenderer } from "electron";
+// import { ipcRenderer } from "electron";
 import player from "components/music/helpers/player.ts";
 import { playNotePreview } from "components/music/helpers/notePreview";
+
+const ipcRenderer = {
+  send: () => {
+    console.warn("Implement MusicRoot ipc API");
+  },
+  on: () => {
+    console.warn("Implement MusicRoot ipc API");
+  },
+  removeListener: () => {
+    console.warn("Implement MusicRoot ipc API");
+  },
+};
 
 const log = (log) => {
   console.log(log);

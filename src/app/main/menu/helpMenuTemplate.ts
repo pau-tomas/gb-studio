@@ -9,7 +9,7 @@ interface HelpMenuTemplateProps {
   checkForUpdates: () => void;
 }
 
-export default ({
+const helpMenuTemplate = ({
   platform,
   openDocs,
   openLearnMore,
@@ -42,3 +42,5 @@ export default ({
       : []),
   ],
 });
+
+export default helpMenuTemplate;

@@ -23,8 +23,8 @@ import { saveSongFile } from "store/features/trackerDocument/trackerDocumentStat
 import { InstrumentSelect } from "./InstrumentSelect";
 import { Select } from "ui/form/Select";
 import { PianoRollToolType } from "store/features/tracker/trackerState";
-import { ipcRenderer } from "electron";
-import l10n from "lib/helpers/l10n";
+// import { ipcRenderer } from "electron";
+import { l10n } from "lib/renderer/api";
 import { InstrumentType } from "store/features/editor/editorState";
 
 const octaveOffsetOptions: OctaveOffsetOptions[] = [0, 1, 2, 3].map((i) => ({
@@ -40,6 +40,18 @@ interface OctaveOffsetOptions {
 interface SongEditorToolsPanelProps {
   selectedSong?: Music;
 }
+
+const ipcRenderer = {
+  send: (...a: unknown[]) => {
+    console.warn("Implement SongEditorToolsPanel ipc API");
+  },
+  on: (...a: unknown[]) => {
+    console.warn("Implement SongEditorToolsPanel ipc API");
+  },
+  removeListener: (...a: unknown[]) => {
+    console.warn("Implement SongEditorToolsPanel ipc API");
+  },
+};
 
 const FloatingPanelSwitchView = styled(FloatingPanel)`
   position: absolute;

@@ -19,7 +19,7 @@ import entitiesActions from "store/features/entities/entitiesActions";
 import editorActions from "store/features/editor/editorActions";
 import clipboardActions from "store/features/clipboard/clipboardActions";
 import { Actor, ScriptEvent } from "store/features/entities/entitiesTypes";
-import l10n from "lib/helpers/l10n";
+import { l10n } from "lib/renderer/api";
 import { Sidebar, SidebarColumn } from "ui/sidebars/Sidebar";
 import { CoordinateInput } from "ui/form/CoordinateInput";
 import { Checkbox } from "ui/form/Checkbox";
