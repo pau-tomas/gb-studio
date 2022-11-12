@@ -356,6 +356,7 @@ export default class WindowManager {
   }
 
   async notifyThemeUpdate() {
+    this.projectWindow?.webContents.send("update-theme");
     this.splashWindow?.webContents.send("update-theme");
     this.preferencesWindow?.webContents.send("update-theme");
     this.aboutWindow?.webContents.send("update-theme");

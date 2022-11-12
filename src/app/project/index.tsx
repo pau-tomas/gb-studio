@@ -8,6 +8,7 @@ import ThemeProvider from "ui/theme/ThemeProvider";
 import GlobalStyle from "ui/globalStyle";
 import API from "lib/renderer/api";
 import "../../styles/App.css";
+import "../../styles/theme.css";
 
 const urlParams = new URLSearchParams(window.location.search);
 const projectPath = urlParams.get("path") || undefined;
