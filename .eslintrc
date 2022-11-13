@@ -105,7 +105,24 @@
           }
         ]
       }
-    }
+    },
+    {
+      "files": ["src/**"],
+      "excludedFiles": ["src/project/**"],
+      "rules": {
+        "no-restricted-imports": [
+          "error",
+          {
+            "patterns": [
+              {
+                "group": ["app/project/*", "project/*"],
+                "message": "Don't import app/project modules from within shared code! If this import is needed move the file to within app/project/"
+              },          
+            ]
+          }
+        ]
+      }
+    }    
   ],
   "env": {
     "browser": true,
