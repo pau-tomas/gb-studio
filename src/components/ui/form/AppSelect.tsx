@@ -1,6 +1,7 @@
 import React from "react";
+import path from "path";
 import { Select, Option } from "./Select";
-import { dialog, l10n, path } from "lib/renderer/api";
+import { dialog, l10n } from "lib/renderer/api";
 
 const { openFilePicker } = dialog;
 

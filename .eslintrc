@@ -72,6 +72,10 @@
               {
                 "group": ["lib/node/*"],
                 "message": "Can't use lib/node imports within renderer and shared code!"
+              },
+              {
+                "group": ["lib/renderer/**/preload"],
+                "message": "Can't use preload imports out of preloader"
               }
             ],
             "paths": [

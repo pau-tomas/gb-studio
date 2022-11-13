@@ -1,6 +1,5 @@
-// import path from "path";
+import path from "path";
 import { createSlice, AnyAction } from "@reduxjs/toolkit";
-import api from "lib/renderer/api";
 import projectActions from "../project/projectActions";
 
 export interface DocumentState {
@@ -30,7 +29,7 @@ const documentSlice = createSlice({
       })
       .addCase(projectActions.loadProject.fulfilled, (state, action) => {
         state.path = action.payload.path;
-        state.root = api.path.dirname(action.payload.path);
+        state.root = path.dirname(action.payload.path);
         state.modified = false;
         state.loaded = true;
       })

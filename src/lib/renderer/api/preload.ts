@@ -1,5 +1,4 @@
 import { ipcRenderer } from "electron";
-import path from "path";
 import l10n, { setLanguageData } from "lib/helpers/l10n";
 
 type JsonValue = string | number | boolean | null;
@@ -38,11 +37,7 @@ export const API = {
     onChange: (callback: () => void) =>
       ipcRenderer.on("update-theme", callback),
   },
-  path: {
-    basename: (input: string) => path.basename(input),
-    dirname: (input: string) => path.dirname(input),
-    normalize: (input: string) => path.normalize(input),
-    join: (...input: string[]) => path.join(...input),
+  paths: {
     getDocumentsPath: () => ipcRenderer.invoke("get-documents-path"),
     getTmpPath: () => ipcRenderer.invoke("get-tmp-path"),
   },

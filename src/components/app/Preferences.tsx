@@ -9,7 +9,7 @@ import { DotsIcon } from "ui/icons/Icons";
 import { FixedSpacer, FlexGrow } from "ui/spacing/Spacing";
 import { AppSelect } from "ui/form/AppSelect";
 import { OptionLabelWithInfo, Select } from "ui/form/Select";
-import { app, path, settings, dialog, l10n } from "lib/renderer/api";
+import { app, paths, settings, dialog, l10n } from "lib/renderer/api";
 import { SkeletonInput } from "ui/skeleton/Skeleton";
 
 interface Options {
@@ -40,7 +40,7 @@ const trackerKeyBindingsOptionsInfo: string[] = [
   l10n("FIELD_UI_PIANO_INFO"),
 ];
 
-const getTmp = () => path.getTmpPath();
+const getTmp = () => paths.getTmpPath();
 
 const Preferences = () => {
   const pathError = "";

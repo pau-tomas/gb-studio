@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import FocusLock, { AutoFocusInside } from "react-focus-lock";
+import path from "path";
 import GlobalStyle from "ui/globalStyle";
 import ThemeProvider from "ui/theme/ThemeProvider";
 import logoFile from "ui/icons/GBStudioLogo.png";
@@ -37,7 +38,7 @@ import {
 import { FlexGrow } from "ui/spacing/Spacing";
 import { FormRow, FormField } from "ui/form/FormLayout";
 import { TextField } from "ui/form/TextField";
-import API, { dialog, path, settings, l10n } from "lib/renderer/api";
+import API, { dialog, settings, l10n, paths } from "lib/renderer/api";
 
 declare const DOCS_URL: string;
 
@@ -87,7 +88,7 @@ const getLastUsedPath = async () => {
   if (storedPath) {
     return path.normalize(storedPath);
   }
-  return path.getDocumentsPath();
+  return paths.getDocumentsPath();
 };
 
 const setLastUsedPath = (path: string) => {
@@ -109,7 +110,7 @@ const toSplashTab = (tab: string): SplashTabSection => {
   return "new";
 };
 
-export default () => {
+const Splash = () => {
   const [loading, setLoading] = useState(true);
   const [templateId, setTemplateId] = useState("gbs2");
   const [section, setSection] = useState<SplashTabSection>();
@@ -373,3 +374,5 @@ export default () => {
     </ThemeProvider>
   );
 };
+
+export default Splash;
