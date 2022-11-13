@@ -159,7 +159,7 @@ export default class WindowManager {
       webPreferences: {
         nodeIntegration: true,
         nodeIntegrationInWorker: true,
-        webSecurity: true,
+        webSecurity: process.env.NODE_ENV !== "development", // Required to allow reading file:// when in devMode
         contextIsolation: true,
         devTools: isDevMode,
         preload: PROJECT_WINDOW_PRELOAD_WEBPACK_ENTRY,

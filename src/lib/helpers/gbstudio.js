@@ -1,5 +1,5 @@
 /* eslint-disable import/prefer-default-export */
-// import Path from "path";
+import Path from "path";
 import { SPRITE_TYPE_STATIC } from "../../consts";
 
 export const spriteTypeFromNumFrames = (numFrames) => {
@@ -61,17 +61,15 @@ export const zoomForSection = (section, editor) => {
 };
 
 export const assetFilename = (projectRoot, assetType, asset) => {
-  console.warn("@TODO Implement assetFilename");
-  return "";
-  // return (
-  //   asset.plugin
-  //     ? Path.join(
-  //         projectRoot,
-  //         "plugins",
-  //         asset.plugin,
-  //         assetType,
-  //         asset.filename
-  //       )
-  //     : Path.join(projectRoot, "assets", assetType, asset.filename)
-  // ).replace(/\\/g, "/");
+  return (
+    asset.plugin
+      ? Path.join(
+          projectRoot,
+          "plugins",
+          asset.plugin,
+          assetType,
+          asset.filename
+        )
+      : Path.join(projectRoot, "assets", assetType, asset.filename)
+  ).replace(/\\/g, "/");
 };

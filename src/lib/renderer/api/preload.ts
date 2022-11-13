@@ -42,6 +42,7 @@ export const API = {
     basename: (input: string) => path.basename(input),
     dirname: (input: string) => path.dirname(input),
     normalize: (input: string) => path.normalize(input),
+    join: (...input: string[]) => path.join(...input),
     getDocumentsPath: () => ipcRenderer.invoke("get-documents-path"),
     getTmpPath: () => ipcRenderer.invoke("get-tmp-path"),
   },

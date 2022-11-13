@@ -1,6 +1,7 @@
 // import { app, BrowserWindow, ipcMain, shell } from "electron";
-import { Menu, app, shell, dialog } from "electron";
+import { Menu, app, shell, dialog, protocol } from "electron";
 import open from "open";
+import url from "url";
 import initElectronL10n from "lib/helpers/initElectronL10n";
 import { CreateProjectInput } from "lib/project/createProject";
 import initIPC from "./ipc";
@@ -212,6 +213,11 @@ const setApplicationMenu = async () => {
   Menu.setApplicationMenu(Menu.buildFromTemplate(menus));
 };
 
+protocol.registerSchemesAsPrivileged([
+  { scheme: "atom", privileges: { bypassCSP: true } },
+  { scheme: "file", privileges: { bypassCSP: true } },
+]);
+
 app.on("ready", () => {
   initElectronL10n();
   windowManager.init({
@@ -228,4 +234,13 @@ app.on("ready", () => {
     onOpenAsset,
   });
   setApplicationMenu();
+  console.warn(
+    "@TODO Use custom protocol to only allow reading files within current project rather than allowing file:// directly"
+  );
+  protocol.registerFileProtocol("atom", (request, callback) => {
+    const filePath = url.fileURLToPath(
+      "file://" + request.url.slice("atom://".length)
+    );
+    callback(filePath);
+  });
 });
