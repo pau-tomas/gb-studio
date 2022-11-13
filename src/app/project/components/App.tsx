@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import projectActions from "project/store/features/project/projectActions";
 import cx from "classnames";
 import AppToolbar from "components/app/AppToolbar";
@@ -28,12 +28,68 @@ const App = ({ projectPath }: AppProps) => {
   const [blur, setBlur] = useState(false);
   const [draggingOver, setDraggingOver] = useState(false);
   const error = useAppSelector((state) => state.error);
+  const dragLeaveTimer = useRef<number>();
+
+  const onBlur = useCallback(() => {
+    setBlur(true);
+  }, []);
+  const onFocus = useCallback(() => {
+    setBlur(false);
+  }, []);
+  const onDragOver = useCallback((e: DragEvent) => {
+    // Don't activate dropzone unless dragging a file
+    const types = e.dataTransfer?.types;
+    if (!types || types.indexOf("Files") === -1) {
+      return;
+    }
+    e.preventDefault();
+    e.stopPropagation();
+    clearTimeout(dragLeaveTimer.current);
+    setDraggingOver(true);
+  }, []);
+  const onDragLeave = useCallback((e: DragEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    clearTimeout(dragLeaveTimer.current);
+    dragLeaveTimer.current = setTimeout(() => {
+      setDraggingOver(false);
+    }, 100);
+  }, []);
+  const onDrop = useCallback(
+    (e: DragEvent) => {
+      setDraggingOver(false);
+      if (e.dataTransfer) {
+        for (let i = 0; i < e.dataTransfer.files.length; i++) {
+          const file = e.dataTransfer.files[i];
+          dispatch(projectActions.addFileToProject(file.path));
+        }
+      }
+    },
+    [dispatch]
+  );
 
   useEffect(() => {
     if (projectPath) {
       dispatch(projectActions.loadProject(projectPath));
     }
   }, [dispatch, projectPath]);
+
+  useEffect(() => {
+    window.addEventListener("blur", onBlur);
+    window.addEventListener("focus", onFocus);
+    window.addEventListener("resize", onFocus);
+    window.addEventListener("dragover", onDragOver);
+    window.addEventListener("dragleave", onDragLeave);
+    window.addEventListener("drop", onDrop);
+    return () => {
+      window.removeEventListener("blur", onBlur);
+      window.removeEventListener("focus", onFocus);
+      window.removeEventListener("resize", onFocus);
+      window.removeEventListener("dragover", onDragOver);
+      window.removeEventListener("dragleave", onDragLeave);
+      window.removeEventListener("drop", onDrop);
+    };
+  }, []);
 
   if (error.visible) {
     return <GlobalError error={error} />;
