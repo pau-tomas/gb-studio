@@ -62,21 +62,42 @@
   },
   "overrides": [
     {
-      "files": ["*.tsx"],
+      "files": ["*.tsx", "src/lib/**"],
+      "excludedFiles": ["src/lib/node/**"],
       "rules": {
         "no-restricted-imports": [
           "error",
           {
+            "patterns": [
+              {
+                "group": ["lib/node/*"],
+                "message": "Can't use lib/node imports within renderer and shared code!"
+              }
+            ],
             "paths": [
               {
-                "name": "path",
-                "message": "Can't use path from a React component, use API instead!"
-              },
-              {
                 "name": "electron-settings",
-                "message": "Can't use electron-settings from a React component, use API instead!"
+                "message": "Can't use electron-settings from renderer, use API instead!"
               }
             ]
+          }
+        ]
+      }
+    },
+    {
+      "files": ["src/lib/**"],
+      "excludedFiles": ["src/lib/renderer/**"],
+      "rules": {
+        "no-restricted-imports": [
+          "error",
+          {
+            "patterns": [
+              {
+                "group": ["lib/renderer/*"],
+                "message": "Can't use lib/renderer imports within node and shared code!"
+              }
+            ],
+            "paths": ["react", "react-dom"]
           }
         ]
       }
