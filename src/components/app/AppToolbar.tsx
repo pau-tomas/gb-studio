@@ -29,6 +29,7 @@ import { NavigationSection } from "store/features/navigation/navigationState";
 import { ZoomSection } from "store/features/editor/editorState";
 import useWindowFocus from "ui/hooks/use-window-focus";
 import useWindowSize from "ui/hooks/use-window-size";
+import { acceleratorForPlatform } from "lib/renderer/ui/acceleratorForPlatform";
 
 const sectionNames = {
   world: l10n("NAV_GAME_WORLD"),
@@ -45,15 +46,15 @@ const sectionNames = {
 type SectionKey = keyof typeof sectionNames;
 
 const sectionAccelerators = {
-  world: "CommandOrControl+1",
-  sprites: "CommandOrControl+2",
-  backgrounds: "CommandOrControl+3",
-  music: "CommandOrControl+4",
-  sounds: "CommandOrControl+5",
-  palettes: "CommandOrControl+6",
-  dialogue: "CommandOrControl+7",
-  build: "CommandOrControl+8",
-  settings: "CommandOrControl+9",
+  world: acceleratorForPlatform("CommandOrControl+1"),
+  sprites: acceleratorForPlatform("CommandOrControl+2"),
+  backgrounds: acceleratorForPlatform("CommandOrControl+3"),
+  music: acceleratorForPlatform("CommandOrControl+4"),
+  sounds: acceleratorForPlatform("CommandOrControl+5"),
+  palettes: acceleratorForPlatform("CommandOrControl+6"),
+  dialogue: acceleratorForPlatform("CommandOrControl+7"),
+  build: acceleratorForPlatform("CommandOrControl+8"),
+  settings: acceleratorForPlatform("CommandOrControl+9"),
 };
 
 const zoomSections = ["world", "sprites", "backgrounds", "ui"];
