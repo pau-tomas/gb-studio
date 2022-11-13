@@ -1,7 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import { AppContainer } from "react-hot-loader";
-import Splash from "components/app/Splash";
+import Splash from "./components/Splash";
 import API from "lib/renderer/api";
 
 window.addEventListener("error", (error) => {

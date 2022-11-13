@@ -1,4 +1,4 @@
-import About from "components/app/About";
+import About from "./components/About";
 import React from "react";
 import ReactDOM from "react-dom";
 import { AppContainer } from "react-hot-loader";

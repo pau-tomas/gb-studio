@@ -2,7 +2,9 @@ import React from "react";
 import ReactDOM from "react-dom";
 import { Provider } from "react-redux";
 import store from "project/store/configureStore";
-import AppContainerDnD from "components/app/AppContainerDnD";
+import { AppContainer } from "react-hot-loader";
+import { DndProvider } from "react-dnd";
+import { HTML5Backend } from "react-dnd-html5-backend";
 import ThemeProvider from "ui/theme/ThemeProvider";
 import GlobalStyle from "ui/globalStyle";
 import API from "lib/renderer/api";
@@ -13,19 +15,26 @@ import "../../styles/theme.css";
 const urlParams = new URLSearchParams(window.location.search);
 const projectPath = urlParams.get("path") || undefined;
 
-(window as any).store = store;
+// Attach store to global scope for debugging
+(
+  window as unknown as {
+    store: typeof store;
+  }
+).store = store;
 
 const render = async () => {
   await API.l10nInit();
   ReactDOM.render(
-    <Provider store={store}>
-      <ThemeProvider>
-        <GlobalStyle />
-        <AppContainerDnD>
-          <App projectPath={projectPath} />
-        </AppContainerDnD>
-      </ThemeProvider>
-    </Provider>,
+    <AppContainer>
+      <Provider store={store}>
+        <DndProvider backend={HTML5Backend}>
+          <ThemeProvider>
+            <GlobalStyle />
+            <App projectPath={projectPath} />
+          </ThemeProvider>
+        </DndProvider>
+      </Provider>
+    </AppContainer>,
     document.getElementById("App")
   );
 };

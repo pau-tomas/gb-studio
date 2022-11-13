@@ -10,7 +10,7 @@ import {
   AboutBugReport,
   AboutVersions,
 } from "ui/about/About";
-import appIcon from "../../assets/app/icon/app_icon.png";
+import appIcon from "../../../assets/app/icon/app_icon.png";
 import API, { l10n } from "lib/renderer/api";
 import { Button } from "ui/buttons/Button";
 import { FlexGrow } from "ui/spacing/Spacing";

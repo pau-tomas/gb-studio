@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useRef, useState } from "react";
 import projectActions from "project/store/features/project/projectActions";
 import cx from "classnames";
-import AppToolbar from "components/app/AppToolbar";
+import AppToolbar from "./AppToolbar";
 import BackgroundsPage from "./pages/BackgroundsPage";
 import SpritesPage from "./pages/SpritesPage";
 import DialoguePage from "./pages/DialoguePage";
@@ -89,7 +89,7 @@ const App = ({ projectPath }: AppProps) => {
       window.removeEventListener("dragleave", onDragLeave);
       window.removeEventListener("drop", onDrop);
     };
-  }, []);
+  }, [onBlur, onDragLeave, onDragOver, onDrop, onFocus]);
 
   if (error.visible) {
     return <GlobalError error={error} />;

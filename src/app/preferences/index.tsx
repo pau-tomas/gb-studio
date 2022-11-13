@@ -1,7 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import { AppContainer } from "react-hot-loader";
-import Preferences from "components/app/Preferences";
+import Preferences from "./components/Preferences";
 import API from "lib/renderer/api";
 
 const render = async () => {
