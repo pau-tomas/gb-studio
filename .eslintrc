@@ -108,7 +108,7 @@
     },
     {
       "files": ["src/**"],
-      "excludedFiles": ["src/project/**"],
+      "excludedFiles": ["src/app/project/**"],
       "rules": {
         "no-restricted-imports": [
           "error",
