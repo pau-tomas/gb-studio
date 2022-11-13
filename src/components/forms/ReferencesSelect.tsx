@@ -6,7 +6,7 @@ import React, {
   useState,
 } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { RootState } from "store/configureStore";
+import { RootState } from "project/store/configureStore";
 import {
   backgroundSelectors,
   customEventSelectors,
@@ -17,7 +17,7 @@ import {
   soundSelectors,
   spriteSheetSelectors,
   variableSelectors,
-} from "store/features/entities/entitiesState";
+} from "project/store/features/entities/entitiesState";
 import { Button } from "ui/buttons/Button";
 import { CheckIcon, MinusIcon, PencilIcon } from "ui/icons/Icons";
 import { l10n } from "lib/renderer/api";
@@ -29,13 +29,13 @@ import {
   tilemapSymbol,
   tilesetSymbol,
 } from "lib/helpers/symbols";
-import clipboardActions from "store/features/clipboard/clipboardActions";
+import clipboardActions from "project/store/features/clipboard/clipboardActions";
 import { TooltipWrapper } from "ui/tooltips/Tooltip";
 import { MenuOverlay } from "ui/menu/Menu";
 import { RelativePortal } from "ui/layout/RelativePortal";
 import AddReferenceMenu from "./AddReferenceMenu";
 import { Input } from "ui/form/Input";
-import entitiesActions from "store/features/entities/entitiesActions";
+import entitiesActions from "project/store/features/entities/entitiesActions";
 
 export type ReferenceType =
   | "background"

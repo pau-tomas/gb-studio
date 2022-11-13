@@ -1,8 +1,8 @@
 import React from "react";
 import { useDispatch } from "react-redux";
 import { l10n } from "lib/renderer/api";
-import trackerDocumentActions from "store/features/trackerDocument/trackerDocumentActions";
-import { WaveInstrument } from "store/features/trackerDocument/trackerDocumentTypes";
+import trackerDocumentActions from "project/store/features/trackerDocument/trackerDocumentActions";
+import { WaveInstrument } from "project/store/features/trackerDocument/trackerDocumentTypes";
 import { FormDivider, FormField, FormRow } from "ui/form/FormLayout";
 import { Select } from "ui/form/Select";
 import { InstrumentLengthForm } from "./InstrumentLengthForm";

@@ -10,8 +10,8 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   customEventSelectors,
   variableSelectors,
-} from "store/features/entities/entitiesState";
-import { RootState } from "store/configureStore";
+} from "project/store/features/entities/entitiesState";
+import { RootState } from "project/store/configureStore";
 import {
   groupVariables,
   NamedVariable,
@@ -19,12 +19,12 @@ import {
 } from "lib/helpers/variables";
 import { CheckIcon, PencilIcon } from "ui/icons/Icons";
 import { Input } from "ui/form/Input";
-import entitiesActions from "store/features/entities/entitiesActions";
+import entitiesActions from "project/store/features/entities/entitiesActions";
 import { l10n } from "lib/renderer/api";
-import editorActions from "store/features/editor/editorActions";
+import editorActions from "project/store/features/editor/editorActions";
 import { ScriptEditorContext } from "components/script/ScriptEditorContext";
 import { UnitsSelectButtonInputOverlay } from "./UnitsSelectButtonInputOverlay";
-import { UnitType } from "store/features/entities/entitiesTypes";
+import { UnitType } from "project/store/features/entities/entitiesTypes";
 
 interface VariableSelectProps extends SelectCommonProps {
   id?: string;

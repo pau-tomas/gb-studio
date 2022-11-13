@@ -17,20 +17,20 @@ import { Button } from "ui/buttons/Button";
 import Fuse from "fuse.js";
 import { Dictionary } from "@reduxjs/toolkit";
 import { useDispatch, useSelector } from "react-redux";
-import settingsActions from "store/features/settings/settingsActions";
-import { RootState } from "store/configureStore";
+import settingsActions from "project/store/features/settings/settingsActions";
+import { RootState } from "project/store/configureStore";
 import {
   ScriptEvent,
   ScriptEventFieldSchema,
   ScriptEventParentType,
-} from "store/features/entities/entitiesTypes";
-import entitiesActions from "store/features/entities/entitiesActions";
+} from "project/store/features/entities/entitiesTypes";
+import entitiesActions from "project/store/features/entities/entitiesActions";
 import {
   emoteSelectors,
   musicSelectors,
   sceneSelectors,
   spriteSheetSelectors,
-} from "store/features/entities/entitiesState";
+} from "project/store/features/entities/entitiesState";
 import { EVENT_TEXT } from "lib/compiler/eventTypes";
 import { useDebounce } from "ui/hooks/use-debounce";
 import {

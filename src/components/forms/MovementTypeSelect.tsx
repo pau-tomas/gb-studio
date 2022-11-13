@@ -3,7 +3,7 @@ import { l10n } from "lib/renderer/api";
 import {
   MovementType,
   movementTypes,
-} from "store/features/entities/entitiesTypes";
+} from "project/store/features/entities/entitiesTypes";
 import { DropdownButton } from "ui/buttons/DropdownButton";
 import {
   BlankIcon,

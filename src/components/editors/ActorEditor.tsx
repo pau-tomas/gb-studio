@@ -1,10 +1,10 @@
 import React, { FC, useCallback, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { RootState } from "store/configureStore";
+import { RootState } from "project/store/configureStore";
 import {
   actorSelectors,
   sceneSelectors,
-} from "store/features/entities/entitiesState";
+} from "project/store/features/entities/entitiesState";
 import { DropdownButton } from "ui/buttons/DropdownButton";
 import { EditableText } from "ui/form/EditableText";
 import {
@@ -15,10 +15,13 @@ import {
   FormRow,
 } from "ui/form/FormLayout";
 import { MenuDivider, MenuItem } from "ui/menu/Menu";
-import entitiesActions from "store/features/entities/entitiesActions";
-import editorActions from "store/features/editor/editorActions";
-import clipboardActions from "store/features/clipboard/clipboardActions";
-import { Actor, ScriptEvent } from "store/features/entities/entitiesTypes";
+import entitiesActions from "project/store/features/entities/entitiesActions";
+import editorActions from "project/store/features/editor/editorActions";
+import clipboardActions from "project/store/features/clipboard/clipboardActions";
+import {
+  Actor,
+  ScriptEvent,
+} from "project/store/features/entities/entitiesTypes";
 import { l10n } from "lib/renderer/api";
 import { Sidebar, SidebarColumn } from "ui/sidebars/Sidebar";
 import { CoordinateInput } from "ui/form/CoordinateInput";
@@ -39,7 +42,7 @@ import { KeysMatching } from "lib/helpers/types";
 import { NoteField } from "ui/form/NoteField";
 import { StickyTabs, TabBar, TabSettings } from "ui/tabs/Tabs";
 import { Button } from "ui/buttons/Button";
-import { ClipboardTypeActors } from "store/features/clipboard/clipboardTypes";
+import { ClipboardTypeActors } from "project/store/features/clipboard/clipboardTypes";
 import { ActorSymbolsEditor } from "components/forms/symbols/ActorSymbolsEditor";
 import { SpriteSymbolsEditor } from "components/forms/symbols/SpriteSymbolsEditor";
 import { SymbolEditorWrapper } from "components/forms/symbols/SymbolEditorWrapper";

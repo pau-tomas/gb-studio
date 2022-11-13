@@ -9,7 +9,7 @@ import {
 } from "../../consts";
 import React, { useCallback, useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import { RootState } from "store/configureStore";
+import { RootState } from "project/store/configureStore";
 import {
   actorSelectors,
   customEventSelectors,
@@ -17,12 +17,12 @@ import {
   scriptEventSelectors,
   spriteSheetSelectors,
   triggerSelectors,
-} from "store/features/entities/entitiesState";
+} from "project/store/features/entities/entitiesState";
 import styled, { css } from "styled-components";
 import { TooltipWrapper } from "ui/tooltips/Tooltip";
 import { l10n } from "lib/renderer/api";
-import { walkNormalisedSceneEvents } from "store/features/entities/entitiesHelpers";
-import { SpriteSheet } from "store/features/entities/entitiesTypes";
+import { walkNormalisedSceneEvents } from "project/store/features/entities/entitiesHelpers";
+import { SpriteSheet } from "project/store/features/entities/entitiesTypes";
 import clamp from "lib/helpers/clamp";
 import { useDebounce } from "ui/hooks/use-debounce";
 import maxSpriteTilesForBackgroundTilesLength from "lib/helpers/maxSpriteTilesForBackgroundTilesLength";

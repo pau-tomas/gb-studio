@@ -1,6 +1,6 @@
 import { l10n } from "lib/renderer/api";
 import React, { FC, useEffect, useState } from "react";
-import { MusicDriverSetting } from "store/features/settings/settingsState";
+import { MusicDriverSetting } from "project/store/features/settings/settingsState";
 import {
   Option,
   OptionLabelWithInfo,

@@ -1,16 +1,16 @@
 import React, { useCallback, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { RootState } from "store/configureStore";
-import { paletteSelectors } from "store/features/entities/entitiesState";
+import { RootState } from "project/store/configureStore";
+import { paletteSelectors } from "project/store/features/entities/entitiesState";
 import { FlatList } from "ui/lists/FlatList";
-import { Palette } from "store/features/entities/entitiesTypes";
+import { Palette } from "project/store/features/entities/entitiesTypes";
 import { l10n } from "lib/renderer/api";
 import { SplitPaneHeader } from "ui/splitpane/SplitPaneHeader";
 import styled from "styled-components";
-import navigationActions from "store/features/navigation/navigationActions";
+import navigationActions from "project/store/features/navigation/navigationActions";
 import { Button } from "ui/buttons/Button";
 import { PaletteIcon, PlusIcon } from "ui/icons/Icons";
-import entitiesActions from "store/features/entities/entitiesActions";
+import entitiesActions from "project/store/features/entities/entitiesActions";
 import { FlexGrow } from "ui/spacing/Spacing";
 import PaletteBlock from "components/library/PaletteBlock";
 

@@ -1,14 +1,18 @@
 import React, { FC, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { RootState } from "store/configureStore";
+import { RootState } from "project/store/configureStore";
 import {
   actorSelectors,
   sceneSelectors,
   triggerSelectors,
-} from "store/features/entities/entitiesState";
+} from "project/store/features/entities/entitiesState";
 import { FlatList } from "ui/lists/FlatList";
-import editorActions from "store/features/editor/editorActions";
-import { Actor, Scene, Trigger } from "store/features/entities/entitiesTypes";
+import editorActions from "project/store/features/editor/editorActions";
+import {
+  Actor,
+  Scene,
+  Trigger,
+} from "project/store/features/entities/entitiesTypes";
 import { EntityListItem } from "ui/lists/EntityListItem";
 import useToggleableList from "ui/hooks/use-toggleable-list";
 

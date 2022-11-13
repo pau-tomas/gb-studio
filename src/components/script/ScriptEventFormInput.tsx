@@ -29,14 +29,14 @@ import castEventValue from "lib/helpers/castEventValue";
 import { l10n } from "lib/renderer/api";
 import React, { useCallback, useContext } from "react";
 import { useSelector } from "react-redux";
-import { RootState } from "store/configureStore";
+import { RootState } from "project/store/configureStore";
 import {
   ActorDirection,
   MovementType,
   ScriptEventFieldSchema,
   UnionValue,
   UnitType,
-} from "store/features/entities/entitiesTypes";
+} from "project/store/features/entities/entitiesTypes";
 import styled from "styled-components";
 import { Button } from "ui/buttons/Button";
 import { DropdownButton } from "ui/buttons/DropdownButton";

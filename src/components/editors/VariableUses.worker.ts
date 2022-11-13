@@ -8,13 +8,13 @@
 //   walkNormalisedActorEvents,
 //   walkNormalisedSceneSpecificEvents,
 //   walkNormalisedTriggerEvents,
-// } from "store/features/entities/entitiesHelpers";
+// } from "project/store/features/entities/entitiesHelpers";
 import {
   Actor,
   Scene,
   ScriptEvent,
   Trigger,
-} from "store/features/entities/entitiesTypes";
+} from "project/store/features/entities/entitiesTypes";
 
 export type VariableUse = {
   id: string;

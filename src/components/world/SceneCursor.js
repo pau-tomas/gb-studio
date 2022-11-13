@@ -12,12 +12,12 @@ import {
 import {
   backgroundSelectors,
   sceneSelectors,
-} from "store/features/entities/entitiesState";
-import editorActions from "store/features/editor/editorActions";
-import settingsActions from "store/features/settings/settingsActions";
-import entitiesActions from "store/features/entities/entitiesActions";
+} from "project/store/features/entities/entitiesState";
+import editorActions from "project/store/features/editor/editorActions";
+import settingsActions from "project/store/features/settings/settingsActions";
+import entitiesActions from "project/store/features/entities/entitiesActions";
 
-import { SceneShape, VariableShape } from "store/stateShape";
+import { SceneShape, VariableShape } from "project/store/stateShape";
 import {
   TOOL_COLORS,
   TOOL_COLLISIONS,
@@ -33,7 +33,7 @@ import {
   TILE_COLOR_PROPS,
   TILE_COLOR_PALETTE,
 } from "../../consts";
-import clipboardActions from "store/features/clipboard/clipboardActions";
+import clipboardActions from "project/store/features/clipboard/clipboardActions";
 
 class SceneCursor extends Component {
   constructor() {

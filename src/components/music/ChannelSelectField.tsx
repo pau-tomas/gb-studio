@@ -1,7 +1,7 @@
 import React, { useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { RootState } from "store/configureStore";
-import trackerActions from "store/features/tracker/trackerActions";
+import { RootState } from "project/store/configureStore";
+import trackerActions from "project/store/features/tracker/trackerActions";
 import { Button } from "ui/buttons/Button";
 import {
   AudioOffIcon,

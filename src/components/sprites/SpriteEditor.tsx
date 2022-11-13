@@ -18,7 +18,7 @@ import {
   MetaspriteTile,
   SpriteSheet,
   SpriteState,
-} from "store/features/entities/entitiesTypes";
+} from "project/store/features/entities/entitiesTypes";
 import { CoordinateInput } from "ui/form/CoordinateInput";
 import { Label } from "ui/form/Label";
 import {
@@ -26,12 +26,12 @@ import {
   spriteAnimationSelectors,
   spriteSheetSelectors,
   spriteStateSelectors,
-} from "store/features/entities/entitiesState";
-import entitiesActions from "store/features/entities/entitiesActions";
-import editorActions from "store/features/editor/editorActions";
-import spriteActions from "store/features/sprite/spriteActions";
-import clipboardActions from "store/features/clipboard/clipboardActions";
-import { RootState } from "store/configureStore";
+} from "project/store/features/entities/entitiesState";
+import entitiesActions from "project/store/features/entities/entitiesActions";
+import editorActions from "project/store/features/editor/editorActions";
+import spriteActions from "project/store/features/sprite/spriteActions";
+import clipboardActions from "project/store/features/clipboard/clipboardActions";
+import { RootState } from "project/store/configureStore";
 import castEventValue from "lib/helpers/castEventValue";
 import { Button } from "ui/buttons/Button";
 import {
@@ -46,7 +46,7 @@ import {
   ClipboardTypeMetasprites,
   ClipboardTypeMetaspriteTiles,
   ClipboardTypeSpriteState,
-} from "store/features/clipboard/clipboardTypes";
+} from "project/store/features/clipboard/clipboardTypes";
 import { CheckboxField } from "ui/form/CheckboxField";
 import { AnimationTypeSelect } from "../forms/AnimationTypeSelect";
 import { ObjPaletteSelect } from "../forms/ObjPaletteSelect";

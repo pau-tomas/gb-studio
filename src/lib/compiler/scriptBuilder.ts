@@ -15,13 +15,13 @@ import {
   Sound,
   DistanceUnitType,
   Variable,
-} from "store/features/entities/entitiesTypes";
+} from "project/store/features/entities/entitiesTypes";
 import { Dictionary } from "@reduxjs/toolkit";
-import { EngineFieldSchema } from "store/features/engine/engineState";
+import { EngineFieldSchema } from "project/store/features/engine/engineState";
 import {
   initialState as initialSettingsState,
   SettingsState,
-} from "store/features/settings/settingsState";
+} from "project/store/features/settings/settingsState";
 import { FunctionSymbol, OperatorSymbol } from "../rpn/types";
 import tokenize from "../rpn/tokenizer";
 import shuntingYard from "../rpn/shuntingYard";
@@ -44,7 +44,7 @@ import compileEntityEvents from "./compileEntityEvents";
 import {
   isUnionPropertyValue,
   isUnionVariableValue,
-} from "store/features/entities/entitiesHelpers";
+} from "project/store/features/entities/entitiesHelpers";
 import { lexText } from "lib/fonts/lexText";
 import { Reference } from "components/forms/ReferencesSelect";
 import { clone } from "lib/helpers/clone";
@@ -3118,7 +3118,12 @@ extern void __mute_mask_${symbol};
   // --------------------------------------------------------------------------
   // Timer
 
-  timerScriptSet = (frames = 600, script: ScriptEvent[], symbol?: string, timer = 1) => {
+  timerScriptSet = (
+    frames = 600,
+    script: ScriptEvent[],
+    symbol?: string,
+    timer = 1
+  ) => {
     this._addComment(`Timer Start`);
     const scriptRef = this._compileSubScript("timer", script, symbol);
     const TIMER_CYCLES = 16;

@@ -1,5 +1,5 @@
 import { l10n } from "lib/renderer/api";
-import { SpriteAnimationType } from "store/features/entities/entitiesTypes";
+import { SpriteAnimationType } from "project/store/features/entities/entitiesTypes";
 
 export type AnimationType =
   | "idle"

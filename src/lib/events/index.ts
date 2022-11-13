@@ -12,7 +12,7 @@
 // import * as eventSystemHelpers from "../helpers/eventSystem";
 // import * as compileEntityEvents from "../compiler/compileEntityEvents";
 // import trimLines from "../helpers/trimlines";
-import { ScriptEventFieldSchema } from "store/features/entities/entitiesTypes";
+import { ScriptEventFieldSchema } from "project/store/features/entities/entitiesTypes";
 import { Dictionary } from "@reduxjs/toolkit";
 // import { clone, cloneDictionary } from "lib/helpers/clone";
 // import {

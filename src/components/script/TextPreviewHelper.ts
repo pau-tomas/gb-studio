@@ -1,4 +1,4 @@
-import { Font } from "store/features/entities/entitiesTypes";
+import { Font } from "project/store/features/entities/entitiesTypes";
 import { lexText } from "lib/fonts/lexText";
 import { encodeChar } from "lib/helpers/encodings";
 import { assetFilename } from "lib/helpers/gbstudio";

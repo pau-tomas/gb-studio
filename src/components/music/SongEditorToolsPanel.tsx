@@ -1,7 +1,7 @@
 import React, { useCallback, useContext, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styled, { ThemeContext } from "styled-components";
-import { RootState } from "store/configureStore";
+import { RootState } from "project/store/configureStore";
 import {
   PlayIcon,
   PauseIcon,
@@ -16,16 +16,16 @@ import {
   PlayStartIcon,
 } from "ui/icons/Icons";
 import FloatingPanel, { FloatingPanelDivider } from "ui/panels/FloatingPanel";
-import trackerActions from "store/features/tracker/trackerActions";
+import trackerActions from "project/store/features/tracker/trackerActions";
 import { Button } from "ui/buttons/Button";
-import { Music } from "store/features/entities/entitiesTypes";
-import { saveSongFile } from "store/features/trackerDocument/trackerDocumentState";
+import { Music } from "project/store/features/entities/entitiesTypes";
+import { saveSongFile } from "project/store/features/trackerDocument/trackerDocumentState";
 import { InstrumentSelect } from "./InstrumentSelect";
 import { Select } from "ui/form/Select";
-import { PianoRollToolType } from "store/features/tracker/trackerState";
+import { PianoRollToolType } from "project/store/features/tracker/trackerState";
 // import { ipcRenderer } from "electron";
 import { l10n } from "lib/renderer/api";
-import { InstrumentType } from "store/features/editor/editorState";
+import { InstrumentType } from "project/store/features/editor/editorState";
 
 const octaveOffsetOptions: OctaveOffsetOptions[] = [0, 1, 2, 3].map((i) => ({
   value: i,

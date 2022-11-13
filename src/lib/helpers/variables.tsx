@@ -1,7 +1,10 @@
 import { ScriptEditorContextType } from "components/script/ScriptEditorContext";
 import { l10n } from "lib/renderer/api";
 import uniq from "lodash/uniq";
-import { CustomEvent, Variable } from "store/features/entities/entitiesTypes";
+import {
+  CustomEvent,
+  Variable,
+} from "project/store/features/entities/entitiesTypes";
 
 const arrayNStrings = (n: number) =>
   Array.from(Array(n).keys()).map((n) => String(n));

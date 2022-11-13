@@ -1,13 +1,13 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
-import { RootState } from "store/configureStore";
+import { RootState } from "project/store/configureStore";
 import {
   metaspriteSelectors,
   sceneSelectors,
   spriteSheetSelectors,
-} from "store/features/entities/entitiesState";
-import editorActions from "store/features/editor/editorActions";
+} from "project/store/features/entities/entitiesState";
+import editorActions from "project/store/features/editor/editorActions";
 import { l10n } from "lib/renderer/api";
 import { SceneSelect } from "../forms/SceneSelect";
 import { SelectMenu, selectMenuStyleProps } from "ui/form/Select";

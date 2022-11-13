@@ -1,9 +1,9 @@
-import { InstrumentType } from "store/features/editor/editorState";
+import { InstrumentType } from "project/store/features/editor/editorState";
 import {
   DutyInstrument,
   WaveInstrument,
   NoiseInstrument,
-} from "store/features/trackerDocument/trackerDocumentTypes";
+} from "project/store/features/trackerDocument/trackerDocumentTypes";
 import emulator from "./emulator";
 import {
   note2freq,

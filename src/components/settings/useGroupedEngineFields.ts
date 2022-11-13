@@ -2,8 +2,8 @@ import uniq from "lodash/uniq";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { l10n } from "lib/renderer/api";
-import { RootState } from "store/configureStore";
-import { EngineFieldSchema } from "store/features/engine/engineState";
+import { RootState } from "project/store/configureStore";
+import { EngineFieldSchema } from "project/store/features/engine/engineState";
 
 export type EngineFieldGroup = {
   name: string;

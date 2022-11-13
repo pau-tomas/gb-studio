@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import uniq from "lodash/uniq";
-import { RootState } from "store/configureStore";
-import { spriteStateSelectors } from "store/features/entities/entitiesState";
+import { RootState } from "project/store/configureStore";
+import { spriteStateSelectors } from "project/store/features/entities/entitiesState";
 import {
   Option,
   CreatableSelect,

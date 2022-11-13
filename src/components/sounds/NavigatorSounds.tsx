@@ -1,14 +1,14 @@
 import React, { useCallback, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { RootState } from "store/configureStore";
-import { soundSelectors } from "store/features/entities/entitiesState";
+import { RootState } from "project/store/configureStore";
+import { soundSelectors } from "project/store/features/entities/entitiesState";
 import { FlatList } from "ui/lists/FlatList";
-import { Sound } from "store/features/entities/entitiesTypes";
+import { Sound } from "project/store/features/entities/entitiesTypes";
 import { EntityListItem } from "ui/lists/EntityListItem";
 import { l10n } from "lib/renderer/api";
 import { SplitPaneHeader } from "ui/splitpane/SplitPaneHeader";
 import styled from "styled-components";
-import navigationActions from "store/features/navigation/navigationActions";
+import navigationActions from "project/store/features/navigation/navigationActions";
 
 interface NavigatorSoundsProps {
   height: number;

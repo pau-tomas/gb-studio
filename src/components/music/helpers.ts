@@ -1,6 +1,6 @@
 import { PatternCell } from "lib/helpers/uge/song/PatternCell";
 import { Song } from "lib/helpers/uge/song/Song";
-import { InstrumentType } from "store/features/editor/editorState";
+import { InstrumentType } from "project/store/features/editor/editorState";
 import { noteNames } from "./helpers/music_constants";
 
 type PatternCellKey = keyof PatternCell;

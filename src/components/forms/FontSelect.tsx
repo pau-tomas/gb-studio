@@ -1,8 +1,8 @@
 import React, { FC, useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import { RootState } from "store/configureStore";
-import { fontSelectors } from "store/features/entities/entitiesState";
-import { Font } from "store/features/entities/entitiesTypes";
+import { RootState } from "project/store/configureStore";
+import { fontSelectors } from "project/store/features/entities/entitiesState";
+import { Font } from "project/store/features/entities/entitiesTypes";
 import {
   Option,
   Select,

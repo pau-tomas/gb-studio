@@ -5,10 +5,10 @@ import cx from "classnames";
 import { PlusIcon } from "ui/icons/Icons";
 import Button from "../library/Button";
 import { l10n } from "lib/renderer/api";
-import { PaletteShape } from "store/stateShape";
+import { PaletteShape } from "project/store/stateShape";
 import PaletteBlock from "../library/PaletteBlock";
-import editorActions from "store/features/editor/editorActions";
-import navigationActions from "store/features/navigation/navigationActions";
+import editorActions from "project/store/features/editor/editorActions";
+import navigationActions from "project/store/features/navigation/navigationActions";
 import { clampSidebarWidth } from "lib/helpers/window/sidebar";
 
 class PaletteSidebar extends Component {

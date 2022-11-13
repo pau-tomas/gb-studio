@@ -13,7 +13,7 @@ import {
   EventShape,
   BackgroundShape,
   PaletteShape,
-} from "store/stateShape";
+} from "project/store/stateShape";
 import { assetFilename } from "lib/helpers/gbstudio";
 import SceneCursor from "./SceneCursor";
 import ColorizedImage from "./ColorizedImage";
@@ -34,9 +34,9 @@ import {
   backgroundSelectors,
   paletteSelectors,
   scriptEventSelectors,
-} from "store/features/entities/entitiesState";
-import editorActions from "store/features/editor/editorActions";
-import entitiesActions from "store/features/entities/entitiesActions";
+} from "project/store/features/entities/entitiesState";
+import editorActions from "project/store/features/editor/editorActions";
+import entitiesActions from "project/store/features/entities/entitiesActions";
 import ScenePriorityMap from "./ScenePriorityMap";
 
 const TILE_SIZE = 8;

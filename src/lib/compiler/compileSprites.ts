@@ -12,7 +12,7 @@ import {
   MetaspriteTile,
   ObjPalette,
   SpriteAnimationType,
-} from "store/features/entities/entitiesTypes";
+} from "project/store/features/entities/entitiesTypes";
 import { IndexedImage } from "../tiles/indexedImage";
 
 const S_PALETTE = 0x10;

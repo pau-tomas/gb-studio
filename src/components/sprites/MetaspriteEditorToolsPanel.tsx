@@ -1,8 +1,8 @@
 import React, { useCallback, useEffect, useMemo, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
-import { RootState } from "store/configureStore";
-import { spriteAnimationSelectors } from "store/features/entities/entitiesState";
+import { RootState } from "project/store/configureStore";
+import { spriteAnimationSelectors } from "project/store/features/entities/entitiesState";
 import {
   PlayIcon,
   OnionSkinIcon,
@@ -12,7 +12,7 @@ import {
   PauseIcon,
 } from "ui/icons/Icons";
 import FloatingPanel, { FloatingPanelDivider } from "ui/panels/FloatingPanel";
-import editorActions from "store/features/editor/editorActions";
+import editorActions from "project/store/features/editor/editorActions";
 import { Button } from "ui/buttons/Button";
 import { l10n } from "lib/renderer/api";
 

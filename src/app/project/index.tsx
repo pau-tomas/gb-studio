@@ -1,12 +1,12 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import { Provider } from "react-redux";
-import store from "store/configureStore";
-import App from "components/app/App";
+import store from "project/store/configureStore";
 import AppContainerDnD from "components/app/AppContainerDnD";
 import ThemeProvider from "ui/theme/ThemeProvider";
 import GlobalStyle from "ui/globalStyle";
 import API from "lib/renderer/api";
+import App from "./components/App";
 import "../../styles/App.css";
 import "../../styles/theme.css";
 

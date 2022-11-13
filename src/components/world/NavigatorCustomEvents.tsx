@@ -1,10 +1,10 @@
 import React, { FC, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { RootState } from "store/configureStore";
-import { customEventSelectors } from "store/features/entities/entitiesState";
+import { RootState } from "project/store/configureStore";
+import { customEventSelectors } from "project/store/features/entities/entitiesState";
 import { FlatList } from "ui/lists/FlatList";
-import editorActions from "store/features/editor/editorActions";
-import { CustomEvent } from "store/features/entities/entitiesTypes";
+import editorActions from "project/store/features/editor/editorActions";
+import { CustomEvent } from "project/store/features/entities/entitiesTypes";
 import styled from "styled-components";
 import { CodeIcon } from "ui/icons/Icons";
 import { l10n } from "lib/renderer/api";

@@ -4,12 +4,12 @@ import { useDispatch, useSelector } from "react-redux";
 import debounce from "lodash/debounce";
 import api, { l10n } from "lib/renderer/api";
 import { zoomForSection } from "lib/helpers/gbstudio";
-import editorActions from "store/features/editor/editorActions";
-import navigationActions from "store/features/navigation/navigationActions";
-import electronActions from "store/features/electron/electronActions";
+import editorActions from "project/store/features/editor/editorActions";
+import navigationActions from "project/store/features/navigation/navigationActions";
+import electronActions from "project/store/features/electron/electronActions";
 import buildGameActions, {
   BuildType,
-} from "store/features/buildGame/buildGameActions";
+} from "project/store/features/buildGame/buildGameActions";
 import { Toolbar, ToolbarText } from "ui/toolbar/Toolbar";
 import { DropdownButton } from "ui/buttons/DropdownButton";
 import { MenuAccelerator, MenuItem } from "ui/menu/Menu";
@@ -24,9 +24,9 @@ import {
   LoadingIcon,
   PlayIcon,
 } from "ui/icons/Icons";
-import { RootState } from "store/configureStore";
-import { NavigationSection } from "store/features/navigation/navigationState";
-import { ZoomSection } from "store/features/editor/editorState";
+import { RootState } from "project/store/configureStore";
+import { NavigationSection } from "project/store/features/navigation/navigationState";
+import { ZoomSection } from "project/store/features/editor/editorState";
 import useWindowFocus from "ui/hooks/use-window-focus";
 import useWindowSize from "ui/hooks/use-window-size";
 import { acceleratorForPlatform } from "lib/renderer/ui/acceleratorForPlatform";

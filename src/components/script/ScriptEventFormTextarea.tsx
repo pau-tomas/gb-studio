@@ -6,8 +6,8 @@ import {
   customEventSelectors,
   fontSelectors,
   variableSelectors,
-} from "store/features/entities/entitiesState";
-import { RootState } from "store/configureStore";
+} from "project/store/features/entities/entitiesState";
+import { RootState } from "project/store/configureStore";
 import { NamedVariable, namedVariablesByContext } from "lib/helpers/variables";
 import { ScriptEditorContext } from "./ScriptEditorContext";
 

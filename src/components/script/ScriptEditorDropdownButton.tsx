@@ -3,11 +3,11 @@ import { l10n } from "lib/renderer/api";
 import { DropdownButton } from "ui/buttons/DropdownButton";
 import { MenuDivider, MenuItem } from "ui/menu/Menu";
 import { useDispatch, useSelector } from "react-redux";
-import clipboardActions from "store/features/clipboard/clipboardActions";
-import entitiesActions from "store/features/entities/entitiesActions";
-import { RootState } from "store/configureStore";
-import { ClipboardTypeScriptEvents } from "store/features/clipboard/clipboardTypes";
-import { ScriptEventParentType } from "store/features/entities/entitiesTypes";
+import clipboardActions from "project/store/features/clipboard/clipboardActions";
+import entitiesActions from "project/store/features/entities/entitiesActions";
+import { RootState } from "project/store/configureStore";
+import { ClipboardTypeScriptEvents } from "project/store/features/clipboard/clipboardTypes";
+import { ScriptEventParentType } from "project/store/features/entities/entitiesTypes";
 
 interface ScriptEditorDropdownButtonProps {
   value: string[];

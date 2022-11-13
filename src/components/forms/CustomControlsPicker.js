@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { l10n } from "lib/renderer/api";
 import { Button } from "ui/buttons/Button";
-import settingsActions from "store/features/settings/settingsActions";
+import settingsActions from "project/store/features/settings/settingsActions";
 import { Input } from "ui/form/Input";
 import { SearchableSettingRow } from "ui/form/SearchableSettingRow";
 import { CardButtons } from "ui/cards/Card";

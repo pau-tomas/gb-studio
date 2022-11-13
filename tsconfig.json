@@ -19,6 +19,7 @@
     "baseUrl": "src",
     "paths": {
       "store/*": [ "./store/*" ],
+      "project/*": [ "./app/project/*" ],
       "lib/*": [ "./lib/*" ],
       "ui/*": [ "./components/ui/*" ],
       "components/*": [ "./components/*" ]

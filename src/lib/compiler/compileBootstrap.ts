@@ -1,8 +1,8 @@
-import { EngineFieldSchema } from "store/features/engine/engineState";
+import { EngineFieldSchema } from "project/store/features/engine/engineState";
 import {
   ActorDirection,
   EngineFieldValue,
-} from "store/features/entities/entitiesTypes";
+} from "project/store/features/entities/entitiesTypes";
 import {
   avatarFontSymbol,
   PrecompiledFontData,

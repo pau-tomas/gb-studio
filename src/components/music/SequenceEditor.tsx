@@ -1,12 +1,12 @@
 import React, { useCallback, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import editorActions from "store/features/editor/editorActions";
-import { RootState } from "store/configureStore";
+import editorActions from "project/store/features/editor/editorActions";
+import { RootState } from "project/store/configureStore";
 import styled, { css } from "styled-components";
 import { Select } from "ui/form/Select";
 import { PlusIcon } from "ui/icons/Icons";
-import trackerDocumentActions from "store/features/trackerDocument/trackerDocumentActions";
-import trackerActions from "store/features/tracker/trackerActions";
+import trackerDocumentActions from "project/store/features/trackerDocument/trackerDocumentActions";
+import trackerActions from "project/store/features/tracker/trackerActions";
 
 interface SequenceOption {
   value: number;

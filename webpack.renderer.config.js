@@ -71,6 +71,7 @@ module.exports = {
     alias: {
       "react-dom": "@hot-loader/react-dom",
       store: srcPath("store"),
+      project: srcPath("app/project"),
       components: srcPath("components"),
       lib: srcPath("lib"),
       ui: srcPath("components/ui"),

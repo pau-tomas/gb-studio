@@ -2,9 +2,9 @@ import React, { FC, useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import styled from "styled-components";
 import { DMG_PALETTE } from "../../consts";
-import { RootState } from "store/configureStore";
-import { paletteSelectors } from "store/features/entities/entitiesState";
-import { Palette } from "store/features/entities/entitiesTypes";
+import { RootState } from "project/store/configureStore";
+import { paletteSelectors } from "project/store/features/entities/entitiesState";
+import { Palette } from "project/store/features/entities/entitiesTypes";
 import PaletteBlock from "../library/PaletteBlock";
 import {
   Option,

@@ -10,7 +10,7 @@ import {
   EVENT_IF_ACTOR_AT_POSITION,
   EVENT_IF_ACTOR_DISTANCE_FROM_ACTOR,
 } from "lib/compiler/eventTypes";
-import { actorSelectors } from "store/features/entities/entitiesState";
+import { actorSelectors } from "project/store/features/entities/entitiesState";
 
 const TILE_SIZE = 8;
 

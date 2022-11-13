@@ -1,6 +1,9 @@
 import { l10n } from "lib/renderer/api";
 import React from "react";
-import { UnitType, unitTypes } from "store/features/entities/entitiesTypes";
+import {
+  UnitType,
+  unitTypes,
+} from "project/store/features/entities/entitiesTypes";
 import styled from "styled-components";
 import { Button } from "ui/buttons/Button";
 import { DropdownButton } from "ui/buttons/DropdownButton";

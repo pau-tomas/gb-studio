@@ -12,7 +12,7 @@ import { Menu, MenuGroup, MenuItem } from "ui/menu/Menu";
 import { CaretRightIcon } from "ui/icons/Icons";
 import { FlexGrow } from "ui/spacing/Spacing";
 import { useSelector } from "react-redux";
-import { RootState } from "store/configureStore";
+import { RootState } from "project/store/configureStore";
 import { useDebounce } from "ui/hooks/use-debounce";
 import {
   backgroundSelectors,
@@ -24,7 +24,7 @@ import {
   soundSelectors,
   spriteSheetSelectors,
   variableSelectors,
-} from "store/features/entities/entitiesState";
+} from "project/store/features/entities/entitiesState";
 import {
   Background,
   CustomEvent,
@@ -35,12 +35,12 @@ import {
   Sound,
   SpriteSheet,
   Variable,
-} from "store/features/entities/entitiesTypes";
+} from "project/store/features/entities/entitiesTypes";
 import { Reference, ReferenceType } from "./ReferencesSelect";
 import {
   customEventName,
   sceneName,
-} from "store/features/entities/entitiesHelpers";
+} from "project/store/features/entities/entitiesHelpers";
 import { FixedSizeList as List } from "react-window";
 import { allVariables, globalVariableDefaultName } from "lib/helpers/variables";
 

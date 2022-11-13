@@ -3,8 +3,8 @@ import uniq from "lodash/uniq";
 import React, { FC, useEffect, useLayoutEffect, useRef, useState } from "react";
 import { useSelector } from "react-redux";
 import { assetFilename } from "lib/helpers/gbstudio";
-import { RootState } from "store/configureStore";
-import { fontSelectors } from "store/features/entities/entitiesState";
+import { RootState } from "project/store/configureStore";
+import { fontSelectors } from "project/store/features/entities/entitiesState";
 import { loadFont, drawFrame, drawText, FontData } from "./TextPreviewHelper";
 
 interface MenuPreviewProps {

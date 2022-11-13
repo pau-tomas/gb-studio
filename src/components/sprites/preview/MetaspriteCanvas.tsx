@@ -2,13 +2,16 @@ import React, { useCallback, useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { DMG_PALETTE } from "../../../consts";
 import { assetFilename } from "lib/helpers/gbstudio";
-import { RootState } from "store/configureStore";
+import { RootState } from "project/store/configureStore";
 import {
   metaspriteSelectors,
   metaspriteTileSelectors,
   spriteSheetSelectors,
-} from "store/features/entities/entitiesState";
-import { MetaspriteTile, Palette } from "store/features/entities/entitiesTypes";
+} from "project/store/features/entities/entitiesState";
+import {
+  MetaspriteTile,
+  Palette,
+} from "project/store/features/entities/entitiesTypes";
 import MetaspriteCanvasWorker, {
   MetaspriteCanvasResult,
 } from "./MetaspriteCanvas.worker";

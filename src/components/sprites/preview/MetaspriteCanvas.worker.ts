@@ -1,6 +1,6 @@
 import { DMG_PALETTE } from "../../../consts";
 import { colorizeSpriteData, chromaKeyData } from "lib/helpers/color";
-import { ObjPalette } from "store/features/entities/entitiesTypes";
+import { ObjPalette } from "project/store/features/entities/entitiesTypes";
 
 // eslint-disable-next-line no-restricted-globals
 const workerCtx: Worker = self as unknown as Worker;

@@ -1,5 +1,5 @@
 import React, { FC } from "react";
-import { ObjPalette } from "store/features/entities/entitiesTypes";
+import { ObjPalette } from "project/store/features/entities/entitiesTypes";
 import { Select } from "ui/form/Select";
 
 interface ObjPaletteSelectProps {

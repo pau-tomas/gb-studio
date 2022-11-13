@@ -6,14 +6,14 @@ import {
   useDrop,
 } from "react-dnd";
 import { useDispatch, useSelector } from "react-redux";
-import entitiesActions from "store/features/entities/entitiesActions";
-import { RootState } from "store/configureStore";
-import { scriptEventSelectors } from "store/features/entities/entitiesState";
-import editorActions from "store/features/editor/editorActions";
+import entitiesActions from "project/store/features/entities/entitiesActions";
+import { RootState } from "project/store/configureStore";
+import { scriptEventSelectors } from "project/store/features/entities/entitiesState";
+import editorActions from "project/store/features/editor/editorActions";
 import {
   ScriptEventParentType,
   ScriptEventsRef,
-} from "store/features/entities/entitiesTypes";
+} from "project/store/features/entities/entitiesTypes";
 import {
   EVENT_CALL_CUSTOM_EVENT,
   EVENT_COMMENT,
@@ -42,8 +42,8 @@ import { ScriptEditorEventHelper } from "./ScriptEditorEventHelper";
 import ItemTypes from "lib/dnd/itemTypes";
 import { DropdownButton } from "ui/buttons/DropdownButton";
 import { MenuDivider, MenuItem, MenuOverlay } from "ui/menu/Menu";
-import clipboardActions from "store/features/clipboard/clipboardActions";
-import { ClipboardTypeScriptEvents } from "store/features/clipboard/clipboardTypes";
+import clipboardActions from "project/store/features/clipboard/clipboardActions";
+import { ClipboardTypeScriptEvents } from "project/store/features/clipboard/clipboardTypes";
 import { RelativePortal } from "ui/layout/RelativePortal";
 import AddScriptEventMenu from "./AddScriptEventMenu";
 import ScriptEventTitle from "./ScriptEventTitle";

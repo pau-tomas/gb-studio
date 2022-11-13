@@ -1,7 +1,7 @@
 import React from "react";
 import { useSelector } from "react-redux";
 import styled from "styled-components";
-import { RootState } from "store/configureStore";
+import { RootState } from "project/store/configureStore";
 import { ChannelSelectField } from "./ChannelSelectField";
 
 interface SongEditorRightToolsPanelProps {

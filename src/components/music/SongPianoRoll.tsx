@@ -2,7 +2,7 @@ import React, { useState, useRef, useEffect, useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styled, { css } from "styled-components";
 import { Song } from "lib/helpers/uge/song/Song";
-import { RootState } from "store/configureStore";
+import { RootState } from "project/store/configureStore";
 import { SplitPaneVerticalDivider } from "ui/splitpane/SplitPaneDivider";
 import { SequenceEditor } from "./SequenceEditor";
 import { SplitPaneHeader } from "ui/splitpane/SplitPaneHeader";
@@ -11,11 +11,11 @@ import { RollChannel } from "./RollChannel";
 import { RollChannelGrid } from "./RollChannelGrid";
 import { RollChannelSelectionArea } from "./RollChannelSelectionArea";
 // import { clipboard, ipcRenderer } from "electron";
-import trackerActions from "store/features/tracker/trackerActions";
+import trackerActions from "project/store/features/tracker/trackerActions";
 import { PatternCell } from "lib/helpers/uge/song/PatternCell";
 import { cloneDeep } from "lodash";
-import clipboardActions from "store/features/clipboard/clipboardActions";
-import trackerDocumentActions from "store/features/trackerDocument/trackerDocumentActions";
+import clipboardActions from "project/store/features/clipboard/clipboardActions";
+import trackerDocumentActions from "project/store/features/trackerDocument/trackerDocumentActions";
 import {
   parsePatternToClipboard,
   parseClipboardToPattern,
@@ -25,7 +25,7 @@ import {
 import { RollChannelEffectRow } from "./RollChannelEffectRow";
 import { WandIcon } from "ui/icons/Icons";
 import { RollChannelHover } from "./RollChannelHover";
-import { clipboard } from "store/features/clipboard/clipboardHelpers";
+import { clipboard } from "project/store/features/clipboard/clipboardHelpers";
 
 const CELL_SIZE = 16;
 const MAX_NOTE = 71;

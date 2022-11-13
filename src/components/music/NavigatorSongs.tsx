@@ -1,18 +1,18 @@
 import React, { useCallback, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { RootState } from "store/configureStore";
-import { musicSelectors } from "store/features/entities/entitiesState";
+import { RootState } from "project/store/configureStore";
+import { musicSelectors } from "project/store/features/entities/entitiesState";
 import { FlatList } from "ui/lists/FlatList";
-import editorActions from "store/features/editor/editorActions";
-import { Music } from "store/features/entities/entitiesTypes";
+import editorActions from "project/store/features/editor/editorActions";
+import { Music } from "project/store/features/entities/entitiesTypes";
 import { EntityListItem } from "ui/lists/EntityListItem";
 import { l10n, settings } from "lib/renderer/api";
-import { InstrumentType } from "store/features/editor/editorState";
+import { InstrumentType } from "project/store/features/editor/editorState";
 import {
   DutyInstrument,
   NoiseInstrument,
   WaveInstrument,
-} from "store/features/trackerDocument/trackerDocumentTypes";
+} from "project/store/features/trackerDocument/trackerDocumentTypes";
 import { Button } from "ui/buttons/Button";
 import { ArrowLeftRightIcon, PlusIcon } from "ui/icons/Icons";
 import { SplitPaneHeader } from "ui/splitpane/SplitPaneHeader";
@@ -21,8 +21,8 @@ import styled from "styled-components";
 import { SplitPaneVerticalDivider } from "ui/splitpane/SplitPaneDivider";
 import { NoSongsMessage } from "./NoSongsMessage";
 import { assetFilename } from "lib/helpers/gbstudio";
-import { addNewSongFile } from "store/features/trackerDocument/trackerDocumentState";
-import trackerActions from "store/features/tracker/trackerActions";
+import { addNewSongFile } from "project/store/features/trackerDocument/trackerDocumentState";
+import trackerActions from "project/store/features/tracker/trackerActions";
 // import settings from "electron-settings";
 
 const COLLAPSED_SIZE = 30;
