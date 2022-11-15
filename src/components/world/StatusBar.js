@@ -5,7 +5,7 @@ import { l10n } from "lib/renderer/api";
 import {
   sceneSelectors,
   actorSelectors,
-} from "project/store/features/entities/entitiesState";
+} from "renderer/project/store/features/entities/entitiesState";
 
 class StatusBar extends Component {
   render() {

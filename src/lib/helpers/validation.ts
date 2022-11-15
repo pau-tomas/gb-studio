@@ -1,6 +1,6 @@
 import { divisibleBy8 } from "./8bit";
 import { assetFilename } from "./gbstudio";
-import { Background } from "project/store/features/entities/entitiesTypes";
+import { Background } from "renderer/project/store/features/entities/entitiesTypes";
 import { readFileToTilesDataArray, toTileLookup } from "../tiles/tileData";
 import { l10n } from "lib/renderer/api";
 

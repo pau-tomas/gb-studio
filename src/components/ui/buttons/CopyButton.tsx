@@ -1,6 +1,6 @@
 import React, { useCallback, useState } from "react";
 import { useDispatch } from "react-redux";
-import clipboardActions from "project/store/features/clipboard/clipboardActions";
+import clipboardActions from "renderer/project/store/features/clipboard/clipboardActions";
 import { CheckIcon, CopyIcon } from "ui/icons/Icons";
 import { Button } from "./Button";
 

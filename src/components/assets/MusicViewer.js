@@ -4,9 +4,9 @@ import { connect } from "react-redux";
 import Button from "../library/Button";
 import { PlayIcon, PauseIcon } from "ui/icons/Icons";
 import { l10n } from "lib/renderer/api";
-import musicActions from "project/store/features/music/musicActions";
-import electronActions from "project/store/features/electron/electronActions";
-import entitiesActions from "project/store/features/entities/entitiesActions";
+import musicActions from "renderer/project/store/features/music/musicActions";
+import electronActions from "renderer/project/store/features/electron/electronActions";
+import entitiesActions from "renderer/project/store/features/entities/entitiesActions";
 
 class MusicViewer extends Component {
   componentDidMount() {

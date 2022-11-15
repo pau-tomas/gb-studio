@@ -1,10 +1,10 @@
 import React, { FC, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { RootState } from "project/store/configureStore";
-import { variableSelectors } from "project/store/features/entities/entitiesState";
+import { RootState } from "renderer/project/store/configureStore";
+import { variableSelectors } from "renderer/project/store/features/entities/entitiesState";
 import { FlatList } from "ui/lists/FlatList";
-import editorActions from "project/store/features/editor/editorActions";
-import { Variable } from "project/store/features/entities/entitiesTypes";
+import editorActions from "renderer/project/store/features/editor/editorActions";
+import { Variable } from "renderer/project/store/features/entities/entitiesTypes";
 import { allVariables, globalVariableDefaultName } from "lib/helpers/variables";
 import { EntityListItem } from "ui/lists/EntityListItem";
 

@@ -1,16 +1,16 @@
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import styled from "styled-components";
-import { RootState } from "project/store/configureStore";
+import { RootState } from "renderer/project/store/configureStore";
 import {
   backgroundSelectors,
   paletteSelectors,
   sceneSelectors,
-} from "project/store/features/entities/entitiesState";
+} from "renderer/project/store/features/entities/entitiesState";
 import ColorizedImage from "components/world/ColorizedImage";
 import { assetFilename } from "lib/helpers/gbstudio";
 import { DMG_PALETTE } from "../../consts";
-import { Palette } from "project/store/features/entities/entitiesTypes";
+import { Palette } from "renderer/project/store/features/entities/entitiesTypes";
 
 interface MetaspriteEditorProps {
   backgroundId: string;

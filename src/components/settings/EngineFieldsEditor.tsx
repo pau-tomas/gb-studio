@@ -3,9 +3,9 @@ import { useSelector, useDispatch } from "react-redux";
 import {
   EngineFieldCType,
   EngineFieldSchema,
-} from "project/store/features/engine/engineState";
-import { engineFieldValueSelectors } from "project/store/features/entities/entitiesState";
-import entitiesActions from "project/store/features/entities/entitiesActions";
+} from "renderer/project/store/features/engine/engineState";
+import { engineFieldValueSelectors } from "renderer/project/store/features/entities/entitiesState";
+import entitiesActions from "renderer/project/store/features/entities/entitiesActions";
 import { Button } from "ui/buttons/Button";
 import { l10n } from "lib/renderer/api";
 import { SliderField } from "ui/form/SliderField";
@@ -14,7 +14,7 @@ import { CardAnchor, CardButtons, CardHeading } from "ui/cards/Card";
 import { SearchableCard } from "ui/cards/SearchableCard";
 import { SearchableSettingRow } from "ui/form/SearchableSettingRow";
 import { SettingRowInput, SettingRowLabel } from "ui/form/SettingRow";
-import { EngineFieldValue } from "project/store/features/entities/entitiesTypes";
+import { EngineFieldValue } from "renderer/project/store/features/entities/entitiesTypes";
 import { Input } from "ui/form/Input";
 import { Checkbox } from "ui/form/Checkbox";
 import clamp from "lib/helpers/clamp";

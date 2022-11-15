@@ -1,8 +1,8 @@
 import React, { useCallback, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import uniq from "lodash/uniq";
-import { RootState } from "project/store/configureStore";
-import { musicSelectors } from "project/store/features/entities/entitiesState";
+import { RootState } from "renderer/project/store/configureStore";
+import { musicSelectors } from "renderer/project/store/features/entities/entitiesState";
 import {
   Option,
   Select,
@@ -13,7 +13,7 @@ import {
 } from "ui/form/Select";
 import { PauseIcon, PlayIcon } from "ui/icons/Icons";
 import { Button } from "ui/buttons/Button";
-import musicActions from "project/store/features/music/musicActions";
+import musicActions from "renderer/project/store/features/music/musicActions";
 
 interface MusicSelectProps extends SelectCommonProps {
   name: string;

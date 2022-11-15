@@ -2,8 +2,8 @@ import React, { useCallback, useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { DMG_PALETTE } from "../../consts";
 import { assetFilename } from "lib/helpers/gbstudio";
-import { RootState } from "project/store/configureStore";
-import { emoteSelectors } from "project/store/features/entities/entitiesState";
+import { RootState } from "renderer/project/store/configureStore";
+import { emoteSelectors } from "renderer/project/store/features/entities/entitiesState";
 import SpriteSliceCanvasWorker, {
   SpriteSliceCanvasResult,
 } from "../sprites/preview/SpriteSliceCanvas.worker";

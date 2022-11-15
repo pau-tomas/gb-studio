@@ -1,13 +1,13 @@
 import React, { useContext } from "react";
 import ScriptEventFormField from "./ScriptEventFormField";
-import { ScriptEventFieldSchema } from "project/store/features/entities/entitiesTypes";
+import { ScriptEventFieldSchema } from "renderer/project/store/features/entities/entitiesTypes";
 import {
   ScriptEventFields as ScriptEventFieldsWrapper,
   ScriptEventFieldGroupWrapper,
 } from "ui/scripting/ScriptEvents";
 import { useSelector } from "react-redux";
-import { RootState } from "project/store/configureStore";
-import { soundSelectors } from "project/store/features/entities/entitiesState";
+import { RootState } from "renderer/project/store/configureStore";
+import { soundSelectors } from "renderer/project/store/features/entities/entitiesState";
 import { ScriptEditorContext } from "./ScriptEditorContext";
 
 interface ScriptEventFieldsProps {

@@ -2,8 +2,8 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import cx from "classnames";
 import { connect } from "react-redux";
-import editorActions from "project/store/features/editor/editorActions";
-import { triggerSelectors } from "project/store/features/entities/entitiesState";
+import editorActions from "renderer/project/store/features/editor/editorActions";
+import { triggerSelectors } from "renderer/project/store/features/entities/entitiesState";
 import { MIDDLE_MOUSE } from "../../consts";
 
 class Trigger extends Component {

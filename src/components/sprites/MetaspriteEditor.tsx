@@ -7,7 +7,7 @@ import React, {
 } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styled, { css } from "styled-components";
-import { RootState } from "project/store/configureStore";
+import { RootState } from "renderer/project/store/configureStore";
 import {
   metaspriteSelectors,
   metaspriteTileSelectors,
@@ -15,13 +15,13 @@ import {
   sceneSelectors,
   spriteAnimationSelectors,
   spriteSheetSelectors,
-} from "project/store/features/entities/entitiesState";
-import { MetaspriteTile } from "project/store/features/entities/entitiesTypes";
+} from "renderer/project/store/features/entities/entitiesState";
+import { MetaspriteTile } from "renderer/project/store/features/entities/entitiesTypes";
 import MetaspriteGrid from "./MetaspriteGrid";
 import { SpriteSliceCanvas } from "./preview/SpriteSliceCanvas";
-import entitiesActions from "project/store/features/entities/entitiesActions";
-import editorActions from "project/store/features/editor/editorActions";
-import clipboardActions from "project/store/features/clipboard/clipboardActions";
+import entitiesActions from "renderer/project/store/features/entities/entitiesActions";
+import editorActions from "renderer/project/store/features/editor/editorActions";
+import clipboardActions from "renderer/project/store/features/clipboard/clipboardActions";
 import { PayloadAction } from "@reduxjs/toolkit";
 import { MetaspriteCanvas } from "./preview/MetaspriteCanvas";
 

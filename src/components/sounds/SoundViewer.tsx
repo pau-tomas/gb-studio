@@ -1,8 +1,8 @@
 import { l10n } from "lib/renderer/api";
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-import { Sound } from "project/store/features/entities/entitiesTypes";
-import soundfxActions from "project/store/features/soundfx/soundfxActions";
+import { Sound } from "renderer/project/store/features/entities/entitiesTypes";
+import soundfxActions from "renderer/project/store/features/soundfx/soundfxActions";
 import styled from "styled-components";
 import { Button } from "ui/buttons/Button";
 import { FormContainer } from "ui/form/FormLayout";

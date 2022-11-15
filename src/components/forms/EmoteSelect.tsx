@@ -1,8 +1,8 @@
 import React, { FC, useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import { RootState } from "project/store/configureStore";
-import { emoteSelectors } from "project/store/features/entities/entitiesState";
-import { Emote } from "project/store/features/entities/entitiesTypes";
+import { RootState } from "renderer/project/store/configureStore";
+import { emoteSelectors } from "renderer/project/store/features/entities/entitiesState";
+import { Emote } from "renderer/project/store/features/entities/entitiesTypes";
 import {
   Option,
   Select,

@@ -75,6 +75,7 @@ module.exports = {
       components: srcPath("components"),
       lib: srcPath("lib"),
       ui: srcPath("components/ui"),
+      renderer: srcPath("renderer"),
     },
     fallback: {
       path: require.resolve("path-browserify"),

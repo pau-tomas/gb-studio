@@ -1,16 +1,16 @@
 import React from "react";
 import { useSelector } from "react-redux";
 import styled from "styled-components";
-import { RootState } from "project/store/configureStore";
+import { RootState } from "renderer/project/store/configureStore";
 import {
   spriteAnimationSelectors,
   spriteSheetSelectors,
   spriteStateSelectors,
-} from "project/store/features/entities/entitiesState";
+} from "renderer/project/store/features/entities/entitiesState";
 import {
   ActorDirection,
   Palette,
-} from "project/store/features/entities/entitiesTypes";
+} from "renderer/project/store/features/entities/entitiesTypes";
 import { MetaspriteCanvas } from "../sprites/preview/MetaspriteCanvas";
 
 interface SpriteSheetCanvasProps {

@@ -1,7 +1,7 @@
 import React from "react";
 import { useDispatch } from "react-redux";
-import { scriptEventSelectors } from "project/store/features/entities/entitiesState";
-import entitiesActions from "project/store/features/entities/entitiesActions";
+import { scriptEventSelectors } from "renderer/project/store/features/entities/entitiesState";
+import entitiesActions from "renderer/project/store/features/entities/entitiesActions";
 import { addBankRef, AssetReference } from "../ReferencesSelect";
 
 interface ScriptEventSymbolsEditorProps {

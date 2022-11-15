@@ -8,7 +8,7 @@ import {
   SceneDenormalized,
   Sound,
   Variable,
-} from "project/store/features/entities/entitiesTypes";
+} from "renderer/project/store/features/entities/entitiesTypes";
 import { EVENT_SOUND_PLAY_EFFECT } from "../eventTypes";
 
 export const determineUsedAssets = ({

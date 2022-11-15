@@ -1,7 +1,7 @@
 import React from "react";
 import { useDispatch } from "react-redux";
-import { backgroundSelectors } from "project/store/features/entities/entitiesState";
-import entitiesActions from "project/store/features/entities/entitiesActions";
+import { backgroundSelectors } from "renderer/project/store/features/entities/entitiesState";
+import entitiesActions from "renderer/project/store/features/entities/entitiesActions";
 import {
   tilesetSymbol,
   tilemapSymbol,

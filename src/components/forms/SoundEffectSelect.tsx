@@ -10,11 +10,11 @@ import {
 } from "ui/form/Select";
 import { PlayIcon } from "ui/icons/Icons";
 import { Button } from "ui/buttons/Button";
-import soundfxActions from "project/store/features/soundfx/soundfxActions";
+import soundfxActions from "renderer/project/store/features/soundfx/soundfxActions";
 import { l10n } from "lib/renderer/api";
-import { soundSelectors } from "project/store/features/entities/entitiesState";
+import { soundSelectors } from "renderer/project/store/features/entities/entitiesState";
 import uniq from "lodash/uniq";
-import { RootState } from "project/store/configureStore";
+import { RootState } from "renderer/project/store/configureStore";
 
 interface SoundEffectSelectProps extends SelectCommonProps {
   name: string;

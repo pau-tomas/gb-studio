@@ -10,7 +10,7 @@ import {
 } from "ui/form/FormLayout";
 import { Sidebar, SidebarColumn } from "ui/sidebars/Sidebar";
 import { Label } from "ui/form/Label";
-import { RootState } from "project/store/configureStore";
+import { RootState } from "renderer/project/store/configureStore";
 import { Input } from "ui/form/Input";
 import { InstrumentDutyEditor } from "./InstrumentDutyEditor";
 import { InstrumentWaveEditor } from "./InstrumentWaveEditor";
@@ -22,11 +22,11 @@ import {
   DutyInstrument,
   NoiseInstrument,
   WaveInstrument,
-} from "project/store/features/trackerDocument/trackerDocumentTypes";
-import trackerDocumentActions from "project/store/features/trackerDocument/trackerDocumentActions";
+} from "renderer/project/store/features/trackerDocument/trackerDocumentTypes";
+import trackerDocumentActions from "renderer/project/store/features/trackerDocument/trackerDocumentActions";
 import { MenuItem } from "components/library/Menu";
 import { PatternCellEditor } from "./PatternCellEditor";
-import trackerActions from "project/store/features/tracker/trackerActions";
+import trackerActions from "renderer/project/store/features/tracker/trackerActions";
 
 type Instrument = DutyInstrument | NoiseInstrument | WaveInstrument;
 

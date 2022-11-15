@@ -4,21 +4,21 @@ import {
   globalVariableCode,
   globalVariableDefaultName,
 } from "lib/helpers/variables";
-import { RootState } from "project/store/configureStore";
+import { RootState } from "renderer/project/store/configureStore";
 import {
   actorSelectors,
   sceneSelectors,
   scriptEventSelectors,
   triggerSelectors,
   variableSelectors,
-} from "project/store/features/entities/entitiesState";
+} from "renderer/project/store/features/entities/entitiesState";
 import { DropdownButton } from "ui/buttons/DropdownButton";
 import { EditableText } from "ui/form/EditableText";
 import { FormContainer, FormDivider, FormHeader } from "ui/form/FormLayout";
 import { MenuItem } from "ui/menu/Menu";
-import entitiesActions from "project/store/features/entities/entitiesActions";
-import editorActions from "project/store/features/editor/editorActions";
-import clipboardActions from "project/store/features/clipboard/clipboardActions";
+import entitiesActions from "renderer/project/store/features/entities/entitiesActions";
+import editorActions from "renderer/project/store/features/editor/editorActions";
+import clipboardActions from "renderer/project/store/features/clipboard/clipboardActions";
 import { l10n } from "lib/renderer/api";
 import { Sidebar, SidebarColumn } from "ui/sidebars/Sidebar";
 import { FlatList } from "ui/lists/FlatList";

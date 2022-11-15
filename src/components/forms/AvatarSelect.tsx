@@ -1,8 +1,8 @@
 import React, { FC, useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import { RootState } from "project/store/configureStore";
-import { avatarSelectors } from "project/store/features/entities/entitiesState";
-import { Avatar } from "project/store/features/entities/entitiesTypes";
+import { RootState } from "renderer/project/store/configureStore";
+import { avatarSelectors } from "renderer/project/store/features/entities/entitiesState";
+import { Avatar } from "renderer/project/store/features/entities/entitiesTypes";
 import {
   Option,
   Select,

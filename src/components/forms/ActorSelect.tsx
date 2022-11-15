@@ -3,8 +3,8 @@ import { useSelector } from "react-redux";
 import {
   Actor,
   ActorDirection,
-} from "project/store/features/entities/entitiesTypes";
-import { RootState } from "project/store/configureStore";
+} from "renderer/project/store/features/entities/entitiesTypes";
+import { RootState } from "renderer/project/store/configureStore";
 import {
   Option,
   OptionLabelWithPreview,
@@ -16,8 +16,8 @@ import {
   customEventSelectors,
   getSceneActorIds,
   sceneSelectors,
-} from "project/store/features/entities/entitiesState";
-import { actorName } from "project/store/features/entities/entitiesHelpers";
+} from "renderer/project/store/features/entities/entitiesState";
+import { actorName } from "renderer/project/store/features/entities/entitiesHelpers";
 import { l10n } from "lib/renderer/api";
 import SpriteSheetCanvas from "components/world/SpriteSheetCanvas";
 import { ScriptEditorContext } from "components/script/ScriptEditorContext";

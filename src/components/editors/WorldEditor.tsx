@@ -7,11 +7,11 @@ import castEventValue from "lib/helpers/castEventValue";
 import { l10n } from "lib/renderer/api";
 import { MovementSpeedSelect } from "../forms/MovementSpeedSelect";
 import { AnimationSpeedSelect } from "../forms/AnimationSpeedSelect";
-import settingsActions from "project/store/features/settings/settingsActions";
-import metadataActions from "project/store/features/metadata/metadataActions";
-import { sceneSelectors } from "project/store/features/entities/entitiesState";
-import editorActions from "project/store/features/editor/editorActions";
-import navigationActions from "project/store/features/navigation/navigationActions";
+import settingsActions from "renderer/project/store/features/settings/settingsActions";
+import metadataActions from "renderer/project/store/features/metadata/metadataActions";
+import { sceneSelectors } from "renderer/project/store/features/entities/entitiesState";
+import editorActions from "renderer/project/store/features/editor/editorActions";
+import navigationActions from "renderer/project/store/features/navigation/navigationActions";
 import { SidebarColumn, Sidebar } from "ui/sidebars/Sidebar";
 import {
   FormContainer,
@@ -20,13 +20,13 @@ import {
   FormHeader,
   FormRow,
 } from "ui/form/FormLayout";
-import { RootState } from "project/store/configureStore";
+import { RootState } from "renderer/project/store/configureStore";
 import { EditableText } from "ui/form/EditableText";
 import { DropdownButton } from "ui/buttons/DropdownButton";
 import { MenuItem } from "ui/menu/Menu";
-import { MetadataState } from "project/store/features/metadata/metadataState";
+import { MetadataState } from "renderer/project/store/features/metadata/metadataState";
 import { CoordinateInput } from "ui/form/CoordinateInput";
-import { SettingsState } from "project/store/features/settings/settingsState";
+import { SettingsState } from "renderer/project/store/features/settings/settingsState";
 import { Label } from "ui/form/Label";
 import { NoteField } from "ui/form/NoteField";
 import { TextField } from "ui/form/TextField";

@@ -1,11 +1,11 @@
 import React, { useEffect, useMemo, useRef, useState } from "react";
 import { useSelector } from "react-redux";
-import { RootState } from "project/store/configureStore";
+import { RootState } from "renderer/project/store/configureStore";
 import {
   customEventSelectors,
   scriptEventSelectors,
-} from "project/store/features/entities/entitiesState";
-import { ScriptEventParentType } from "project/store/features/entities/entitiesTypes";
+} from "renderer/project/store/features/entities/entitiesState";
+import { ScriptEventParentType } from "renderer/project/store/features/entities/entitiesTypes";
 import styled from "styled-components";
 import AddButton from "./AddButton";
 import ScriptEditorEvent from "./ScriptEditorEvent";

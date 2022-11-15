@@ -4,7 +4,11 @@ import PropTypes from "prop-types";
 import { Textarea } from "../library/Forms";
 import { textNumLines } from "lib/helpers/trimlines";
 import { l10n } from "lib/renderer/api";
-import { SceneShape, ActorShape, EventShape } from "project/store/stateShape";
+import {
+  SceneShape,
+  ActorShape,
+  EventShape,
+} from "renderer/project/store/stateShape";
 
 const DialogueReviewLine = ({ dialogueLine, onChange }) => {
   return (

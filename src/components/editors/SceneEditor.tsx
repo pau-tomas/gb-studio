@@ -6,11 +6,11 @@ import { l10n } from "lib/renderer/api";
 import { WorldEditor } from "./WorldEditor";
 import ScriptEditorDropdownButton from "../script/ScriptEditorDropdownButton";
 import BackgroundWarnings from "../world/BackgroundWarnings";
-import { sceneSelectors } from "project/store/features/entities/entitiesState";
-import editorActions from "project/store/features/editor/editorActions";
-import clipboardActions from "project/store/features/clipboard/clipboardActions";
-import entitiesActions from "project/store/features/entities/entitiesActions";
-import settingsActions from "project/store/features/settings/settingsActions";
+import { sceneSelectors } from "renderer/project/store/features/entities/entitiesState";
+import editorActions from "renderer/project/store/features/editor/editorActions";
+import clipboardActions from "renderer/project/store/features/clipboard/clipboardActions";
+import entitiesActions from "renderer/project/store/features/entities/entitiesActions";
+import settingsActions from "renderer/project/store/features/settings/settingsActions";
 import { Sidebar, SidebarColumn } from "ui/sidebars/Sidebar";
 import {
   FormContainer,
@@ -20,11 +20,11 @@ import {
   FormRow,
 } from "ui/form/FormLayout";
 import { EditableText } from "ui/form/EditableText";
-import { RootState } from "project/store/configureStore";
+import { RootState } from "renderer/project/store/configureStore";
 import {
   Scene,
   ScriptEvent,
-} from "project/store/features/entities/entitiesTypes";
+} from "renderer/project/store/features/entities/entitiesTypes";
 import { MenuDivider, MenuItem } from "ui/menu/Menu";
 import { DropdownButton } from "ui/buttons/DropdownButton";
 import { NoteField } from "ui/form/NoteField";
@@ -34,7 +34,7 @@ import { PaletteSelectButton } from "../forms/PaletteSelectButton";
 import { LabelButton, LabelColor } from "ui/buttons/LabelButton";
 import { CoordinateInput } from "ui/form/CoordinateInput";
 import DirectionPicker from "../forms/DirectionPicker";
-import { SettingsState } from "project/store/features/settings/settingsState";
+import { SettingsState } from "renderer/project/store/features/settings/settingsState";
 import { StickyTabs, TabBar } from "ui/tabs/Tabs";
 import { Label } from "ui/form/Label";
 import { Button } from "ui/buttons/Button";
@@ -47,7 +47,7 @@ import styled from "styled-components";
 import {
   ClipboardTypePaletteIds,
   ClipboardTypeScenes,
-} from "project/store/features/clipboard/clipboardTypes";
+} from "renderer/project/store/features/clipboard/clipboardTypes";
 import { SCREEN_WIDTH } from "../../consts";
 import { ScriptEventAutoFadeDisabledWarning } from "components/script/ScriptEventAutoFade";
 import { SceneSymbolsEditor } from "components/forms/symbols/SceneSymbolsEditor";

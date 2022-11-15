@@ -1,18 +1,18 @@
 import React, { ReactNode, useCallback, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { RootState } from "project/store/configureStore";
+import { RootState } from "renderer/project/store/configureStore";
 import {
   spriteAnimationSelectors,
   spriteSheetSelectors,
   spriteStateSelectors,
-} from "project/store/features/entities/entitiesState";
+} from "renderer/project/store/features/entities/entitiesState";
 import { FlatList } from "ui/lists/FlatList";
-import editorActions from "project/store/features/editor/editorActions";
-import entitiesActions from "project/store/features/entities/entitiesActions";
+import editorActions from "renderer/project/store/features/editor/editorActions";
+import entitiesActions from "renderer/project/store/features/entities/entitiesActions";
 import {
   SpriteSheet,
   SpriteState,
-} from "project/store/features/entities/entitiesTypes";
+} from "renderer/project/store/features/entities/entitiesTypes";
 import { EntityListItem } from "ui/lists/EntityListItem";
 import { l10n } from "lib/renderer/api";
 import { SplitPaneHeader } from "ui/splitpane/SplitPaneHeader";

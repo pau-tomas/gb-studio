@@ -4,9 +4,9 @@ import { MenuItem } from "ui/menu/Menu";
 import { l10n } from "lib/renderer/api";
 import React, { useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { RootState } from "project/store/configureStore";
-import entitiesActions from "project/store/features/entities/entitiesActions";
-import { sceneSelectors } from "project/store/features/entities/entitiesState";
+import { RootState } from "renderer/project/store/configureStore";
+import entitiesActions from "renderer/project/store/features/entities/entitiesActions";
+import { sceneSelectors } from "renderer/project/store/features/entities/entitiesState";
 import { ArrowIcon } from "ui/icons/Icons";
 import {
   ScriptEventWrapper,

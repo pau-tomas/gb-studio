@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import trackerDocumentActions from "project/store/features/trackerDocument/trackerDocumentActions";
+import trackerDocumentActions from "renderer/project/store/features/trackerDocument/trackerDocumentActions";
 import { FormField, FormRow, FormSectionTitle } from "ui/form/FormLayout";
-import { RootState } from "project/store/configureStore";
+import { RootState } from "renderer/project/store/configureStore";
 import { PatternCell } from "lib/helpers/uge/song/PatternCell";
 import { Select, Option, OptionLabelWithInfo } from "ui/form/Select";
 import { l10n } from "lib/renderer/api";

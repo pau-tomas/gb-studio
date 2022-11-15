@@ -5,8 +5,8 @@ import Button from "../library/Button";
 import { l10n } from "lib/renderer/api";
 import { zoomForSection, assetFilename } from "lib/helpers/gbstudio";
 import BackgroundWarnings from "../world/BackgroundWarnings";
-import editorActions from "project/store/features/editor/editorActions";
-import electronActions from "project/store/features/electron/electronActions";
+import editorActions from "renderer/project/store/features/editor/editorActions";
+import electronActions from "renderer/project/store/features/electron/electronActions";
 
 class ImageViewer extends Component {
   componentDidMount() {

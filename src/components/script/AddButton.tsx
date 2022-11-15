@@ -5,10 +5,10 @@ import { DropTargetMonitor, useDrop } from "react-dnd";
 import {
   ScriptEventParentType,
   ScriptEventsRef,
-} from "project/store/features/entities/entitiesTypes";
+} from "renderer/project/store/features/entities/entitiesTypes";
 import styled, { css } from "styled-components";
 import { Button } from "ui/buttons/Button";
-import entitiesActions from "project/store/features/entities/entitiesActions";
+import entitiesActions from "renderer/project/store/features/entities/entitiesActions";
 import { useDispatch } from "react-redux";
 import {
   ScriptEventPlaceholder,
@@ -17,7 +17,7 @@ import {
 import { RelativePortal } from "ui/layout/RelativePortal";
 import AddScriptEventMenu from "./AddScriptEventMenu";
 import { MenuOverlay } from "ui/menu/Menu";
-import clipboardActions from "project/store/features/clipboard/clipboardActions";
+import clipboardActions from "renderer/project/store/features/clipboard/clipboardActions";
 import { CloneIcon, PlusIcon } from "ui/icons/Icons";
 
 interface AddButtonProps {

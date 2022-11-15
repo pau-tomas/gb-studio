@@ -28,21 +28,21 @@ import {
   TILE_COLOR_PROP_PRIORITY,
 } from "../../consts";
 import PaletteBlock from "../library/PaletteBlock";
-import { PaletteShape } from "project/store/stateShape";
+import { PaletteShape } from "renderer/project/store/stateShape";
 import Modal, { ModalFade, ModalContent } from "../library/Modal";
 import Button from "../library/Button";
 import { FormField } from "../library/Forms";
 import { getCachedObject } from "lib/helpers/cache";
-import editorActions from "project/store/features/editor/editorActions";
+import editorActions from "renderer/project/store/features/editor/editorActions";
 import {
   backgroundSelectors,
   paletteSelectors,
   sceneSelectors,
-} from "project/store/features/entities/entitiesState";
-import { getSettings } from "project/store/features/settings/settingsState";
-import settingsActions from "project/store/features/settings/settingsActions";
-import navigationActions from "project/store/features/navigation/navigationActions";
-import entitiesActions from "project/store/features/entities/entitiesActions";
+} from "renderer/project/store/features/entities/entitiesState";
+import { getSettings } from "renderer/project/store/features/settings/settingsState";
+import settingsActions from "renderer/project/store/features/settings/settingsActions";
+import navigationActions from "renderer/project/store/features/navigation/navigationActions";
+import entitiesActions from "renderer/project/store/features/entities/entitiesActions";
 import { PaletteSelect } from "../forms/PaletteSelect";
 
 const paletteIndexes = [0, 1, 2, 3, 4, 5, 6, 7];

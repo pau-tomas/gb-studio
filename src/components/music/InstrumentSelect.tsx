@@ -1,7 +1,7 @@
 import React, { FC, useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import { RootState } from "project/store/configureStore";
-import { InstrumentType } from "project/store/features/editor/editorState";
+import { RootState } from "renderer/project/store/configureStore";
+import { InstrumentType } from "renderer/project/store/features/editor/editorState";
 import styled from "styled-components";
 import {
   Option,

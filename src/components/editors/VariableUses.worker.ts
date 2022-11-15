@@ -14,7 +14,7 @@ import {
   Scene,
   ScriptEvent,
   Trigger,
-} from "project/store/features/entities/entitiesTypes";
+} from "renderer/project/store/features/entities/entitiesTypes";
 
 export type VariableUse = {
   id: string;

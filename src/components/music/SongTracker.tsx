@@ -3,8 +3,8 @@ import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import { PatternCell } from "lib/helpers/uge/song/PatternCell";
 import { Song } from "lib/helpers/uge/song/Song";
-import { RootState } from "project/store/configureStore";
-import trackerDocumentActions from "project/store/features/trackerDocument/trackerDocumentActions";
+import { RootState } from "renderer/project/store/configureStore";
+import trackerDocumentActions from "renderer/project/store/features/trackerDocument/trackerDocumentActions";
 import { SplitPaneHorizontalDivider } from "ui/splitpane/SplitPaneDivider";
 import { SequenceEditor } from "./SequenceEditor";
 import { SongRow } from "./SongRow";
@@ -18,9 +18,9 @@ import {
   parsePatternFieldsToClipboard,
 } from "./helpers";
 import { getKeys, KeyWhen } from "lib/keybindings/keyBindings";
-import trackerActions from "project/store/features/tracker/trackerActions";
-import clipboardActions from "project/store/features/clipboard/clipboardActions";
-import { clipboard } from "project/store/features/clipboard/clipboardHelpers";
+import trackerActions from "renderer/project/store/features/tracker/trackerActions";
+import clipboardActions from "renderer/project/store/features/clipboard/clipboardActions";
+import { clipboard } from "renderer/project/store/features/clipboard/clipboardHelpers";
 import { clamp, cloneDeep, mergeWith } from "lodash";
 
 interface SongTrackerProps {

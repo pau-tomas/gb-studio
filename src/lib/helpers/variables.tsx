@@ -4,7 +4,7 @@ import uniq from "lodash/uniq";
 import {
   CustomEvent,
   Variable,
-} from "project/store/features/entities/entitiesTypes";
+} from "renderer/project/store/features/entities/entitiesTypes";
 
 const arrayNStrings = (n: number) =>
   Array.from(Array(n).keys()).map((n) => String(n));

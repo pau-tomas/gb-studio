@@ -6,10 +6,10 @@ import cx from "classnames";
 import { l10n } from "lib/renderer/api";
 import { FormField } from "../library/Forms";
 import ColorSlider from "./ColorSlider";
-import { paletteSelectors } from "project/store/features/entities/entitiesState";
-import entitiesActions from "project/store/features/entities/entitiesActions";
+import { paletteSelectors } from "renderer/project/store/features/entities/entitiesState";
+import entitiesActions from "renderer/project/store/features/entities/entitiesActions";
 import { Button } from "ui/buttons/Button";
-import { clipboard } from "project/store/features/clipboard/clipboardHelpers";
+import { clipboard } from "renderer/project/store/features/clipboard/clipboardHelpers";
 
 const DEFAULT_WHITE = "E8F8E0";
 const DEFAULT_LIGHT = "B0F088";

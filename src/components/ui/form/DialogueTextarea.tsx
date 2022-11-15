@@ -4,7 +4,7 @@ import { MentionsInput, SuggestionDataItem } from "react-mentions";
 import { NamedVariable } from "lib/helpers/variables";
 import keyBy from "lodash/keyBy";
 import { Dictionary } from "@reduxjs/toolkit";
-import { Font } from "project/store/features/entities/entitiesTypes";
+import { Font } from "renderer/project/store/features/entities/entitiesTypes";
 import CustomMention from "./CustomMention";
 import { RelativePortal } from "../layout/RelativePortal";
 import { FontSelect } from "../../forms/FontSelect";

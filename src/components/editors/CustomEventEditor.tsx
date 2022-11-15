@@ -7,9 +7,9 @@ import { DropdownButton } from "ui/buttons/DropdownButton";
 import { MenuItem } from "ui/menu/Menu";
 import { WorldEditor } from "./WorldEditor";
 import ScriptEditorDropdownButton from "../script/ScriptEditorDropdownButton";
-import { customEventSelectors } from "project/store/features/entities/entitiesState";
-import editorActions from "project/store/features/editor/editorActions";
-import entitiesActions from "project/store/features/entities/entitiesActions";
+import { customEventSelectors } from "renderer/project/store/features/entities/entitiesState";
+import editorActions from "renderer/project/store/features/editor/editorActions";
+import entitiesActions from "renderer/project/store/features/entities/entitiesActions";
 import { Sidebar, SidebarColumn } from "ui/sidebars/Sidebar";
 import {
   FormContainer,
@@ -18,8 +18,8 @@ import {
   FormRow,
 } from "ui/form/FormLayout";
 import { EditableText } from "ui/form/EditableText";
-import { RootState } from "project/store/configureStore";
-import { CustomEvent } from "project/store/features/entities/entitiesTypes";
+import { RootState } from "renderer/project/store/configureStore";
+import { CustomEvent } from "renderer/project/store/features/entities/entitiesTypes";
 import { StickyTabs, TabBar } from "ui/tabs/Tabs";
 import { Button } from "ui/buttons/Button";
 import { LockIcon, LockOpenIcon } from "ui/icons/Icons";

@@ -3,7 +3,11 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import cx from "classnames";
 import { connect } from "react-redux";
-import { SceneShape, ActorShape, EventShape } from "project/store/stateShape";
+import {
+  SceneShape,
+  ActorShape,
+  EventShape,
+} from "renderer/project/store/stateShape";
 import { ArrowIcon, SearchIcon } from "ui/icons/Icons";
 import { walkEvents, patchEvents } from "lib/helpers/eventSystem";
 import { EVENT_TEXT } from "lib/compiler/eventTypes";
@@ -14,15 +18,15 @@ import {
   actorSelectors,
   triggerSelectors,
   scriptEventSelectors,
-} from "project/store/features/entities/entitiesState";
-import navigationActions from "project/store/features/navigation/navigationActions";
-import editorActions from "project/store/features/editor/editorActions";
-import entitiesActions from "project/store/features/entities/entitiesActions";
+} from "renderer/project/store/features/entities/entitiesState";
+import navigationActions from "renderer/project/store/features/navigation/navigationActions";
+import editorActions from "renderer/project/store/features/editor/editorActions";
+import entitiesActions from "renderer/project/store/features/entities/entitiesActions";
 import {
   walkNormalisedActorEvents,
   walkNormalisedSceneSpecificEvents,
   walkNormalisedTriggerEvents,
-} from "project/store/features/entities/entitiesHelpers";
+} from "renderer/project/store/features/entities/entitiesHelpers";
 
 class DialogueReviewScene extends Component {
   onChange = (id) => (value) => {

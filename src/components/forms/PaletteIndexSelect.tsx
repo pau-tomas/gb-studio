@@ -2,12 +2,12 @@ import React, { FC, useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { DMG_PALETTE } from "../../consts";
 import { l10n } from "lib/renderer/api";
-import { RootState } from "project/store/configureStore";
+import { RootState } from "renderer/project/store/configureStore";
 import {
   paletteSelectors,
   sceneSelectors,
-} from "project/store/features/entities/entitiesState";
-import { Palette } from "project/store/features/entities/entitiesTypes";
+} from "renderer/project/store/features/entities/entitiesState";
+import { Palette } from "renderer/project/store/features/entities/entitiesTypes";
 import PaletteBlock from "../library/PaletteBlock";
 import {
   OptionLabelWithPreview,

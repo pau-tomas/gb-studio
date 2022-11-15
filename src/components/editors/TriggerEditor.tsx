@@ -10,10 +10,10 @@ import ScriptEditorDropdownButton from "../script/ScriptEditorDropdownButton";
 import {
   triggerSelectors,
   sceneSelectors,
-} from "project/store/features/entities/entitiesState";
-import editorActions from "project/store/features/editor/editorActions";
-import clipboardActions from "project/store/features/clipboard/clipboardActions";
-import entitiesActions from "project/store/features/entities/entitiesActions";
+} from "renderer/project/store/features/entities/entitiesState";
+import editorActions from "renderer/project/store/features/editor/editorActions";
+import clipboardActions from "renderer/project/store/features/clipboard/clipboardActions";
+import entitiesActions from "renderer/project/store/features/entities/entitiesActions";
 import { SidebarColumn, Sidebar } from "ui/sidebars/Sidebar";
 import {
   FormContainer,
@@ -22,17 +22,17 @@ import {
   FormRow,
 } from "ui/form/FormLayout";
 import { EditableText } from "ui/form/EditableText";
-import { RootState } from "project/store/configureStore";
+import { RootState } from "renderer/project/store/configureStore";
 import {
   Trigger,
   ScriptEvent,
-} from "project/store/features/entities/entitiesTypes";
+} from "renderer/project/store/features/entities/entitiesTypes";
 import { CoordinateInput } from "ui/form/CoordinateInput";
 import { NoteField } from "ui/form/NoteField";
 import { StickyTabs, TabBar } from "ui/tabs/Tabs";
 import { Button } from "ui/buttons/Button";
 import { LockIcon, LockOpenIcon } from "ui/icons/Icons";
-import { ClipboardTypeTriggers } from "project/store/features/clipboard/clipboardTypes";
+import { ClipboardTypeTriggers } from "renderer/project/store/features/clipboard/clipboardTypes";
 import { TriggerSymbolsEditor } from "components/forms/symbols/TriggerSymbolsEditor";
 import { SymbolEditorWrapper } from "components/forms/symbols/SymbolEditorWrapper";
 import { ScriptEditorContext } from "components/script/ScriptEditorContext";

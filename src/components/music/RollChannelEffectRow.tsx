@@ -1,10 +1,10 @@
 import React, { useCallback } from "react";
 import styled, { css } from "styled-components";
 import { PatternCell } from "lib/helpers/uge/song/PatternCell";
-import trackerActions from "project/store/features/tracker/trackerActions";
-import trackerDocumentActions from "project/store/features/trackerDocument/trackerDocumentActions";
+import trackerActions from "renderer/project/store/features/tracker/trackerActions";
+import trackerDocumentActions from "renderer/project/store/features/trackerDocument/trackerDocumentActions";
 import { useDispatch, useSelector } from "react-redux";
-import { RootState } from "project/store/configureStore";
+import { RootState } from "renderer/project/store/configureStore";
 
 interface RollChannelProps {
   patternId: number;

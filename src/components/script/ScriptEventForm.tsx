@@ -7,18 +7,18 @@ import events, {
 import {
   customEventSelectors,
   scriptEventSelectors,
-} from "project/store/features/entities/entitiesState";
+} from "renderer/project/store/features/entities/entitiesState";
 import {
   EVENT_ENGINE_FIELD_STORE,
   EVENT_ENGINE_FIELD_SET,
 } from "lib/compiler/eventTypes";
-import { RootState } from "project/store/configureStore";
+import { RootState } from "renderer/project/store/configureStore";
 import { Dictionary } from "@reduxjs/toolkit";
-import { EngineFieldSchema } from "project/store/features/engine/engineState";
+import { EngineFieldSchema } from "renderer/project/store/features/engine/engineState";
 import {
   CustomEvent,
   ScriptEventFieldSchema,
-} from "project/store/features/entities/entitiesTypes";
+} from "renderer/project/store/features/entities/entitiesTypes";
 import ScriptEventFields from "./ScriptEventFields";
 
 interface ScriptEventFormProps {

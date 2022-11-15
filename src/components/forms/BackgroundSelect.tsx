@@ -2,7 +2,7 @@ import React, { FC, useState, useEffect } from "react";
 import uniq from "lodash/uniq";
 import { useSelector } from "react-redux";
 import { assetFilename } from "lib/helpers/gbstudio";
-import { backgroundSelectors } from "project/store/features/entities/entitiesState";
+import { backgroundSelectors } from "renderer/project/store/features/entities/entitiesState";
 import {
   OptGroup,
   Option,
@@ -11,8 +11,8 @@ import {
   Select,
   SelectCommonProps,
 } from "ui/form/Select";
-import { Background } from "project/store/features/entities/entitiesTypes";
-import { RootState } from "project/store/configureStore";
+import { Background } from "renderer/project/store/features/entities/entitiesTypes";
+import { RootState } from "renderer/project/store/configureStore";
 import styled from "styled-components";
 
 interface BackgroundSelectProps extends SelectCommonProps {

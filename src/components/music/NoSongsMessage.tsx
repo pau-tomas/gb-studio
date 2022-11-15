@@ -2,8 +2,8 @@ import React, { useCallback, useState } from "react";
 import { useDispatch } from "react-redux";
 import { l10n } from "lib/renderer/api";
 
-import settingsActions from "project/store/features/settings/settingsActions";
-import { SettingsState } from "project/store/features/settings/settingsState";
+import settingsActions from "renderer/project/store/features/settings/settingsActions";
+import { SettingsState } from "renderer/project/store/features/settings/settingsState";
 import { Button } from "ui/buttons/Button";
 
 interface NoSongsMessageProps {

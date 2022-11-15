@@ -57,11 +57,11 @@ module.exports = {
           config: "./webpack.renderer.config.js",
           entryPoints: [
             {
-              html: "./src/app/project/index.html",
-              js: "./src/app/project/index.tsx",
+              html: "./src/renderer/project/index.html",
+              js: "./src/renderer/project/index.tsx",
               name: "project_window",
               preload: {
-                js: "./src/app/project/preload.ts",
+                js: "./src/renderer/project/preload.ts",
               },
               //   additionalChunks: [
               //     "vendor-react",
@@ -72,11 +72,11 @@ module.exports = {
               //   ],
             },
             {
-              html: "./src/app/splash/index.html",
-              js: "./src/app/splash/index.tsx",
+              html: "./src/renderer/splash/index.html",
+              js: "./src/renderer/splash/index.tsx",
               name: "splash_window",
               preload: {
-                js: "./src/app/splash/preload.ts",
+                js: "./src/renderer/splash/preload.ts",
               },
               // additionalChunks: [
               //   "vendor-react",
@@ -85,11 +85,11 @@ module.exports = {
               // ],
             },
             {
-              html: "./src/app/preferences/index.html",
-              js: "./src/app/preferences/index.tsx",
+              html: "./src/renderer/preferences/index.html",
+              js: "./src/renderer/preferences/index.tsx",
               name: "preferences_window",
               preload: {
-                js: "./src/app/preferences/preload.ts",
+                js: "./src/renderer/preferences/preload.ts",
               },
               // additionalChunks: [
               //   "vendor-react",
@@ -108,11 +108,11 @@ module.exports = {
             //   ],
             // },
             {
-              html: "./src/app/about/index.html",
-              js: "./src/app/about/index.tsx",
+              html: "./src/renderer/about/index.html",
+              js: "./src/renderer/about/index.tsx",
               name: "about_window",
               preload: {
-                js: "./src/app/about/preload.ts",
+                js: "./src/renderer/about/preload.ts",
               },
             },
           ],

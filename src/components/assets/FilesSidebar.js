@@ -6,8 +6,8 @@ import Button from "../library/Button";
 import { HelpIcon } from "ui/icons/Icons";
 import { l10n } from "lib/renderer/api";
 import { groupBy } from "lib/helpers/array";
-import editorActions from "project/store/features/editor/editorActions";
-import navigationActions from "project/store/features/navigation/navigationActions";
+import editorActions from "renderer/project/store/features/editor/editorActions";
+import navigationActions from "renderer/project/store/features/navigation/navigationActions";
 import { clampSidebarWidth } from "lib/helpers/window/sidebar";
 
 const groupByPlugin = groupBy("plugin");

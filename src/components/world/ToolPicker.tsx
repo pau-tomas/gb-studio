@@ -10,9 +10,9 @@ import {
 } from "ui/icons/Icons";
 import { Menu, MenuItem, MenuOverlay } from "../library/Menu";
 import { l10n } from "lib/renderer/api";
-import { Tool } from "project/store/features/editor/editorState";
-import editorActions from "project/store/features/editor/editorActions";
-import { RootState } from "project/store/configureStore";
+import { Tool } from "renderer/project/store/features/editor/editorState";
+import editorActions from "renderer/project/store/features/editor/editorActions";
+import { RootState } from "renderer/project/store/configureStore";
 
 type ToolPickerProps = {
   selected: Tool;

@@ -1,6 +1,6 @@
 import React from "react";
 import { useSelector } from "react-redux";
-import { RootState } from "project/store/configureStore";
+import { RootState } from "renderer/project/store/configureStore";
 import styled, { css } from "styled-components";
 import { SelectionRect } from "./SongPianoRoll";
 

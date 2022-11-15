@@ -1,9 +1,9 @@
 import React, { memo, useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { RootState } from "project/store/configureStore";
-import { scriptEventSelectors } from "project/store/features/entities/entitiesState";
-import { ScriptEventFieldSchema } from "project/store/features/entities/entitiesTypes";
-import entitiesActions from "project/store/features/entities/entitiesActions";
+import { RootState } from "renderer/project/store/configureStore";
+import { scriptEventSelectors } from "renderer/project/store/features/entities/entitiesState";
+import { ScriptEventFieldSchema } from "renderer/project/store/features/entities/entitiesTypes";
+import entitiesActions from "renderer/project/store/features/entities/entitiesActions";
 import { ArrowIcon, MinusIcon, PlusIcon } from "ui/icons/Icons";
 import ScriptEventFormInput from "./ScriptEventFormInput";
 import { FormField, ToggleableFormField } from "ui/form/FormLayout";

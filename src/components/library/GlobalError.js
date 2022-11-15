@@ -3,9 +3,9 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { l10n } from "lib/renderer/api";
 import Button from "./Button";
-import { ErrorShape } from "project/store/stateShape";
+import { ErrorShape } from "renderer/project/store/stateShape";
 import { SadIcon } from "ui/icons/Icons";
-import electronActions from "project/store/features/electron/electronActions";
+import electronActions from "renderer/project/store/features/electron/electronActions";
 
 class GlobalError extends Component {
   constructor() {

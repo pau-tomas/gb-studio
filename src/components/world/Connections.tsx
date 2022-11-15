@@ -3,19 +3,19 @@ import { MAX_NESTED_SCRIPT_DEPTH, MIDDLE_MOUSE } from "../../consts";
 import { EVENT_SWITCH_SCENE } from "lib/compiler/eventTypes";
 import React, { useCallback, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { RootState } from "project/store/configureStore";
+import { RootState } from "renderer/project/store/configureStore";
 import {
   walkNormalisedActorEvents,
   walkNormalisedSceneSpecificEvents,
   walkNormalisedTriggerEvents,
-} from "project/store/features/entities/entitiesHelpers";
+} from "renderer/project/store/features/entities/entitiesHelpers";
 import {
   actorSelectors,
   customEventSelectors,
   sceneSelectors,
   scriptEventSelectors,
   triggerSelectors,
-} from "project/store/features/entities/entitiesState";
+} from "renderer/project/store/features/entities/entitiesState";
 import {
   Actor,
   ActorDirection,
@@ -23,10 +23,10 @@ import {
   Scene,
   ScriptEvent,
   Trigger,
-} from "project/store/features/entities/entitiesTypes";
-import editorActions from "project/store/features/editor/editorActions";
+} from "renderer/project/store/features/entities/entitiesTypes";
+import editorActions from "renderer/project/store/features/editor/editorActions";
 import styled from "styled-components";
-import { ShowConnectionsSetting } from "project/store/features/settings/settingsState";
+import { ShowConnectionsSetting } from "renderer/project/store/features/settings/settingsState";
 
 interface ConnectionsProps {
   width: number;

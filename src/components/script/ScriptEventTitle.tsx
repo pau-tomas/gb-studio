@@ -9,7 +9,7 @@ import { l10n } from "lib/renderer/api";
 import { NamedVariable, namedVariablesByContext } from "lib/helpers/variables";
 import { Dictionary } from "@reduxjs/toolkit";
 import { useSelector } from "react-redux";
-import { RootState } from "project/store/configureStore";
+import { RootState } from "renderer/project/store/configureStore";
 import {
   customEventSelectors,
   variableSelectors,
@@ -18,17 +18,17 @@ import {
   sceneSelectors,
   spriteSheetSelectors,
   emoteSelectors,
-} from "project/store/features/entities/entitiesState";
+} from "renderer/project/store/features/entities/entitiesState";
 import keyBy from "lodash/keyBy";
 import {
   actorName,
   customEventName,
   sceneName,
-} from "project/store/features/entities/entitiesHelpers";
+} from "renderer/project/store/features/entities/entitiesHelpers";
 import {
   Actor,
   ScriptEventFieldSchema,
-} from "project/store/features/entities/entitiesTypes";
+} from "renderer/project/store/features/entities/entitiesTypes";
 import styled from "styled-components";
 import { fadeIn } from "ui/animations/animations";
 import { animLabelLookup } from "components/forms/AnimationSpeedSelect";

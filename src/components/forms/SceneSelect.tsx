@@ -4,7 +4,7 @@ import { assetFilename } from "lib/helpers/gbstudio";
 import {
   backgroundSelectors,
   sceneSelectors,
-} from "project/store/features/entities/entitiesState";
+} from "renderer/project/store/features/entities/entitiesState";
 import {
   Option,
   OptionLabelWithPreview,
@@ -12,10 +12,10 @@ import {
   Select,
   SelectCommonProps,
 } from "ui/form/Select";
-import { Scene } from "project/store/features/entities/entitiesTypes";
-import { RootState } from "project/store/configureStore";
+import { Scene } from "renderer/project/store/features/entities/entitiesTypes";
+import { RootState } from "renderer/project/store/configureStore";
 import styled from "styled-components";
-import editorActions from "project/store/features/editor/editorActions";
+import editorActions from "renderer/project/store/features/editor/editorActions";
 
 interface SceneSelectProps extends SelectCommonProps {
   name: string;

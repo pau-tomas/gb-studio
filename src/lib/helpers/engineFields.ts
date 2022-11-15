@@ -2,7 +2,7 @@ import { Dictionary } from "@reduxjs/toolkit";
 import {
   EngineFieldCType,
   EngineFieldSchema,
-} from "project/store/features/engine/engineState";
+} from "renderer/project/store/features/engine/engineState";
 
 export const precompileEngineFields = (
   engineFields: EngineFieldSchema[]

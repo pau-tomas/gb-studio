@@ -1,6 +1,6 @@
 import { decBin } from "lib/helpers/8bit";
 import { assetFilename } from "lib/helpers/gbstudio";
-import { Sound } from "project/store/features/entities/entitiesTypes";
+import { Sound } from "renderer/project/store/features/entities/entitiesTypes";
 import { compileFXHammer } from "./compileFXHammer";
 import { compileVGM } from "./compileVGM";
 import { compileWav } from "./compileWav";

@@ -7,7 +7,7 @@ import {
   SpriteAnimationType,
   SpriteSheet,
   SpriteState,
-} from "project/store/features/entities/entitiesTypes";
+} from "renderer/project/store/features/entities/entitiesTypes";
 import { assetFilename } from "../helpers/gbstudio";
 import DetectSpriteWorker, { DetectSpriteResult } from "./detectSprite.worker";
 import {

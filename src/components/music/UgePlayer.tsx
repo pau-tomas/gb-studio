@@ -2,8 +2,8 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Song } from "lib/helpers/uge/song/Song";
-import { RootState } from "project/store/configureStore";
-import trackerActions from "project/store/features/tracker/trackerActions";
+import { RootState } from "renderer/project/store/configureStore";
+import trackerActions from "renderer/project/store/features/tracker/trackerActions";
 
 interface UgePlayerProps {
   data: Song | null;

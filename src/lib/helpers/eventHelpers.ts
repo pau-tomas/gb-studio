@@ -1,7 +1,7 @@
 import { Dictionary } from "@reduxjs/toolkit";
 import { EVENT_FADE_IN } from "lib/compiler/eventTypes";
 import { EventHandler } from "lib/events";
-import { walkNormalisedScriptEvents } from "project/store/features/entities/entitiesHelpers";
+import { walkNormalisedScriptEvents } from "renderer/project/store/features/entities/entitiesHelpers";
 import {
   ActorDenormalized,
   CustomEventDenormalized,
@@ -10,7 +10,7 @@ import {
   CustomEvent,
   ScriptEventDenormalized,
   TriggerDenormalized,
-} from "project/store/features/entities/entitiesTypes";
+} from "renderer/project/store/features/entities/entitiesTypes";
 
 type WalkDenormalizedOptions =
   | undefined

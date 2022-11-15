@@ -15,13 +15,13 @@ import {
   Sound,
   DistanceUnitType,
   Variable,
-} from "project/store/features/entities/entitiesTypes";
+} from "renderer/project/store/features/entities/entitiesTypes";
 import { Dictionary } from "@reduxjs/toolkit";
-import { EngineFieldSchema } from "project/store/features/engine/engineState";
+import { EngineFieldSchema } from "renderer/project/store/features/engine/engineState";
 import {
   initialState as initialSettingsState,
   SettingsState,
-} from "project/store/features/settings/settingsState";
+} from "renderer/project/store/features/settings/settingsState";
 import { FunctionSymbol, OperatorSymbol } from "../rpn/types";
 import tokenize from "../rpn/tokenizer";
 import shuntingYard from "../rpn/shuntingYard";
@@ -44,7 +44,7 @@ import compileEntityEvents from "./compileEntityEvents";
 import {
   isUnionPropertyValue,
   isUnionVariableValue,
-} from "project/store/features/entities/entitiesHelpers";
+} from "renderer/project/store/features/entities/entitiesHelpers";
 import { lexText } from "lib/fonts/lexText";
 import { Reference } from "components/forms/ReferencesSelect";
 import { clone } from "lib/helpers/clone";

@@ -1,15 +1,15 @@
 import React, { useCallback, useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { assetFilename } from "lib/helpers/gbstudio";
-import { RootState } from "project/store/configureStore";
-import { SpriteTileSelection } from "project/store/features/editor/editorState";
-import { spriteSheetSelectors } from "project/store/features/entities/entitiesState";
-import editorActions from "project/store/features/editor/editorActions";
-import entitiesActions from "project/store/features/entities/entitiesActions";
+import { RootState } from "renderer/project/store/configureStore";
+import { SpriteTileSelection } from "renderer/project/store/features/editor/editorState";
+import { spriteSheetSelectors } from "renderer/project/store/features/entities/entitiesState";
+import editorActions from "renderer/project/store/features/editor/editorActions";
+import entitiesActions from "renderer/project/store/features/entities/entitiesActions";
 import { roundDown8 } from "lib/helpers/8bit";
 import styled from "styled-components";
 import { l10n } from "lib/renderer/api";
-import electronActions from "project/store/features/electron/electronActions";
+import electronActions from "renderer/project/store/features/electron/electronActions";
 
 const PillWrapper = styled.div`
   position: absolute;

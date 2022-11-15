@@ -8,10 +8,10 @@ import React, {
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import throttle from "lodash/throttle";
-import { RootState } from "project/store/configureStore";
-import { spriteAnimationSelectors } from "project/store/features/entities/entitiesState";
-import entitiesActions from "project/store/features/entities/entitiesActions";
-import editorActions from "project/store/features/editor/editorActions";
+import { RootState } from "renderer/project/store/configureStore";
+import { spriteAnimationSelectors } from "renderer/project/store/features/entities/entitiesState";
+import entitiesActions from "renderer/project/store/features/entities/entitiesActions";
+import editorActions from "renderer/project/store/features/editor/editorActions";
 import { CloneIcon, PlusIcon } from "ui/icons/Icons";
 import SpriteAnimationTimelineFrame from "./SpriteAnimationTimelineFrame";
 import { FixedSpacer } from "ui/spacing/Spacing";

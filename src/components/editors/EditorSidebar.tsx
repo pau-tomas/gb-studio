@@ -6,7 +6,7 @@ import { SceneEditor } from "./SceneEditor";
 import { WorldEditor } from "./WorldEditor";
 import CustomEventEditor from "./CustomEventEditor";
 import { VariableEditor } from "./VariableEditor";
-import { RootState } from "project/store/configureStore";
+import { RootState } from "renderer/project/store/configureStore";
 
 interface EditorSidebarProps {
   multiColumn: boolean;
