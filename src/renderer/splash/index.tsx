@@ -2,7 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom";
 import { AppContainer } from "react-hot-loader";
 import Splash from "./components/Splash";
-import API from "lib/renderer/api";
+import API from "renderer/lib/api";
 
 window.addEventListener("error", (error) => {
   if (error.message.indexOf("dead code elimination") > -1) {

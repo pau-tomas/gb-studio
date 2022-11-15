@@ -2,7 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom";
 import { AppContainer } from "react-hot-loader";
 import Preferences from "./components/Preferences";
-import API from "lib/renderer/api";
+import API from "renderer/lib/api";
 
 const render = async () => {
   await API.l10nInit();

@@ -8,7 +8,7 @@ import {
 } from "renderer/project/store/features/entities/entitiesState";
 import editorActions from "renderer/project/store/features/editor/editorActions";
 import electronActions from "renderer/project/store/features/electron/electronActions";
-import { l10n } from "lib/renderer/api";
+import { l10n } from "renderer/lib/api";
 import { SceneSelect } from "../forms/SceneSelect";
 import { SelectMenu, selectMenuStyleProps } from "ui/form/Select";
 import { RelativePortal } from "ui/layout/RelativePortal";

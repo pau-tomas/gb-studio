@@ -5,7 +5,7 @@ import Path from "path";
 import { engineRoot } from "../../consts";
 import copy from "../helpers/fsCopy";
 import ejectEngineChangelog from "../project/ejectEngineChangelog";
-import { l10n } from "lib/renderer/api";
+import { l10n } from "renderer/lib/api";
 import {
   buildMakeDotBuildFile,
   makefileInjectToolsPath,

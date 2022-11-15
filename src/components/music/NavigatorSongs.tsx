@@ -6,7 +6,7 @@ import { FlatList } from "ui/lists/FlatList";
 import editorActions from "renderer/project/store/features/editor/editorActions";
 import { Music } from "renderer/project/store/features/entities/entitiesTypes";
 import { EntityListItem } from "ui/lists/EntityListItem";
-import { l10n, settings } from "lib/renderer/api";
+import { l10n, settings } from "renderer/lib/api";
 import { InstrumentType } from "renderer/project/store/features/editor/editorState";
 import {
   DutyInstrument,

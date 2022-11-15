@@ -4,7 +4,7 @@ import settings from "electron-settings";
 import semverValid from "semver/functions/valid";
 import semverGt from "semver/functions/gt";
 import { LATEST_PROJECT_VERSION } from "./migrateProject";
-import { l10n } from "lib/renderer/api";
+import { l10n } from "renderer/lib/api";
 
 export const needsUpdate = (currentVersion) => {
   if (semverValid(currentVersion) && semverValid(LATEST_PROJECT_VERSION)) {

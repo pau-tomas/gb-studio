@@ -22,7 +22,7 @@ import {
   Actor,
   ScriptEvent,
 } from "renderer/project/store/features/entities/entitiesTypes";
-import { l10n } from "lib/renderer/api";
+import { l10n } from "renderer/lib/api";
 import { Sidebar, SidebarColumn } from "ui/sidebars/Sidebar";
 import { CoordinateInput } from "ui/form/CoordinateInput";
 import { Checkbox } from "ui/form/Checkbox";

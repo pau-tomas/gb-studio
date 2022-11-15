@@ -6,7 +6,7 @@ import cx from "classnames";
 import AsyncPaginate, {
   reduceGroupedOptions,
 } from "react-select-async-paginate";
-import { l10n } from "lib/renderer/api";
+import { l10n } from "renderer/lib/api";
 
 const menuPortalEl = document.getElementById("MenuPortal");
 

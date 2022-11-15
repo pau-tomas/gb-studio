@@ -8,7 +8,7 @@ import {
   filterEvents,
 } from "lib/helpers/eventSystem";
 import { EVENT_CALL_CUSTOM_EVENT } from "lib/compiler/eventTypes";
-import { l10n } from "lib/renderer/api";
+import { l10n } from "renderer/lib/api";
 import editorActions from "../editor/editorActions";
 import { getSettings } from "../settings/settingsState";
 import settingsActions from "../settings/settingsActions";
@@ -25,16 +25,16 @@ import { ScriptEvent } from "../entities/entitiesTypes";
 import entitiesActions from "../entities/entitiesActions";
 import { Dictionary } from "lodash";
 import actions from "./electronActions";
-import api, { dialog, settings } from "lib/renderer/api";
+import API, { dialog, settings } from "renderer/lib/api";
 
 const electronMiddleware: Middleware<Dispatch, RootState> =
   (store) => (next) => (action) => {
     if (actions.openHelp.match(action)) {
-      api.app.openHelp(action.payload);
+      API.app.openHelp(action.payload);
     } else if (actions.openFolder.match(action)) {
-      api.openExternal(action.payload);
+      API.openExternal(action.payload);
     } else if (actions.openFile.match(action)) {
-      api.project.openAsset(action.payload.filename, action.payload.type);
+      API.project.openAsset(action.payload.filename, action.payload.type);
     } else if (editorActions.resizeWorldSidebar.match(action)) {
       settings.set("worldSidebarWidth", action.payload);
     } else if (editorActions.resizeFilesSidebar.match(action)) {

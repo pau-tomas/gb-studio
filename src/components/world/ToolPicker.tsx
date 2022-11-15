@@ -9,7 +9,7 @@ import {
   PaintIcon,
 } from "ui/icons/Icons";
 import { Menu, MenuItem, MenuOverlay } from "../library/Menu";
-import { l10n } from "lib/renderer/api";
+import { l10n } from "renderer/lib/api";
 import { Tool } from "renderer/project/store/features/editor/editorState";
 import editorActions from "renderer/project/store/features/editor/editorActions";
 import { RootState } from "renderer/project/store/configureStore";

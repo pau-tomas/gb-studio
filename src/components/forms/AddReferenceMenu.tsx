@@ -6,7 +6,7 @@ import React, {
   useState,
 } from "react";
 import { OptGroup } from "ui/form/Select";
-import { l10n } from "lib/renderer/api";
+import { l10n } from "renderer/lib/api";
 import styled, { css } from "styled-components";
 import { Menu, MenuGroup, MenuItem } from "ui/menu/Menu";
 import { CaretRightIcon } from "ui/icons/Icons";

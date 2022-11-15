@@ -1,5 +1,5 @@
 import { contextBridge } from "electron";
-import { API } from "lib/renderer/api/preload";
+import { API } from "renderer/lib/api/preload";
 
 contextBridge.exposeInMainWorld("API", API);
 

@@ -7,7 +7,7 @@ import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
 import ThemeProvider from "ui/theme/ThemeProvider";
 import GlobalStyle from "ui/globalStyle";
-import API from "lib/renderer/api";
+import API from "renderer/lib/api";
 import App from "./components/App";
 import "../../styles/App.css";
 import "../../styles/theme.css";

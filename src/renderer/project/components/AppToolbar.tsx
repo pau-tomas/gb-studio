@@ -2,7 +2,7 @@ import React, { FC, useCallback, useEffect, useMemo, useState } from "react";
 import { Helmet } from "react-helmet";
 import { useDispatch, useSelector } from "react-redux";
 import debounce from "lodash/debounce";
-import api, { l10n } from "lib/renderer/api";
+import API, { l10n } from "renderer/lib/api";
 import { zoomForSection } from "lib/helpers/gbstudio";
 import editorActions from "renderer/project/store/features/editor/editorActions";
 import navigationActions from "renderer/project/store/features/navigation/navigationActions";
@@ -84,7 +84,7 @@ const AppToolbar: FC = () => {
   const windowFocus = useWindowFocus();
   const windowSize = useWindowSize();
   const smallZoom = (windowSize.width || 0) < 900;
-  const showTitle = api.platform === "darwin" && (windowSize.width || 0) > 800;
+  const showTitle = API.platform === "darwin" && (windowSize.width || 0) > 800;
 
   const onRun = useCallback(() => {
     dispatch(buildGameActions.buildGame({ buildType: "web" }));

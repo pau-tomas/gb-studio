@@ -5,7 +5,7 @@ import { backgroundSelectors } from "renderer/project/store/features/entities/en
 import { FlatList } from "ui/lists/FlatList";
 import { Background } from "renderer/project/store/features/entities/entitiesTypes";
 import { EntityListItem } from "ui/lists/EntityListItem";
-import { l10n } from "lib/renderer/api";
+import { l10n } from "renderer/lib/api";
 import { SplitPaneHeader } from "ui/splitpane/SplitPaneHeader";
 import styled from "styled-components";
 import navigationActions from "renderer/project/store/features/navigation/navigationActions";

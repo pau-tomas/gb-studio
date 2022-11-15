@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
-import { l10n } from "lib/renderer/api";
+import { l10n } from "renderer/lib/api";
 import {
   sceneSelectors,
   actorSelectors,

@@ -28,7 +28,7 @@ import { SettingsState } from "../settings/settingsState";
 import { MetadataState } from "../metadata/metadataState";
 import parseAssetPath from "lib/helpers/path/parseAssetPath";
 import { denormalizeEntities } from "../entities/entitiesHelpers";
-import api from "lib/renderer/api";
+import API from "renderer/lib/api";
 // import { loadAvatarData } from "lib/project/loadAvatarData";
 // import { loadEmoteData } from "lib/project/loadEmoteData";
 // import { loadSoundData } from "lib/project/loadSoundData";
@@ -121,7 +121,7 @@ const loadProject = createAsyncThunk<
   { data: ProjectData; path: string; modifiedSpriteIds: string[] },
   string
 >("project/loadProject", async (path) => {
-  const { data, modifiedSpriteIds } = (await api.project.loadProjectData(
+  const { data, modifiedSpriteIds } = (await API.project.loadProjectData(
     path
   )) as {
     data: ProjectData;

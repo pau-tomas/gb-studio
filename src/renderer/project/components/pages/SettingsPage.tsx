@@ -2,7 +2,7 @@ import React, { FC, useCallback, useLayoutEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 // import Path from "path";
 import { FormField } from "components/library/Forms";
-import { l10n } from "lib/renderer/api";
+import { l10n } from "renderer/lib/api";
 import castEventValue from "lib/helpers/castEventValue";
 import CustomControlsPicker from "components/forms/CustomControlsPicker";
 import { PaletteSelect } from "components/forms/PaletteSelect";

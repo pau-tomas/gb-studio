@@ -38,7 +38,7 @@ import {
 import { FlexGrow } from "ui/spacing/Spacing";
 import { FormRow, FormField } from "ui/form/FormLayout";
 import { TextField } from "ui/form/TextField";
-import API, { dialog, settings, l10n, paths } from "lib/renderer/api";
+import API, { dialog, settings, l10n, paths } from "renderer/lib/api";
 
 declare const DOCS_URL: string;
 

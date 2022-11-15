@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import cx from "classnames";
 import { TriangleIcon } from "ui/icons/Icons";
-import { l10n } from "lib/renderer/api";
+import { l10n } from "renderer/lib/api";
 
 const renderButton = (id, value, onChange) => (input) =>
   (

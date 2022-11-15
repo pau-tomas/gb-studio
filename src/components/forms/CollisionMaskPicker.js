@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import cx from "classnames";
-import { l10n } from "lib/renderer/api";
+import { l10n } from "renderer/lib/api";
 
 class CollisionMaskPicker extends Component {
   render() {

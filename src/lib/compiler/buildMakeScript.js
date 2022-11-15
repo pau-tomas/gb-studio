@@ -2,7 +2,7 @@ import glob from "glob";
 import { promisify } from "util";
 import { pathExists, readFile, writeFile } from "fs-extra";
 import Path from "path";
-import { l10n } from "lib/renderer/api";
+import { l10n } from "renderer/lib/api";
 
 const globAsync = promisify(glob);
 

@@ -7,7 +7,7 @@ import navigationActions from "../navigation/navigationActions";
 import { saveSongFile } from "./trackerDocumentState";
 import trackerDocumentActions from "./trackerDocumentActions";
 import electronActions from "../electron/electronActions";
-import { l10n } from "lib/renderer/api";
+import { l10n } from "renderer/lib/api";
 
 const trackerMiddleware: ThunkMiddleware<RootState> =
   (store) => (next) => (action) => {

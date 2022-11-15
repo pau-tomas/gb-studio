@@ -1,5 +1,5 @@
 import React, { useCallback } from "react";
-import { l10n } from "lib/renderer/api";
+import { l10n } from "renderer/lib/api";
 import settingsActions from "renderer/project/store/features/settings/settingsActions";
 import { Select } from "ui/form/Select";
 import { Button } from "ui/buttons/Button";

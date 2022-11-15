@@ -1,5 +1,5 @@
 import React, { FC } from "react";
-import { l10n } from "lib/renderer/api";
+import { l10n } from "renderer/lib/api";
 import {
   MovementType,
   movementTypes,

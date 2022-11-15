@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import Solver from "3x3-equation-solver";
 import cx from "classnames";
-import { l10n } from "lib/renderer/api";
+import { l10n } from "renderer/lib/api";
 import { FormField } from "../library/Forms";
 import ColorSlider from "./ColorSlider";
 import { paletteSelectors } from "renderer/project/store/features/entities/entitiesState";

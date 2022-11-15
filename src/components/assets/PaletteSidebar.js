@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 import cx from "classnames";
 import { PlusIcon } from "ui/icons/Icons";
 import Button from "../library/Button";
-import { l10n } from "lib/renderer/api";
+import { l10n } from "renderer/lib/api";
 import { PaletteShape } from "renderer/project/store/stateShape";
 import PaletteBlock from "../library/PaletteBlock";
 import editorActions from "renderer/project/store/features/editor/editorActions";

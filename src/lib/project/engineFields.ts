@@ -3,7 +3,7 @@ import Path from "path";
 import { readJSON, pathExists } from "fs-extra";
 import { EngineFieldSchema } from "renderer/project/store/features/engine/engineState";
 import { engineRoot } from "../../consts";
-import { l10n } from "lib/renderer/api";
+import { l10n } from "renderer/lib/api";
 import { clampToCType } from "lib/helpers/engineFields";
 import { setDefault } from "lib/helpers/setDefault";
 import { ScriptEventFieldSchema } from "renderer/project/store/features/entities/entitiesTypes";

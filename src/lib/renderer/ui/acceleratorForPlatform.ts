@@ -1,7 +1,7 @@
-import api from "../api";
+import API from "renderer/lib/api";
 
 export const acceleratorForPlatform = (accelerator: string) => {
-  if (api.platform === "darwin") {
+  if (API.platform === "darwin") {
     return accelerator
       .replace(/CommandOrControl\+/g, "⌘")
       .replace(/Shift\+/g, "⇧")

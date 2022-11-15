@@ -10,7 +10,7 @@ import WorldPage from "./pages/WorldPage";
 import MusicPage from "./pages/MusicPage";
 import PalettePage from "./pages/PalettePage";
 import SettingsPage from "./pages/SettingsPage";
-import { l10n } from "lib/renderer/api";
+import { l10n } from "renderer/lib/api";
 import LoadingPane from "components/library/LoadingPane";
 import { DropZone } from "ui/upload/DropZone";
 import SoundsPage from "./pages/SoundsPage";
