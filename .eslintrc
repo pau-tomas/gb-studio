@@ -62,43 +62,32 @@
   },
   "overrides": [
     {
-      "files": ["*.tsx", "src/lib/**"],
-      "excludedFiles": ["src/lib/node/**"],
+      "files": ["src/renderer/**"],
       "rules": {
         "no-restricted-imports": [
           "error",
           {
             "patterns": [
               {
-                "group": ["lib/node/*"],
-                "message": "Can't use lib/node imports within renderer and shared code!"
-              },
-              {
-                "group": ["lib/renderer/**/preload"],
-                "message": "Can't use preload imports out of preloader"
+                "group": ["main/*"],
+                "message": "Can't use main/* imports within renderer!"
               }
             ],
-            "paths": [
-              {
-                "name": "electron-settings",
-                "message": "Can't use electron-settings from renderer, use API instead!"
-              }
-            ]
+            "paths": ["fs", "fs-extra", "electron-settings"]
           }
         ]
       }
     },
     {
-      "files": ["src/lib/**"],
-      "excludedFiles": ["src/lib/renderer/**"],
+      "files": ["src/main/**"],
       "rules": {
         "no-restricted-imports": [
           "error",
           {
             "patterns": [
               {
-                "group": ["lib/renderer/*"],
-                "message": "Can't use lib/renderer imports within node and shared code!"
+                "group": ["renderer/*"],
+                "message": "Can't use renderer/* imports within main process!"
               }
             ],
             "paths": ["react", "react-dom"]
@@ -107,22 +96,32 @@
       }
     },
     {
-      "files": ["src/**"],
-      "excludedFiles": ["src/app/project/**"],
+      "files": ["src/shared/**"],
       "rules": {
         "no-restricted-imports": [
           "error",
           {
             "patterns": [
               {
-                "group": ["app/project/*", "project/*"],
-                "message": "Don't import app/project modules from within shared code! If this import is needed move the file to within app/project/"
-              },          
+                "group": ["main/*"],
+                "message": "Can't use main/* imports within shared modules!"
+              },
+              {
+                "group": ["renderer/*"],
+                "message": "Can't use renderer/* imports within shared modules!"
+              }
+            ],
+            "paths": [
+              "react",
+              "react-dom",
+              "fs",
+              "fs-extra",
+              "electron-settings"
             ]
           }
         ]
       }
-    }    
+    }
   ],
   "env": {
     "browser": true,
