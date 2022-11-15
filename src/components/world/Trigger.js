@@ -4,7 +4,7 @@ import cx from "classnames";
 import { connect } from "react-redux";
 import editorActions from "renderer/project/store/features/editor/editorActions";
 import { triggerSelectors } from "renderer/project/store/features/entities/entitiesState";
-import { MIDDLE_MOUSE } from "../../consts";
+import { MIDDLE_MOUSE } from "shared/consts";
 
 class Trigger extends Component {
   onMouseDown = (e) => {

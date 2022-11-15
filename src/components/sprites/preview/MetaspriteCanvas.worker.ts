@@ -1,4 +1,4 @@
-import { DMG_PALETTE } from "../../../consts";
+import { DMG_PALETTE } from "shared/consts";
 import { colorizeSpriteData, chromaKeyData } from "lib/helpers/color";
 import { ObjPalette } from "renderer/project/store/features/entities/entitiesTypes";
 

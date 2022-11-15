@@ -17,7 +17,7 @@ import {
   NoiseInstrument,
   WaveInstrument,
 } from "./trackerDocumentTypes";
-import { projectTemplatesRoot } from "../../../../../consts";
+import { projectTemplatesRoot } from "shared/consts";
 import copy from "lib/helpers/fsCopy";
 
 export interface TrackerDocumentState {

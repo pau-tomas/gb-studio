@@ -6,7 +6,7 @@ import {
   COLLISION_LEFT,
   COLLISION_RIGHT,
   TILE_PROP_LADDER,
-} from "../../consts";
+} from "shared/consts";
 
 const TILE_SIZE = 8;
 

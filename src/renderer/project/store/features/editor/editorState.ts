@@ -6,14 +6,19 @@ import {
   DRAG_TRIGGER,
   DRAG_DESTINATION,
   DRAG_PLAYER,
-} from "../../../../../consts";
+} from "shared/consts";
 import { zoomIn, zoomOut } from "lib/helpers/zoom";
-import { Actor, Trigger, SceneData, Variable } from "../entities/entitiesTypes";
-import navigationActions from "../navigation/navigationActions";
-import projectActions from "../project/projectActions";
-import settingsActions from "../settings/settingsActions";
-import entitiesActions from "../entities/entitiesActions";
-import spriteActions from "../sprite/spriteActions";
+import {
+  Actor,
+  Trigger,
+  SceneData,
+  Variable,
+} from "renderer/project/store/features/entities/entitiesTypes";
+import navigationActions from "renderer/project/store/features/navigation/navigationActions";
+import projectActions from "renderer/project/store/features/project/projectActions";
+import settingsActions from "renderer/project/store/features/settings/settingsActions";
+import entitiesActions from "renderer/project/store/features/entities/entitiesActions";
+import spriteActions from "renderer/project/store/features/sprite/spriteActions";
 import { MIN_SIDEBAR_WIDTH } from "lib/helpers/window/sidebar";
 
 export type Tool =

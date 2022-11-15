@@ -9,7 +9,9 @@ import ThemeProvider from "ui/theme/ThemeProvider";
 import GlobalStyle from "ui/globalStyle";
 import API from "renderer/lib/api";
 import App from "./components/App";
+// eslint-disable-next-line no-restricted-imports
 import "../../styles/App.css";
+// eslint-disable-next-line no-restricted-imports
 import "../../styles/theme.css";
 
 const urlParams = new URLSearchParams(window.location.search);

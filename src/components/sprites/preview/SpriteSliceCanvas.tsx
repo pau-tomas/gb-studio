@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import { DMG_PALETTE } from "../../../consts";
+import { DMG_PALETTE } from "shared/consts";
 import { assetFilename } from "lib/helpers/gbstudio";
 import { RootState } from "renderer/project/store/configureStore";
 import { spriteSheetSelectors } from "renderer/project/store/features/entities/entitiesState";

@@ -5,7 +5,7 @@ import { isString, isArray } from "@byte.london/byteguards";
 import loadProject from "lib/project/loadProjectData";
 import { l10nStrings } from "lib/helpers/l10n";
 import getTmp from "lib/helpers/getTmp";
-import pkg from "../../package.json";
+import pkg from "package.json";
 
 declare const COMMITHASH: string;
 

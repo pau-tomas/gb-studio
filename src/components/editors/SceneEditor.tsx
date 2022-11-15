@@ -48,7 +48,7 @@ import {
   ClipboardTypePaletteIds,
   ClipboardTypeScenes,
 } from "renderer/project/store/features/clipboard/clipboardTypes";
-import { SCREEN_WIDTH } from "../../consts";
+import { SCREEN_WIDTH } from "shared/consts";
 import { ScriptEventAutoFadeDisabledWarning } from "components/script/ScriptEventAutoFade";
 import { SceneSymbolsEditor } from "components/forms/symbols/SceneSymbolsEditor";
 import { BackgroundSymbolsEditor } from "components/forms/symbols/BackgroundSymbolsEditor";

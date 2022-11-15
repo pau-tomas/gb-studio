@@ -30,7 +30,7 @@ import { LockIcon, LockOpenIcon, PinIcon } from "ui/icons/Icons";
 import castEventValue from "lib/helpers/castEventValue";
 import { CheckboxField } from "ui/form/CheckboxField";
 import DirectionPicker from "../forms/DirectionPicker";
-import { DMG_PALETTE } from "../../consts";
+import { DMG_PALETTE } from "shared/consts";
 import { SpriteSheetSelectButton } from "../forms/SpriteSheetSelectButton";
 import { WorldEditor } from "./WorldEditor";
 import ScriptEditorDropdownButton from "../script/ScriptEditorDropdownButton";

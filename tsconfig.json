@@ -24,6 +24,10 @@
       "ui/*": [ "./components/ui/*" ],
       "components/*": [ "./components/*" ],
       "renderer/*": [ "./renderer/*" ],
+      "main/*": [ "./main/*" ],
+      "shared/*": [ "./shared/*" ],
+      "package.json": ["../package.json"],
+      "contributors.json": ["../contributors.json"],
     }
   },
   "include": ["src"]

@@ -1,7 +1,7 @@
 import React, { FC, useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import styled from "styled-components";
-import { DMG_PALETTE } from "../../consts";
+import { DMG_PALETTE } from "shared/consts";
 import { RootState } from "renderer/project/store/configureStore";
 import { paletteSelectors } from "renderer/project/store/features/entities/entitiesState";
 import { Palette } from "renderer/project/store/features/entities/entitiesTypes";

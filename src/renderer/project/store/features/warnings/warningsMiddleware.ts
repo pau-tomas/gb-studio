@@ -2,7 +2,7 @@ import { Middleware, Action, Dispatch } from "@reduxjs/toolkit";
 import { getBackgroundInfo } from "lib/helpers/validation";
 import actions from "./warningsActions";
 import { RootState } from "renderer/project/store/configureStore";
-import { backgroundSelectors } from "../entities/entitiesState";
+import { backgroundSelectors } from "renderer/project/store/features/entities/entitiesState";
 
 const warningsMiddleware: Middleware<Dispatch, RootState> =
   (store) => (next) => (action: Action) => {

@@ -10,7 +10,14 @@
     "import/resolver": {
       "node": {
         "extensions": [".js", ".jsx", ".ts", ".tsx"],
-        "moduleDirectory": ["node_modules", "src", "src/components", "src/app"]
+        "moduleDirectory": ["node_modules", "src", "src/components", "./"]
+      },
+      "alias": {
+        "map": [
+          "package.json", "./package.json",
+          "contributors.json", "./contributors.json"
+        ],
+        "extensions": [".js", ".jsx", ".ts", ".tsx"]
       }
     }
   },
@@ -71,6 +78,10 @@
               {
                 "group": ["main/*"],
                 "message": "Can't use main/* imports within renderer!"
+              },
+              {
+                "group": ["../*"],
+                "message": "Usage of relative parent imports is not allowed"
               }
             ],
             "paths": ["fs", "fs-extra", "electron-settings"]
@@ -88,6 +99,10 @@
               {
                 "group": ["renderer/*"],
                 "message": "Can't use renderer/* imports within main process!"
+              },
+              {
+                "group": ["../*"],
+                "message": "Usage of relative parent imports is not allowed"
               }
             ],
             "paths": ["react", "react-dom"]
@@ -109,6 +124,10 @@
               {
                 "group": ["renderer/*"],
                 "message": "Can't use renderer/* imports within shared modules!"
+              },
+              {
+                "group": ["../*"],
+                "message": "Usage of relative parent imports is not allowed"
               }
             ],
             "paths": [

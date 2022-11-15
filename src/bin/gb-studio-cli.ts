@@ -4,7 +4,7 @@ import os from "os";
 import rimraf from "rimraf";
 import { promisify } from "util";
 import { program } from "commander";
-import { emulatorRoot, engineRoot } from "../consts";
+import { emulatorRoot, engineRoot } from "shared/consts";
 import { EngineFieldSchema } from "renderer/project/store/features/engine/engineState";
 import { initPlugins } from "lib/plugins/plugins";
 import compileData from "lib/compiler/compileData";

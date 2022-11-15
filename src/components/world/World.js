@@ -10,7 +10,7 @@ import {
   TOOL_COLORS,
   TOOL_COLLISIONS,
   TOOL_ERASER,
-} from "../../consts";
+} from "shared/consts";
 import { SceneShape, VariableShape } from "renderer/project/store/stateShape";
 import {
   sceneSelectors,

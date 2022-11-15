@@ -27,6 +27,9 @@ module.exports = {
       components: srcPath("components"),
       lib: srcPath("lib"),
       ui: srcPath("components/ui"),
+      shared: srcPath("shared"),
+      "package.json": Path.join(__dirname, "package.json"),
+      "contributors.json": Path.join(__dirname, "contributors.json"),
     },
   },
 };

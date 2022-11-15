@@ -1,12 +1,12 @@
 import { Dispatch, Middleware } from "@reduxjs/toolkit";
 import ScripTracker from "lib/vendor/scriptracker/scriptracker";
 import { RootState } from "renderer/project/store/configureStore";
-import soundfxActions from "../soundfx/soundfxActions";
-import navigationActions from "../navigation/navigationActions";
+import soundfxActions from "renderer/project/store/features/soundfx/soundfxActions";
+import navigationActions from "renderer/project/store/features/navigation/navigationActions";
 import actions from "./musicActions";
-import { musicSelectors } from "../entities/entitiesState";
+import { musicSelectors } from "renderer/project/store/features/entities/entitiesState";
 import { assetFilename } from "lib/helpers/gbstudio";
-import { MusicSettings } from "../entities/entitiesTypes";
+import { MusicSettings } from "renderer/project/store/features/entities/entitiesTypes";
 // import { ipcRenderer } from "electron";
 // import { readFile } from "fs-extra";
 // import { loadUGESong } from "lib/helpers/uge/ugeHelper";

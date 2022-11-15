@@ -26,7 +26,7 @@ import {
   COLLISION_ALL,
   TILE_PROP_LADDER,
   TILE_COLOR_PROP_PRIORITY,
-} from "../../consts";
+} from "shared/consts";
 import PaletteBlock from "../library/PaletteBlock";
 import { PaletteShape } from "renderer/project/store/stateShape";
 import Modal, { ModalFade, ModalContent } from "../library/Modal";

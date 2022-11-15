@@ -19,7 +19,7 @@ import errorActions from "renderer/project/store/features/error/errorActions";
 import initElectronL10n from "lib/helpers/initElectronL10n";
 import { clampSidebarWidth } from "lib/helpers/window/sidebar";
 import { initKeyBindings } from "lib/keybindings/keyBindings";
-import { TRACKER_REDO, TRACKER_UNDO } from "../../consts";
+import { TRACKER_REDO, TRACKER_UNDO } from "shared/consts";
 import {
   initEngineFields,
   engineFieldsEmitter,

@@ -9,20 +9,20 @@ import {
 } from "lib/helpers/eventSystem";
 import { EVENT_CALL_CUSTOM_EVENT } from "lib/compiler/eventTypes";
 import { l10n } from "renderer/lib/api";
-import editorActions from "../editor/editorActions";
-import { getSettings } from "../settings/settingsState";
-import settingsActions from "../settings/settingsActions";
+import editorActions from "renderer/project/store/features/editor/editorActions";
+import { getSettings } from "renderer/project/store/features/settings/settingsState";
+import settingsActions from "renderer/project/store/features/settings/settingsActions";
 import { Dispatch, Middleware } from "@reduxjs/toolkit";
 import { RootState } from "renderer/project/store/configureStore";
-import projectActions from "../project/projectActions";
+import projectActions from "renderer/project/store/features/project/projectActions";
 import {
   customEventSelectors,
   sceneSelectors,
   actorSelectors,
   triggerSelectors,
-} from "../entities/entitiesState";
-import { ScriptEvent } from "../entities/entitiesTypes";
-import entitiesActions from "../entities/entitiesActions";
+} from "renderer/project/store/features/entities/entitiesState";
+import { ScriptEvent } from "renderer/project/store/features/entities/entitiesTypes";
+import entitiesActions from "renderer/project/store/features/entities/entitiesActions";
 import { Dictionary } from "lodash";
 import actions from "./electronActions";
 import API, { dialog, settings } from "renderer/lib/api";

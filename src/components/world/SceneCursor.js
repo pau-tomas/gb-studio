@@ -32,7 +32,7 @@ import {
   MIDDLE_MOUSE,
   TILE_COLOR_PROPS,
   TILE_COLOR_PALETTE,
-} from "../../consts";
+} from "shared/consts";
 import clipboardActions from "renderer/project/store/features/clipboard/clipboardActions";
 
 class SceneCursor extends Component {

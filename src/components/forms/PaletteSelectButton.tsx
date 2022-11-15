@@ -8,7 +8,7 @@ import { SelectMenu, selectMenuStyleProps } from "ui/form/Select";
 import { RelativePortal } from "ui/layout/RelativePortal";
 import { PaletteSelect } from "./PaletteSelect";
 import navigationActions from "renderer/project/store/features/navigation/navigationActions";
-import { DMG_PALETTE } from "../../consts";
+import { DMG_PALETTE } from "shared/consts";
 
 type PaletteSelectProps = {
   name: string;

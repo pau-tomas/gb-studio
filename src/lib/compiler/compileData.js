@@ -17,7 +17,7 @@ import {
   DMG_PALETTE,
   MAX_NESTED_SCRIPT_DEPTH,
   MAX_PROJECTILES,
-} from "../../consts";
+} from "shared/consts";
 import compileSprites from "./compileSprites";
 import compileAvatars from "./compileAvatars";
 import compileEmotes from "./compileEmotes";

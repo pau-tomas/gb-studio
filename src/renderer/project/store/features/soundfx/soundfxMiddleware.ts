@@ -5,17 +5,17 @@ import {
   stopBuffer,
   decodeAudioData,
 } from "lib/soundfx/soundfx";
-import { assetsRoot } from "../../../../../consts";
+import { assetsRoot } from "shared/consts";
 import { Dispatch, Middleware } from "@reduxjs/toolkit";
 import { RootState } from "renderer/project/store/configureStore";
-import musicActions from "../music/musicActions";
-import navigationActions from "../navigation/navigationActions";
+import musicActions from "renderer/project/store/features/music/musicActions";
+import navigationActions from "renderer/project/store/features/navigation/navigationActions";
 import actions from "./soundfxActions";
-import { soundSelectors } from "../entities/entitiesState";
+import { soundSelectors } from "renderer/project/store/features/entities/entitiesState";
 // import { assetFilename } from "lib/helpers/gbstudio";
 // import { ipcRenderer } from "electron";
 // import { compileWav } from "lib/compiler/sounds/compileWav";
-import { Sound } from "../entities/entitiesTypes";
+import { Sound } from "renderer/project/store/features/entities/entitiesTypes";
 // import { compileVGM } from "lib/compiler/sounds/compileVGM";
 import type { CompileSoundOptions } from "lib/compiler/sounds/compileSound";
 // import { compileFXHammerSingle } from "lib/compiler/sounds/compileFXHammer";

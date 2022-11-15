@@ -18,15 +18,15 @@ import {
   DRAG_ACTOR,
   TILE_COLOR_PROPS,
   TILE_COLOR_PALETTE,
-} from "../../../../../consts";
+} from "shared/consts";
 import { isVariableField, isPropertyField } from "lib/helpers/eventSystem";
 import clamp from "lib/helpers/clamp";
 import { RootState } from "renderer/project/store/configureStore";
-import settingsActions from "../settings/settingsActions";
+import settingsActions from "renderer/project/store/features/settings/settingsActions";
 import uuid from "uuid";
 import { paint, paintLine, floodFill } from "lib/helpers/paint";
-import { Brush } from "../editor/editorState";
-import projectActions from "../project/projectActions";
+import { Brush } from "renderer/project/store/features/editor/editorState";
+import projectActions from "renderer/project/store/features/project/projectActions";
 import {
   EntitiesState,
   Actor,
@@ -70,7 +70,7 @@ import {
   upsertAssetEntity,
   updateEntitySymbol,
 } from "./entitiesHelpers";
-import spriteActions from "../sprite/spriteActions";
+import spriteActions from "renderer/project/store/features/sprite/spriteActions";
 import { isVariableCustomEvent } from "lib/compiler/scriptBuilder";
 import { sortByKey } from "lib/helpers/sortByKey";
 
