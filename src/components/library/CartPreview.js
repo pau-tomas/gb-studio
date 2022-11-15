@@ -1,7 +1,7 @@
 import React from "react";
 import cx from "classnames";
 
-export default ({ type, selected }) => (
+const CartPreview = ({ type, selected }) => (
   <div className={cx("CartPreview", { "CartPreview--Selected": selected })}>
     <svg
       width="96px"
@@ -444,3 +444,5 @@ export default ({ type, selected }) => (
     </svg>
   </div>
 );
+
+export default CartPreview;

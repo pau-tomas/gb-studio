@@ -47,13 +47,13 @@ const ROW_SIZE = CHANNEL_FIELDS * 4;
 const NUM_FIELDS = ROW_SIZE * 64;
 
 const ipcRenderer = {
-  send: (...a: unknown[]) => {
+  send: (..._a: unknown[]) => {
     console.warn("Implement SongTracker ipc API");
   },
-  on: (...a: unknown[]) => {
+  on: (..._a: unknown[]) => {
     console.warn("Implement SongTracker ipc API");
   },
-  removeListener: (...a: unknown[]) => {
+  removeListener: (..._a: unknown[]) => {
     console.warn("Implement SongTracker ipc API");
   },
 };
@@ -149,7 +149,10 @@ export const SongTracker = ({
     setPlaybackState(startPlaybackPosition);
   }, [setPlaybackState, startPlaybackPosition]);
   useEffect(() => {
-    const listener = (_event: any, d: any) => {
+    const listener = (
+      _event: unknown,
+      d: { action: string; update: number[] }
+    ) => {
       if (d.action === "update") {
         setPlaybackState(d.update);
       }
@@ -331,9 +334,9 @@ export const SongTracker = ({
   );
 
   const handleMouseDown = useCallback(
-    (e: any) => {
-      const fieldId = e.target.dataset["fieldid"];
-      const rowId = e.target.dataset["row"];
+    (e: MouseEvent) => {
+      const fieldId = (e.target as HTMLDivElement).dataset["fieldid"];
+      const rowId = (e.target as HTMLDivElement).dataset["row"];
 
       if (!!fieldId) {
         setIsMouseDown(true);
@@ -381,7 +384,7 @@ export const SongTracker = ({
   );
 
   const handleMouseUp = useCallback(
-    (_e: any) => {
+    (_e: MouseEvent) => {
       if (isMouseDown) {
         setIsMouseDown(false);
       }
@@ -390,9 +393,9 @@ export const SongTracker = ({
   );
 
   const handleMouseMove = useCallback(
-    (e: any) => {
+    (e: MouseEvent) => {
       if (isMouseDown) {
-        const fieldId = e.target.dataset["fieldid"];
+        const fieldId = (e.target as HTMLDivElement).dataset["fieldid"];
 
         if (!!fieldId) {
           const newActiveField =
@@ -658,7 +661,7 @@ export const SongTracker = ({
   );
 
   const handleWheel = useCallback(
-    (e: any) => {
+    (e: WheelEvent) => {
       if (e.ctrlKey) {
         e.preventDefault();
         const delta = e.deltaY === 0 ? e.deltaX : e.deltaY;

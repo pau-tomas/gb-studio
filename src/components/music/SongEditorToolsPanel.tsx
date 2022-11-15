@@ -42,13 +42,13 @@ interface SongEditorToolsPanelProps {
 }
 
 const ipcRenderer = {
-  send: (...a: unknown[]) => {
+  send: (..._a: unknown[]) => {
     console.warn("Implement SongEditorToolsPanel ipc API");
   },
-  on: (...a: unknown[]) => {
+  on: (..._a: unknown[]) => {
     console.warn("Implement SongEditorToolsPanel ipc API");
   },
-  removeListener: (...a: unknown[]) => {
+  removeListener: (..._a: unknown[]) => {
     console.warn("Implement SongEditorToolsPanel ipc API");
   },
 };

@@ -60,7 +60,6 @@ import {
   normalizeEntities,
   sortByFilename,
   swap,
-  matchAsset,
   isUnionVariableValue,
   isUnionPropertyValue,
   walkNormalisedScriptEvents,
@@ -3131,9 +3130,6 @@ const localPaletteSelectors = palettesAdapter.getSelectors(
 );
 const localMusicSelectors = musicAdapter.getSelectors(
   (state: EntitiesState) => state.music
-);
-const localSoundSelectors = soundsAdapter.getSelectors(
-  (state: EntitiesState) => state.sounds
 );
 
 // Global

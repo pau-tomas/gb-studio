@@ -11,13 +11,13 @@ import { WaveEditorForm } from "./WaveEditorForm";
 import { Button } from "ui/buttons/Button";
 
 const ipcRenderer = {
-  send: (...a: unknown[]) => {
+  send: (..._a: unknown[]) => {
     console.warn("Implement InstrumentWaveEditor ipc API");
   },
-  on: (...a: unknown[]) => {
+  on: (..._a: unknown[]) => {
     console.warn("Implement InstrumentWaveEditor ipc API");
   },
-  removeListener: (...a: unknown[]) => {
+  removeListener: (..._a: unknown[]) => {
     console.warn("Implement InstrumentWaveEditor ipc API");
   },
 };

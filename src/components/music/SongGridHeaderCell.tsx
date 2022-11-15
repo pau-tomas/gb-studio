@@ -16,13 +16,13 @@ interface WrapperProps {
 }
 
 const ipcRenderer = {
-  send: (...a: unknown[]) => {
+  send: (..._a: unknown[]) => {
     console.warn("Implement SongGridHeaderCell ipc API");
   },
-  on: (...a: unknown[]) => {
+  on: (..._a: unknown[]) => {
     console.warn("Implement SongGridHeaderCell ipc API");
   },
-  removeListener: (...a: unknown[]) => {
+  removeListener: (..._a: unknown[]) => {
     console.warn("Implement SongGridHeaderCell ipc API");
   },
 };

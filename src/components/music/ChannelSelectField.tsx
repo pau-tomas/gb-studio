@@ -13,13 +13,13 @@ import styled from "styled-components";
 // import { ipcRenderer } from "electron";
 
 const ipcRenderer = {
-  send: (...a: unknown[]) => {
+  send: (..._a: unknown[]) => {
     console.warn("Implement ChannelSelectField ipc API");
   },
-  on: (...a: unknown[]) => {
+  on: (..._a: unknown[]) => {
     console.warn("Implement ChannelSelectField ipc API");
   },
-  removeListener: (...a: unknown[]) => {
+  removeListener: (..._a: unknown[]) => {
     console.warn("Implement ChannelSelectField ipc API");
   },
 };

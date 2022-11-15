@@ -22,7 +22,7 @@ export interface KeyBinding {
   when: KeyWhen;
 }
 
-let keyBindings: KeyBinding[] = [];
+const keyBindings: KeyBinding[] = [];
 
 export const getKeys = (key: string, when: KeyWhen, cmds: KeyCommands) => {
   const pressedKey = keyBindings

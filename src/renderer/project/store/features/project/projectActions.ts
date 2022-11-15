@@ -141,10 +141,10 @@ const loadProject = createAsyncThunk<
 
 const loadBackground = createAsyncThunk<{ data: Background }, string>(
   "project/loadBackground",
-  async (filename, thunkApi) => {
-    const state = thunkApi.getState() as RootState;
+  async (_filename, _thunkApi) => {
+    // const state = thunkApi.getState() as RootState;
 
-    const projectRoot = state.document && state.document.root;
+    // const projectRoot = state.document && state.document.root;
     // const data = (await loadBackgroundData(projectRoot)(filename)) as
     //   | Background
     //   | undefined;
@@ -180,10 +180,10 @@ const removeBackground = createAsyncThunk<
 
 const loadSprite = createAsyncThunk<{ data: SpriteSheet }, string>(
   "project/loadSprite",
-  async (filename, thunkApi) => {
-    const state = thunkApi.getState() as RootState;
+  async (_filename, _thunkApi) => {
+    // const state = thunkApi.getState() as RootState;
 
-    const projectRoot = state.document && state.document.root;
+    // const projectRoot = state.document && state.document.root;
     // const data = (await loadSpriteData(projectRoot)(filename)) as
     //   | SpriteSheet
     //   | undefined;
@@ -219,10 +219,10 @@ const removeSprite = createAsyncThunk<
 
 const loadMusic = createAsyncThunk<{ data: Music }, string>(
   "project/loadMusic",
-  async (filename, thunkApi) => {
-    const state = thunkApi.getState() as RootState;
+  async (_filename, _thunkApi) => {
+    // const state = thunkApi.getState() as RootState;
 
-    const projectRoot = state.document && state.document.root;
+    // const projectRoot = state.document && state.document.root;
     // const data = (await loadMusicData(projectRoot)(filename)) as
     //   | Music
     //   | undefined;
@@ -258,10 +258,10 @@ const removeMusic = createAsyncThunk<
 
 const loadSound = createAsyncThunk<{ data: Sound }, string>(
   "project/loadSound",
-  async (filename, thunkApi) => {
-    const state = thunkApi.getState() as RootState;
+  async (_filename, _thunkApi) => {
+    // const state = thunkApi.getState() as RootState;
 
-    const projectRoot = state.document && state.document.root;
+    // const projectRoot = state.document && state.document.root;
     // const data = (await loadSoundData(projectRoot)(filename)) as
     //   | Sound
     //   | undefined;
@@ -297,10 +297,10 @@ const removeSound = createAsyncThunk<
 
 const loadFont = createAsyncThunk<{ data: Font }, string>(
   "project/loadFont",
-  async (filename, thunkApi) => {
-    const state = thunkApi.getState() as RootState;
+  async (_filename, _thunkApi) => {
+    // const state = thunkApi.getState() as RootState;
 
-    const projectRoot = state.document && state.document.root;
+    // const projectRoot = state.document && state.document.root;
     // const data = (await loadFontData(projectRoot)(filename)) as
     //   | Font
     //   | undefined;
@@ -336,10 +336,10 @@ const removeFont = createAsyncThunk<
 
 const loadAvatar = createAsyncThunk<{ data: Avatar }, string>(
   "project/loadAvatar",
-  async (filename, thunkApi) => {
-    const state = thunkApi.getState() as RootState;
+  async (_filename, _thunkApi) => {
+    // const state = thunkApi.getState() as RootState;
 
-    const projectRoot = state.document && state.document.root;
+    // const projectRoot = state.document && state.document.root;
     // const data = (await loadAvatarData(projectRoot)(filename)) as
     //   | Avatar
     //   | undefined;
@@ -375,10 +375,10 @@ const removeAvatar = createAsyncThunk<
 
 const loadEmote = createAsyncThunk<{ data: Emote }, string>(
   "project/loadEmote",
-  async (filename, thunkApi) => {
-    const state = thunkApi.getState() as RootState;
+  async (_filename, _thunkApi) => {
+    // const state = thunkApi.getState() as RootState;
 
-    const projectRoot = state.document && state.document.root;
+    // const projectRoot = state.document && state.document.root;
     // const data = (await loadEmoteData(projectRoot)(filename)) as
     //   | Emote
     //   | undefined;
@@ -443,20 +443,20 @@ const saveProject = createAsyncThunk<void, string | undefined>(
     saving = true;
 
     try {
-      const normalizedProject = trimDenormalisedProject(
-        denormalizeProject(state.project.present)
-      );
+      // const normalizedProject = trimDenormalisedProject(
+      //   denormalizeProject(state.project.present)
+      // );
 
-      const data = {
-        ...normalizedProject,
-        settings: {
-          ...normalizedProject.settings,
-          zoom: state.editor.zoom,
-          worldScrollX: state.editor.worldScrollX,
-          worldScrollY: state.editor.worldScrollY,
-          navigatorSplitSizes: state.editor.navigatorSplitSizes,
-        },
-      };
+      // const data = {
+      //   ...normalizedProject,
+      //   settings: {
+      //     ...normalizedProject.settings,
+      //     zoom: state.editor.zoom,
+      //     worldScrollX: state.editor.worldScrollX,
+      //     worldScrollY: state.editor.worldScrollY,
+      //     navigatorSplitSizes: state.editor.navigatorSplitSizes,
+      //   },
+      // };
 
       if (newPath) {
         // Save As
@@ -475,7 +475,7 @@ const saveProject = createAsyncThunk<void, string | undefined>(
   }
 );
 
-export default {
+const projectActions = {
   openProject,
   closeProject,
   loadProject,
@@ -498,3 +498,5 @@ export default {
   reloadAssets,
   saveProject,
 };
+
+export default projectActions;

@@ -47,7 +47,7 @@ export const compileVGM = async (
     disabledChannels.add(3);
   }
 
-  let file = await readFile(filename);
+  const file = await readFile(filename);
 
   if (filename.toLowerCase().endsWith(".vgz")) {
     console.warn("@TODO Handle gzipped VGM files");

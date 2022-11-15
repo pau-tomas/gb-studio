@@ -77,7 +77,7 @@ const onVariableEventContainingId =
   };
 */
 
-workerCtx.onmessage = async (evt) => {
+workerCtx.onmessage = async (_evt) => {
   console.warn("@TODO Implement VariableUses worker");
   /*
   const id = evt.data.id;

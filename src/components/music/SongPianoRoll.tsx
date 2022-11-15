@@ -52,13 +52,13 @@ interface SongGridFooterProps {
 }
 
 const ipcRenderer = {
-  send: (...a: unknown[]) => {
+  send: (..._a: unknown[]) => {
     console.warn("Implement SongPianoRoll ipc API");
   },
-  on: (...a: unknown[]) => {
+  on: (..._a: unknown[]) => {
     console.warn("Implement SongPianoRoll ipc API");
   },
-  removeListener: (...a: unknown[]) => {
+  removeListener: (..._a: unknown[]) => {
     console.warn("Implement SongPianoRoll ipc API");
   },
 };
@@ -294,7 +294,10 @@ export const SongPianoRoll = ({
   }, [setPlaybackState, startPlaybackPosition]);
 
   useEffect(() => {
-    const listener = (_event: any, d: any) => {
+    const listener = (
+      _event: unknown,
+      d: { action: string; update: number[] }
+    ) => {
       if (d.action === "update") {
         setPlaybackState(d.update);
       }
@@ -307,7 +310,7 @@ export const SongPianoRoll = ({
   }, [setPlaybackState]);
 
   const setPlaybackPosition = useCallback(
-    (e: any) => {
+    (e: MouseEvent) => {
       const col = Math.floor(e.offsetX / CELL_SIZE);
 
       dispatch(
@@ -544,7 +547,7 @@ export const SongPianoRoll = ({
 
   // Mouse
   const handleMouseDown = useCallback(
-    (e: any) => {
+    (e: MouseEvent) => {
       if (!pattern) return;
       const col = Math.floor(e.offsetX / CELL_SIZE);
       const note = 12 * 6 - 1 - Math.floor(e.offsetY / CELL_SIZE);
@@ -711,7 +714,7 @@ export const SongPianoRoll = ({
   );
 
   const handleMouseMove = useCallback(
-    (e: any) => {
+    (e: MouseEvent) => {
       if (!gridRef.current) return;
 
       const bounds = gridRef.current.getBoundingClientRect();

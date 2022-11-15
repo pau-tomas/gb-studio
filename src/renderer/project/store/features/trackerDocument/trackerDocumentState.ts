@@ -10,15 +10,15 @@ import cloneDeep from "lodash/cloneDeep";
 // import { writeFileWithBackupAsync } from "lib/helpers/fs/writeFileWithBackup";
 import { PatternCell } from "lib/helpers/uge/song/PatternCell";
 import { Song } from "lib/helpers/uge/song/Song";
-import { loadUGESong, saveUGESong } from "lib/helpers/uge/ugeHelper";
+// import { loadUGESong, saveUGESong } from "lib/helpers/uge/ugeHelper";
 import { RootState } from "renderer/project/store/configureStore";
 import {
   DutyInstrument,
   NoiseInstrument,
   WaveInstrument,
 } from "./trackerDocumentTypes";
-import { projectTemplatesRoot } from "shared/consts";
-import copy from "lib/helpers/fsCopy";
+// import { projectTemplatesRoot } from "shared/consts";
+// import copy from "lib/helpers/fsCopy";
 
 export interface TrackerDocumentState {
   status: "loading" | "error" | "loaded" | null;
@@ -35,7 +35,7 @@ export const initialState: TrackerDocumentState = {
 
 export const addNewSongFile = createAsyncThunk<string | null, string>(
   "tracker/addNewSong",
-  async (path, _thunkApi): Promise<string | null> => {
+  async (_path, _thunkApi): Promise<string | null> => {
     console.warn("@TODO Handle tracker addNewSongFile");
     return null;
     /*
@@ -73,7 +73,7 @@ export const addNewSongFile = createAsyncThunk<string | null, string>(
 
 export const loadSongFile = createAsyncThunk<Song | null, string>(
   "tracker/loadSong",
-  async (path, _thunkApi): Promise<Song | null> => {
+  async (_path, _thunkApi): Promise<Song | null> => {
     // const data = await readFile(path);
     // const song = loadUGESong(new Uint8Array(data).buffer);
     // if (song) {
@@ -97,8 +97,8 @@ export const saveSongFile = createAsyncThunk<void, void>(
       throw new Error("No song selected");
     }
 
-    const song = state.trackerDocument.present.song;
-    const buffer = saveUGESong(song);
+    // const song = state.trackerDocument.present.song;
+    // const buffer = saveUGESong(song);
     // await writeFileWithBackupAsync(
     //   song.filename,
     //   new Uint8Array(buffer),
@@ -108,7 +108,7 @@ export const saveSongFile = createAsyncThunk<void, void>(
   }
 );
 
-const NUM_NOTES = 72;
+// const NUM_NOTES = 72;
 
 const trackerSlice = createSlice({
   name: "tracker",

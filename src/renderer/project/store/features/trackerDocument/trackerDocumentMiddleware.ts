@@ -24,7 +24,7 @@ const trackerMiddleware: ThunkMiddleware<RootState> =
         const songsLookup = musicSelectors.selectEntities(state);
         const selectedSong = songsLookup[state.editor.selectedSongId];
         // const option = confirmUnsavedChangesTrackerDialog(selectedSong?.name);
-        const option: number = 2;
+        const option = 2;
         console.warn("@TODO Handle cancel tracker document changes");
         switch (option) {
           case 0: // Save and continue

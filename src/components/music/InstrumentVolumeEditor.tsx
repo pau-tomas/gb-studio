@@ -8,6 +8,7 @@ interface InstrumentVolumeEditorProps {
   volumeSweepChange: number;
   length: number | null;
   // onChange: <T extends keyof (DutyInstrument | NoiseInstrument)>(key: T) => (editValue: (DutyInstrument[T] | NoiseInstrument[T])) => void;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   onChange: (key: any) => (editValue: any) => void;
 }
 

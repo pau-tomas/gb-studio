@@ -3,6 +3,7 @@ import { FormRow } from "ui/form/FormLayout";
 
 interface NoiseMacroEditorFormProps {
   macros: number[];
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   onChange: (editValue: any) => void;
 }
 
@@ -90,7 +91,7 @@ export const NoiseMacroEditorForm = ({
       }
     };
 
-    const handleMouseMove = (e: any) => {
+    const handleMouseMove = (e: MouseEvent) => {
       if (e.target !== canvasRef.current) {
         return;
       }
@@ -124,13 +125,13 @@ export const NoiseMacroEditorForm = ({
       }
     };
 
-    const handleMouseDown = (e: any) => {
+    const handleMouseDown = (e: MouseEvent) => {
       if (e.target === canvasRef.current) {
         mousedown = true;
       }
     };
 
-    const handleMouseUp = (_e: any) => {
+    const handleMouseUp = (_e: MouseEvent) => {
       if (mousedown) {
         mousedown = false;
         onChange(newMacros);

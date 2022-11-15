@@ -4,7 +4,7 @@ import cx from "classnames";
 const directions = ["up", "down", "left", "right"];
 const buttons = ["a", "b", "start", "select"];
 
-export default ({ onSelect, selected }) => (
+const GBControlsPreview = ({ onSelect, selected }) => (
   <div className="GBControlsPreview">
     <div className="GBControlsPreview__DPad">
       {directions.map((direction) => (
@@ -38,3 +38,5 @@ export default ({ onSelect, selected }) => (
     </div>
   </div>
 );
+
+export default GBControlsPreview;
