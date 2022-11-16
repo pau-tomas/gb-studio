@@ -4,7 +4,7 @@ import compileImages from "./compileImages";
 import { indexBy } from "../helpers/array";
 import compileEntityEvents from "./compileEntityEvents";
 import {
-  EVENT_TEXT,
+  // EVENT_TEXT,
   EVENT_MUSIC_PLAY,
   EVENT_END,
   EVENT_PLAYER_SET_SPRITE,
@@ -80,7 +80,7 @@ import copy from "lib/helpers/fsCopy";
 import { ensureDir } from "fs-extra";
 import Path from "path";
 import { determineUsedAssets } from "./precompile/determineUsedAssets";
-import { compileSound, compileSoundHeader } from "./sounds/compileSound";
+import { compileSound } from "./sounds/compileSound";
 
 const indexById = indexBy("id");
 
@@ -1257,7 +1257,7 @@ const compile = async (
       lock,
       scriptType
     ) => {
-      let entityCode = "";
+      // let entityCode = "";
       let scriptTypeCode = "interact";
 
       let scriptName = "script";
@@ -1270,10 +1270,10 @@ const compile = async (
           hit2Script: "hit2",
           hit3Script: "hit3",
         };
-        entityCode = `a${entityIndex}`;
+        // entityCode = `a${entityIndex}`;
         scriptTypeCode = scriptLookup[scriptType] || scriptTypeCode;
       } else if (entityType === "trigger") {
-        entityCode = `t${entityIndex}`;
+        // entityCode = `t${entityIndex}`;
         scriptTypeCode = "interact";
       } else if (entityType === "scene") {
         const scriptLookup = {

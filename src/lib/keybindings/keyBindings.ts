@@ -1,11 +1,11 @@
-import { defaultKeys, milkytrackerKeys, openMPTKeys } from "./defaultKeys";
+// import { defaultKeys, milkytrackerKeys, openMPTKeys } from "./defaultKeys";
 // import settings from "electron-settings";
 
 interface KeyCommands {
-  editNoteField?: (...args: any[]) => void;
-  editInstrumentField?: (...args: any[]) => void;
-  editEffectCodeField?: (...args: any[]) => void;
-  editEffectParamField?: (...args: any[]) => void;
+  editNoteField?: (...args: (number | null)[]) => void;
+  editInstrumentField?: (...args: (number | null)[]) => void;
+  editEffectCodeField?: (...args: (number | null)[]) => void;
+  editEffectParamField?: (...args: (number | null)[]) => void;
 }
 
 export type KeyWhen =
@@ -18,7 +18,7 @@ export type KeyWhen =
 export interface KeyBinding {
   key: string;
   command: keyof KeyCommands;
-  args: any;
+  args: number | null;
   when: KeyWhen;
 }
 

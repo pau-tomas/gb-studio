@@ -4,7 +4,7 @@ import assertIsMainProcess from "../assertIsMainProcess";
 
 assertIsMainProcess();
 
-export default (name) => {
+const confirmUnsavedChangesTrackerDialog = (name) => {
   const dialogOptions = {
     type: "info",
     buttons: [
@@ -21,3 +21,5 @@ export default (name) => {
 
   return dialog.showMessageBoxSync(dialogOptions);
 };
+
+export default confirmUnsavedChangesTrackerDialog;

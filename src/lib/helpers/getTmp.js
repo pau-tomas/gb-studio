@@ -1,7 +1,7 @@
 import os from "os";
 import isElectron from "./isElectron";
 
-export default () => {
+const getTmp = () => {
   let tmpPath = os.tmpdir();
   if (isElectron()) {
     // eslint-disable-next-line global-require
@@ -22,3 +22,5 @@ export default () => {
   } else tmpPath = "/tmp";
   return tmpPath;
 };
+
+export default getTmp;

@@ -4,7 +4,7 @@ import assertIsMainProcess from "../assertIsMainProcess";
 
 assertIsMainProcess();
 
-export default () => {
+const confirmEnableColorDialog = () => {
   const dialogOptions = {
     type: "info",
     buttons: [l10n("DIALOG_ENABLE_COLOR"), l10n("DIALOG_CANCEL")],
@@ -20,3 +20,5 @@ export default () => {
   }
   return false;
 };
+
+export default confirmEnableColorDialog;

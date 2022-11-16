@@ -366,7 +366,7 @@ function patchRom(targetRomFile: Uint8Array, song: Song, startAddr: number) {
 
 const getCurrentSong = () => currentSong;
 
-export default {
+const player = {
   initPlayer,
   loadSong,
   play,
@@ -379,3 +379,5 @@ export default {
     onIntervalCallback = cb;
   },
 };
+
+export default player;

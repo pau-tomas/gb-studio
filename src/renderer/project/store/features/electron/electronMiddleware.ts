@@ -1,4 +1,4 @@
-import uniq from "lodash/uniq";
+// import uniq from "lodash/uniq";
 // import confirmDeleteCustomEvent from "lib/electron/dialog/confirmDeleteCustomEvent";
 // import confirmEnableColorDialog from "lib/electron/dialog/confirmEnableColorDialog";
 import {
@@ -8,7 +8,7 @@ import {
   filterEvents,
 } from "lib/helpers/eventSystem";
 import { EVENT_CALL_CUSTOM_EVENT } from "lib/compiler/eventTypes";
-import { l10n } from "renderer/lib/api";
+// import { l10n } from "renderer/lib/api";
 import editorActions from "renderer/project/store/features/editor/editorActions";
 import { getSettings } from "renderer/project/store/features/settings/settingsState";
 import settingsActions from "renderer/project/store/features/settings/settingsActions";
@@ -85,10 +85,10 @@ const electronMiddleware: Middleware<Dispatch, RootState> =
         return;
       }
 
-      const allCustomEvents = customEventSelectors.selectAll(state);
-      const customEventIndex = allCustomEvents.indexOf(customEvent);
-      const customEventName =
-        customEvent.name || `${l10n("CUSTOM_EVENT")} ${customEventIndex + 1}`;
+      // const allCustomEvents = customEventSelectors.selectAll(state);
+      // const customEventIndex = allCustomEvents.indexOf(customEvent);
+      // const customEventName =
+      //   customEvent.name || `${l10n("CUSTOM_EVENT")} ${customEventIndex + 1}`;
       const scenes = sceneSelectors.selectAll(state);
       const scenesLookup = sceneSelectors.selectEntities(state);
       const actorsLookup = actorSelectors.selectEntities(state);
@@ -111,11 +111,11 @@ const electronMiddleware: Middleware<Dispatch, RootState> =
         event.command === EVENT_CALL_CUSTOM_EVENT &&
         event.args?.customEventId === action.payload.customEventId;
 
-      const sceneName = (sceneId: string) => {
-        const scene = scenesLookup[sceneId];
-        const sceneIndex = scene ? scenes.indexOf(scene) : 0;
-        return scene?.name || `${l10n("SCENE")} ${sceneIndex + 1}`;
-      };
+      // const sceneName = (sceneId: string) => {
+      //   const scene = scenesLookup[sceneId];
+      //   const sceneIndex = scene ? scenes.indexOf(scene) : 0;
+      //   return scene?.name || `${l10n("SCENE")} ${sceneIndex + 1}`;
+      // };
 
       // Check for uses of this custom event in project
       scenes.forEach((scene) => {
@@ -166,9 +166,9 @@ const electronMiddleware: Middleware<Dispatch, RootState> =
       const usedTotal = usedSceneIds.length;
 
       if (usedTotal > 0) {
-        const sceneNames = uniq(
-          usedSceneIds.map((sceneId) => sceneName(sceneId))
-        ).sort();
+        // const sceneNames = uniq(
+        //   usedSceneIds.map((sceneId) => sceneName(sceneId))
+        // ).sort();
 
         // Display confirmation and stop delete if cancelled
         // const cancel = confirmDeleteCustomEvent(

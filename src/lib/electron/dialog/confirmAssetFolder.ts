@@ -5,7 +5,9 @@ import assertIsMainProcess from "../assertIsMainProcess";
 
 assertIsMainProcess();
 
-export default (folders: AssetFolder[]): AssetFolder | undefined => {
+const confirmAssetFolder = (
+  folders: AssetFolder[]
+): AssetFolder | undefined => {
   const cancelId = folders.length;
   const dialogOptions = {
     type: "info",
@@ -25,3 +27,5 @@ export default (folders: AssetFolder[]): AssetFolder | undefined => {
 
   return folders[res];
 };
+
+export default confirmAssetFolder;

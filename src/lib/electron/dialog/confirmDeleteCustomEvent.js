@@ -4,7 +4,7 @@ import assertIsMainProcess from "../assertIsMainProcess";
 
 assertIsMainProcess();
 
-export default (name, sceneNames, count) => {
+const confirmDeleteCustomEvent = (name, sceneNames, count) => {
   // eslint-disable-next-line global-require
   const dialogOptions = {
     type: "info",
@@ -23,3 +23,5 @@ export default (name, sceneNames, count) => {
 
   return dialog.showMessageBoxSync(dialogOptions);
 };
+
+export default confirmDeleteCustomEvent;

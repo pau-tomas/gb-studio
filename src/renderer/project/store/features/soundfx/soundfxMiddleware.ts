@@ -44,9 +44,9 @@ function play(filename: string) {
 }
 
 async function playSound(
-  sound: Sound,
-  effectIndex: number,
-  { projectRoot }: CompileSoundOptions
+  _sound: Sound,
+  _effectIndex: number,
+  _options: CompileSoundOptions
 ) {
   /*
   const filename = assetFilename(projectRoot, "sounds", sound);

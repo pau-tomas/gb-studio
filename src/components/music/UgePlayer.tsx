@@ -11,13 +11,13 @@ interface UgePlayerProps {
 }
 
 const ipcRenderer = {
-  send: (...a: unknown[]) => {
+  send: (..._a: unknown[]) => {
     console.warn("Implement UgePlayer ipc API");
   },
-  on: (...a: unknown[]) => {
+  on: (..._a: unknown[]) => {
     console.warn("Implement UgePlayer ipc API");
   },
-  removeListener: (...a: unknown[]) => {
+  removeListener: (..._a: unknown[]) => {
     console.warn("Implement UgePlayer ipc API");
   },
 };
@@ -35,7 +35,7 @@ export const UgePlayer = ({ data, onChannelStatusUpdate }: UgePlayerProps) => {
   const play = useSelector((state: RootState) => state.tracker.playing);
 
   useEffect(() => {
-    const listener = (_event: any, d: any) => {
+    const listener = (_event: unknown, d: { action: string }) => {
       switch (d.action) {
         case "initialized":
           ipcRenderer.send("music-data-send", {
@@ -47,7 +47,9 @@ export const UgePlayer = ({ data, onChannelStatusUpdate }: UgePlayerProps) => {
           dispatch(trackerActions.playerReady(true));
           break;
         case "muted":
-          const message = d.message;
+          const message = (
+            d as { action: "muted"; message: { channels: boolean[] } }
+          ).message;
           if (onChannelStatusUpdate) {
             onChannelStatusUpdate(message.channels);
           }

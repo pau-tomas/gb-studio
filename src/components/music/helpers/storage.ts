@@ -29,7 +29,9 @@ const update = (name: string, code: ArrayBuffer | string | null) => {
   localStorage.rgbds_storage = JSON.stringify(files);
 };
 
-export default {
+const storage = {
   update,
   getFiles,
 };
+
+export default storage;

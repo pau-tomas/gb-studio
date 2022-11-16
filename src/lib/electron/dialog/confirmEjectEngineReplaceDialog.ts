@@ -4,7 +4,7 @@ import assertIsMainProcess from "../assertIsMainProcess";
 
 assertIsMainProcess();
 
-export default () => {
+const confirmEjectEngineReplaceDialog = () => {
   const dialogOptions = {
     type: "info",
     buttons: [l10n("DIALOG_EJECT_REPLACE"), l10n("DIALOG_CANCEL")],
@@ -17,3 +17,5 @@ export default () => {
 
   return dialog.showMessageBoxSync(dialogOptions);
 };
+
+export default confirmEjectEngineReplaceDialog;

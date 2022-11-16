@@ -4,7 +4,7 @@ import assertIsMainProcess from "../assertIsMainProcess";
 
 assertIsMainProcess();
 
-export default (name) => {
+const confirmReplaceCustomEvent = (name) => {
   const dialogOptions = {
     type: "info",
     buttons: [l10n("DIALOG_REPLACE"), l10n("DIALOG_KEEP")],
@@ -17,3 +17,5 @@ export default (name) => {
 
   return dialog.showMessageBoxSync(dialogOptions);
 };
+
+export default confirmReplaceCustomEvent;

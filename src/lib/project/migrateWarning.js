@@ -20,7 +20,7 @@ export const fromFuture = (currentVersion) => {
   return false;
 };
 
-export default async (projectPath) => {
+const migrateWarning = async (projectPath) => {
   const project = await fs.readJson(projectPath);
   let currentVersion = project._version || "1.0.0";
   if (currentVersion === "1") {
@@ -95,3 +95,5 @@ export default async (projectPath) => {
   }
   return false;
 };
+
+export default migrateWarning;

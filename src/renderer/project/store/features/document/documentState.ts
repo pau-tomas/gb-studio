@@ -39,7 +39,7 @@ const documentSlice = createSlice({
       .addCase(projectActions.saveProject.rejected, (state, _action) => {
         state.saving = false;
       })
-      .addCase(projectActions.saveProject.fulfilled, (state, action) => {
+      .addCase(projectActions.saveProject.fulfilled, (_state, _action) => {
         console.warn("@TODO Handle document state after save");
         // state.saving = false;
         // state.modified = false;

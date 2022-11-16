@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Binjgb, BinjgbModule } from "./WasmModuleWrapper";
 
 type StepType = "single" | "frame" | "run";
@@ -147,7 +148,7 @@ function processAudioBuffer() {
   audioTime += bufferSec;
 }
 
-export default {
+const emulator = {
   init,
   writeMem,
   readMem,
@@ -155,3 +156,5 @@ export default {
   updateRom,
   setChannel,
 };
+
+export default emulator;

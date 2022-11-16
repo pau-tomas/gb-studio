@@ -4,7 +4,7 @@ import assertIsMainProcess from "../assertIsMainProcess";
 
 assertIsMainProcess();
 
-export default () => {
+const switchLanguageDialog = () => {
   const dialogOptions = {
     type: "info",
     buttons: [l10n("DIALOG_OK")],
@@ -16,3 +16,5 @@ export default () => {
 
   dialog.showMessageBoxSync(dialogOptions);
 };
+
+export default switchLanguageDialog;

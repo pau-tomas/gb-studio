@@ -8,7 +8,7 @@ import actions from "./projectActions";
 // import confirmAssetFolder from "lib/electron/dialog/confirmAssetFolder";
 
 const projectMiddleware: Middleware<Dispatch, RootState> =
-  (store) => (next) => async (action) => {
+  (_store) => (next) => async (action) => {
     if (actions.openProject.match(action)) {
       console.warn("@TODO Implement migrating project (move to main process)");
       // const shouldOpenProject = await migrateWarning(action.payload);

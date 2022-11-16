@@ -42,7 +42,7 @@ import {
 } from "./clipboardTypes";
 import clipboardActions from "./clipboardActions";
 import {
-  customEventName,
+  // customEventName,
   isCustomEventEqual,
   walkActorScriptsKeys,
   walkNormalisedActorEvents,
@@ -100,14 +100,14 @@ const generateCustomEventInsertActions = (
   }
 
   if (existingEvent) {
-    const existingEventIndex = existingCustomEvents.indexOf(existingEvent);
-    const existingName = customEventName(existingEvent, existingEventIndex);
+    // const existingEventIndex = existingCustomEvents.indexOf(existingEvent);
+    // const existingName = customEventName(existingEvent, existingEventIndex);
     // const cancel = confirmReplaceCustomEvent(existingName);
-    const cancel = undefined;
+    // const cancel = undefined;
     console.warn("@TODO handle replace custom event modal");
-    if (cancel) {
-      return [];
-    }
+    // if (cancel) {
+    //   return [];
+    // }
   }
 
   if (!existingEvent) {
@@ -188,7 +188,7 @@ const generateTriggerInsertActions = (
   y: number
 ): AnyAction[] => {
   const actions: AnyAction[] = [];
-  const scriptEventIds = trigger.script;
+  // const scriptEventIds = trigger.script;
   const addTriggerAction = entitiesActions.addTrigger({
     sceneId,
     x,

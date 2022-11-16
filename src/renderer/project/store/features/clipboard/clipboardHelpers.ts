@@ -23,14 +23,14 @@ import {
 } from "./clipboardTypes";
 
 const clipboard = {
-  writeBuffer: (key: string, value: Buffer) => {
+  writeBuffer: (_key: string, _value: Buffer) => {
     console.warn("@TODO Implement clipboard writeBuffer");
   },
-  readBuffer: (key: string) => {
+  readBuffer: (_key: string) => {
     console.warn("@TODO Implement clipboard readBuffer");
     return "";
   },
-  writeText: (value: string) => {
+  writeText: (_value: string) => {
     console.warn("@TODO Implement clipboard writeText");
   },
   readText: () => {

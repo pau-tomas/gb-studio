@@ -39,7 +39,7 @@ function playMOD(filename: string, settings: MusicSettings) {
   }
 }
 
-async function playUGE(filename: string, _settings: MusicSettings) {
+async function playUGE(_filename: string, _settings: MusicSettings) {
   // const fileData = toArrayBuffer(await readFile(filename));
   // const data = loadUGESong(fileData);
   // const listener = async (_event: any, d: any) => {

@@ -21,7 +21,7 @@ import actions from "./buildGameActions";
 // const buildUUID = "_gbsbuild";
 
 const buildGameMiddleware: Middleware<Dispatch, RootState> =
-  (store) => (next) => async (action) => {
+  (_store) => (next) => async (action) => {
     if (actions.buildGame.match(action)) {
       console.warn("@TODO Handle buildGame action");
       /*

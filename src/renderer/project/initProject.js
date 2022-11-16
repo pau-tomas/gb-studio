@@ -1,7 +1,7 @@
 import Path from "path";
 import { ActionCreators } from "redux-undo";
 // import { ipcRenderer, webFrame } from "electron";
-import settings from "electron-settings";
+// import settings from "electron-settings";
 import debounce from "lodash/debounce";
 import mapValues from "lodash/mapValues";
 import store from "renderer/project/store/configureStore";
@@ -26,13 +26,13 @@ import {
 } from "lib/project/engineFields";
 
 const ipcRenderer = {
-  send: (...a) => {
+  send: (..._a) => {
     console.warn("Implement initProject ipc API");
   },
-  on: (...a) => {
+  on: (..._a) => {
     console.warn("Implement initProject ipc API");
   },
-  removeListener: (...a) => {
+  removeListener: (..._a) => {
     console.warn("Implement initProject ipc API");
   },
 };
@@ -183,7 +183,7 @@ const onZoom = (event, zoomType) => {
   }
 };
 
-const onWindowZoom = (event, zoomLevel) => {
+const onWindowZoom = (_event, _zoomLevel) => {
   // webFrame.setZoomLevel(zoomLevel);
   console.warn("@TODO Handle setting zoom level");
 };
@@ -242,23 +242,24 @@ ipcRenderer.on("plugin-run", onPluginRun);
 ipcRenderer.on("paste-in-place", onPasteInPlace);
 ipcRenderer.on("keybindings-update", onKeyBindingsUpdate);
 
-const worldSidebarWidth = settings.get("worldSidebarWidth");
-const filesSidebarWidth = settings.get("filesSidebarWidth");
-const navigatorSidebarWidth = settings.get("navigatorSidebarWidth");
-
-if (worldSidebarWidth) {
-  store.dispatch(
-    editorActions.resizeWorldSidebar(clampSidebarWidth(worldSidebarWidth))
-  );
-}
-if (filesSidebarWidth) {
-  store.dispatch(
-    editorActions.resizeFilesSidebar(clampSidebarWidth(filesSidebarWidth))
-  );
-}
-if (navigatorSidebarWidth) {
-  store.dispatch(editorActions.resizeNavigatorSidebar(navigatorSidebarWidth));
-}
+// const worldSidebarWidth = settings.get("worldSidebarWidth");
+// const filesSidebarWidth = settings.get("filesSidebarWidth");
+// const navigatorSidebarWidth = settings.get("navigatorSidebarWidth");
+//
+// if (worldSidebarWidth) {
+//   store.dispatch(
+//     editorActions.resizeWorldSidebar(clampSidebarWidth(worldSidebarWidth))
+//   );
+// }
+// if (filesSidebarWidth) {
+//   store.dispatch(
+//     editorActions.resizeFilesSidebar(clampSidebarWidth(filesSidebarWidth))
+//   );
+// }
+// if (navigatorSidebarWidth) {
+//   store.dispatch(editorActions.resizeNavigatorSidebar(navigatorSidebarWidth));
+// }
+console.warn("@TODO Fetch sidebar widths from settings");
 
 window.addEventListener(
   "resize",
