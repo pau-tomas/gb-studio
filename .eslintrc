@@ -79,6 +79,11 @@
                 "allowTypeImports": true
               },
               {
+                "group": ["lib/*"],
+                "message": "Can't use lib/* imports within renderer!",
+                "allowTypeImports": true
+              },              
+              {
                 "group": ["../*"],
                 "message": "Usage of relative parent imports is not allowed",
                 "allowTypeImports": true
