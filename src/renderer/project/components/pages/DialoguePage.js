@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import PageHeader from "components/library/PageHeader";
-import PageContent from "components/library/PageContent";
+import PageHeader from "renderer/components/library/PageHeader";
+import PageContent from "renderer/components/library/PageContent";
 import { EVENT_TEXT } from "lib/compiler/eventTypes";
 import { l10n } from "renderer/lib/api";
 import {
@@ -10,7 +10,7 @@ import {
   ActorShape,
   EventShape,
 } from "renderer/project/store/stateShape";
-import DialogueReviewScene from "components/script/DialogueReviewScene";
+import DialogueReviewScene from "renderer/components/script/DialogueReviewScene";
 import {
   sceneSelectors,
   actorSelectors,

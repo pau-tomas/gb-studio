@@ -1,6 +1,6 @@
 // import { ipcRenderer } from "electron";
 import player from "components/music/helpers/player.ts";
-import { playNotePreview } from "components/music/helpers/notePreview";
+import { playNotePreview } from "renderer/components/music/helpers/notePreview";
 
 const ipcRenderer = {
   send: () => {

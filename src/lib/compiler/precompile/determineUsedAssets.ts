@@ -1,5 +1,5 @@
 import { Dictionary } from "@reduxjs/toolkit";
-import { Reference } from "components/forms/ReferencesSelect";
+import { Reference } from "renderer/components/forms/ReferencesSelect";
 import { MAX_NESTED_SCRIPT_DEPTH } from "shared/consts";
 import { walkDenormalizedScenesEvents } from "lib/helpers/eventHelpers";
 import { eventHasArg } from "lib/helpers/eventSystem";

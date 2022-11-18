@@ -2,15 +2,15 @@ import React, { useContext, useEffect, useRef } from "react";
 import styled, { ThemeContext } from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
 import debounce from "lodash/debounce";
-import useResizable from "ui/hooks/use-resizable";
-import useWindowSize from "ui/hooks/use-window-size";
-import { SplitPaneHorizontalDivider } from "ui/splitpane/SplitPaneDivider";
+import useResizable from "renderer/components/ui/hooks/use-resizable";
+import useWindowSize from "renderer/components/ui/hooks/use-window-size";
+import { SplitPaneHorizontalDivider } from "renderer/components/ui/splitpane/SplitPaneDivider";
 import { RootState } from "renderer/project/store/configureStore";
 import editorActions from "renderer/project/store/features/editor/editorActions";
 import { backgroundSelectors } from "renderer/project/store/features/entities/entitiesState";
-import { NavigatorBackgrounds } from "components/backgrounds/NavigatorBackgrounds";
-import BackgroundViewer from "components/backgrounds/BackgroundViewer";
-import BackgroundPreviewSettings from "components/backgrounds/BackgroundPreviewSettings";
+import { NavigatorBackgrounds } from "renderer/components/backgrounds/NavigatorBackgrounds";
+import BackgroundViewer from "renderer/components/backgrounds/BackgroundViewer";
+import BackgroundPreviewSettings from "renderer/components/backgrounds/BackgroundPreviewSettings";
 
 const Wrapper = styled.div`
   display: flex;

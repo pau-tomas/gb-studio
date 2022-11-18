@@ -5,8 +5,8 @@ import store from "renderer/project/store/configureStore";
 import { AppContainer } from "react-hot-loader";
 import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
-import ThemeProvider from "ui/theme/ThemeProvider";
-import GlobalStyle from "ui/globalStyle";
+import ThemeProvider from "renderer/components/ui/theme/ThemeProvider";
+import GlobalStyle from "renderer/components/ui/globalStyle";
 import API from "renderer/lib/api";
 import App from "./components/App";
 // eslint-disable-next-line no-restricted-imports

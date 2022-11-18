@@ -74,7 +74,7 @@ module.exports = {
       project: srcPath("app/project"),
       components: srcPath("components"),
       lib: srcPath("lib"),
-      ui: srcPath("components/ui"),
+      ui: srcPath("renderer/components/ui"),
       renderer: srcPath("renderer"),
       shared: srcPath("shared"),
       assets: srcPath("assets"),

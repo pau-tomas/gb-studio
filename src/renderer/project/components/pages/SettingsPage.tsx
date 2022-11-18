@@ -1,43 +1,50 @@
 import React, { FC, useCallback, useLayoutEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 // import Path from "path";
-import { FormField } from "components/library/Forms";
+import { FormField } from "renderer/components/library/Forms";
 import { l10n } from "renderer/lib/api";
 import castEventValue from "lib/helpers/castEventValue";
-import CustomControlsPicker from "components/forms/CustomControlsPicker";
-import { PaletteSelect } from "components/forms/PaletteSelect";
-import { Button } from "ui/buttons/Button";
+import CustomControlsPicker from "renderer/components/forms/CustomControlsPicker";
+import { PaletteSelect } from "renderer/components/forms/PaletteSelect";
+import { Button } from "renderer/components/ui/buttons/Button";
 import { SettingsState } from "renderer/project/store/features/settings/settingsState";
 import settingsActions from "renderer/project/store/features/settings/settingsActions";
 import navigationActions from "renderer/project/store/features/navigation/navigationActions";
-import EngineFieldsEditor from "components/settings/EngineFieldsEditor";
-import { Checkbox } from "ui/form/Checkbox";
-import { Input } from "ui/form/Input";
+import EngineFieldsEditor from "renderer/components/settings/EngineFieldsEditor";
+import { Checkbox } from "renderer/components/ui/form/Checkbox";
+import { Input } from "renderer/components/ui/form/Input";
 import { RootState } from "renderer/project/store/configureStore";
-import { useGroupedEngineFields } from "components/settings/useGroupedEngineFields";
+import { useGroupedEngineFields } from "renderer/components/settings/useGroupedEngineFields";
 import { NavigationSection } from "renderer/project/store/features/navigation/navigationState";
-import { Textarea } from "ui/form/Textarea";
-import useWindowSize from "ui/hooks/use-window-size";
+import { Textarea } from "renderer/components/ui/form/Textarea";
+import useWindowSize from "renderer/components/ui/hooks/use-window-size";
 import {
   SettingsContentColumn,
   SettingsMenuColumn,
   SettingsMenuItem,
   SettingsPageWrapper,
   SettingsSearchWrapper,
-} from "components/settings/SettingsLayout";
-import { CardAnchor, CardButtons, CardHeading } from "ui/cards/Card";
-import { SearchableSettingRow } from "ui/form/SearchableSettingRow";
-import { SettingRowInput, SettingRowLabel } from "ui/form/SettingRow";
-import { SearchableCard } from "ui/cards/SearchableCard";
-import { FontSelect } from "components/forms/FontSelect";
-import { options as sceneTypes } from "components/forms/SceneTypeSelect";
-import { SpriteSheetSelect } from "components/forms/SpriteSheetSelect";
-import { ColorAnimationText } from "components/settings/ColorAnimationText";
-import { MusicDriverSelect } from "components/forms/MusicDriverSelect";
-import { FormInfo } from "ui/form/FormInfo";
+} from "renderer/components/settings/SettingsLayout";
+import {
+  CardAnchor,
+  CardButtons,
+  CardHeading,
+} from "renderer/components/ui/cards/Card";
+import { SearchableSettingRow } from "renderer/components/ui/form/SearchableSettingRow";
+import {
+  SettingRowInput,
+  SettingRowLabel,
+} from "renderer/components/ui/form/SettingRow";
+import { SearchableCard } from "renderer/components/ui/cards/SearchableCard";
+import { FontSelect } from "renderer/components/forms/FontSelect";
+import { options as sceneTypes } from "renderer/components/forms/SceneTypeSelect";
+import { SpriteSheetSelect } from "renderer/components/forms/SpriteSheetSelect";
+import { ColorAnimationText } from "renderer/components/settings/ColorAnimationText";
+import { MusicDriverSelect } from "renderer/components/forms/MusicDriverSelect";
+import { FormInfo } from "renderer/components/ui/form/FormInfo";
 // import electronActions from "project/store/features/electron/electronActions";
-import CartSettingsEditor from "components/settings/CartSettingsEditor";
-import { UIAssetPreview } from "components/forms/UIAssetPreviewButton";
+import CartSettingsEditor from "renderer/components/settings/CartSettingsEditor";
+import { UIAssetPreview } from "renderer/components/forms/UIAssetPreviewButton";
 
 const SettingsPage: FC = () => {
   const dispatch = useDispatch();

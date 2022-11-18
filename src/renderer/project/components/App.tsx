@@ -11,11 +11,11 @@ import MusicPage from "./pages/MusicPage";
 import PalettePage from "./pages/PalettePage";
 import SettingsPage from "./pages/SettingsPage";
 import { l10n } from "renderer/lib/api";
-import LoadingPane from "components/library/LoadingPane";
-import { DropZone } from "ui/upload/DropZone";
+import LoadingPane from "renderer/components/library/LoadingPane";
+import { DropZone } from "renderer/components/ui/upload/DropZone";
 import SoundsPage from "./pages/SoundsPage";
 import { useAppDispatch, useAppSelector } from "renderer/project/store/hooks";
-import GlobalError from "components/library/GlobalError";
+import GlobalError from "renderer/components/library/GlobalError";
 
 interface AppProps {
   projectPath?: string;

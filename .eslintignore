@@ -1,4 +1,4 @@
 src/lib/vendor
 src/lib/forge/hooks
 src/unused
-src/components/music/helpers/include
+src/renderer/components/music/helpers/include

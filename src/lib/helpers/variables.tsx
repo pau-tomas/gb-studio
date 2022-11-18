@@ -1,4 +1,4 @@
-import { ScriptEditorContextType } from "components/script/ScriptEditorContext";
+import { ScriptEditorContextType } from "renderer/components/script/ScriptEditorContext";
 import { l10n } from "renderer/lib/api";
 import uniq from "lodash/uniq";
 import {
