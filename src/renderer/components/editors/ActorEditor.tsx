@@ -237,6 +237,7 @@ export const ActorEditor: FC<ActorEditorProps> = ({
     (key: keyof Actor) =>
     (
       e:
+        | string
         | React.ChangeEvent<HTMLInputElement>
         | React.ChangeEvent<HTMLTextAreaElement>
     ) => {

@@ -472,7 +472,11 @@ const ScriptEventFormInput = ({
   } else if (type === "direction") {
     return (
       <OffscreenSkeletonInput>
-        <DirectionPicker id={id} value={value} onChange={onChangeField} />
+        <DirectionPicker
+          id={id}
+          value={String(value || "")}
+          onChange={onChangeField}
+        />
       </OffscreenSkeletonInput>
     );
   } else if (type === "collisionMask") {

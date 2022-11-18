@@ -505,6 +505,30 @@ export const TriangleIcon = () => (
   </svg>
 );
 
+export const TriangleDownIcon = () => (
+  <svg width="24" height="24" viewBox="0 0 24 24">
+    <g transform="rotate(180 12,12)">
+      <path d="M24 22h-24l12-20z" />
+    </g>
+  </svg>
+);
+
+export const TriangleLeftIcon = () => (
+  <svg width="24" height="24" viewBox="0 0 24 24">
+    <g transform="rotate(270 12,12)">
+      <path d="M24 22h-24l12-20z" />
+    </g>
+  </svg>
+);
+
+export const TriangleRightIcon = () => (
+  <svg width="24" height="24" viewBox="0 0 24 24">
+    <g transform="rotate(90 12,12)">
+      <path d="M24 22h-24l12-20z" />
+    </g>
+  </svg>
+);
+
 export const SceneIcon = () => (
   <svg
     width="24"

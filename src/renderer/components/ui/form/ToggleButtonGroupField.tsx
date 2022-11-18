@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import React from "react";
 import styled from "styled-components";
 import {
   ToggleButtonGroup,
@@ -6,26 +6,49 @@ import {
 } from "./ToggleButtonGroup";
 import { Label } from "./Label";
 
-export interface ToggleButtonGroupFieldProps {
+export type ToggleButtonGroupFieldProps = {
   name: string;
   label?: string;
-  value: string;
   options: ToggleButtonGroupOption[];
-}
+} & (
+  | {
+      multiple: true;
+      value: string[];
+      onChange: (newValue: string[]) => void;
+    }
+  | { multiple?: false; value: string; onChange: (newValue: string) => void }
+);
 
 const Wrapper = styled.div`
   width: 100%;
 `;
 
-export const ToggleButtonGroupField: FC<ToggleButtonGroupFieldProps> = ({
+export const ToggleButtonGroupField = ({
   name,
   label,
   value,
   options,
-}) => (
+  onChange,
+  multiple,
+}: ToggleButtonGroupFieldProps) => (
   <Wrapper>
     {label && <Label htmlFor={name}>{label}</Label>}
-    <ToggleButtonGroup name={name} value={value} options={options} />
+    {multiple ? (
+      <ToggleButtonGroup
+        name={name}
+        value={value}
+        options={options}
+        multiple={multiple}
+        onChange={onChange}
+      />
+    ) : (
+      <ToggleButtonGroup
+        name={name}
+        value={value}
+        options={options}
+        onChange={onChange}
+      />
+    )}
   </Wrapper>
 );
 

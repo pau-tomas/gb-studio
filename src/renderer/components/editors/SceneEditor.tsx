@@ -246,6 +246,7 @@ export const SceneEditor = ({ id, multiColumn }: SceneEditorProps) => {
     (key: keyof SettingsState) =>
     (
       e:
+        | string
         | React.ChangeEvent<HTMLInputElement>
         | React.ChangeEvent<HTMLTextAreaElement>
     ) => {
