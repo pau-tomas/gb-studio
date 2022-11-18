@@ -6,7 +6,7 @@ import { l10n } from "renderer/lib/api";
 
 const globAsync = promisify(glob);
 
-export default async (
+const buildMakeScript = async (
   buildRoot,
   {
     customColorsEnabled,
@@ -322,3 +322,5 @@ export const buildMakeDotBuildFile = ({
       .join(" ")
   );
 };
+
+export default buildMakeScript;

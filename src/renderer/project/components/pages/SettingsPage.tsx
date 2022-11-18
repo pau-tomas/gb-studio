@@ -41,7 +41,7 @@ import { UIAssetPreview } from "components/forms/UIAssetPreviewButton";
 
 const SettingsPage: FC = () => {
   const dispatch = useDispatch();
-  const projectRoot = useSelector((state: RootState) => state.document.root);
+  // const projectRoot = useSelector((state: RootState) => state.document.root);
   const settings = useSelector(
     (state: RootState) => state.project.present.settings
   );
@@ -172,7 +172,8 @@ const SettingsPage: FC = () => {
       //   })
       // );
     },
-    [dispatch, projectRoot]
+    []
+    // [dispatch, projectRoot]
   );
 
   return (

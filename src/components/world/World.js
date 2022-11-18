@@ -235,7 +235,7 @@ class World extends Component {
     }
   };
 
-  onWindowBlur = (e) => {
+  onWindowBlur = (_e) => {
     this.setState({ dragMode: false });
   };
 

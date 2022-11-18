@@ -9,7 +9,6 @@ import {
   EventShape,
 } from "renderer/project/store/stateShape";
 import { ArrowIcon, SearchIcon } from "ui/icons/Icons";
-import { walkEvents, patchEvents } from "lib/helpers/eventSystem";
 import { EVENT_TEXT } from "lib/compiler/eventTypes";
 import DialogueReviewLine from "./DialogueReviewLine";
 import Button from "../library/Button";

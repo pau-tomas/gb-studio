@@ -53,8 +53,8 @@ export type SliceDef = {
  * @returns A new IndexedImage representing the image data provided
  */
 export const readFileToIndexedImage = async (
-  filename: string,
-  indexFn: ImageIndexFunction
+  _filename: string,
+  _indexFn: ImageIndexFunction
 ): Promise<IndexedImage> => {
   console.warn("@TODO Implement readFileToIndexedImage in main process");
   return {

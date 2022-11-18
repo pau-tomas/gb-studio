@@ -6,7 +6,6 @@ import getCoords from "lib/helpers/getCoords";
 import Actor from "./Actor";
 import Trigger from "./Trigger";
 import SceneCollisions from "./SceneCollisions";
-import { normalizedFindSceneEvent } from "lib/helpers/eventSystem";
 import EventHelper from "./EventHelper";
 import {
   SceneShape,
@@ -29,8 +28,6 @@ import { getCachedObject } from "lib/helpers/cache";
 import SceneInfo from "./SceneInfo";
 import {
   sceneSelectors,
-  actorSelectors,
-  triggerSelectors,
   backgroundSelectors,
   paletteSelectors,
   scriptEventSelectors,
@@ -393,8 +390,6 @@ function mapStateToProps(state, props) {
     parallaxHoverLayer,
   } = state.editor;
 
-  const actorsLookup = actorSelectors.selectEntities(state);
-  const triggersLookup = triggerSelectors.selectEntities(state);
   const backgroundsLookup = backgroundSelectors.selectEntities(state);
   const scriptEventsLookup = scriptEventSelectors.selectEntities(state);
 

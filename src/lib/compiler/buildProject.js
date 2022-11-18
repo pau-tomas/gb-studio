@@ -2,7 +2,7 @@ import fs from "fs-extra";
 import compile from "./compileData";
 import ejectBuild from "./ejectBuild";
 import makeBuild from "./makeBuild";
-import { binjgbRoot, emulatorRoot } from "shared/consts";
+import { binjgbRoot } from "shared/consts";
 import copy from "../helpers/fsCopy";
 
 const buildProject = async (
@@ -13,7 +13,7 @@ const buildProject = async (
     tmpPath = "/tmp",
     profile = false,
     engineFields = [],
-    exportBuild = false,
+    // exportBuild = false,
     outputRoot = "/tmp/testing",
     progress = (_msg) => {},
     warnings = (_msg) => {},

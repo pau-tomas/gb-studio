@@ -33,13 +33,7 @@ const compileEntityEvents = (scriptSymbolName, input = [], options = {}) => {
     }),
   };
 
-  let hasInit = false;
-
-  const compileEventsWithScriptBuilder = (
-    scriptBuilder,
-    subInput = [],
-    isBranch = false
-  ) => {
+  const compileEventsWithScriptBuilder = (scriptBuilder, subInput = []) => {
     // eslint-disable-next-line global-require
     // eslint-disable-next-line @typescript-eslint/no-var-requires
     const events = require("../events").default;
@@ -94,7 +88,7 @@ const compileEntityEvents = (scriptSymbolName, input = [], options = {}) => {
   const helpers = {
     ...options,
     compileEvents: (scriptBuilder, childInput) => {
-      compileEventsWithScriptBuilder(scriptBuilder, childInput, true);
+      compileEventsWithScriptBuilder(scriptBuilder, childInput);
     },
   };
 
@@ -106,7 +100,7 @@ const compileEntityEvents = (scriptSymbolName, input = [], options = {}) => {
     scriptBuilder._label(loopId);
   }
 
-  compileEventsWithScriptBuilder(scriptBuilder, input, branch);
+  compileEventsWithScriptBuilder(scriptBuilder, input);
 
   try {
     if (!branch) {
