@@ -29,7 +29,7 @@ import { NavigationSection } from "renderer/project/store/features/navigation/na
 import { ZoomSection } from "renderer/project/store/features/editor/editorState";
 import useWindowFocus from "ui/hooks/use-window-focus";
 import useWindowSize from "ui/hooks/use-window-size";
-import { acceleratorForPlatform } from "lib/renderer/ui/acceleratorForPlatform";
+import { acceleratorForPlatform } from "renderer/lib/ui/acceleratorForPlatform";
 
 const sectionNames = {
   world: l10n("NAV_GAME_WORLD"),

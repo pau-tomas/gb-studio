@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import cx from "classnames";
-import Button from "../library/Button";
+import Button from "components/library/Button";
 import { HelpIcon } from "ui/icons/Icons";
 import { l10n } from "renderer/lib/api";
 import { groupBy } from "lib/helpers/array";

@@ -1,10 +1,10 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import Button from "../library/Button";
+import Button from "components/library/Button";
 import { l10n } from "renderer/lib/api";
 import { zoomForSection, assetFilename } from "lib/helpers/gbstudio";
-import BackgroundWarnings from "../world/BackgroundWarnings";
+import BackgroundWarnings from "components/world/BackgroundWarnings";
 import editorActions from "renderer/project/store/features/editor/editorActions";
 import electronActions from "renderer/project/store/features/electron/electronActions";
 

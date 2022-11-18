@@ -3,9 +3,9 @@ import rimraf from "rimraf";
 import { promisify } from "util";
 import Path from "path";
 import { engineRoot } from "shared/consts";
-import copy from "../helpers/fsCopy";
-import ejectEngineChangelog from "../project/ejectEngineChangelog";
 import { l10n } from "renderer/lib/api";
+import copy from "lib/helpers/fsCopy";
+import ejectEngineChangelog from "lib/project/ejectEngineChangelog";
 import {
   buildMakeDotBuildFile,
   makefileInjectToolsPath,

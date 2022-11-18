@@ -1,19 +1,19 @@
-import promiseLimit from "../helpers/promiseLimit2";
-import { assetFilename } from "../helpers/gbstudio";
+import promiseLimit from "lib/helpers/promiseLimit2";
+import { assetFilename } from "lib/helpers/gbstudio";
 import {
   optimiseTiles,
   indexedImageTo2bppSpriteData,
-} from "../sprite/spriteData";
+} from "lib/sprite/spriteData";
 import {
   animationMapBySpriteType,
   toEngineOrder,
-} from "../../renderer/components/sprites/helpers";
+} from "renderer/components/sprites/helpers";
 import {
   MetaspriteTile,
   ObjPalette,
   SpriteAnimationType,
 } from "renderer/project/store/features/entities/entitiesTypes";
-import { IndexedImage } from "../tiles/indexedImage";
+import { IndexedImage } from "lib/tiles/indexedImage";
 
 const S_PALETTE = 0x10;
 const S_FLIPX = 0x20;

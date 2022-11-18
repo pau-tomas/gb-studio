@@ -2,13 +2,13 @@
 import { Dictionary } from "@reduxjs/toolkit";
 import flatten from "lodash/flatten";
 import { SCREEN_WIDTH } from "shared/consts";
-import {
+import type {
   Actor,
   SceneParallaxLayer,
   Trigger,
 } from "renderer/project/store/features/entities/entitiesTypes";
-import { FontData } from "../fonts/fontData";
-import { decHex32Val, hexDec, wrap8Bit } from "../helpers/8bit";
+import { FontData } from "lib/fonts/fontData";
+import { decHex32Val, hexDec, wrap8Bit } from "lib/helpers/8bit";
 import { PrecompiledSpriteSheetData } from "./compileSprites";
 import { dirEnum } from "./helpers";
 

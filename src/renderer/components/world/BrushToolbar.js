@@ -27,11 +27,11 @@ import {
   TILE_PROP_LADDER,
   TILE_COLOR_PROP_PRIORITY,
 } from "shared/consts";
-import PaletteBlock from "../library/PaletteBlock";
+import PaletteBlock from "components/library/PaletteBlock";
 import { PaletteShape } from "renderer/project/store/stateShape";
-import Modal, { ModalFade, ModalContent } from "../library/Modal";
-import Button from "../library/Button";
-import { FormField } from "../library/Forms";
+import Modal, { ModalFade, ModalContent } from "components/library/Modal";
+import Button from "components/library/Button";
+import { FormField } from "components/library/Forms";
 import { getCachedObject } from "lib/helpers/cache";
 import editorActions from "renderer/project/store/features/editor/editorActions";
 import {
@@ -43,7 +43,7 @@ import { getSettings } from "renderer/project/store/features/settings/settingsSt
 import settingsActions from "renderer/project/store/features/settings/settingsActions";
 import navigationActions from "renderer/project/store/features/navigation/navigationActions";
 import entitiesActions from "renderer/project/store/features/entities/entitiesActions";
-import { PaletteSelect } from "../forms/PaletteSelect";
+import { PaletteSelect } from "components/forms/PaletteSelect";
 
 const paletteIndexes = [0, 1, 2, 3, 4, 5, 6, 7];
 const validTools = [TOOL_COLORS, TOOL_COLLISIONS, TOOL_ERASER];

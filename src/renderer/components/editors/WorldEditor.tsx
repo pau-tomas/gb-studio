@@ -1,12 +1,12 @@
 /* eslint-disable jsx-a11y/label-has-for */
 import React, { FC, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { SceneSelect } from "../forms/SceneSelect";
-import DirectionPicker from "../forms/DirectionPicker";
+import { SceneSelect } from "components/forms/SceneSelect";
+import DirectionPicker from "components/forms/DirectionPicker";
 import castEventValue from "lib/helpers/castEventValue";
 import { l10n } from "renderer/lib/api";
-import { MovementSpeedSelect } from "../forms/MovementSpeedSelect";
-import { AnimationSpeedSelect } from "../forms/AnimationSpeedSelect";
+import { MovementSpeedSelect } from "components/forms/MovementSpeedSelect";
+import { AnimationSpeedSelect } from "components/forms/AnimationSpeedSelect";
 import settingsActions from "renderer/project/store/features/settings/settingsActions";
 import metadataActions from "renderer/project/store/features/metadata/metadataActions";
 import { sceneSelectors } from "renderer/project/store/features/entities/entitiesState";

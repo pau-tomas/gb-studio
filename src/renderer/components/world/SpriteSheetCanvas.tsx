@@ -11,7 +11,7 @@ import {
   ActorDirection,
   Palette,
 } from "renderer/project/store/features/entities/entitiesTypes";
-import { MetaspriteCanvas } from "../sprites/preview/MetaspriteCanvas";
+import { MetaspriteCanvas } from "components/sprites/preview/MetaspriteCanvas";
 
 interface SpriteSheetCanvasProps {
   spriteSheetId: string;

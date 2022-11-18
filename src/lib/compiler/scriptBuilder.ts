@@ -1,13 +1,13 @@
 import { inputDec, textSpeedDec } from "./helpers";
-import { decBin, decHex, decOct, hexDec } from "../helpers/8bit";
-import trimlines from "../helpers/trimlines";
-import { is16BitCType } from "../helpers/engineFields";
+import { decBin, decHex, decOct, hexDec } from "lib/helpers/8bit";
+import trimlines from "lib/helpers/trimlines";
+import { is16BitCType } from "lib/helpers/engineFields";
 import {
   globalVariableDefaultName,
   localVariableName,
   tempVariableName,
-} from "../helpers/variables";
-import {
+} from "lib/helpers/variables";
+import type {
   ActorDirection,
   CustomEvent,
   Palette,
@@ -17,16 +17,16 @@ import {
   Variable,
 } from "renderer/project/store/features/entities/entitiesTypes";
 import { Dictionary } from "@reduxjs/toolkit";
-import { EngineFieldSchema } from "renderer/project/store/features/engine/engineState";
+import type { EngineFieldSchema } from "renderer/project/store/features/engine/engineState";
 import {
   initialState as initialSettingsState,
   SettingsState,
 } from "renderer/project/store/features/settings/settingsState";
-import { FunctionSymbol, OperatorSymbol } from "../rpn/types";
-import tokenize from "../rpn/tokenizer";
-import shuntingYard from "../rpn/shuntingYard";
+import type { FunctionSymbol, OperatorSymbol } from "../rpn/types";
+import tokenize from "lib/rpn/tokenizer";
+import shuntingYard from "lib/rpn/shuntingYard";
 import { PrecompiledFontData } from "./compileFonts";
-import { encodeString } from "../helpers/encodings";
+import { encodeString } from "lib/helpers/encodings";
 import { PrecompiledMusicTrack } from "./compileMusic";
 import {
   PrecompiledScene,
@@ -39,14 +39,14 @@ import {
   isVariableField,
   isActorField,
   mapEvents,
-} from "../helpers/eventSystem";
+} from "lib/helpers/eventSystem";
 import compileEntityEvents from "./compileEntityEvents";
 import {
   isUnionPropertyValue,
   isUnionVariableValue,
 } from "renderer/project/store/features/entities/entitiesHelpers";
 import { lexText } from "lib/fonts/lexText";
-import { Reference } from "renderer/components/forms/ReferencesSelect";
+import type { Reference } from "renderer/components/forms/ReferencesSelect";
 import { clone } from "lib/helpers/clone";
 import {
   defaultVariableForContext,

@@ -6,10 +6,10 @@ import keyBy from "lodash/keyBy";
 import { Dictionary } from "@reduxjs/toolkit";
 import { Font } from "renderer/project/store/features/entities/entitiesTypes";
 import CustomMention from "./CustomMention";
-import { RelativePortal } from "../layout/RelativePortal";
-import { FontSelect } from "../../forms/FontSelect";
-import { VariableSelect } from "../../forms/VariableSelect";
-import { TextSpeedSelect } from "../../forms/TextSpeedSelect";
+import { RelativePortal } from "ui/layout/RelativePortal";
+import { FontSelect } from "components/forms/FontSelect";
+import { VariableSelect } from "components/forms/VariableSelect";
+import { TextSpeedSelect } from "components/forms/TextSpeedSelect";
 import { SelectMenu, selectMenuStyleProps } from "./Select";
 import { l10n } from "renderer/lib/api";
 

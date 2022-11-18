@@ -6,7 +6,7 @@ import { RootState } from "renderer/project/store/configureStore";
 import { avatarSelectors } from "renderer/project/store/features/entities/entitiesState";
 import SpriteSliceCanvasWorker, {
   SpriteSliceCanvasResult,
-} from "../sprites/preview/SpriteSliceCanvas.worker";
+} from "components/sprites/preview/SpriteSliceCanvas.worker";
 
 interface AvatarCanvasProps {
   avatarId: string;

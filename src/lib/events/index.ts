@@ -6,13 +6,13 @@
 //   EngineFieldSyncResult,
 // } from "lib/project/engineFields";
 // import { eventsRoot } from "../../consts";
-// import * as l10n from "../helpers/l10n";
+// import * as l10n from "lib/helpers/l10n";
 // import * as eventHelpers from "./helpers";
-// import * as gbStudioHelpers from "../helpers/gbstudio";
-// import * as eventSystemHelpers from "../helpers/eventSystem";
+// import * as gbStudioHelpers from "lib/helpers/gbstudio";
+// import * as eventSystemHelpers from "lib/helpers/eventSystem";
 // import * as compileEntityEvents from "../compiler/compileEntityEvents";
-// import trimLines from "../helpers/trimlines";
-import { ScriptEventFieldSchema } from "renderer/project/store/features/entities/entitiesTypes";
+// import trimLines from "lib/helpers/trimlines";
+import type { ScriptEventFieldSchema } from "renderer/project/store/features/entities/entitiesTypes";
 import { Dictionary } from "@reduxjs/toolkit";
 // import { clone, cloneDictionary } from "lib/helpers/clone";
 // import {

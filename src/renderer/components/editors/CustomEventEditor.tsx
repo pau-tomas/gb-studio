@@ -1,12 +1,12 @@
 import React, { useCallback, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import ScriptEditor from "../script/ScriptEditor";
+import ScriptEditor from "components/script/ScriptEditor";
 import { l10n } from "renderer/lib/api";
 import castEventValue from "lib/helpers/castEventValue";
 import { DropdownButton } from "ui/buttons/DropdownButton";
 import { MenuItem } from "ui/menu/Menu";
 import { WorldEditor } from "./WorldEditor";
-import ScriptEditorDropdownButton from "../script/ScriptEditorDropdownButton";
+import ScriptEditorDropdownButton from "components/script/ScriptEditorDropdownButton";
 import { customEventSelectors } from "renderer/project/store/features/entities/entitiesState";
 import editorActions from "renderer/project/store/features/editor/editorActions";
 import entitiesActions from "renderer/project/store/features/entities/entitiesActions";

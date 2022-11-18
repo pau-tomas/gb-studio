@@ -1,7 +1,7 @@
 import { dialog } from "electron";
-import { AssetFolder } from "../../project/assets";
-import l10n from "../../helpers/l10n";
-import assertIsMainProcess from "../assertIsMainProcess";
+import { AssetFolder } from "lib/project/assets";
+import l10n from "lib/helpers/l10n";
+import assertIsMainProcess from "lib/electron/assertIsMainProcess";
 
 assertIsMainProcess();
 

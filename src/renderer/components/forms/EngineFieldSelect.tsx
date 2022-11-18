@@ -4,7 +4,7 @@ import { useSelector } from "react-redux";
 import { RootState } from "renderer/project/store/configureStore";
 import { Select, Option, OptGroup } from "ui/form/Select";
 import { l10n } from "renderer/lib/api";
-import { useGroupedEngineFields } from "../settings/useGroupedEngineFields";
+import { useGroupedEngineFields } from "components/settings/useGroupedEngineFields";
 import { EngineFieldSchema } from "renderer/project/store/features/engine/engineState";
 
 interface EngineFieldSelectProps {

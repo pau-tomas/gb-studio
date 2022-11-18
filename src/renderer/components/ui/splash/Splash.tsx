@@ -1,7 +1,7 @@
 import React, { useLayoutEffect, useRef, useState, FC } from "react";
 import styled, { css, keyframes } from "styled-components";
-import { Button } from "../buttons/Button";
-import projectIcon from "../icons/gbsproj.png";
+import { Button } from "ui/buttons/Button";
+import projectIcon from "ui/icons/gbsproj.png";
 
 declare const VERSION: string;
 declare const COMMITHASH: string;

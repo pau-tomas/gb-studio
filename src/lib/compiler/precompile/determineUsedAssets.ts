@@ -1,15 +1,15 @@
 import { Dictionary } from "@reduxjs/toolkit";
-import { Reference } from "renderer/components/forms/ReferencesSelect";
+import type { Reference } from "renderer/components/forms/ReferencesSelect";
 import { MAX_NESTED_SCRIPT_DEPTH } from "shared/consts";
 import { walkDenormalizedScenesEvents } from "lib/helpers/eventHelpers";
 import { eventHasArg } from "lib/helpers/eventSystem";
-import {
+import type {
   CustomEventDenormalized,
   SceneDenormalized,
   Sound,
   Variable,
 } from "renderer/project/store/features/entities/entitiesTypes";
-import { EVENT_SOUND_PLAY_EFFECT } from "../eventTypes";
+import { EVENT_SOUND_PLAY_EFFECT } from "lib/compiler/eventTypes";
 
 export const determineUsedAssets = ({
   scenes,

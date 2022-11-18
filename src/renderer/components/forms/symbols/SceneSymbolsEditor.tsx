@@ -3,7 +3,7 @@ import { useDispatch } from "react-redux";
 import { sceneSelectors } from "renderer/project/store/features/entities/entitiesState";
 import entitiesActions from "renderer/project/store/features/entities/entitiesActions";
 import { initScriptSymbol } from "lib/helpers/symbols";
-import { addBankRef, AssetReference } from "../ReferencesSelect";
+import { addBankRef, AssetReference } from "components/forms/ReferencesSelect";
 
 interface SceneSymbolsEditorProps {
   id: string;

@@ -1,6 +1,6 @@
 import uuid from "uuid";
-import { animationIndexBySpriteType } from "../../renderer/components/sprites/helpers";
-import {
+import { animationIndexBySpriteType } from "renderer/components/sprites/helpers";
+import type {
   Metasprite,
   MetaspriteTile,
   SpriteAnimation,
@@ -8,7 +8,7 @@ import {
   SpriteSheet,
   SpriteState,
 } from "renderer/project/store/features/entities/entitiesTypes";
-import { assetFilename } from "../helpers/gbstudio";
+import { assetFilename } from "lib/helpers/gbstudio";
 import DetectSpriteWorker, { DetectSpriteResult } from "./detectSprite.worker";
 import {
   Position,

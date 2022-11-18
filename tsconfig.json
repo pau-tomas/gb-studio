@@ -26,6 +26,7 @@
       "renderer/*": [ "./renderer/*" ],
       "main/*": [ "./main/*" ],
       "shared/*": [ "./shared/*" ],
+      "appData/*": ["../appData/*"],
       "package.json": ["../package.json"],
       "contributors.json": ["../contributors.json"],
     }

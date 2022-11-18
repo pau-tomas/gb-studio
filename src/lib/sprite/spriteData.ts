@@ -1,4 +1,4 @@
-import { MetaspriteTile } from "renderer/project/store/features/entities/entitiesTypes";
+import type { MetaspriteTile } from "renderer/project/store/features/entities/entitiesTypes";
 import {
   cloneIndexedImage,
   flipIndexedImageX,
@@ -9,7 +9,7 @@ import {
   readFileToIndexedImage,
   sliceIndexedImage,
   toIndex,
-} from "../tiles/indexedImage";
+} from "lib/tiles/indexedImage";
 
 const TILE_SIZE = 8;
 

@@ -11,7 +11,7 @@ import {
 import { ArrowIcon, SearchIcon } from "ui/icons/Icons";
 import { EVENT_TEXT } from "lib/compiler/eventTypes";
 import DialogueReviewLine from "./DialogueReviewLine";
-import Button from "../library/Button";
+import Button from "components/library/Button";
 import {
   sceneSelectors,
   actorSelectors,

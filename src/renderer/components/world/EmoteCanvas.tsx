@@ -6,7 +6,7 @@ import { RootState } from "renderer/project/store/configureStore";
 import { emoteSelectors } from "renderer/project/store/features/entities/entitiesState";
 import SpriteSliceCanvasWorker, {
   SpriteSliceCanvasResult,
-} from "../sprites/preview/SpriteSliceCanvas.worker";
+} from "components/sprites/preview/SpriteSliceCanvas.worker";
 
 interface EmoteCanvasProps {
   emoteId: string;

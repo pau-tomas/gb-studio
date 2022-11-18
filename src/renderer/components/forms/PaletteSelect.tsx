@@ -5,7 +5,7 @@ import { DMG_PALETTE } from "shared/consts";
 import { RootState } from "renderer/project/store/configureStore";
 import { paletteSelectors } from "renderer/project/store/features/entities/entitiesState";
 import { Palette } from "renderer/project/store/features/entities/entitiesTypes";
-import PaletteBlock from "../library/PaletteBlock";
+import PaletteBlock from "components/library/PaletteBlock";
 import {
   Option,
   Select,

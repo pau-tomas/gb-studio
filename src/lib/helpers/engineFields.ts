@@ -1,5 +1,5 @@
 import { Dictionary } from "@reduxjs/toolkit";
-import {
+import type {
   EngineFieldCType,
   EngineFieldSchema,
 } from "renderer/project/store/features/engine/engineState";

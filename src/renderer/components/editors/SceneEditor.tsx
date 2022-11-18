@@ -1,11 +1,11 @@
 import React, { useCallback, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import ScriptEditor from "../script/ScriptEditor";
+import ScriptEditor from "components/script/ScriptEditor";
 import castEventValue from "lib/helpers/castEventValue";
 import { l10n } from "renderer/lib/api";
 import { WorldEditor } from "./WorldEditor";
-import ScriptEditorDropdownButton from "../script/ScriptEditorDropdownButton";
-import BackgroundWarnings from "../world/BackgroundWarnings";
+import ScriptEditorDropdownButton from "components/script/ScriptEditorDropdownButton";
+import BackgroundWarnings from "components/world/BackgroundWarnings";
 import { sceneSelectors } from "renderer/project/store/features/entities/entitiesState";
 import editorActions from "renderer/project/store/features/editor/editorActions";
 import clipboardActions from "renderer/project/store/features/clipboard/clipboardActions";
@@ -28,12 +28,12 @@ import {
 import { MenuDivider, MenuItem } from "ui/menu/Menu";
 import { DropdownButton } from "ui/buttons/DropdownButton";
 import { NoteField } from "ui/form/NoteField";
-import { SceneTypeSelect } from "../forms/SceneTypeSelect";
-import { BackgroundSelectButton } from "../forms/BackgroundSelectButton";
-import { PaletteSelectButton } from "../forms/PaletteSelectButton";
+import { SceneTypeSelect } from "components/forms/SceneTypeSelect";
+import { BackgroundSelectButton } from "components/forms/BackgroundSelectButton";
+import { PaletteSelectButton } from "components/forms/PaletteSelectButton";
 import { LabelButton, LabelColor } from "ui/buttons/LabelButton";
 import { CoordinateInput } from "ui/form/CoordinateInput";
-import DirectionPicker from "../forms/DirectionPicker";
+import DirectionPicker from "components/forms/DirectionPicker";
 import { SettingsState } from "renderer/project/store/features/settings/settingsState";
 import { StickyTabs, TabBar } from "ui/tabs/Tabs";
 import { Label } from "ui/form/Label";
@@ -41,8 +41,8 @@ import { Button } from "ui/buttons/Button";
 import { LockIcon, LockOpenIcon, ParallaxIcon } from "ui/icons/Icons";
 import ParallaxSelect, {
   defaultValues as parallaxDefaultValues,
-} from "../forms/ParallaxSelect";
-import { SpriteSheetSelectButton } from "../forms/SpriteSheetSelectButton";
+} from "components/forms/ParallaxSelect";
+import { SpriteSheetSelectButton } from "components/forms/SpriteSheetSelectButton";
 import styled from "styled-components";
 import {
   ClipboardTypePaletteIds,

@@ -1,8 +1,8 @@
 import { divisibleBy8 } from "./8bit";
 import { assetFilename } from "./gbstudio";
-import { Background } from "renderer/project/store/features/entities/entitiesTypes";
-import { readFileToTilesDataArray, toTileLookup } from "../tiles/tileData";
 import { l10n } from "renderer/lib/api";
+import type { Background } from "renderer/project/store/features/entities/entitiesTypes";
+import { readFileToTilesDataArray, toTileLookup } from "lib/tiles/tileData";
 
 const MAX_IMAGE_WIDTH = 2040;
 const MAX_IMAGE_HEIGHT = 2040;

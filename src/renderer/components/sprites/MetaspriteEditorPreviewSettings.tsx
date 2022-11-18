@@ -9,7 +9,7 @@ import {
 } from "renderer/project/store/features/entities/entitiesState";
 import editorActions from "renderer/project/store/features/editor/editorActions";
 import { l10n } from "renderer/lib/api";
-import { SceneSelect } from "../forms/SceneSelect";
+import { SceneSelect } from "components/forms/SceneSelect";
 import { SelectMenu, selectMenuStyleProps } from "ui/form/Select";
 import { RelativePortal } from "ui/layout/RelativePortal";
 import { sceneName } from "lib/compiler/compileData2";

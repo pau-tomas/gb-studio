@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-var-requires */
 const rules = require("./webpack.rules");
 const plugins = require("./webpack.plugins");
 const CopyPlugin = require("copy-webpack-plugin");
@@ -17,6 +18,10 @@ const rendererPlugins = [].concat(
 
 const srcPath = (subdir) => {
   return Path.join(__dirname, "src", subdir);
+};
+
+const rootPath = (subdir) => {
+  return Path.join(__dirname, subdir);
 };
 
 module.exports = {
@@ -78,8 +83,9 @@ module.exports = {
       renderer: srcPath("renderer"),
       shared: srcPath("shared"),
       assets: srcPath("assets"),
-      "package.json": Path.join(__dirname, "package.json"),
-      "contributors.json": Path.join(__dirname, "contributors.json"),
+      appData: rootPath("appData"),
+      "package.json": rootPath("package.json"),
+      "contributors.json": rootPath("contributors.json"),
     },
     fallback: {
       path: require.resolve("path-browserify"),

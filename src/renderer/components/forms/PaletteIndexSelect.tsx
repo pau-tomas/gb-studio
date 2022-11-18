@@ -8,7 +8,7 @@ import {
   sceneSelectors,
 } from "renderer/project/store/features/entities/entitiesState";
 import { Palette } from "renderer/project/store/features/entities/entitiesTypes";
-import PaletteBlock from "../library/PaletteBlock";
+import PaletteBlock from "components/library/PaletteBlock";
 import {
   OptionLabelWithPreview,
   Select,
