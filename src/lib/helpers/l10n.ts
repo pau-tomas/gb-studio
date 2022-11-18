@@ -1,7 +1,7 @@
 import fs from "fs";
 import glob from "glob";
 import Path from "path";
-import en from "../../lang/en.json";
+import en from "lib/lang/en.json";
 import { localesRoot } from "shared/consts";
 
 interface L10NLookup {
