@@ -55,7 +55,7 @@ test("should trace to console if locale is empty", () => {
 });
 
 test("should be able to parse all language files", async () => {
-  const languagePackPaths = glob.sync(`${__dirname}/../../src/lang/*.json`);
+  const languagePackPaths = glob.sync(`${__dirname}/../../src/lib/lang/*.json`);
   for (const languagePackPath of languagePackPaths) {
     const rawFile = await readFile(languagePackPath, "utf8");
     try {

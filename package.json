@@ -23,7 +23,7 @@
     "prettier": "prettier --write src",
     "test": "jest --maxWorkers=2",
     "coverage": "jest --coverage --runInBand || true",
-    "missing-translations": "node src/lang/list_missing.js",
+    "missing-translations": "node src/lib/lang/list_missing.js",
     "make:cli": "webpack --config webpack.cli.config.js",
     "analyze-bundle": "env ANALYZE_BUNDLE=1 electron-forge start",
     "fetch-contributors": "curl https://api.github.com/repos/chrismaltby/gb-studio/contributors > contributors.json"

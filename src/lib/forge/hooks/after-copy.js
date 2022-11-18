@@ -15,7 +15,7 @@ function afterCopy(buildPath, electronVersion, platform, arch, callback) {
   const copyPaths = [
     "/buildTools/" + platform + "-" + arch,
     "/appData/",
-    "/src/lang",
+    "/src/lib/lang",
     "/src/lib/events",
     "/src/assets",
   ];
