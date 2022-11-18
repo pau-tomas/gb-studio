@@ -64,17 +64,19 @@
     {
       "files": ["src/renderer/**"],
       "rules": {
-        "no-restricted-imports": [
+        "@typescript-eslint/no-restricted-imports": [
           "error",
           {
             "patterns": [
               {
                 "group": ["main/*"],
-                "message": "Can't use main/* imports within renderer!"
+                "message": "Can't use main/* imports within renderer!",
+                "allowTypeImports": true
               },
               {
                 "group": ["../*"],
-                "message": "Usage of relative parent imports is not allowed"
+                "message": "Usage of relative parent imports is not allowed",
+                "allowTypeImports": true
               }
             ],
             "paths": ["fs", "fs-extra", "electron-settings"]
@@ -85,17 +87,19 @@
     {
       "files": ["src/main/**", "src/lib/**"],
       "rules": {
-        "no-restricted-imports": [
+        "@typescript-eslint/no-restricted-imports": [
           "error",
           {
             "patterns": [
               {
                 "group": ["renderer/*"],
-                "message": "Can't use renderer/* imports within main process!"
+                "message": "Can't use renderer/* imports within main process!",
+                "allowTypeImports": true
               },
               {
                 "group": ["../*"],
-                "message": "Usage of relative parent imports is not allowed"
+                "message": "Usage of relative parent imports is not allowed",
+                "allowTypeImports": true
               }
             ],
             "paths": ["react", "react-dom"]
@@ -106,21 +110,24 @@
     {
       "files": ["src/shared/**"],
       "rules": {
-        "no-restricted-imports": [
+        "@typescript-eslint/no-restricted-imports": [
           "error",
           {
             "patterns": [
               {
                 "group": ["main/*"],
-                "message": "Can't use main/* imports within shared modules!"
+                "message": "Can't use main/* imports within shared modules!",
+                "allowTypeImports": true
               },
               {
                 "group": ["renderer/*"],
-                "message": "Can't use renderer/* imports within shared modules!"
+                "message": "Can't use renderer/* imports within shared modules!",
+                "allowTypeImports": true
               },
               {
                 "group": ["../*"],
-                "message": "Usage of relative parent imports is not allowed"
+                "message": "Usage of relative parent imports is not allowed",
+                "allowTypeImports": true
               }
             ],
             "paths": [
