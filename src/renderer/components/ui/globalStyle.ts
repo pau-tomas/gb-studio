@@ -22,6 +22,12 @@ const GlobalStyle = createGlobalStyle`
     height: 100%;
   }
 
+  .App--RTL input,
+  .App--RTL textarea,
+  .App--RTL select {
+    direction: rtl;
+  }
+
   #MenuPortal {
     z-index: 10000;
     position: absolute;
