@@ -8,11 +8,11 @@ import {
   CreatableSelect,
   Select as DefaultSelect,
   SelectCommonProps,
-} from "renderer/components/ui/form/Select";
-import { Input } from "renderer/components/ui/form/Input";
+} from "ui/form/Select";
+import { Input } from "ui/form/Input";
 import { l10n } from "renderer/lib/api";
 import styled from "styled-components";
-import { CheckIcon, PencilIcon } from "renderer/components/ui/icons/Icons";
+import { CheckIcon, PencilIcon } from "ui/icons/Icons";
 
 interface AnimationStateSelectProps extends SelectCommonProps {
   name: string;

@@ -1,19 +1,16 @@
 import React, { useEffect, useState } from "react";
-import ThemeProvider from "renderer/components/ui/theme/ThemeProvider";
-import GlobalStyle from "renderer/components/ui/globalStyle";
-import { PreferencesWrapper } from "renderer/components/ui/preferences/Preferences";
-import { FormField, FormRow } from "renderer/components/ui/form/FormLayout";
-import { TextField } from "renderer/components/ui/form/TextField";
-import { Button } from "renderer/components/ui/buttons/Button";
-import { DotsIcon } from "renderer/components/ui/icons/Icons";
-import { FixedSpacer, FlexGrow } from "renderer/components/ui/spacing/Spacing";
-import { AppSelect } from "renderer/components/ui/form/AppSelect";
-import {
-  OptionLabelWithInfo,
-  Select,
-} from "renderer/components/ui/form/Select";
+import ThemeProvider from "ui/theme/ThemeProvider";
+import GlobalStyle from "ui/globalStyle";
+import { PreferencesWrapper } from "ui/preferences/Preferences";
+import { FormField, FormRow } from "ui/form/FormLayout";
+import { TextField } from "ui/form/TextField";
+import { Button } from "ui/buttons/Button";
+import { DotsIcon } from "ui/icons/Icons";
+import { FixedSpacer, FlexGrow } from "ui/spacing/Spacing";
+import { AppSelect } from "ui/form/AppSelect";
+import { OptionLabelWithInfo, Select } from "ui/form/Select";
 import { app, paths, settings, dialog, l10n } from "renderer/lib/api";
-import { SkeletonInput } from "renderer/components/ui/skeleton/Skeleton";
+import { SkeletonInput } from "ui/skeleton/Skeleton";
 
 interface Options {
   value: number;

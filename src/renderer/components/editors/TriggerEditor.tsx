@@ -2,8 +2,8 @@ import React, { useCallback, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import ScriptEditor from "../script/ScriptEditor";
 import castEventValue from "lib/helpers/castEventValue";
-import { DropdownButton } from "renderer/components/ui/buttons/DropdownButton";
-import { MenuDivider, MenuItem } from "renderer/components/ui/menu/Menu";
+import { DropdownButton } from "ui/buttons/DropdownButton";
+import { MenuDivider, MenuItem } from "ui/menu/Menu";
 import { l10n } from "renderer/lib/api";
 import { WorldEditor } from "./WorldEditor";
 import ScriptEditorDropdownButton from "../script/ScriptEditorDropdownButton";
@@ -14,31 +14,28 @@ import {
 import editorActions from "renderer/project/store/features/editor/editorActions";
 import clipboardActions from "renderer/project/store/features/clipboard/clipboardActions";
 import entitiesActions from "renderer/project/store/features/entities/entitiesActions";
-import {
-  SidebarColumn,
-  Sidebar,
-} from "renderer/components/ui/sidebars/Sidebar";
+import { SidebarColumn, Sidebar } from "ui/sidebars/Sidebar";
 import {
   FormContainer,
   FormDivider,
   FormHeader,
   FormRow,
-} from "renderer/components/ui/form/FormLayout";
-import { EditableText } from "renderer/components/ui/form/EditableText";
+} from "ui/form/FormLayout";
+import { EditableText } from "ui/form/EditableText";
 import { RootState } from "renderer/project/store/configureStore";
 import {
   Trigger,
   ScriptEvent,
 } from "renderer/project/store/features/entities/entitiesTypes";
-import { CoordinateInput } from "renderer/components/ui/form/CoordinateInput";
-import { NoteField } from "renderer/components/ui/form/NoteField";
-import { StickyTabs, TabBar } from "renderer/components/ui/tabs/Tabs";
-import { Button } from "renderer/components/ui/buttons/Button";
-import { LockIcon, LockOpenIcon } from "renderer/components/ui/icons/Icons";
+import { CoordinateInput } from "ui/form/CoordinateInput";
+import { NoteField } from "ui/form/NoteField";
+import { StickyTabs, TabBar } from "ui/tabs/Tabs";
+import { Button } from "ui/buttons/Button";
+import { LockIcon, LockOpenIcon } from "ui/icons/Icons";
 import { ClipboardTypeTriggers } from "renderer/project/store/features/clipboard/clipboardTypes";
-import { TriggerSymbolsEditor } from "renderer/components/forms/symbols/TriggerSymbolsEditor";
-import { SymbolEditorWrapper } from "renderer/components/forms/symbols/SymbolEditorWrapper";
-import { ScriptEditorContext } from "renderer/components/script/ScriptEditorContext";
+import { TriggerSymbolsEditor } from "components/forms/symbols/TriggerSymbolsEditor";
+import { SymbolEditorWrapper } from "components/forms/symbols/SymbolEditorWrapper";
+import { ScriptEditorContext } from "components/script/ScriptEditorContext";
 
 interface TriggerEditorProps {
   id: string;

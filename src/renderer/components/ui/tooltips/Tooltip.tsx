@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useRef, useState } from "react";
 import styled from "styled-components";
-import { RelativePortal } from "renderer/components/ui/layout/RelativePortal";
+import { RelativePortal } from "ui/layout/RelativePortal";
 
 export const Tooltip = styled.div`
   color: #000;

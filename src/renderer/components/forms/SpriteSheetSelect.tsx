@@ -17,7 +17,7 @@ import {
   OptionLabelWithPreview,
   SingleValueWithPreview,
   SelectCommonProps,
-} from "renderer/components/ui/form/Select";
+} from "ui/form/Select";
 import SpriteSheetCanvas from "../world/SpriteSheetCanvas";
 
 interface SpriteSheetSelectProps extends SelectCommonProps {

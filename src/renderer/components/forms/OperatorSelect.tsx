@@ -1,7 +1,7 @@
 import React, { FC } from "react";
 import { l10n } from "renderer/lib/api";
-import { Select, SelectCommonProps } from "renderer/components/ui/form/Select";
-import { FlexRow, FlexGrow } from "renderer/components/ui/spacing/Spacing";
+import { Select, SelectCommonProps } from "ui/form/Select";
+import { FlexRow, FlexGrow } from "ui/spacing/Spacing";
 
 interface OperatorSelectProps extends SelectCommonProps {
   name: string;

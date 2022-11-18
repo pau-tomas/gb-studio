@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 import { l10n } from "renderer/lib/api";
 import Button from "./Button";
 import { ErrorShape } from "renderer/project/store/stateShape";
-import { SadIcon } from "renderer/components/ui/icons/Icons";
+import { SadIcon } from "ui/icons/Icons";
 import electronActions from "renderer/project/store/features/electron/electronActions";
 
 class GlobalError extends Component {

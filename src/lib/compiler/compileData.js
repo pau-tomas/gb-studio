@@ -1,7 +1,7 @@
 import keyBy from "lodash/keyBy";
-import { eventHasArg } from "../helpers/eventSystem";
+import { eventHasArg } from "lib/helpers/eventSystem";
 import compileImages from "./compileImages";
-import { indexBy } from "../helpers/array";
+import { indexBy } from "lib/helpers/array";
 import compileEntityEvents from "./compileEntityEvents";
 import {
   // EVENT_TEXT,
@@ -22,7 +22,7 @@ import compileSprites from "./compileSprites";
 import compileAvatars from "./compileAvatars";
 import compileEmotes from "./compileEmotes";
 import compileFonts from "./compileFonts";
-import { precompileEngineFields } from "../helpers/engineFields";
+import { precompileEngineFields } from "lib/helpers/engineFields";
 import {
   compileBackground,
   compileBackgroundHeader,
@@ -64,11 +64,10 @@ import {
   compileSaveSignature,
 } from "./compileData2";
 import compileSGBImage from "./sgb";
-import { readFileToTilesData } from "../tiles/tileData";
-import { l10n } from "renderer/lib/api";
+import { readFileToTilesData } from "lib/tiles/tileData";
 import { compileScriptEngineInit } from "./compileBootstrap";
 import { compileMusicTracks, compileMusicHeader } from "./compileMusic";
-import { chunk } from "../helpers/array2";
+import { chunk } from "lib/helpers/array2";
 import { toProjectileHash } from "./scriptBuilder";
 import {
   calculateAutoFadeEventIdDenormalised,
@@ -81,6 +80,7 @@ import { ensureDir } from "fs-extra";
 import Path from "path";
 import { determineUsedAssets } from "./precompile/determineUsedAssets";
 import { compileSound } from "./sounds/compileSound";
+import l10n from "lib/helpers/l10n";
 
 const indexById = indexBy("id");
 

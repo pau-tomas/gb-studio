@@ -10,12 +10,10 @@ import {
   NextIcon,
   GridIcon,
   PauseIcon,
-} from "renderer/components/ui/icons/Icons";
-import FloatingPanel, {
-  FloatingPanelDivider,
-} from "renderer/components/ui/panels/FloatingPanel";
+} from "ui/icons/Icons";
+import FloatingPanel, { FloatingPanelDivider } from "ui/panels/FloatingPanel";
 import editorActions from "renderer/project/store/features/editor/editorActions";
-import { Button } from "renderer/components/ui/buttons/Button";
+import { Button } from "ui/buttons/Button";
 import { l10n } from "renderer/lib/api";
 
 interface MetaspriteEditorToolsPanelProps {

@@ -3,8 +3,8 @@ import { useDispatch, useSelector } from "react-redux";
 import editorActions from "renderer/project/store/features/editor/editorActions";
 import { RootState } from "renderer/project/store/configureStore";
 import styled, { css } from "styled-components";
-import { Select } from "renderer/components/ui/form/Select";
-import { PlusIcon } from "renderer/components/ui/icons/Icons";
+import { Select } from "ui/form/Select";
+import { PlusIcon } from "ui/icons/Icons";
 import trackerDocumentActions from "renderer/project/store/features/trackerDocument/trackerDocumentActions";
 import trackerActions from "renderer/project/store/features/tracker/trackerActions";
 

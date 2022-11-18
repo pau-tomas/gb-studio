@@ -1,11 +1,11 @@
 import React, { useEffect, useRef } from "react";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
-import { Select } from "renderer/components/ui/form/Select";
+import { Select } from "ui/form/Select";
 import { l10n } from "renderer/lib/api";
 import trackerDocumentActions from "renderer/project/store/features/trackerDocument/trackerDocumentActions";
 import { RootState } from "renderer/project/store/configureStore";
-import { FormRow, FormField } from "renderer/components/ui/form/FormLayout";
+import { FormRow, FormField } from "ui/form/FormLayout";
 
 interface WaveEditorFormProps {
   waveId: number;

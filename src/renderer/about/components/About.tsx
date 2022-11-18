@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
-import ThemeProvider from "renderer/components/ui/theme/ThemeProvider";
-import GlobalStyle from "renderer/components/ui/globalStyle";
+import ThemeProvider from "ui/theme/ThemeProvider";
+import GlobalStyle from "ui/globalStyle";
 import {
   AboutTitle,
   AboutDescription,
@@ -9,12 +9,12 @@ import {
   AboutCopyright,
   AboutBugReport,
   AboutVersions,
-} from "renderer/components/ui/about/About";
+} from "ui/about/About";
 import appIcon from "assets/app/icon/app_icon.png";
 import API, { l10n } from "renderer/lib/api";
-import { Button } from "renderer/components/ui/buttons/Button";
-import { FlexGrow } from "renderer/components/ui/spacing/Spacing";
-import useWindowFocus from "renderer/components/ui/hooks/use-window-focus";
+import { Button } from "ui/buttons/Button";
+import { FlexGrow } from "ui/spacing/Spacing";
+import useWindowFocus from "ui/hooks/use-window-focus";
 
 interface AboutInfo {
   name: string;

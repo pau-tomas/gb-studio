@@ -11,11 +11,8 @@ import {
   ActorDirection,
   SpriteSheet,
 } from "renderer/project/store/features/entities/entitiesTypes";
-import {
-  SelectMenu,
-  selectMenuStyleProps,
-} from "renderer/components/ui/form/Select";
-import { RelativePortal } from "renderer/components/ui/layout/RelativePortal";
+import { SelectMenu, selectMenuStyleProps } from "ui/form/Select";
+import { RelativePortal } from "ui/layout/RelativePortal";
 import SpriteSheetCanvas from "../world/SpriteSheetCanvas";
 import { SpriteSheetSelect } from "./SpriteSheetSelect";
 

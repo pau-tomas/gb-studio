@@ -8,7 +8,7 @@ import {
   CloseIcon,
   BrickIcon,
   PaintIcon,
-} from "renderer/components/ui/icons/Icons";
+} from "ui/icons/Icons";
 import {
   backgroundSelectors,
   sceneSelectors,

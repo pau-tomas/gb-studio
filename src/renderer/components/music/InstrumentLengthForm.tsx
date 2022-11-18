@@ -1,8 +1,8 @@
 import React from "react";
 import { l10n } from "renderer/lib/api";
-import { CheckboxField } from "renderer/components/ui/form/CheckboxField";
-import { FormRow } from "renderer/components/ui/form/FormLayout";
-import { SliderField } from "renderer/components/ui/form/SliderField";
+import { CheckboxField } from "ui/form/CheckboxField";
+import { FormRow } from "ui/form/FormLayout";
+import { SliderField } from "ui/form/SliderField";
 
 interface InstrumentLengthFormProps {
   value: number | null;

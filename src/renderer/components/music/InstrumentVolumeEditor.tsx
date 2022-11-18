@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from "react";
 import { l10n } from "renderer/lib/api";
-import { FormRow } from "renderer/components/ui/form/FormLayout";
-import { SliderField } from "renderer/components/ui/form/SliderField";
+import { FormRow } from "ui/form/FormLayout";
+import { SliderField } from "ui/form/SliderField";
 
 interface InstrumentVolumeEditorProps {
   initialVolume: number;

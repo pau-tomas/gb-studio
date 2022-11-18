@@ -5,14 +5,15 @@ import store from "renderer/project/store/configureStore";
 import { AppContainer } from "react-hot-loader";
 import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
-import ThemeProvider from "renderer/components/ui/theme/ThemeProvider";
-import GlobalStyle from "renderer/components/ui/globalStyle";
+import ThemeProvider from "ui/theme/ThemeProvider";
+import GlobalStyle from "ui/globalStyle";
 import API from "renderer/lib/api";
 import App from "./components/App";
-// eslint-disable-next-line no-restricted-imports
+// eslint-disable-next-line @typescript-eslint/no-restricted-imports
 import "../../styles/App.css";
-// eslint-disable-next-line no-restricted-imports
+// eslint-disable-next-line @typescript-eslint/no-restricted-imports
 import "../../styles/theme.css";
+console.warn("@TODO Replace CSS imports with styled components");
 
 const urlParams = new URLSearchParams(window.location.search);
 const projectPath = urlParams.get("path") || undefined;

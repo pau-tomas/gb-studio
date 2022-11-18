@@ -10,7 +10,7 @@ import {
   SingleValueWithPreview,
   Select,
   SelectCommonProps,
-} from "renderer/components/ui/form/Select";
+} from "ui/form/Select";
 import { Background } from "renderer/project/store/features/entities/entitiesTypes";
 import { RootState } from "renderer/project/store/configureStore";
 import styled from "styled-components";

@@ -20,7 +20,7 @@ export const locales = glob
   .sync(localesPath)
   .map((path) => Path.basename(path, ".json"));
 
-const translate = (key: string, params?: L10NParams): string => {
+const l10n = (key: string, params?: L10NParams): string => {
   if (process.env.DEBUG_L10N) {
     return key;
   }
@@ -80,4 +80,4 @@ export const isRTL = (): boolean => {
   return !!l10nStrings.RTL;
 };
 
-export default translate;
+export default l10n;

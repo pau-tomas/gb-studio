@@ -5,15 +5,15 @@ import React, {
   useRef,
   useState,
 } from "react";
-import { OptGroup } from "renderer/components/ui/form/Select";
+import { OptGroup } from "ui/form/Select";
 import { l10n } from "renderer/lib/api";
 import styled, { css } from "styled-components";
-import { Menu, MenuGroup, MenuItem } from "renderer/components/ui/menu/Menu";
-import { CaretRightIcon } from "renderer/components/ui/icons/Icons";
-import { FlexGrow } from "renderer/components/ui/spacing/Spacing";
+import { Menu, MenuGroup, MenuItem } from "ui/menu/Menu";
+import { CaretRightIcon } from "ui/icons/Icons";
+import { FlexGrow } from "ui/spacing/Spacing";
 import { useSelector } from "react-redux";
 import { RootState } from "renderer/project/store/configureStore";
-import { useDebounce } from "renderer/components/ui/hooks/use-debounce";
+import { useDebounce } from "ui/hooks/use-debounce";
 import {
   backgroundSelectors,
   customEventSelectors,

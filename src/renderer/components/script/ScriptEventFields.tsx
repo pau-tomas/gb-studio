@@ -4,7 +4,7 @@ import { ScriptEventFieldSchema } from "renderer/project/store/features/entities
 import {
   ScriptEventFields as ScriptEventFieldsWrapper,
   ScriptEventFieldGroupWrapper,
-} from "renderer/components/ui/scripting/ScriptEvents";
+} from "ui/scripting/ScriptEvents";
 import { useSelector } from "react-redux";
 import { RootState } from "renderer/project/store/configureStore";
 import { soundSelectors } from "renderer/project/store/features/entities/entitiesState";

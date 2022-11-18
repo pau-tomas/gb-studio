@@ -10,7 +10,12 @@
     "import/resolver": {
       "node": {
         "extensions": [".js", ".jsx", ".ts", ".tsx"],
-        "moduleDirectory": ["node_modules", "src", "src/renderer/components", "./"]
+        "moduleDirectory": [
+          "node_modules",
+          "src",
+          "src/renderer/components",
+          "./"
+        ]
       }
     }
   },
@@ -77,7 +82,15 @@
                 "group": ["../*"],
                 "message": "Usage of relative parent imports is not allowed",
                 "allowTypeImports": true
-              }
+              },
+              {
+                "group": ["renderer/components/*"],
+                "message": "Replace renderer/components/ with just components/"
+              },
+              {
+                "group": ["components/ui/*"],
+                "message": "Replace components/ui/ with just ui/"
+              }              
             ],
             "paths": ["fs", "fs-extra", "electron-settings"]
           }

@@ -6,15 +6,15 @@ import {
   sceneSelectors,
   triggerSelectors,
 } from "renderer/project/store/features/entities/entitiesState";
-import { FlatList } from "renderer/components/ui/lists/FlatList";
+import { FlatList } from "ui/lists/FlatList";
 import editorActions from "renderer/project/store/features/editor/editorActions";
 import {
   Actor,
   Scene,
   Trigger,
 } from "renderer/project/store/features/entities/entitiesTypes";
-import { EntityListItem } from "renderer/components/ui/lists/EntityListItem";
-import useToggleableList from "renderer/components/ui/hooks/use-toggleable-list";
+import { EntityListItem } from "ui/lists/EntityListItem";
+import useToggleableList from "ui/hooks/use-toggleable-list";
 
 interface NavigatorScenesProps {
   height: number;

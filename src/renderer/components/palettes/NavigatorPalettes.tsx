@@ -2,17 +2,17 @@ import React, { useCallback, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "renderer/project/store/configureStore";
 import { paletteSelectors } from "renderer/project/store/features/entities/entitiesState";
-import { FlatList } from "renderer/components/ui/lists/FlatList";
+import { FlatList } from "ui/lists/FlatList";
 import { Palette } from "renderer/project/store/features/entities/entitiesTypes";
 import { l10n } from "renderer/lib/api";
-import { SplitPaneHeader } from "renderer/components/ui/splitpane/SplitPaneHeader";
+import { SplitPaneHeader } from "ui/splitpane/SplitPaneHeader";
 import styled from "styled-components";
 import navigationActions from "renderer/project/store/features/navigation/navigationActions";
-import { Button } from "renderer/components/ui/buttons/Button";
-import { PaletteIcon, PlusIcon } from "renderer/components/ui/icons/Icons";
+import { Button } from "ui/buttons/Button";
+import { PaletteIcon, PlusIcon } from "ui/icons/Icons";
 import entitiesActions from "renderer/project/store/features/entities/entitiesActions";
-import { FlexGrow } from "renderer/components/ui/spacing/Spacing";
-import PaletteBlock from "renderer/components/library/PaletteBlock";
+import { FlexGrow } from "ui/spacing/Spacing";
+import PaletteBlock from "components/library/PaletteBlock";
 
 interface NavigatorPalettesProps {
   height: number;

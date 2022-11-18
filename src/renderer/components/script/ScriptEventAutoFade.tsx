@@ -1,13 +1,13 @@
-import { FadeSpeedSelect } from "renderer/components/forms/FadeSpeedSelect";
-import { DropdownButton } from "renderer/components/ui/buttons/DropdownButton";
-import { MenuItem } from "renderer/components/ui/menu/Menu";
+import { FadeSpeedSelect } from "components/forms/FadeSpeedSelect";
+import { DropdownButton } from "ui/buttons/DropdownButton";
+import { MenuItem } from "ui/menu/Menu";
 import { l10n } from "renderer/lib/api";
 import React, { useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "renderer/project/store/configureStore";
 import entitiesActions from "renderer/project/store/features/entities/entitiesActions";
 import { sceneSelectors } from "renderer/project/store/features/entities/entitiesState";
-import { ArrowIcon } from "renderer/components/ui/icons/Icons";
+import { ArrowIcon } from "ui/icons/Icons";
 import {
   ScriptEventWrapper,
   ScriptEventHeader,
@@ -17,10 +17,10 @@ import {
   ScriptEventFields as ScriptEventFieldsWrapper,
   ScriptEventHeaderTitle,
   ScriptEventWarning,
-} from "renderer/components/ui/scripting/ScriptEvents";
-import { OffscreenSkeletonInput } from "renderer/components/ui/skeleton/Skeleton";
-import { FixedSpacer } from "renderer/components/ui/spacing/Spacing";
-import { Button } from "renderer/components/ui/buttons/Button";
+} from "ui/scripting/ScriptEvents";
+import { OffscreenSkeletonInput } from "ui/skeleton/Skeleton";
+import { FixedSpacer } from "ui/spacing/Spacing";
+import { Button } from "ui/buttons/Button";
 
 export const ScriptEventAutoFade = () => {
   const dispatch = useDispatch();

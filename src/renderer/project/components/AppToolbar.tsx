@@ -10,25 +10,25 @@ import electronActions from "renderer/project/store/features/electron/electronAc
 import buildGameActions, {
   BuildType,
 } from "renderer/project/store/features/buildGame/buildGameActions";
-import { Toolbar, ToolbarText } from "renderer/components/ui/toolbar/Toolbar";
-import { DropdownButton } from "renderer/components/ui/buttons/DropdownButton";
-import { MenuAccelerator, MenuItem } from "renderer/components/ui/menu/Menu";
-import { ZoomButton } from "renderer/components/ui/buttons/ZoomButton";
-import { FixedSpacer, FlexGrow } from "renderer/components/ui/spacing/Spacing";
-import { SearchInput } from "renderer/components/ui/form/SearchInput";
-import { Button } from "renderer/components/ui/buttons/Button";
+import { Toolbar, ToolbarText } from "ui/toolbar/Toolbar";
+import { DropdownButton } from "ui/buttons/DropdownButton";
+import { MenuAccelerator, MenuItem } from "ui/menu/Menu";
+import { ZoomButton } from "ui/buttons/ZoomButton";
+import { FixedSpacer, FlexGrow } from "ui/spacing/Spacing";
+import { SearchInput } from "ui/form/SearchInput";
+import { Button } from "ui/buttons/Button";
 import {
   DotsIcon,
   ExportIcon,
   FolderIcon,
   LoadingIcon,
   PlayIcon,
-} from "renderer/components/ui/icons/Icons";
+} from "ui/icons/Icons";
 import { RootState } from "renderer/project/store/configureStore";
 import { NavigationSection } from "renderer/project/store/features/navigation/navigationState";
 import { ZoomSection } from "renderer/project/store/features/editor/editorState";
-import useWindowFocus from "renderer/components/ui/hooks/use-window-focus";
-import useWindowSize from "renderer/components/ui/hooks/use-window-size";
+import useWindowFocus from "ui/hooks/use-window-focus";
+import useWindowSize from "ui/hooks/use-window-size";
 import { acceleratorForPlatform } from "lib/renderer/ui/acceleratorForPlatform";
 
 const sectionNames = {

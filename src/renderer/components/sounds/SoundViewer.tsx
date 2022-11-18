@@ -4,11 +4,11 @@ import { useDispatch } from "react-redux";
 import { Sound } from "renderer/project/store/features/entities/entitiesTypes";
 import soundfxActions from "renderer/project/store/features/soundfx/soundfxActions";
 import styled from "styled-components";
-import { Button } from "renderer/components/ui/buttons/Button";
-import { FormContainer } from "renderer/components/ui/form/FormLayout";
-import { Input } from "renderer/components/ui/form/Input";
-import { Label } from "renderer/components/ui/form/Label";
-import { PlayIcon } from "renderer/components/ui/icons/Icons";
+import { Button } from "ui/buttons/Button";
+import { FormContainer } from "ui/form/FormLayout";
+import { Input } from "ui/form/Input";
+import { Label } from "ui/form/Label";
+import { PlayIcon } from "ui/icons/Icons";
 
 interface SoundViewerProps {
   file: Sound;

@@ -7,18 +7,18 @@ import {
   ScriptEventsRef,
 } from "renderer/project/store/features/entities/entitiesTypes";
 import styled, { css } from "styled-components";
-import { Button } from "renderer/components/ui/buttons/Button";
+import { Button } from "ui/buttons/Button";
 import entitiesActions from "renderer/project/store/features/entities/entitiesActions";
 import { useDispatch } from "react-redux";
 import {
   ScriptEventPlaceholder,
   ScriptEventWrapper,
-} from "renderer/components/ui/scripting/ScriptEvents";
-import { RelativePortal } from "renderer/components/ui/layout/RelativePortal";
+} from "ui/scripting/ScriptEvents";
+import { RelativePortal } from "ui/layout/RelativePortal";
 import AddScriptEventMenu from "./AddScriptEventMenu";
-import { MenuOverlay } from "renderer/components/ui/menu/Menu";
+import { MenuOverlay } from "ui/menu/Menu";
 import clipboardActions from "renderer/project/store/features/clipboard/clipboardActions";
-import { CloneIcon, PlusIcon } from "renderer/components/ui/icons/Icons";
+import { CloneIcon, PlusIcon } from "ui/icons/Icons";
 
 interface AddButtonProps {
   parentType: ScriptEventParentType;

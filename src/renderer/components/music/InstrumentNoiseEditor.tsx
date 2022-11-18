@@ -4,13 +4,13 @@ import castEventValue from "lib/helpers/castEventValue";
 import { l10n } from "renderer/lib/api";
 import trackerDocumentActions from "renderer/project/store/features/trackerDocument/trackerDocumentActions";
 import { NoiseInstrument } from "renderer/project/store/features/trackerDocument/trackerDocumentTypes";
-import { CheckboxField } from "renderer/components/ui/form/CheckboxField";
-import { FormDivider, FormRow } from "renderer/components/ui/form/FormLayout";
+import { CheckboxField } from "ui/form/CheckboxField";
+import { FormDivider, FormRow } from "ui/form/FormLayout";
 import { InstrumentLengthForm } from "./InstrumentLengthForm";
 import { InstrumentVolumeEditor } from "./InstrumentVolumeEditor";
 import { NoiseMacroEditorForm } from "./NoiseMacroEditorForm";
 // import { ipcRenderer } from "electron";
-import { Button } from "renderer/components/ui/buttons/Button";
+import { Button } from "ui/buttons/Button";
 
 interface InstrumentNoiseEditorProps {
   id: string;

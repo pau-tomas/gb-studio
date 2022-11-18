@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { Button } from "renderer/components/ui/buttons/Button";
+import { Button } from "ui/buttons/Button";
 import { Input } from "./Input";
 
 export const InputGroup = styled.div`

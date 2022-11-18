@@ -1,7 +1,7 @@
 import React, { useCallback } from "react";
 import { l10n } from "renderer/lib/api";
-import { DropdownButton } from "renderer/components/ui/buttons/DropdownButton";
-import { MenuDivider, MenuItem } from "renderer/components/ui/menu/Menu";
+import { DropdownButton } from "ui/buttons/DropdownButton";
+import { MenuDivider, MenuItem } from "ui/menu/Menu";
 import { useDispatch, useSelector } from "react-redux";
 import clipboardActions from "renderer/project/store/features/clipboard/clipboardActions";
 import entitiesActions from "renderer/project/store/features/entities/entitiesActions";

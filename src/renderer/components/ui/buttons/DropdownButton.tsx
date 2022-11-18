@@ -8,7 +8,7 @@ import React, {
   ReactNode,
 } from "react";
 import styled, { css } from "styled-components";
-import { RelativePortal } from "renderer/components/ui/layout/RelativePortal";
+import { RelativePortal } from "ui/layout/RelativePortal";
 import useDropdownMenu from "../hooks/use-dropdown-menu";
 import { TriangleIcon } from "../icons/Icons";
 import { Menu, MenuItem, MenuItemProps } from "../menu/Menu";

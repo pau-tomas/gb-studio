@@ -12,9 +12,9 @@ import { RootState } from "renderer/project/store/configureStore";
 import { spriteAnimationSelectors } from "renderer/project/store/features/entities/entitiesState";
 import entitiesActions from "renderer/project/store/features/entities/entitiesActions";
 import editorActions from "renderer/project/store/features/editor/editorActions";
-import { CloneIcon, PlusIcon } from "renderer/components/ui/icons/Icons";
+import { CloneIcon, PlusIcon } from "ui/icons/Icons";
 import SpriteAnimationTimelineFrame from "./SpriteAnimationTimelineFrame";
-import { FixedSpacer } from "renderer/components/ui/spacing/Spacing";
+import { FixedSpacer } from "ui/spacing/Spacing";
 import { l10n } from "renderer/lib/api";
 
 interface SpriteAnimationTimelineProps {

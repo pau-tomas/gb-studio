@@ -6,11 +6,8 @@ import { l10n } from "renderer/lib/api";
 import { RootState } from "renderer/project/store/configureStore";
 import { backgroundSelectors } from "renderer/project/store/features/entities/entitiesState";
 import warningsActions from "renderer/project/store/features/warnings/warningsActions";
-import {
-  SelectMenu,
-  selectMenuStyleProps,
-} from "renderer/components/ui/form/Select";
-import { RelativePortal } from "renderer/components/ui/layout/RelativePortal";
+import { SelectMenu, selectMenuStyleProps } from "ui/form/Select";
+import { RelativePortal } from "ui/layout/RelativePortal";
 import { BackgroundSelect } from "./BackgroundSelect";
 
 interface BackgroundSelectProps {

@@ -6,26 +6,19 @@ import {
 } from "renderer/project/store/features/engine/engineState";
 import { engineFieldValueSelectors } from "renderer/project/store/features/entities/entitiesState";
 import entitiesActions from "renderer/project/store/features/entities/entitiesActions";
-import { Button } from "renderer/components/ui/buttons/Button";
+import { Button } from "ui/buttons/Button";
 import { l10n } from "renderer/lib/api";
-import { SliderField } from "renderer/components/ui/form/SliderField";
+import { SliderField } from "ui/form/SliderField";
 import { useGroupedEngineFields } from "./useGroupedEngineFields";
-import {
-  CardAnchor,
-  CardButtons,
-  CardHeading,
-} from "renderer/components/ui/cards/Card";
-import { SearchableCard } from "renderer/components/ui/cards/SearchableCard";
-import { SearchableSettingRow } from "renderer/components/ui/form/SearchableSettingRow";
-import {
-  SettingRowInput,
-  SettingRowLabel,
-} from "renderer/components/ui/form/SettingRow";
+import { CardAnchor, CardButtons, CardHeading } from "ui/cards/Card";
+import { SearchableCard } from "ui/cards/SearchableCard";
+import { SearchableSettingRow } from "ui/form/SearchableSettingRow";
+import { SettingRowInput, SettingRowLabel } from "ui/form/SettingRow";
 import { EngineFieldValue } from "renderer/project/store/features/entities/entitiesTypes";
-import { Input } from "renderer/components/ui/form/Input";
-import { Checkbox } from "renderer/components/ui/form/Checkbox";
+import { Input } from "ui/form/Input";
+import { Checkbox } from "ui/form/Checkbox";
 import clamp from "lib/helpers/clamp";
-import { Select } from "renderer/components/ui/form/Select";
+import { Select } from "ui/form/Select";
 
 const { editEngineFieldValue, removeEngineFieldValue } = entitiesActions;
 

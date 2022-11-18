@@ -1,5 +1,5 @@
 import React, { useEffect, useRef } from "react";
-import { FormRow } from "renderer/components/ui/form/FormLayout";
+import { FormRow } from "ui/form/FormLayout";
 
 interface NoiseMacroEditorFormProps {
   macros: number[];

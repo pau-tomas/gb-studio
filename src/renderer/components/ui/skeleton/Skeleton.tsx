@@ -1,6 +1,6 @@
 import React, { ReactElement, useRef } from "react";
 import styled from "styled-components";
-import useOnScreen from "renderer/components/ui/hooks/use-on-screen";
+import useOnScreen from "ui/hooks/use-on-screen";
 
 export const SkeletonInput = styled.div`
   background: ${(props) => props.theme.colors.input.background};

@@ -10,9 +10,9 @@ import {
   SingleValueWithPreview,
   SelectCommonProps,
   OptGroup,
-} from "renderer/components/ui/form/Select";
-import { PauseIcon, PlayIcon } from "renderer/components/ui/icons/Icons";
-import { Button } from "renderer/components/ui/buttons/Button";
+} from "ui/form/Select";
+import { PauseIcon, PlayIcon } from "ui/icons/Icons";
+import { Button } from "ui/buttons/Button";
 import musicActions from "renderer/project/store/features/music/musicActions";
 
 interface MusicSelectProps extends SelectCommonProps {

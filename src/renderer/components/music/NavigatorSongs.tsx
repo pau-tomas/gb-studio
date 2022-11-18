@@ -2,10 +2,10 @@ import React, { useCallback, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "renderer/project/store/configureStore";
 import { musicSelectors } from "renderer/project/store/features/entities/entitiesState";
-import { FlatList } from "renderer/components/ui/lists/FlatList";
+import { FlatList } from "ui/lists/FlatList";
 import editorActions from "renderer/project/store/features/editor/editorActions";
 import { Music } from "renderer/project/store/features/entities/entitiesTypes";
-import { EntityListItem } from "renderer/components/ui/lists/EntityListItem";
+import { EntityListItem } from "ui/lists/EntityListItem";
 import { l10n, settings } from "renderer/lib/api";
 import { InstrumentType } from "renderer/project/store/features/editor/editorState";
 import {
@@ -13,15 +13,12 @@ import {
   NoiseInstrument,
   WaveInstrument,
 } from "renderer/project/store/features/trackerDocument/trackerDocumentTypes";
-import { Button } from "renderer/components/ui/buttons/Button";
-import {
-  ArrowLeftRightIcon,
-  PlusIcon,
-} from "renderer/components/ui/icons/Icons";
-import { SplitPaneHeader } from "renderer/components/ui/splitpane/SplitPaneHeader";
-import useSplitPane from "renderer/components/ui/hooks/use-split-pane";
+import { Button } from "ui/buttons/Button";
+import { ArrowLeftRightIcon, PlusIcon } from "ui/icons/Icons";
+import { SplitPaneHeader } from "ui/splitpane/SplitPaneHeader";
+import useSplitPane from "ui/hooks/use-split-pane";
 import styled from "styled-components";
-import { SplitPaneVerticalDivider } from "renderer/components/ui/splitpane/SplitPaneDivider";
+import { SplitPaneVerticalDivider } from "ui/splitpane/SplitPaneDivider";
 import { NoSongsMessage } from "./NoSongsMessage";
 import { assetFilename } from "lib/helpers/gbstudio";
 import { addNewSongFile } from "renderer/project/store/features/trackerDocument/trackerDocumentState";

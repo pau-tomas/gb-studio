@@ -1,36 +1,30 @@
-import { ActorSelect } from "renderer/components/forms/ActorSelect";
-import { AnimationSpeedSelect } from "renderer/components/forms/AnimationSpeedSelect";
-import AnimationStateSelect from "renderer/components/forms/AnimationStateSelect";
-import { AvatarSelect } from "renderer/components/forms/AvatarSelect";
-import { BackgroundSelect } from "renderer/components/forms/BackgroundSelect";
-import { CameraSpeedSelect } from "renderer/components/forms/CameraSpeedSelect";
-import CollisionMaskPicker from "renderer/components/forms/CollisionMaskPicker";
-import { CustomEventSelect } from "renderer/components/forms/CustomEventSelect";
-import DirectionPicker from "renderer/components/forms/DirectionPicker";
-import { EmoteSelect } from "renderer/components/forms/EmoteSelect";
-import EngineFieldSelect from "renderer/components/forms/EngineFieldSelect";
-import { FadeSpeedSelect } from "renderer/components/forms/FadeSpeedSelect";
-import InputPicker from "renderer/components/forms/InputPicker";
-import { MovementSpeedSelect } from "renderer/components/forms/MovementSpeedSelect";
-import { MovementTypeSelect } from "renderer/components/forms/MovementTypeSelect";
-import { MusicSelect } from "renderer/components/forms/MusicSelect";
-import { OperatorSelect } from "renderer/components/forms/OperatorSelect";
-import { MathOperatorSelect } from "renderer/components/forms/MathOperatorSelect";
-import { OverlayColorSelect } from "renderer/components/forms/OverlayColorSelect";
-import { PaletteSelect } from "renderer/components/forms/PaletteSelect";
-import {
-  Priority,
-  PrioritySelect,
-} from "renderer/components/forms/PrioritySelect";
-import { PropertySelect } from "renderer/components/forms/PropertySelect";
-import {
-  Reference,
-  ReferencesSelect,
-} from "renderer/components/forms/ReferencesSelect";
-import { SceneSelect } from "renderer/components/forms/SceneSelect";
-import { SoundEffectSelect } from "renderer/components/forms/SoundEffectSelect";
-import { SpriteSheetSelect } from "renderer/components/forms/SpriteSheetSelect";
-import { VariableSelect } from "renderer/components/forms/VariableSelect";
+import { ActorSelect } from "components/forms/ActorSelect";
+import { AnimationSpeedSelect } from "components/forms/AnimationSpeedSelect";
+import AnimationStateSelect from "components/forms/AnimationStateSelect";
+import { AvatarSelect } from "components/forms/AvatarSelect";
+import { BackgroundSelect } from "components/forms/BackgroundSelect";
+import { CameraSpeedSelect } from "components/forms/CameraSpeedSelect";
+import CollisionMaskPicker from "components/forms/CollisionMaskPicker";
+import { CustomEventSelect } from "components/forms/CustomEventSelect";
+import DirectionPicker from "components/forms/DirectionPicker";
+import { EmoteSelect } from "components/forms/EmoteSelect";
+import EngineFieldSelect from "components/forms/EngineFieldSelect";
+import { FadeSpeedSelect } from "components/forms/FadeSpeedSelect";
+import InputPicker from "components/forms/InputPicker";
+import { MovementSpeedSelect } from "components/forms/MovementSpeedSelect";
+import { MovementTypeSelect } from "components/forms/MovementTypeSelect";
+import { MusicSelect } from "components/forms/MusicSelect";
+import { OperatorSelect } from "components/forms/OperatorSelect";
+import { MathOperatorSelect } from "components/forms/MathOperatorSelect";
+import { OverlayColorSelect } from "components/forms/OverlayColorSelect";
+import { PaletteSelect } from "components/forms/PaletteSelect";
+import { Priority, PrioritySelect } from "components/forms/PrioritySelect";
+import { PropertySelect } from "components/forms/PropertySelect";
+import { Reference, ReferencesSelect } from "components/forms/ReferencesSelect";
+import { SceneSelect } from "components/forms/SceneSelect";
+import { SoundEffectSelect } from "components/forms/SoundEffectSelect";
+import { SpriteSheetSelect } from "components/forms/SpriteSheetSelect";
+import { VariableSelect } from "components/forms/VariableSelect";
 import castEventValue from "lib/helpers/castEventValue";
 import { l10n } from "renderer/lib/api";
 import React, { useCallback, useContext } from "react";
@@ -44,22 +38,18 @@ import {
   UnitType,
 } from "renderer/project/store/features/entities/entitiesTypes";
 import styled from "styled-components";
-import { Button } from "renderer/components/ui/buttons/Button";
-import { DropdownButton } from "renderer/components/ui/buttons/DropdownButton";
-import { CheckboxField } from "renderer/components/ui/form/CheckboxField";
-import { CodeEditor } from "renderer/components/ui/form/CodeEditor";
-import { Input } from "renderer/components/ui/form/Input";
-import { NumberInput } from "renderer/components/ui/form/NumberInput";
-import { Select } from "renderer/components/ui/form/Select";
-import { SliderField } from "renderer/components/ui/form/SliderField";
-import ToggleButtons from "renderer/components/ui/form/ToggleButtons";
-import {
-  BlankIcon,
-  CheckIcon,
-  ConnectIcon,
-} from "renderer/components/ui/icons/Icons";
-import { MenuItem, MenuItemIcon } from "renderer/components/ui/menu/Menu";
-import { OffscreenSkeletonInput } from "renderer/components/ui/skeleton/Skeleton";
+import { Button } from "ui/buttons/Button";
+import { DropdownButton } from "ui/buttons/DropdownButton";
+import { CheckboxField } from "ui/form/CheckboxField";
+import { CodeEditor } from "ui/form/CodeEditor";
+import { Input } from "ui/form/Input";
+import { NumberInput } from "ui/form/NumberInput";
+import { Select } from "ui/form/Select";
+import { SliderField } from "ui/form/SliderField";
+import ToggleButtons from "ui/form/ToggleButtons";
+import { BlankIcon, CheckIcon, ConnectIcon } from "ui/icons/Icons";
+import { MenuItem, MenuItemIcon } from "ui/menu/Menu";
+import { OffscreenSkeletonInput } from "ui/skeleton/Skeleton";
 import {
   defaultVariableForContext,
   ScriptEditorContext,

@@ -13,7 +13,7 @@ import {
   OptionLabelWithPreview,
   Select,
   SingleValueWithPreview,
-} from "renderer/components/ui/form/Select";
+} from "ui/form/Select";
 
 interface PaletteIndexSelectProps {
   name: string;

@@ -7,9 +7,9 @@ import {
   SingleValueWithPreview,
   SelectCommonProps,
   OptGroup,
-} from "renderer/components/ui/form/Select";
-import { PlayIcon } from "renderer/components/ui/icons/Icons";
-import { Button } from "renderer/components/ui/buttons/Button";
+} from "ui/form/Select";
+import { PlayIcon } from "ui/icons/Icons";
+import { Button } from "ui/buttons/Button";
 import soundfxActions from "renderer/project/store/features/soundfx/soundfxActions";
 import { l10n } from "renderer/lib/api";
 import { soundSelectors } from "renderer/project/store/features/entities/entitiesState";

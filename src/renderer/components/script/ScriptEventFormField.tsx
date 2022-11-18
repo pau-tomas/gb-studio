@@ -4,23 +4,16 @@ import { RootState } from "renderer/project/store/configureStore";
 import { scriptEventSelectors } from "renderer/project/store/features/entities/entitiesState";
 import { ScriptEventFieldSchema } from "renderer/project/store/features/entities/entitiesTypes";
 import entitiesActions from "renderer/project/store/features/entities/entitiesActions";
-import {
-  ArrowIcon,
-  MinusIcon,
-  PlusIcon,
-} from "renderer/components/ui/icons/Icons";
+import { ArrowIcon, MinusIcon, PlusIcon } from "ui/icons/Icons";
 import ScriptEventFormInput from "./ScriptEventFormInput";
-import {
-  FormField,
-  ToggleableFormField,
-} from "renderer/components/ui/form/FormLayout";
+import { FormField, ToggleableFormField } from "ui/form/FormLayout";
 import {
   ScriptEventField,
   ScriptEventBranchHeader,
   ScriptEventHeaderCaret,
-} from "renderer/components/ui/scripting/ScriptEvents";
-import { FixedSpacer, FlexBreak } from "renderer/components/ui/spacing/Spacing";
-import { TabBar } from "renderer/components/ui/tabs/Tabs";
+} from "ui/scripting/ScriptEvents";
+import { FixedSpacer, FlexBreak } from "ui/spacing/Spacing";
+import { TabBar } from "ui/tabs/Tabs";
 
 interface ScriptEventFormFieldProps {
   scriptEventId: string;

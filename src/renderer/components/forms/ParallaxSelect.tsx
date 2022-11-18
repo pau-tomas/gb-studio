@@ -3,9 +3,9 @@ import { useDispatch } from "react-redux";
 import styled from "styled-components";
 import { l10n } from "renderer/lib/api";
 import { SceneParallaxLayer } from "renderer/project/store/features/entities/entitiesTypes";
-import { CoordinateInput } from "renderer/components/ui/form/CoordinateInput";
-import { FormField } from "renderer/components/ui/form/FormLayout";
-import { Select } from "renderer/components/ui/form/Select";
+import { CoordinateInput } from "ui/form/CoordinateInput";
+import { FormField } from "ui/form/FormLayout";
+import { Select } from "ui/form/Select";
 import { ParallaxSpeedSelect } from "./ParallaxSpeedSelect";
 import editorActions from "renderer/project/store/features/editor/editorActions";
 

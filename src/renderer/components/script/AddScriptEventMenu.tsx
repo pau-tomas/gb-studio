@@ -6,14 +6,14 @@ import React, {
   useState,
 } from "react";
 import cloneDeep from "lodash/cloneDeep";
-import { OptGroup } from "renderer/components/ui/form/Select";
+import { OptGroup } from "ui/form/Select";
 import events, { EventHandler } from "lib/events";
 import { l10n } from "renderer/lib/api";
 import styled, { css } from "styled-components";
-import { Menu, MenuGroup, MenuItem } from "renderer/components/ui/menu/Menu";
-import { CaretRightIcon, StarIcon } from "renderer/components/ui/icons/Icons";
-import { FlexGrow } from "renderer/components/ui/spacing/Spacing";
-import { Button } from "renderer/components/ui/buttons/Button";
+import { Menu, MenuGroup, MenuItem } from "ui/menu/Menu";
+import { CaretRightIcon, StarIcon } from "ui/icons/Icons";
+import { FlexGrow } from "ui/spacing/Spacing";
+import { Button } from "ui/buttons/Button";
 import Fuse from "fuse.js";
 import { Dictionary } from "@reduxjs/toolkit";
 import { useDispatch, useSelector } from "react-redux";
@@ -32,7 +32,7 @@ import {
   spriteSheetSelectors,
 } from "renderer/project/store/features/entities/entitiesState";
 import { EVENT_TEXT } from "lib/compiler/eventTypes";
-import { useDebounce } from "renderer/components/ui/hooks/use-debounce";
+import { useDebounce } from "ui/hooks/use-debounce";
 import {
   defaultVariableForContext,
   ScriptEditorContext,

@@ -9,7 +9,7 @@ import {
   OptionLabelWithPreview,
   SingleValueWithPreview,
   SelectCommonProps,
-} from "renderer/components/ui/form/Select";
+} from "ui/form/Select";
 
 const defaultInstrumentOptions = Array(15)
   .fill("")

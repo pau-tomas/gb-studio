@@ -6,27 +6,27 @@ import {
   spriteSheetSelectors,
   spriteStateSelectors,
 } from "renderer/project/store/features/entities/entitiesState";
-import { FlatList } from "renderer/components/ui/lists/FlatList";
+import { FlatList } from "ui/lists/FlatList";
 import editorActions from "renderer/project/store/features/editor/editorActions";
 import entitiesActions from "renderer/project/store/features/entities/entitiesActions";
 import {
   SpriteSheet,
   SpriteState,
 } from "renderer/project/store/features/entities/entitiesTypes";
-import { EntityListItem } from "renderer/components/ui/lists/EntityListItem";
+import { EntityListItem } from "ui/lists/EntityListItem";
 import { l10n } from "renderer/lib/api";
-import { SplitPaneHeader } from "renderer/components/ui/splitpane/SplitPaneHeader";
-import { Button } from "renderer/components/ui/buttons/Button";
+import { SplitPaneHeader } from "ui/splitpane/SplitPaneHeader";
+import { Button } from "ui/buttons/Button";
 import {
   ArrowIdleIcon,
   ArrowJumpIcon,
   ArrowMoveIcon,
   PlusIcon,
-} from "renderer/components/ui/icons/Icons";
-import { SplitPaneVerticalDivider } from "renderer/components/ui/splitpane/SplitPaneDivider";
-import useSplitPane from "renderer/components/ui/hooks/use-split-pane";
+} from "ui/icons/Icons";
+import { SplitPaneVerticalDivider } from "ui/splitpane/SplitPaneDivider";
+import useSplitPane from "ui/hooks/use-split-pane";
 import styled from "styled-components";
-import useToggleableList from "renderer/components/ui/hooks/use-toggleable-list";
+import useToggleableList from "ui/hooks/use-toggleable-list";
 import {
   AnimationType,
   filterAnimationsBySpriteType,

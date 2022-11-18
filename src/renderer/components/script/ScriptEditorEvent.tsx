@@ -32,32 +32,24 @@ import {
   ScriptEventRenameInputCompleteButton,
   ScriptEditorChildrenWrapper,
   ScriptEditorChildrenLabel,
-} from "renderer/components/ui/scripting/ScriptEvents";
-import {
-  ArrowIcon,
-  CheckIcon,
-  CommentIcon,
-} from "renderer/components/ui/icons/Icons";
-import { FixedSpacer } from "renderer/components/ui/spacing/Spacing";
+} from "ui/scripting/ScriptEvents";
+import { ArrowIcon, CheckIcon, CommentIcon } from "ui/icons/Icons";
+import { FixedSpacer } from "ui/spacing/Spacing";
 import ScriptEventForm from "./ScriptEventForm";
 import { l10n } from "renderer/lib/api";
 import events from "lib/events";
 import { ScriptEditorEventHelper } from "./ScriptEditorEventHelper";
 import ItemTypes from "lib/dnd/itemTypes";
-import { DropdownButton } from "renderer/components/ui/buttons/DropdownButton";
-import {
-  MenuDivider,
-  MenuItem,
-  MenuOverlay,
-} from "renderer/components/ui/menu/Menu";
+import { DropdownButton } from "ui/buttons/DropdownButton";
+import { MenuDivider, MenuItem, MenuOverlay } from "ui/menu/Menu";
 import clipboardActions from "renderer/project/store/features/clipboard/clipboardActions";
 import { ClipboardTypeScriptEvents } from "renderer/project/store/features/clipboard/clipboardTypes";
-import { RelativePortal } from "renderer/components/ui/layout/RelativePortal";
+import { RelativePortal } from "ui/layout/RelativePortal";
 import AddScriptEventMenu from "./AddScriptEventMenu";
 import ScriptEventTitle from "./ScriptEventTitle";
-import useOnScreen from "renderer/components/ui/hooks/use-on-screen";
-import { ScriptEventSymbolsEditor } from "renderer/components/forms/symbols/ScriptEventSymbolsEditor";
-import { ScriptEventSymbolEditorWrapper } from "renderer/components/forms/symbols/SymbolEditorWrapper";
+import useOnScreen from "ui/hooks/use-on-screen";
+import { ScriptEventSymbolsEditor } from "components/forms/symbols/ScriptEventSymbolsEditor";
+import { ScriptEventSymbolEditorWrapper } from "components/forms/symbols/SymbolEditorWrapper";
 
 interface ScriptEditorEventProps {
   id: string;

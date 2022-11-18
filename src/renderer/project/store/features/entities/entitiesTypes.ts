@@ -1,5 +1,5 @@
 import { EntityState, Dictionary } from "@reduxjs/toolkit";
-import { ScriptEditorContextType } from "renderer/components/script/ScriptEditorContext";
+import { ScriptEditorContextType } from "components/script/ScriptEditorContext";
 
 export type ActorDirection = "up" | "down" | "left" | "right";
 export type SpriteType = "static" | "animated" | "actor" | "actor_animated";

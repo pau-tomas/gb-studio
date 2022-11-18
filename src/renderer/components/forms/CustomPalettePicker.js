@@ -8,7 +8,7 @@ import { FormField } from "../library/Forms";
 import ColorSlider from "./ColorSlider";
 import { paletteSelectors } from "renderer/project/store/features/entities/entitiesState";
 import entitiesActions from "renderer/project/store/features/entities/entitiesActions";
-import { Button } from "renderer/components/ui/buttons/Button";
+import { Button } from "ui/buttons/Button";
 import { clipboard } from "renderer/project/store/features/clipboard/clipboardHelpers";
 
 const DEFAULT_WHITE = "E8F8E0";

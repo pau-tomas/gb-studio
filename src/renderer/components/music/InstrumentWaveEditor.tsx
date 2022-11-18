@@ -3,16 +3,12 @@ import { useDispatch } from "react-redux";
 import { l10n } from "renderer/lib/api";
 import trackerDocumentActions from "renderer/project/store/features/trackerDocument/trackerDocumentActions";
 import { WaveInstrument } from "renderer/project/store/features/trackerDocument/trackerDocumentTypes";
-import {
-  FormDivider,
-  FormField,
-  FormRow,
-} from "renderer/components/ui/form/FormLayout";
-import { Select } from "renderer/components/ui/form/Select";
+import { FormDivider, FormField, FormRow } from "ui/form/FormLayout";
+import { Select } from "ui/form/Select";
 import { InstrumentLengthForm } from "./InstrumentLengthForm";
 import { WaveEditorForm } from "./WaveEditorForm";
 // import { ipcRenderer } from "electron";
-import { Button } from "renderer/components/ui/buttons/Button";
+import { Button } from "ui/buttons/Button";
 
 const ipcRenderer = {
   send: (..._a: unknown[]) => {

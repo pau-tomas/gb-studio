@@ -12,29 +12,26 @@ import metadataActions from "renderer/project/store/features/metadata/metadataAc
 import { sceneSelectors } from "renderer/project/store/features/entities/entitiesState";
 import editorActions from "renderer/project/store/features/editor/editorActions";
 import navigationActions from "renderer/project/store/features/navigation/navigationActions";
-import {
-  SidebarColumn,
-  Sidebar,
-} from "renderer/components/ui/sidebars/Sidebar";
+import { SidebarColumn, Sidebar } from "ui/sidebars/Sidebar";
 import {
   FormContainer,
   FormDivider,
   FormField,
   FormHeader,
   FormRow,
-} from "renderer/components/ui/form/FormLayout";
+} from "ui/form/FormLayout";
 import { RootState } from "renderer/project/store/configureStore";
-import { EditableText } from "renderer/components/ui/form/EditableText";
-import { DropdownButton } from "renderer/components/ui/buttons/DropdownButton";
-import { MenuItem } from "renderer/components/ui/menu/Menu";
+import { EditableText } from "ui/form/EditableText";
+import { DropdownButton } from "ui/buttons/DropdownButton";
+import { MenuItem } from "ui/menu/Menu";
 import { MetadataState } from "renderer/project/store/features/metadata/metadataState";
-import { CoordinateInput } from "renderer/components/ui/form/CoordinateInput";
+import { CoordinateInput } from "ui/form/CoordinateInput";
 import { SettingsState } from "renderer/project/store/features/settings/settingsState";
-import { Label } from "renderer/components/ui/form/Label";
-import { NoteField } from "renderer/components/ui/form/NoteField";
-import { TextField } from "renderer/components/ui/form/TextField";
-import { CheckboxField } from "renderer/components/ui/form/CheckboxField";
-import { Button } from "renderer/components/ui/buttons/Button";
+import { Label } from "ui/form/Label";
+import { NoteField } from "ui/form/NoteField";
+import { TextField } from "ui/form/TextField";
+import { CheckboxField } from "ui/form/CheckboxField";
+import { Button } from "ui/buttons/Button";
 
 export const WorldEditor: FC = () => {
   const metadata = useSelector(

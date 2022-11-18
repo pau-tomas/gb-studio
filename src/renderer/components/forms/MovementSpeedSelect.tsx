@@ -1,10 +1,7 @@
 import React, { FC, useEffect, useState } from "react";
 import { l10n } from "renderer/lib/api";
-import { Input } from "renderer/components/ui/form/Input";
-import {
-  OptionLabelWithInfo,
-  Select,
-} from "renderer/components/ui/form/Select";
+import { Input } from "ui/form/Input";
+import { OptionLabelWithInfo, Select } from "ui/form/Select";
 
 interface MovementSpeedSelectProps {
   name: string;

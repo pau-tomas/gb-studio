@@ -11,7 +11,7 @@ import {
   OptionLabelWithPreview,
   Select,
   SingleValueWithPreview,
-} from "renderer/components/ui/form/Select";
+} from "ui/form/Select";
 import {
   actorSelectors,
   customEventSelectors,
@@ -20,7 +20,7 @@ import {
 } from "renderer/project/store/features/entities/entitiesState";
 import { actorName } from "renderer/project/store/features/entities/entitiesHelpers";
 import { l10n } from "renderer/lib/api";
-import SpriteSheetCanvas from "renderer/components/world/SpriteSheetCanvas";
+import SpriteSheetCanvas from "components/world/SpriteSheetCanvas";
 import styled from "styled-components";
 import { UnitsSelectButtonInputOverlay } from "./UnitsSelectButtonInputOverlay";
 

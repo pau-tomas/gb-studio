@@ -2,14 +2,14 @@ import React, { useContext, useEffect, useRef } from "react";
 import styled, { ThemeContext } from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
 import debounce from "lodash/debounce";
-import useResizable from "renderer/components/ui/hooks/use-resizable";
-import useWindowSize from "renderer/components/ui/hooks/use-window-size";
-import { SplitPaneHorizontalDivider } from "renderer/components/ui/splitpane/SplitPaneDivider";
+import useResizable from "ui/hooks/use-resizable";
+import useWindowSize from "ui/hooks/use-window-size";
+import { SplitPaneHorizontalDivider } from "ui/splitpane/SplitPaneDivider";
 import { RootState } from "renderer/project/store/configureStore";
 import editorActions from "renderer/project/store/features/editor/editorActions";
 import { soundSelectors } from "renderer/project/store/features/entities/entitiesState";
-import { NavigatorSounds } from "renderer/components/sounds/NavigatorSounds";
-import { SoundViewer } from "renderer/components/sounds/SoundViewer";
+import { NavigatorSounds } from "components/sounds/NavigatorSounds";
+import { SoundViewer } from "components/sounds/SoundViewer";
 
 const Wrapper = styled.div`
   display: flex;

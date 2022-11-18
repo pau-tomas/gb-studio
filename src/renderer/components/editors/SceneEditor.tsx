@@ -11,44 +11,34 @@ import editorActions from "renderer/project/store/features/editor/editorActions"
 import clipboardActions from "renderer/project/store/features/clipboard/clipboardActions";
 import entitiesActions from "renderer/project/store/features/entities/entitiesActions";
 import settingsActions from "renderer/project/store/features/settings/settingsActions";
-import {
-  Sidebar,
-  SidebarColumn,
-} from "renderer/components/ui/sidebars/Sidebar";
+import { Sidebar, SidebarColumn } from "ui/sidebars/Sidebar";
 import {
   FormContainer,
   FormDivider,
   FormField,
   FormHeader,
   FormRow,
-} from "renderer/components/ui/form/FormLayout";
-import { EditableText } from "renderer/components/ui/form/EditableText";
+} from "ui/form/FormLayout";
+import { EditableText } from "ui/form/EditableText";
 import { RootState } from "renderer/project/store/configureStore";
 import {
   Scene,
   ScriptEvent,
 } from "renderer/project/store/features/entities/entitiesTypes";
-import { MenuDivider, MenuItem } from "renderer/components/ui/menu/Menu";
-import { DropdownButton } from "renderer/components/ui/buttons/DropdownButton";
-import { NoteField } from "renderer/components/ui/form/NoteField";
+import { MenuDivider, MenuItem } from "ui/menu/Menu";
+import { DropdownButton } from "ui/buttons/DropdownButton";
+import { NoteField } from "ui/form/NoteField";
 import { SceneTypeSelect } from "../forms/SceneTypeSelect";
 import { BackgroundSelectButton } from "../forms/BackgroundSelectButton";
 import { PaletteSelectButton } from "../forms/PaletteSelectButton";
-import {
-  LabelButton,
-  LabelColor,
-} from "renderer/components/ui/buttons/LabelButton";
-import { CoordinateInput } from "renderer/components/ui/form/CoordinateInput";
+import { LabelButton, LabelColor } from "ui/buttons/LabelButton";
+import { CoordinateInput } from "ui/form/CoordinateInput";
 import DirectionPicker from "../forms/DirectionPicker";
 import { SettingsState } from "renderer/project/store/features/settings/settingsState";
-import { StickyTabs, TabBar } from "renderer/components/ui/tabs/Tabs";
-import { Label } from "renderer/components/ui/form/Label";
-import { Button } from "renderer/components/ui/buttons/Button";
-import {
-  LockIcon,
-  LockOpenIcon,
-  ParallaxIcon,
-} from "renderer/components/ui/icons/Icons";
+import { StickyTabs, TabBar } from "ui/tabs/Tabs";
+import { Label } from "ui/form/Label";
+import { Button } from "ui/buttons/Button";
+import { LockIcon, LockOpenIcon, ParallaxIcon } from "ui/icons/Icons";
 import ParallaxSelect, {
   defaultValues as parallaxDefaultValues,
 } from "../forms/ParallaxSelect";
@@ -59,11 +49,11 @@ import {
   ClipboardTypeScenes,
 } from "renderer/project/store/features/clipboard/clipboardTypes";
 import { SCREEN_WIDTH } from "shared/consts";
-import { ScriptEventAutoFadeDisabledWarning } from "renderer/components/script/ScriptEventAutoFade";
-import { SceneSymbolsEditor } from "renderer/components/forms/symbols/SceneSymbolsEditor";
-import { BackgroundSymbolsEditor } from "renderer/components/forms/symbols/BackgroundSymbolsEditor";
-import { SymbolEditorWrapper } from "renderer/components/forms/symbols/SymbolEditorWrapper";
-import { ScriptEditorContext } from "renderer/components/script/ScriptEditorContext";
+import { ScriptEventAutoFadeDisabledWarning } from "components/script/ScriptEventAutoFade";
+import { SceneSymbolsEditor } from "components/forms/symbols/SceneSymbolsEditor";
+import { BackgroundSymbolsEditor } from "components/forms/symbols/BackgroundSymbolsEditor";
+import { SymbolEditorWrapper } from "components/forms/symbols/SymbolEditorWrapper";
+import { ScriptEditorContext } from "components/script/ScriptEditorContext";
 
 interface SceneEditorProps {
   id: string;

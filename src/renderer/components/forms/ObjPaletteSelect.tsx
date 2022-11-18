@@ -1,6 +1,6 @@
 import React, { FC } from "react";
 import { ObjPalette } from "renderer/project/store/features/entities/entitiesTypes";
-import { Select } from "renderer/components/ui/form/Select";
+import { Select } from "ui/form/Select";
 
 interface ObjPaletteSelectProps {
   name: string;

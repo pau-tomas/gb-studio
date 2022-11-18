@@ -2,11 +2,11 @@ import React, { FC, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "renderer/project/store/configureStore";
 import { variableSelectors } from "renderer/project/store/features/entities/entitiesState";
-import { FlatList } from "renderer/components/ui/lists/FlatList";
+import { FlatList } from "ui/lists/FlatList";
 import editorActions from "renderer/project/store/features/editor/editorActions";
 import { Variable } from "renderer/project/store/features/entities/entitiesTypes";
 import { allVariables, globalVariableDefaultName } from "lib/helpers/variables";
-import { EntityListItem } from "renderer/components/ui/lists/EntityListItem";
+import { EntityListItem } from "ui/lists/EntityListItem";
 
 interface NavigatorVariablesProps {
   height: number;

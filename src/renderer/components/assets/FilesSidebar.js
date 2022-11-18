@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import cx from "classnames";
 import Button from "../library/Button";
-import { HelpIcon } from "renderer/components/ui/icons/Icons";
+import { HelpIcon } from "ui/icons/Icons";
 import { l10n } from "renderer/lib/api";
 import { groupBy } from "lib/helpers/array";
 import editorActions from "renderer/project/store/features/editor/editorActions";

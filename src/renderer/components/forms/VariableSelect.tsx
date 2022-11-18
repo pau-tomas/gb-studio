@@ -4,7 +4,7 @@ import {
   Option,
   OptGroup,
   SelectCommonProps,
-} from "renderer/components/ui/form/Select";
+} from "ui/form/Select";
 import styled from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -17,12 +17,12 @@ import {
   NamedVariable,
   namedVariablesByContext,
 } from "lib/helpers/variables";
-import { CheckIcon, PencilIcon } from "renderer/components/ui/icons/Icons";
-import { Input } from "renderer/components/ui/form/Input";
+import { CheckIcon, PencilIcon } from "ui/icons/Icons";
+import { Input } from "ui/form/Input";
 import entitiesActions from "renderer/project/store/features/entities/entitiesActions";
 import { l10n } from "renderer/lib/api";
 import editorActions from "renderer/project/store/features/editor/editorActions";
-import { ScriptEditorContext } from "renderer/components/script/ScriptEditorContext";
+import { ScriptEditorContext } from "components/script/ScriptEditorContext";
 import { UnitsSelectButtonInputOverlay } from "./UnitsSelectButtonInputOverlay";
 import { UnitType } from "renderer/project/store/features/entities/entitiesTypes";
 

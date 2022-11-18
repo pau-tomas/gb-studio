@@ -1,9 +1,6 @@
 import React, { FC } from "react";
 import { l10n } from "renderer/lib/api";
-import {
-  OptionLabelWithInfo,
-  Select,
-} from "renderer/components/ui/form/Select";
+import { OptionLabelWithInfo, Select } from "ui/form/Select";
 
 interface AnimationSpeedSelectProps {
   name: string;

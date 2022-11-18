@@ -1,7 +1,7 @@
-import promiseLimit from "../helpers/promiseLimit";
-import { assetFilename } from "../helpers/gbstudio";
-import getFileModifiedTime from "../helpers/fs/getModifiedTime";
-import { readFileToTilesData } from "../tiles/tileData";
+import promiseLimit from "lib/helpers/promiseLimit";
+import { assetFilename } from "lib/helpers/gbstudio";
+import getFileModifiedTime from "lib/helpers/fs/getModifiedTime";
+import { readFileToTilesData } from "lib/tiles/tileData";
 
 const avatarBuildCache = {};
 

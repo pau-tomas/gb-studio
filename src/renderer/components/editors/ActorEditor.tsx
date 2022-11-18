@@ -5,16 +5,16 @@ import {
   actorSelectors,
   sceneSelectors,
 } from "renderer/project/store/features/entities/entitiesState";
-import { DropdownButton } from "renderer/components/ui/buttons/DropdownButton";
-import { EditableText } from "renderer/components/ui/form/EditableText";
+import { DropdownButton } from "ui/buttons/DropdownButton";
+import { EditableText } from "ui/form/EditableText";
 import {
   FormContainer,
   FormDivider,
   FormField,
   FormHeader,
   FormRow,
-} from "renderer/components/ui/form/FormLayout";
-import { MenuDivider, MenuItem } from "renderer/components/ui/menu/Menu";
+} from "ui/form/FormLayout";
+import { MenuDivider, MenuItem } from "ui/menu/Menu";
 import entitiesActions from "renderer/project/store/features/entities/entitiesActions";
 import editorActions from "renderer/project/store/features/editor/editorActions";
 import clipboardActions from "renderer/project/store/features/clipboard/clipboardActions";
@@ -23,19 +23,12 @@ import {
   ScriptEvent,
 } from "renderer/project/store/features/entities/entitiesTypes";
 import { l10n } from "renderer/lib/api";
-import {
-  Sidebar,
-  SidebarColumn,
-} from "renderer/components/ui/sidebars/Sidebar";
-import { CoordinateInput } from "renderer/components/ui/form/CoordinateInput";
-import { Checkbox } from "renderer/components/ui/form/Checkbox";
-import {
-  LockIcon,
-  LockOpenIcon,
-  PinIcon,
-} from "renderer/components/ui/icons/Icons";
+import { Sidebar, SidebarColumn } from "ui/sidebars/Sidebar";
+import { CoordinateInput } from "ui/form/CoordinateInput";
+import { Checkbox } from "ui/form/Checkbox";
+import { LockIcon, LockOpenIcon, PinIcon } from "ui/icons/Icons";
 import castEventValue from "lib/helpers/castEventValue";
-import { CheckboxField } from "renderer/components/ui/form/CheckboxField";
+import { CheckboxField } from "ui/form/CheckboxField";
 import DirectionPicker from "../forms/DirectionPicker";
 import { DMG_PALETTE } from "shared/consts";
 import { SpriteSheetSelectButton } from "../forms/SpriteSheetSelectButton";
@@ -46,18 +39,14 @@ import { AnimationSpeedSelect } from "../forms/AnimationSpeedSelect";
 import { MovementSpeedSelect } from "../forms/MovementSpeedSelect";
 import CollisionMaskPicker from "../forms/CollisionMaskPicker";
 import { KeysMatching } from "lib/helpers/types";
-import { NoteField } from "renderer/components/ui/form/NoteField";
-import {
-  StickyTabs,
-  TabBar,
-  TabSettings,
-} from "renderer/components/ui/tabs/Tabs";
-import { Button } from "renderer/components/ui/buttons/Button";
+import { NoteField } from "ui/form/NoteField";
+import { StickyTabs, TabBar, TabSettings } from "ui/tabs/Tabs";
+import { Button } from "ui/buttons/Button";
 import { ClipboardTypeActors } from "renderer/project/store/features/clipboard/clipboardTypes";
-import { ActorSymbolsEditor } from "renderer/components/forms/symbols/ActorSymbolsEditor";
-import { SpriteSymbolsEditor } from "renderer/components/forms/symbols/SpriteSymbolsEditor";
-import { SymbolEditorWrapper } from "renderer/components/forms/symbols/SymbolEditorWrapper";
-import { ScriptEditorContext } from "renderer/components/script/ScriptEditorContext";
+import { ActorSymbolsEditor } from "components/forms/symbols/ActorSymbolsEditor";
+import { SpriteSymbolsEditor } from "components/forms/symbols/SpriteSymbolsEditor";
+import { SymbolEditorWrapper } from "components/forms/symbols/SymbolEditorWrapper";
+import { ScriptEditorContext } from "components/script/ScriptEditorContext";
 
 interface ActorEditorProps {
   id: string;

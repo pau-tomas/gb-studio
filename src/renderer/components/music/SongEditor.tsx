@@ -1,20 +1,17 @@
 import React, { useCallback, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { DropdownButton } from "renderer/components/ui/buttons/DropdownButton";
-import { EditableText } from "renderer/components/ui/form/EditableText";
+import { DropdownButton } from "ui/buttons/DropdownButton";
+import { EditableText } from "ui/form/EditableText";
 import {
   FormContainer,
   FormDivider,
   FormHeader,
   FormRow,
-} from "renderer/components/ui/form/FormLayout";
-import {
-  Sidebar,
-  SidebarColumn,
-} from "renderer/components/ui/sidebars/Sidebar";
-import { Label } from "renderer/components/ui/form/Label";
+} from "ui/form/FormLayout";
+import { Sidebar, SidebarColumn } from "ui/sidebars/Sidebar";
+import { Label } from "ui/form/Label";
 import { RootState } from "renderer/project/store/configureStore";
-import { Input } from "renderer/components/ui/form/Input";
+import { Input } from "ui/form/Input";
 import { InstrumentDutyEditor } from "./InstrumentDutyEditor";
 import { InstrumentWaveEditor } from "./InstrumentWaveEditor";
 import { InstrumentNoiseEditor } from "./InstrumentNoiseEditor";
@@ -27,7 +24,7 @@ import {
   WaveInstrument,
 } from "renderer/project/store/features/trackerDocument/trackerDocumentTypes";
 import trackerDocumentActions from "renderer/project/store/features/trackerDocument/trackerDocumentActions";
-import { MenuItem } from "renderer/components/library/Menu";
+import { MenuItem } from "components/library/Menu";
 import { PatternCellEditor } from "./PatternCellEditor";
 import trackerActions from "renderer/project/store/features/tracker/trackerActions";
 

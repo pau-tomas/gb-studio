@@ -5,10 +5,10 @@ import {
   unitTypes,
 } from "renderer/project/store/features/entities/entitiesTypes";
 import styled from "styled-components";
-import { Button } from "renderer/components/ui/buttons/Button";
-import { DropdownButton } from "renderer/components/ui/buttons/DropdownButton";
-import { CheckIcon, BlankIcon } from "renderer/components/ui/icons/Icons";
-import { MenuItem, MenuItemIcon } from "renderer/components/ui/menu/Menu";
+import { Button } from "ui/buttons/Button";
+import { DropdownButton } from "ui/buttons/DropdownButton";
+import { CheckIcon, BlankIcon } from "ui/icons/Icons";
+import { MenuItem, MenuItemIcon } from "ui/menu/Menu";
 
 interface UnitsSelectButtonInputOverlayProps {
   parentValue?: string;

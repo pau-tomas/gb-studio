@@ -8,27 +8,27 @@ import React, {
 import styled, { ThemeContext } from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
 import debounce from "lodash/debounce";
-import useResizable from "renderer/components/ui/hooks/use-resizable";
-import useWindowSize from "renderer/components/ui/hooks/use-window-size";
+import useResizable from "ui/hooks/use-resizable";
+import useWindowSize from "ui/hooks/use-window-size";
 import {
   SplitPaneHorizontalDivider,
   SplitPaneVerticalDivider,
-} from "renderer/components/ui/splitpane/SplitPaneDivider";
+} from "ui/splitpane/SplitPaneDivider";
 import { RootState } from "renderer/project/store/configureStore";
 import editorActions from "renderer/project/store/features/editor/editorActions";
-import { NavigatorSongs } from "renderer/components/music/NavigatorSongs";
-import { SongTracker } from "renderer/components/music/SongTracker";
+import { NavigatorSongs } from "components/music/NavigatorSongs";
+import { SongTracker } from "components/music/SongTracker";
 import { musicSelectors } from "renderer/project/store/features/entities/entitiesState";
 import { assetFilename } from "lib/helpers/gbstudio";
-import { SongEditor } from "renderer/components/music/SongEditor";
-import SongEditorToolsPanel from "renderer/components/music/SongEditorToolsPanel";
-import SongEditorRightToolsPanel from "renderer/components/music/SongEditorRightToolsPanel";
+import { SongEditor } from "components/music/SongEditor";
+import SongEditorToolsPanel from "components/music/SongEditorToolsPanel";
+import SongEditorRightToolsPanel from "components/music/SongEditorRightToolsPanel";
 import { loadSongFile } from "renderer/project/store/features/trackerDocument/trackerDocumentState";
-import { SongPianoRoll } from "renderer/components/music/SongPianoRoll";
+import { SongPianoRoll } from "components/music/SongPianoRoll";
 import { Music } from "renderer/project/store/features/entities/entitiesTypes";
 import { l10n } from "renderer/lib/api";
 import { clampSidebarWidth } from "lib/helpers/window/sidebar";
-import { UgePlayer } from "renderer/components/music/UgePlayer";
+import { UgePlayer } from "components/music/UgePlayer";
 import trackerActions from "renderer/project/store/features/tracker/trackerActions";
 
 const Wrapper = styled.div`

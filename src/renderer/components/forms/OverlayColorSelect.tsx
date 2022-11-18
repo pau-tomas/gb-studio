@@ -1,6 +1,6 @@
 import React, { FC } from "react";
 import { l10n } from "renderer/lib/api";
-import { Select } from "renderer/components/ui/form/Select";
+import { Select } from "ui/form/Select";
 
 interface OverlayColorSelectProps {
   name: string;

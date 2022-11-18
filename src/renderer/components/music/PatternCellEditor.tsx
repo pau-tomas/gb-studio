@@ -1,23 +1,15 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import trackerDocumentActions from "renderer/project/store/features/trackerDocument/trackerDocumentActions";
-import {
-  FormField,
-  FormRow,
-  FormSectionTitle,
-} from "renderer/components/ui/form/FormLayout";
+import { FormField, FormRow, FormSectionTitle } from "ui/form/FormLayout";
 import { RootState } from "renderer/project/store/configureStore";
 import { PatternCell } from "lib/helpers/uge/song/PatternCell";
-import {
-  Select,
-  Option,
-  OptionLabelWithInfo,
-} from "renderer/components/ui/form/Select";
+import { Select, Option, OptionLabelWithInfo } from "ui/form/Select";
 import { l10n } from "renderer/lib/api";
-import { SliderField } from "renderer/components/ui/form/SliderField";
-import { CheckboxField } from "renderer/components/ui/form/CheckboxField";
-import { Label } from "renderer/components/ui/form/Label";
-import { Input } from "renderer/components/ui/form/Input";
+import { SliderField } from "ui/form/SliderField";
+import { CheckboxField } from "ui/form/CheckboxField";
+import { Label } from "ui/form/Label";
+import { Input } from "ui/form/Input";
 import clamp from "lib/helpers/clamp";
 import { VibratoWaveformPreview } from "./VibratoWaveformPreview";
 import styled from "styled-components";

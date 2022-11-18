@@ -2,11 +2,11 @@ import React, { FC, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "renderer/project/store/configureStore";
 import { customEventSelectors } from "renderer/project/store/features/entities/entitiesState";
-import { FlatList } from "renderer/components/ui/lists/FlatList";
+import { FlatList } from "ui/lists/FlatList";
 import editorActions from "renderer/project/store/features/editor/editorActions";
 import { CustomEvent } from "renderer/project/store/features/entities/entitiesTypes";
 import styled from "styled-components";
-import { CodeIcon } from "renderer/components/ui/icons/Icons";
+import { CodeIcon } from "ui/icons/Icons";
 import { l10n } from "renderer/lib/api";
 
 interface NavigatorCustomEventsProps {

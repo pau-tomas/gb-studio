@@ -10,13 +10,10 @@ import editorActions from "renderer/project/store/features/editor/editorActions"
 import electronActions from "renderer/project/store/features/electron/electronActions";
 import { l10n } from "renderer/lib/api";
 import { SceneSelect } from "../forms/SceneSelect";
-import {
-  SelectMenu,
-  selectMenuStyleProps,
-} from "renderer/components/ui/form/Select";
-import { RelativePortal } from "renderer/components/ui/layout/RelativePortal";
+import { SelectMenu, selectMenuStyleProps } from "ui/form/Select";
+import { RelativePortal } from "ui/layout/RelativePortal";
 import { sceneName } from "lib/compiler/compileData2";
-import { FixedSpacer } from "renderer/components/ui/spacing/Spacing";
+import { FixedSpacer } from "ui/spacing/Spacing";
 
 interface BackgroundPreviewSettingsProps {
   backgroundId: string;

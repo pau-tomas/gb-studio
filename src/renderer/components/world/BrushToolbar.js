@@ -10,7 +10,7 @@ import {
   EyeOpenIcon,
   EyeClosedIcon,
   PriorityTileIcon,
-} from "renderer/components/ui/icons/Icons";
+} from "ui/icons/Icons";
 import {
   TOOL_COLORS,
   TOOL_COLLISIONS,

@@ -4,7 +4,7 @@ import {
   TriangleLeftIcon,
   TriangleRightIcon,
   TriangleDownIcon,
-} from "renderer/components/ui/icons/Icons";
+} from "ui/icons/Icons";
 import { l10n } from "renderer/lib/api";
 import { ToggleButtonGroup } from "ui/form/ToggleButtonGroup";
 

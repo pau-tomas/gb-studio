@@ -7,8 +7,8 @@ import {
   EraserIcon,
   PlusIcon,
   PaintIcon,
-} from "renderer/components/ui/icons/Icons";
-import { Menu, MenuItem, MenuOverlay } from "../library/Menu";
+} from "ui/icons/Icons";
+import { Menu, MenuItem, MenuOverlay } from "components/library/Menu";
 import { l10n } from "renderer/lib/api";
 import { Tool } from "renderer/project/store/features/editor/editorState";
 import editorActions from "renderer/project/store/features/editor/editorActions";

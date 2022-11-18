@@ -18,15 +18,11 @@ import {
   spriteSheetSelectors,
   variableSelectors,
 } from "renderer/project/store/features/entities/entitiesState";
-import { Button } from "renderer/components/ui/buttons/Button";
-import {
-  CheckIcon,
-  MinusIcon,
-  PencilIcon,
-} from "renderer/components/ui/icons/Icons";
+import { Button } from "ui/buttons/Button";
+import { CheckIcon, MinusIcon, PencilIcon } from "ui/icons/Icons";
 import { l10n } from "renderer/lib/api";
 import styled from "styled-components";
-import { FlexGrow } from "renderer/components/ui/spacing/Spacing";
+import { FlexGrow } from "ui/spacing/Spacing";
 import {
   initScriptSymbol,
   tilemapAttrSymbol,
@@ -34,11 +30,11 @@ import {
   tilesetSymbol,
 } from "lib/helpers/symbols";
 import clipboardActions from "renderer/project/store/features/clipboard/clipboardActions";
-import { TooltipWrapper } from "renderer/components/ui/tooltips/Tooltip";
-import { MenuOverlay } from "renderer/components/ui/menu/Menu";
-import { RelativePortal } from "renderer/components/ui/layout/RelativePortal";
+import { TooltipWrapper } from "ui/tooltips/Tooltip";
+import { MenuOverlay } from "ui/menu/Menu";
+import { RelativePortal } from "ui/layout/RelativePortal";
 import AddReferenceMenu from "./AddReferenceMenu";
-import { Input } from "renderer/components/ui/form/Input";
+import { Input } from "ui/form/Input";
 import entitiesActions from "renderer/project/store/features/entities/entitiesActions";
 
 export type ReferenceType =

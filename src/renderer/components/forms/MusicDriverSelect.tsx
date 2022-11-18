@@ -6,7 +6,7 @@ import {
   OptionLabelWithInfo,
   Select,
   SelectCommonProps,
-} from "renderer/components/ui/form/Select";
+} from "ui/form/Select";
 
 interface MusicDriverSelectProps extends SelectCommonProps {
   name: string;

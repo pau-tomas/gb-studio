@@ -3,9 +3,9 @@ import { useDispatch, useSelector } from "react-redux";
 import styled, { css } from "styled-components";
 import { Song } from "lib/helpers/uge/song/Song";
 import { RootState } from "renderer/project/store/configureStore";
-import { SplitPaneVerticalDivider } from "renderer/components/ui/splitpane/SplitPaneDivider";
+import { SplitPaneVerticalDivider } from "ui/splitpane/SplitPaneDivider";
 import { SequenceEditor } from "./SequenceEditor";
-import { SplitPaneHeader } from "renderer/components/ui/splitpane/SplitPaneHeader";
+import { SplitPaneHeader } from "ui/splitpane/SplitPaneHeader";
 import { l10n } from "renderer/lib/api";
 import { RollChannel } from "./RollChannel";
 import { RollChannelGrid } from "./RollChannelGrid";
@@ -23,7 +23,7 @@ import {
   getInstrumentTypeByChannel,
 } from "./helpers";
 import { RollChannelEffectRow } from "./RollChannelEffectRow";
-import { WandIcon } from "renderer/components/ui/icons/Icons";
+import { WandIcon } from "ui/icons/Icons";
 import { RollChannelHover } from "./RollChannelHover";
 import { clipboard } from "renderer/project/store/features/clipboard/clipboardHelpers";
 

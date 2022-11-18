@@ -9,36 +9,36 @@ import React, {
 import styled, { ThemeContext } from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
 import debounce from "lodash/debounce";
-import useResizable from "renderer/components/ui/hooks/use-resizable";
-import useWindowSize from "renderer/components/ui/hooks/use-window-size";
+import useResizable from "ui/hooks/use-resizable";
+import useWindowSize from "ui/hooks/use-window-size";
 import {
   SplitPaneHorizontalDivider,
   SplitPaneVerticalDivider,
-} from "renderer/components/ui/splitpane/SplitPaneDivider";
+} from "ui/splitpane/SplitPaneDivider";
 import { RootState } from "renderer/project/store/configureStore";
 import editorActions from "renderer/project/store/features/editor/editorActions";
-import { SpriteEditor } from "renderer/components/sprites/SpriteEditor";
-import { NavigatorSprites } from "renderer/components/sprites/NavigatorSprites";
+import { SpriteEditor } from "components/sprites/SpriteEditor";
+import { NavigatorSprites } from "components/sprites/NavigatorSprites";
 import {
   spriteAnimationSelectors,
   spriteSheetSelectors,
   spriteStateSelectors,
 } from "renderer/project/store/features/entities/entitiesState";
-import MetaspriteEditor from "renderer/components/sprites/MetaspriteEditor";
-import SpriteTilePalette from "renderer/components/sprites/SpriteTilePalette";
-import SpriteAnimationTimeline from "renderer/components/sprites/SpriteAnimationTimeline";
-import { SplitPaneHeader } from "renderer/components/ui/splitpane/SplitPaneHeader";
+import MetaspriteEditor from "components/sprites/MetaspriteEditor";
+import SpriteTilePalette from "components/sprites/SpriteTilePalette";
+import SpriteAnimationTimeline from "components/sprites/SpriteAnimationTimeline";
+import { SplitPaneHeader } from "ui/splitpane/SplitPaneHeader";
 import { l10n } from "renderer/lib/api";
-import { getAnimationNameById } from "renderer/components/sprites/helpers";
-import MetaspriteEditorToolsPanel from "renderer/components/sprites/MetaspriteEditorToolsPanel";
-import { ZoomButton } from "renderer/components/ui/buttons/ZoomButton";
-import MetaspriteEditorPreviewSettings from "renderer/components/sprites/MetaspriteEditorPreviewSettings";
+import { getAnimationNameById } from "components/sprites/helpers";
+import MetaspriteEditorToolsPanel from "components/sprites/MetaspriteEditorToolsPanel";
+import { ZoomButton } from "ui/buttons/ZoomButton";
+import MetaspriteEditorPreviewSettings from "components/sprites/MetaspriteEditorPreviewSettings";
 import spriteActions from "renderer/project/store/features/sprite/spriteActions";
 import { clampSidebarWidth } from "lib/helpers/window/sidebar";
-import useSorted from "renderer/components/ui/hooks/use-sorted";
-import { Button } from "renderer/components/ui/buttons/Button";
-import { TargetIcon } from "renderer/components/ui/icons/Icons";
-import { FixedSpacer } from "renderer/components/ui/spacing/Spacing";
+import useSorted from "ui/hooks/use-sorted";
+import { Button } from "ui/buttons/Button";
+import { TargetIcon } from "ui/icons/Icons";
+import { FixedSpacer } from "ui/spacing/Spacing";
 
 const Wrapper = styled.div`
   display: flex;

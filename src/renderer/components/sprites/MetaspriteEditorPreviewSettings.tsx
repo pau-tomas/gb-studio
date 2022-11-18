@@ -10,14 +10,11 @@ import {
 import editorActions from "renderer/project/store/features/editor/editorActions";
 import { l10n } from "renderer/lib/api";
 import { SceneSelect } from "../forms/SceneSelect";
-import {
-  SelectMenu,
-  selectMenuStyleProps,
-} from "renderer/components/ui/form/Select";
-import { RelativePortal } from "renderer/components/ui/layout/RelativePortal";
+import { SelectMenu, selectMenuStyleProps } from "ui/form/Select";
+import { RelativePortal } from "ui/layout/RelativePortal";
 import { sceneName } from "lib/compiler/compileData2";
-import { TooltipWrapper } from "renderer/components/ui/tooltips/Tooltip";
-import { FixedSpacer } from "renderer/components/ui/spacing/Spacing";
+import { TooltipWrapper } from "ui/tooltips/Tooltip";
+import { FixedSpacer } from "ui/spacing/Spacing";
 
 interface MetaspriteEditorPreviewSettingsProps {
   spriteSheetId: string;

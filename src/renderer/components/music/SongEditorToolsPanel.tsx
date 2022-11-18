@@ -14,16 +14,14 @@ import {
   PianoInverseIcon,
   StopIcon,
   PlayStartIcon,
-} from "renderer/components/ui/icons/Icons";
-import FloatingPanel, {
-  FloatingPanelDivider,
-} from "renderer/components/ui/panels/FloatingPanel";
+} from "ui/icons/Icons";
+import FloatingPanel, { FloatingPanelDivider } from "ui/panels/FloatingPanel";
 import trackerActions from "renderer/project/store/features/tracker/trackerActions";
-import { Button } from "renderer/components/ui/buttons/Button";
+import { Button } from "ui/buttons/Button";
 import { Music } from "renderer/project/store/features/entities/entitiesTypes";
 import { saveSongFile } from "renderer/project/store/features/trackerDocument/trackerDocumentState";
 import { InstrumentSelect } from "./InstrumentSelect";
-import { Select } from "renderer/components/ui/form/Select";
+import { Select } from "ui/form/Select";
 import { PianoRollToolType } from "renderer/project/store/features/tracker/trackerState";
 // import { ipcRenderer } from "electron";
 import { l10n } from "renderer/lib/api";

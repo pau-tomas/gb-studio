@@ -1,9 +1,5 @@
 import React, { FC, useEffect, useState } from "react";
-import {
-  Option,
-  Select,
-  SelectCommonProps,
-} from "renderer/components/ui/form/Select";
+import { Option, Select, SelectCommonProps } from "ui/form/Select";
 import { l10n } from "renderer/lib/api";
 import { encodings } from "lib/helpers/encodings";
 

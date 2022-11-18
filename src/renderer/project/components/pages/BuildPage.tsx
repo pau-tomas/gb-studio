@@ -1,12 +1,12 @@
 import React, { useCallback, useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
-import { Button } from "renderer/components/ui/buttons/Button";
+import { Button } from "ui/buttons/Button";
 import { l10n } from "renderer/lib/api";
 import editorActions from "renderer/project/store/features/editor/editorActions";
 import consoleActions from "renderer/project/store/features/console/consoleActions";
 import buildGameActions from "renderer/project/store/features/buildGame/buildGameActions";
-import { FixedSpacer, FlexGrow } from "renderer/components/ui/spacing/Spacing";
+import { FixedSpacer, FlexGrow } from "ui/spacing/Spacing";
 import { RootState } from "renderer/project/store/configureStore";
 
 const PIN_TO_BOTTOM_RANGE = 100;

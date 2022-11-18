@@ -2,15 +2,12 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { l10n } from "renderer/lib/api";
-import { Button } from "renderer/components/ui/buttons/Button";
+import { Button } from "ui/buttons/Button";
 import settingsActions from "renderer/project/store/features/settings/settingsActions";
-import { Input } from "renderer/components/ui/form/Input";
-import { SearchableSettingRow } from "renderer/components/ui/form/SearchableSettingRow";
-import { CardButtons } from "renderer/components/ui/cards/Card";
-import {
-  SettingRowInput,
-  SettingRowLabel,
-} from "renderer/components/ui/form/SettingRow";
+import { Input } from "ui/form/Input";
+import { SearchableSettingRow } from "ui/form/SearchableSettingRow";
+import { CardButtons } from "ui/cards/Card";
+import { SettingRowInput, SettingRowLabel } from "ui/form/SettingRow";
 
 const directions = [
   {

@@ -4,7 +4,7 @@ import { l10n } from "renderer/lib/api";
 
 import settingsActions from "renderer/project/store/features/settings/settingsActions";
 import { SettingsState } from "renderer/project/store/features/settings/settingsState";
-import { Button } from "renderer/components/ui/buttons/Button";
+import { Button } from "ui/buttons/Button";
 
 interface NoSongsMessageProps {
   type: "uge" | "mod";

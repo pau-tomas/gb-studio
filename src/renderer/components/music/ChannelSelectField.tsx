@@ -2,13 +2,13 @@ import React, { useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "renderer/project/store/configureStore";
 import trackerActions from "renderer/project/store/features/tracker/trackerActions";
-import { Button } from "renderer/components/ui/buttons/Button";
+import { Button } from "ui/buttons/Button";
 import {
   AudioOffIcon,
   AudioOnIcon,
   EyeClosedIcon,
   EyeOpenIcon,
-} from "renderer/components/ui/icons/Icons";
+} from "ui/icons/Icons";
 import styled from "styled-components";
 // import { ipcRenderer } from "electron";
 

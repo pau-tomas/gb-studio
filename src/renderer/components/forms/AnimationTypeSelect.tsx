@@ -1,6 +1,6 @@
 import React, { FC, useEffect, useState } from "react";
 import { SpriteAnimationType } from "renderer/project/store/features/entities/entitiesTypes";
-import { OptGroup, Option, Select } from "renderer/components/ui/form/Select";
+import { OptGroup, Option, Select } from "ui/form/Select";
 import { l10n } from "renderer/lib/api";
 
 interface AnimationTypeSelectProps {

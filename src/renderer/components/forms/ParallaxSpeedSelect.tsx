@@ -1,6 +1,6 @@
 import React, { FC, useEffect, useState } from "react";
 import { l10n } from "renderer/lib/api";
-import { Select } from "renderer/components/ui/form/Select";
+import { Select } from "ui/form/Select";
 
 interface ParallaxSpeedSelectProps {
   name: string;

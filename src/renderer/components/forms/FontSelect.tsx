@@ -9,8 +9,8 @@ import {
   OptionLabelWithPreview,
   SingleValueWithPreview,
   SelectCommonProps,
-} from "renderer/components/ui/form/Select";
-import { FontIcon } from "renderer/components/ui/icons/Icons";
+} from "ui/form/Select";
+import { FontIcon } from "ui/icons/Icons";
 
 interface FontSelectProps extends SelectCommonProps {
   name: string;

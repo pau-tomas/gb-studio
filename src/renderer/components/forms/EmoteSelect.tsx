@@ -9,7 +9,7 @@ import {
   OptionLabelWithPreview,
   SingleValueWithPreview,
   SelectCommonProps,
-} from "renderer/components/ui/form/Select";
+} from "ui/form/Select";
 import { EmoteCanvas } from "../world/EmoteCanvas";
 
 interface EmoteSelectProps extends SelectCommonProps {

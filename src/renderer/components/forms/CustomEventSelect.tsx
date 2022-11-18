@@ -3,11 +3,7 @@ import { useSelector } from "react-redux";
 import { RootState } from "renderer/project/store/configureStore";
 import { customEventName } from "renderer/project/store/features/entities/entitiesHelpers";
 import { customEventSelectors } from "renderer/project/store/features/entities/entitiesState";
-import {
-  Option,
-  Select,
-  SelectCommonProps,
-} from "renderer/components/ui/form/Select";
+import { Option, Select, SelectCommonProps } from "ui/form/Select";
 import { sortByLabel } from "lib/helpers/sort";
 
 interface CustomEventSelectProps extends SelectCommonProps {

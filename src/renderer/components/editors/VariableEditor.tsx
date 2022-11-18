@@ -12,29 +12,22 @@ import {
   triggerSelectors,
   variableSelectors,
 } from "renderer/project/store/features/entities/entitiesState";
-import { DropdownButton } from "renderer/components/ui/buttons/DropdownButton";
-import { EditableText } from "renderer/components/ui/form/EditableText";
-import {
-  FormContainer,
-  FormDivider,
-  FormHeader,
-} from "renderer/components/ui/form/FormLayout";
-import { MenuItem } from "renderer/components/ui/menu/Menu";
+import { DropdownButton } from "ui/buttons/DropdownButton";
+import { EditableText } from "ui/form/EditableText";
+import { FormContainer, FormDivider, FormHeader } from "ui/form/FormLayout";
+import { MenuItem } from "ui/menu/Menu";
 import entitiesActions from "renderer/project/store/features/entities/entitiesActions";
 import editorActions from "renderer/project/store/features/editor/editorActions";
 import clipboardActions from "renderer/project/store/features/clipboard/clipboardActions";
 import { l10n } from "renderer/lib/api";
-import {
-  Sidebar,
-  SidebarColumn,
-} from "renderer/components/ui/sidebars/Sidebar";
-import { FlatList } from "renderer/components/ui/lists/FlatList";
-import { EntityListItem } from "renderer/components/ui/lists/EntityListItem";
+import { Sidebar, SidebarColumn } from "ui/sidebars/Sidebar";
+import { FlatList } from "ui/lists/FlatList";
+import { EntityListItem } from "ui/lists/EntityListItem";
 import useDimensions from "react-cool-dimensions";
 import styled from "styled-components";
-import { SplitPaneHeader } from "renderer/components/ui/splitpane/SplitPaneHeader";
-import { SymbolEditorWrapper } from "renderer/components/forms/symbols/SymbolEditorWrapper";
-import { VariableReference } from "renderer/components/forms/ReferencesSelect";
+import { SplitPaneHeader } from "ui/splitpane/SplitPaneHeader";
+import { SymbolEditorWrapper } from "components/forms/symbols/SymbolEditorWrapper";
+import { VariableReference } from "components/forms/ReferencesSelect";
 import VariableUsesWorker, {
   VariableUse,
   VariableUseResult,

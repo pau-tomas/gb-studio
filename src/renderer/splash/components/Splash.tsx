@@ -1,20 +1,16 @@
 import React, { useEffect, useState } from "react";
 import FocusLock, { AutoFocusInside } from "react-focus-lock";
 import path from "path";
-import GlobalStyle from "renderer/components/ui/globalStyle";
-import ThemeProvider from "renderer/components/ui/theme/ThemeProvider";
+import GlobalStyle from "ui/globalStyle";
+import ThemeProvider from "ui/theme/ThemeProvider";
 import logoFile from "ui/icons/GBStudioLogo.png";
 import contributors from "contributors.json";
 import gbs2Preview from "assets/templatePreview/gbs2.mp4";
 import gbhtmlPreview from "assets/templatePreview/gbhtml.mp4";
 import blankPreview from "assets/templatePreview/blank.png";
-import useWindowFocus from "renderer/components/ui/hooks/use-window-focus";
-import { Button } from "renderer/components/ui/buttons/Button";
-import {
-  CloseIcon,
-  DotsIcon,
-  LoadingIcon,
-} from "renderer/components/ui/icons/Icons";
+import useWindowFocus from "ui/hooks/use-window-focus";
+import { Button } from "ui/buttons/Button";
+import { CloseIcon, DotsIcon, LoadingIcon } from "ui/icons/Icons";
 import {
   SplashAppTitle,
   SplashContent,
@@ -38,10 +34,10 @@ import {
   SplashTab,
   SplashTemplateSelect,
   SplashWrapper,
-} from "renderer/components/ui/splash/Splash";
-import { FlexGrow } from "renderer/components/ui/spacing/Spacing";
-import { FormRow, FormField } from "renderer/components/ui/form/FormLayout";
-import { TextField } from "renderer/components/ui/form/TextField";
+} from "ui/splash/Splash";
+import { FlexGrow } from "ui/spacing/Spacing";
+import { FormRow, FormField } from "ui/form/FormLayout";
+import { TextField } from "ui/form/TextField";
 import API, { dialog, settings, l10n, paths } from "renderer/lib/api";
 
 declare const DOCS_URL: string;

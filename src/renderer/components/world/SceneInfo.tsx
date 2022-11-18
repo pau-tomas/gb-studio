@@ -19,12 +19,12 @@ import {
   triggerSelectors,
 } from "renderer/project/store/features/entities/entitiesState";
 import styled, { css } from "styled-components";
-import { TooltipWrapper } from "renderer/components/ui/tooltips/Tooltip";
+import { TooltipWrapper } from "ui/tooltips/Tooltip";
 import { l10n } from "renderer/lib/api";
 import { walkNormalisedSceneEvents } from "renderer/project/store/features/entities/entitiesHelpers";
 import { SpriteSheet } from "renderer/project/store/features/entities/entitiesTypes";
 import clamp from "lib/helpers/clamp";
-import { useDebounce } from "renderer/components/ui/hooks/use-debounce";
+import { useDebounce } from "ui/hooks/use-debounce";
 import maxSpriteTilesForBackgroundTilesLength from "lib/helpers/maxSpriteTilesForBackgroundTilesLength";
 import {
   EVENT_ACTOR_SET_SPRITE,

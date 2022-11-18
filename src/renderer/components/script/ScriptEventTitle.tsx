@@ -30,8 +30,8 @@ import {
   ScriptEventFieldSchema,
 } from "renderer/project/store/features/entities/entitiesTypes";
 import styled from "styled-components";
-import { fadeIn } from "renderer/components/ui/animations/animations";
-import { animLabelLookup } from "renderer/components/forms/AnimationSpeedSelect";
+import { fadeIn } from "ui/animations/animations";
+import { animLabelLookup } from "components/forms/AnimationSpeedSelect";
 import { ScriptEditorContext } from "./ScriptEditorContext";
 
 interface ScriptEventTitleProps {

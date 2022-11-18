@@ -1,7 +1,7 @@
 import React, { useCallback, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { DropdownButton } from "renderer/components/ui/buttons/DropdownButton";
-import { EditableText } from "renderer/components/ui/form/EditableText";
+import { DropdownButton } from "ui/buttons/DropdownButton";
+import { EditableText } from "ui/form/EditableText";
 import {
   FormContainer,
   FormDivider,
@@ -10,20 +10,17 @@ import {
   FormHeader,
   FormRow,
   FormSectionTitle,
-} from "renderer/components/ui/form/FormLayout";
-import { MenuDivider, MenuItem } from "renderer/components/ui/menu/Menu";
+} from "ui/form/FormLayout";
+import { MenuDivider, MenuItem } from "ui/menu/Menu";
 import { l10n } from "renderer/lib/api";
-import {
-  Sidebar,
-  SidebarColumn,
-} from "renderer/components/ui/sidebars/Sidebar";
+import { Sidebar, SidebarColumn } from "ui/sidebars/Sidebar";
 import {
   MetaspriteTile,
   SpriteSheet,
   SpriteState,
 } from "renderer/project/store/features/entities/entitiesTypes";
-import { CoordinateInput } from "renderer/components/ui/form/CoordinateInput";
-import { Label } from "renderer/components/ui/form/Label";
+import { CoordinateInput } from "ui/form/CoordinateInput";
+import { Label } from "ui/form/Label";
 import {
   metaspriteTileSelectors,
   spriteAnimationSelectors,
@@ -36,27 +33,27 @@ import spriteActions from "renderer/project/store/features/sprite/spriteActions"
 import clipboardActions from "renderer/project/store/features/clipboard/clipboardActions";
 import { RootState } from "renderer/project/store/configureStore";
 import castEventValue from "lib/helpers/castEventValue";
-import { Button } from "renderer/components/ui/buttons/Button";
+import { Button } from "ui/buttons/Button";
 import {
   FlipHorizontalIcon,
   FlipVerticalIcon,
   SendToFrontIcon,
   SendToBackIcon,
-} from "renderer/components/ui/icons/Icons";
-import { FlexGrow } from "renderer/components/ui/spacing/Spacing";
-import { SidebarHeader } from "renderer/components/ui/form/SidebarHeader";
+} from "ui/icons/Icons";
+import { FlexGrow } from "ui/spacing/Spacing";
+import { SidebarHeader } from "ui/form/SidebarHeader";
 import {
   ClipboardTypeMetasprites,
   ClipboardTypeMetaspriteTiles,
   ClipboardTypeSpriteState,
 } from "renderer/project/store/features/clipboard/clipboardTypes";
-import { CheckboxField } from "renderer/components/ui/form/CheckboxField";
+import { CheckboxField } from "ui/form/CheckboxField";
 import { AnimationTypeSelect } from "../forms/AnimationTypeSelect";
 import { ObjPaletteSelect } from "../forms/ObjPaletteSelect";
 import { PaletteIndexSelect } from "../forms/PaletteIndexSelect";
-import AnimationStateSelect from "renderer/components/forms/AnimationStateSelect";
-import { SpriteSymbolsEditor } from "renderer/components/forms/symbols/SpriteSymbolsEditor";
-import { SymbolEditorWrapper } from "renderer/components/forms/symbols/SymbolEditorWrapper";
+import AnimationStateSelect from "components/forms/AnimationStateSelect";
+import { SpriteSymbolsEditor } from "components/forms/symbols/SpriteSymbolsEditor";
+import { SymbolEditorWrapper } from "components/forms/symbols/SymbolEditorWrapper";
 
 interface SpriteEditorProps {
   id: string;

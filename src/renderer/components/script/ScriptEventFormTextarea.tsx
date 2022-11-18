@@ -1,7 +1,7 @@
 import React, { useState, useEffect, FC, useContext } from "react";
 import PropTypes from "prop-types";
 import { useSelector } from "react-redux";
-import { DialogueTextarea } from "renderer/components/ui/form/DialogueTextarea";
+import { DialogueTextarea } from "ui/form/DialogueTextarea";
 import {
   customEventSelectors,
   fontSelectors,

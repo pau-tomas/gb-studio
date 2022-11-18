@@ -4,11 +4,8 @@ import styled from "styled-components";
 import { RootState } from "renderer/project/store/configureStore";
 import { paletteSelectors } from "renderer/project/store/features/entities/entitiesState";
 import PaletteBlock from "../library/PaletteBlock";
-import {
-  SelectMenu,
-  selectMenuStyleProps,
-} from "renderer/components/ui/form/Select";
-import { RelativePortal } from "renderer/components/ui/layout/RelativePortal";
+import { SelectMenu, selectMenuStyleProps } from "ui/form/Select";
+import { RelativePortal } from "ui/layout/RelativePortal";
 import { PaletteSelect } from "./PaletteSelect";
 import navigationActions from "renderer/project/store/features/navigation/navigationActions";
 import { DMG_PALETTE } from "shared/consts";

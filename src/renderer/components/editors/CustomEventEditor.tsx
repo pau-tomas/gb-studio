@@ -3,41 +3,35 @@ import { useDispatch, useSelector } from "react-redux";
 import ScriptEditor from "../script/ScriptEditor";
 import { l10n } from "renderer/lib/api";
 import castEventValue from "lib/helpers/castEventValue";
-import { DropdownButton } from "renderer/components/ui/buttons/DropdownButton";
-import { MenuItem } from "renderer/components/ui/menu/Menu";
+import { DropdownButton } from "ui/buttons/DropdownButton";
+import { MenuItem } from "ui/menu/Menu";
 import { WorldEditor } from "./WorldEditor";
 import ScriptEditorDropdownButton from "../script/ScriptEditorDropdownButton";
 import { customEventSelectors } from "renderer/project/store/features/entities/entitiesState";
 import editorActions from "renderer/project/store/features/editor/editorActions";
 import entitiesActions from "renderer/project/store/features/entities/entitiesActions";
-import {
-  Sidebar,
-  SidebarColumn,
-} from "renderer/components/ui/sidebars/Sidebar";
+import { Sidebar, SidebarColumn } from "ui/sidebars/Sidebar";
 import {
   FormContainer,
   FormDivider,
   FormHeader,
   FormRow,
-} from "renderer/components/ui/form/FormLayout";
-import { EditableText } from "renderer/components/ui/form/EditableText";
+} from "ui/form/FormLayout";
+import { EditableText } from "ui/form/EditableText";
 import { RootState } from "renderer/project/store/configureStore";
 import { CustomEvent } from "renderer/project/store/features/entities/entitiesTypes";
-import { StickyTabs, TabBar } from "renderer/components/ui/tabs/Tabs";
-import { Button } from "renderer/components/ui/buttons/Button";
-import { LockIcon, LockOpenIcon } from "renderer/components/ui/icons/Icons";
-import { CustomEventSymbolsEditor } from "renderer/components/forms/symbols/CustomEventSymbolsEditor";
-import { SymbolEditorWrapper } from "renderer/components/forms/symbols/SymbolEditorWrapper";
-import { Checkbox } from "renderer/components/ui/form/Checkbox";
-import { NoteField } from "renderer/components/ui/form/NoteField";
-import {
-  InputGroup,
-  InputGroupAppend,
-} from "renderer/components/ui/form/InputGroup";
-import { Input } from "renderer/components/ui/form/Input";
-import { SidebarHeader } from "renderer/components/ui/form/SidebarHeader";
-import { Label } from "renderer/components/ui/form/Label";
-import { ScriptEditorContext } from "renderer/components/script/ScriptEditorContext";
+import { StickyTabs, TabBar } from "ui/tabs/Tabs";
+import { Button } from "ui/buttons/Button";
+import { LockIcon, LockOpenIcon } from "ui/icons/Icons";
+import { CustomEventSymbolsEditor } from "components/forms/symbols/CustomEventSymbolsEditor";
+import { SymbolEditorWrapper } from "components/forms/symbols/SymbolEditorWrapper";
+import { Checkbox } from "ui/form/Checkbox";
+import { NoteField } from "ui/form/NoteField";
+import { InputGroup, InputGroupAppend } from "ui/form/InputGroup";
+import { Input } from "ui/form/Input";
+import { SidebarHeader } from "ui/form/SidebarHeader";
+import { Label } from "ui/form/Label";
+import { ScriptEditorContext } from "components/script/ScriptEditorContext";
 
 const customEventName = (customEvent: CustomEvent, customEventIndex: number) =>
   customEvent.name ? customEvent.name : `Script ${customEventIndex + 1}`;

@@ -1,19 +1,15 @@
 import React, { FC } from "react";
 import { l10n } from "renderer/lib/api";
-import { DropdownButton } from "renderer/components/ui/buttons/DropdownButton";
+import { DropdownButton } from "ui/buttons/DropdownButton";
 import {
   BlankIcon,
   CheckIcon,
   PriorityHighIcon,
   PriorityLowIcon,
   PriorityMediumIcon,
-} from "renderer/components/ui/icons/Icons";
-import {
-  MenuGroup,
-  MenuItem,
-  MenuItemIcon,
-} from "renderer/components/ui/menu/Menu";
-import { FlexGrow } from "renderer/components/ui/spacing/Spacing";
+} from "ui/icons/Icons";
+import { MenuGroup, MenuItem, MenuItemIcon } from "ui/menu/Menu";
+import { FlexGrow } from "ui/spacing/Spacing";
 import styled from "styled-components";
 
 const priorities = ["high", "medium", "low"] as const;

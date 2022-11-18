@@ -5,7 +5,7 @@ import { PatternCell } from "lib/helpers/uge/song/PatternCell";
 import { Song } from "lib/helpers/uge/song/Song";
 import { RootState } from "renderer/project/store/configureStore";
 import trackerDocumentActions from "renderer/project/store/features/trackerDocument/trackerDocumentActions";
-import { SplitPaneHorizontalDivider } from "renderer/components/ui/splitpane/SplitPaneDivider";
+import { SplitPaneHorizontalDivider } from "ui/splitpane/SplitPaneDivider";
 import { SequenceEditor } from "./SequenceEditor";
 import { SongRow } from "./SongRow";
 import scrollIntoView from "scroll-into-view-if-needed";

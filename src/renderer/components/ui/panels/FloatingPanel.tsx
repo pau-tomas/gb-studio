@@ -1,5 +1,5 @@
 import styled, { css } from "styled-components";
-import { Select } from "renderer/components/ui/form/Select";
+import { Select } from "ui/form/Select";
 import { Button } from "../buttons/Button";
 
 interface FloatingPanelProps {

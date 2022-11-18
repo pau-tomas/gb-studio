@@ -3,17 +3,13 @@ import { useDispatch } from "react-redux";
 import { l10n } from "renderer/lib/api";
 import trackerDocumentActions from "renderer/project/store/features/trackerDocument/trackerDocumentActions";
 import { DutyInstrument } from "renderer/project/store/features/trackerDocument/trackerDocumentTypes";
-import {
-  FormDivider,
-  FormField,
-  FormRow,
-} from "renderer/components/ui/form/FormLayout";
-import { Select } from "renderer/components/ui/form/Select";
-import { SliderField } from "renderer/components/ui/form/SliderField";
+import { FormDivider, FormField, FormRow } from "ui/form/FormLayout";
+import { Select } from "ui/form/Select";
+import { SliderField } from "ui/form/SliderField";
 import { InstrumentLengthForm } from "./InstrumentLengthForm";
 import { InstrumentVolumeEditor } from "./InstrumentVolumeEditor";
 // import { ipcRenderer } from "electron";
-import { Button } from "renderer/components/ui/buttons/Button";
+import { Button } from "ui/buttons/Button";
 
 const ipcRenderer = {
   send: (..._a: unknown[]) => {

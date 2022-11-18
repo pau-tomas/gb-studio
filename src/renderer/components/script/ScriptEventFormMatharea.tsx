@@ -1,7 +1,7 @@
 import React, { useState, useEffect, FC, useContext } from "react";
 import PropTypes from "prop-types";
 import { useSelector } from "react-redux";
-import { MathTextarea } from "renderer/components/ui/form/MathTextarea";
+import { MathTextarea } from "ui/form/MathTextarea";
 import {
   customEventSelectors,
   variableSelectors,
