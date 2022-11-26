@@ -46,7 +46,7 @@ import {
 } from "@reduxjs/toolkit";
 import { l10n } from "renderer/lib/api";
 import { genSymbol, toValidSymbol } from "shared/lib/compiler/symbols";
-import parseAssetPath from "lib/helpers/path/parseAssetPath";
+import { parseAssetPath } from "shared/lib/assets/helpers";
 
 export interface NormalisedEntities {
   scenes: Record<EntityId, Scene>;

@@ -2,7 +2,7 @@ import glob from "glob";
 import { promisify } from "util";
 import uuidv4 from "uuid/v4";
 import { stat } from "fs-extra";
-import parseAssetPath from "lib/helpers/path/parseAssetPath";
+import { parseAssetPath } from "shared/lib/assets/helpers";
 import { toValidSymbol } from "shared/lib/compiler/symbols";
 
 const globAsync = promisify(glob);

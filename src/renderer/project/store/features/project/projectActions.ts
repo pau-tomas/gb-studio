@@ -26,7 +26,7 @@ import type { RootState } from "renderer/project/store/configureStore";
 // import { loadFontData } from "lib/project/loadFontData";
 import { SettingsState } from "renderer/project/store/features/settings/settingsState";
 import { MetadataState } from "renderer/project/store/features/metadata/metadataState";
-import parseAssetPath from "lib/helpers/path/parseAssetPath";
+import { parseAssetPath } from "shared/lib/assets/helpers";
 import { denormalizeEntities } from "renderer/project/store/features/entities/entitiesHelpers";
 import API from "renderer/lib/api";
 // import { loadAvatarData } from "lib/project/loadAvatarData";
