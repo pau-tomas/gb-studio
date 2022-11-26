@@ -7,8 +7,8 @@ import {
 import {
   animationMapBySpriteType,
   toEngineOrder,
-} from "renderer/components/sprites/helpers";
-import {
+} from "shared/lib/sprites/helpers";
+import type {
   MetaspriteTile,
   ObjPalette,
   SpriteAnimationType,

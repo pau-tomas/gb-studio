@@ -1,5 +1,5 @@
 import uuid from "uuid";
-import { animationIndexBySpriteType } from "renderer/components/sprites/helpers";
+import { animationIndexBySpriteType } from "shared/lib/sprites/helpers";
 import type {
   Metasprite,
   MetaspriteTile,

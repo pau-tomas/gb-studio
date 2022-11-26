@@ -27,12 +27,12 @@ import { SplitPaneVerticalDivider } from "ui/splitpane/SplitPaneDivider";
 import useSplitPane from "ui/hooks/use-split-pane";
 import styled from "styled-components";
 import useToggleableList from "ui/hooks/use-toggleable-list";
+import { getAnimationNameForType } from "./nameHelpers";
 import {
   AnimationType,
   filterAnimationsBySpriteType,
-  getAnimationNameForType,
   getAnimationTypeByIndex,
-} from "./helpers";
+} from "shared/lib/sprites/helpers";
 
 interface NavigatorSpritesProps {
   height: number;

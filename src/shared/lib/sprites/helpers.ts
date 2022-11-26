@@ -1,5 +1,4 @@
-import { l10n } from "renderer/lib/api";
-import { SpriteAnimationType } from "renderer/project/store/features/entities/entitiesTypes";
+import type { SpriteAnimationType } from "renderer/project/store/features/entities/entitiesTypes";
 
 export type AnimationType =
   | "idle"
@@ -17,7 +16,7 @@ export type AnimationType =
   | "climbing"
   | "hover";
 
-const animationTypes: AnimationType[] = [
+export const animationTypes: AnimationType[] = [
   "idleRight",
   "idleLeft",
   "idleUp",
@@ -28,16 +27,16 @@ const animationTypes: AnimationType[] = [
   "movingDown",
 ];
 
-const multiAnimationTypes: AnimationType[] = [
+export const multiAnimationTypes: AnimationType[] = [
   "idleRight",
   "idleLeft",
   "idleUp",
   "idleDown",
 ];
 
-const fixedAnimationTypes: AnimationType[] = ["idle", "moving"];
+export const fixedAnimationTypes: AnimationType[] = ["idle", "moving"];
 
-const platformAnimationTypes: AnimationType[] = [
+export const platformAnimationTypes: AnimationType[] = [
   "idleRight",
   "idleLeft",
   "jumpingRight",
@@ -47,66 +46,7 @@ const platformAnimationTypes: AnimationType[] = [
   "climbing",
 ];
 
-const cursorAnimationTypes: AnimationType[] = ["idle", "hover"];
-
-const animationNameLookup: Record<AnimationType, string> = {
-  idle: l10n("FIELD_IDLE"),
-  moving: l10n("FIELD_MOVING"),
-  idleLeft: l10n("FIELD_IDLE_DIR", { direction: l10n("FIELD_DIRECTION_LEFT") }),
-  idleRight: l10n("FIELD_IDLE_DIR", {
-    direction: l10n("FIELD_DIRECTION_RIGHT"),
-  }),
-  idleUp: l10n("FIELD_IDLE_DIR", { direction: l10n("FIELD_DIRECTION_UP") }),
-  idleDown: l10n("FIELD_IDLE_DIR", { direction: l10n("FIELD_DIRECTION_DOWN") }),
-  movingLeft: l10n("FIELD_MOVING_DIR", {
-    direction: l10n("FIELD_DIRECTION_LEFT"),
-  }),
-  movingRight: l10n("FIELD_MOVING_DIR", {
-    direction: l10n("FIELD_DIRECTION_RIGHT"),
-  }),
-  movingUp: l10n("FIELD_MOVING_DIR", { direction: l10n("FIELD_DIRECTION_UP") }),
-  movingDown: l10n("FIELD_MOVING_DIR", {
-    direction: l10n("FIELD_DIRECTION_DOWN"),
-  }),
-  jumpingLeft: l10n("FIELD_JUMPING_DIR", {
-    direction: l10n("FIELD_DIRECTION_LEFT"),
-  }),
-  jumpingRight: l10n("FIELD_JUMPING_DIR", {
-    direction: l10n("FIELD_DIRECTION_RIGHT"),
-  }),
-  climbing: l10n("FIELD_CLIMBING"),
-  hover: l10n("FIELD_HOVER"),
-};
-
-const animationNames = [
-  l10n("FIELD_IDLE_DIR", { direction: l10n("FIELD_DIRECTION_RIGHT") }),
-  l10n("FIELD_IDLE_DIR", { direction: l10n("FIELD_DIRECTION_LEFT") }),
-  l10n("FIELD_IDLE_DIR", { direction: l10n("FIELD_DIRECTION_UP") }),
-  l10n("FIELD_IDLE_DIR", { direction: l10n("FIELD_DIRECTION_DOWN") }),
-  l10n("FIELD_MOVING_DIR", { direction: l10n("FIELD_DIRECTION_RIGHT") }),
-  l10n("FIELD_MOVING_DIR", { direction: l10n("FIELD_DIRECTION_LEFT") }),
-  l10n("FIELD_MOVING_DIR", { direction: l10n("FIELD_DIRECTION_UP") }),
-  l10n("FIELD_MOVING_DIR", { direction: l10n("FIELD_DIRECTION_DOWN") }),
-];
-
-const multiAnimationNames = [
-  l10n("FIELD_DIRECTION_RIGHT"),
-  l10n("FIELD_DIRECTION_LEFT"),
-  l10n("FIELD_DIRECTION_UP"),
-  l10n("FIELD_DIRECTION_DOWN"),
-];
-
-const fixedAnimationNames = [l10n("FIELD_IDLE"), l10n("FIELD_MOVING")];
-
-const platformAnimationNames = [
-  l10n("FIELD_IDLE_DIR", { direction: l10n("FIELD_DIRECTION_RIGHT") }),
-  l10n("FIELD_IDLE_DIR", { direction: l10n("FIELD_DIRECTION_LEFT") }),
-  l10n("FIELD_JUMPING_DIR", { direction: l10n("FIELD_DIRECTION_RIGHT") }),
-  l10n("FIELD_JUMPING_DIR", { direction: l10n("FIELD_DIRECTION_LEFT") }),
-  l10n("FIELD_MOVING_DIR", { direction: l10n("FIELD_DIRECTION_RIGHT") }),
-  l10n("FIELD_MOVING_DIR", { direction: l10n("FIELD_DIRECTION_LEFT") }),
-  l10n("FIELD_CLIMBING"),
-];
+export const cursorAnimationTypes: AnimationType[] = ["idle", "hover"];
 
 export const getAnimationTypeByIndex = (
   type: SpriteAnimationType,
@@ -134,45 +74,6 @@ export const getAnimationTypeByIndex = (
   return filterAnimationsBySpriteType(animationTypes, type, flipLeft)[
     animationIndex
   ];
-};
-
-export const getAnimationNameForType = (type: AnimationType) => {
-  return animationNameLookup[type];
-};
-
-export const getAnimationNameByIndex = (
-  type: SpriteAnimationType,
-  flipLeft: boolean,
-  animationIndex: number
-) => {
-  if (type === "fixed" || type === "fixed_movement") {
-    return fixedAnimationNames[animationIndex];
-  }
-  if (type === "platform_player") {
-    return filterAnimationsBySpriteType(platformAnimationNames, type, flipLeft)[
-      animationIndex
-    ];
-  }
-  if (type === "multi") {
-    return filterAnimationsBySpriteType(multiAnimationNames, type, flipLeft)[
-      animationIndex
-    ];
-  }
-  return filterAnimationsBySpriteType(animationNames, type, flipLeft)[
-    animationIndex
-  ];
-};
-
-export const getAnimationNameById = (
-  type: SpriteAnimationType,
-  flipLeft: boolean,
-  selectedId: string,
-  animationIds: string[]
-) => {
-  const filteredIds =
-    filterAnimationsBySpriteType(animationIds, type, flipLeft) || [];
-  const animationIndex = filteredIds.indexOf(selectedId);
-  return getAnimationNameByIndex(type, flipLeft, animationIndex);
 };
 
 const fixedIndexes = [0];
@@ -243,35 +144,6 @@ export const animationIndexBySpriteType = (
     return flipIndexes[animationIndex % flipIndexes.length];
   }
   return animationIndex;
-};
-
-export const animationFlipBySpriteType = (
-  animationIndex: number,
-  type: SpriteAnimationType,
-  flipLeft: boolean
-): boolean => {
-  if (type === "fixed") {
-    return false;
-  }
-  if (type === "fixed_movement") {
-    return false;
-  }
-  if (type === "multi" && !flipLeft) {
-    return false;
-  }
-  if (type === "multi" && flipLeft) {
-    return animationIndex === 1;
-  }
-  if (type === "platform_player" && !flipLeft) {
-    return false;
-  }
-  if (type === "platform_player" && flipLeft) {
-    return animationIndex === 1 || animationIndex === 5 || animationIndex === 3;
-  }
-  if (flipLeft) {
-    return animationIndex === 1 || animationIndex === 5;
-  }
-  return false;
 };
 
 export const animationMapBySpriteType = <T, U>(

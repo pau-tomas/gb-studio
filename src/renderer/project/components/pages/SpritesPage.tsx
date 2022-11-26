@@ -29,7 +29,7 @@ import SpriteTilePalette from "components/sprites/SpriteTilePalette";
 import SpriteAnimationTimeline from "components/sprites/SpriteAnimationTimeline";
 import { SplitPaneHeader } from "ui/splitpane/SplitPaneHeader";
 import { l10n } from "renderer/lib/api";
-import { getAnimationNameById } from "components/sprites/helpers";
+import { getAnimationNameById } from "components/sprites/nameHelpers";
 import MetaspriteEditorToolsPanel from "components/sprites/MetaspriteEditorToolsPanel";
 import { ZoomButton } from "ui/buttons/ZoomButton";
 import MetaspriteEditorPreviewSettings from "components/sprites/MetaspriteEditorPreviewSettings";
