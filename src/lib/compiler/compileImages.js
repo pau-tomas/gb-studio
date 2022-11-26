@@ -7,7 +7,7 @@ import {
   tileArrayToTileData,
   tilesAndLookupToTilemap,
   toTileLookup,
-} from "lib/tiles/tileData";
+} from "shared/lib/tiles/tileData";
 
 // const MAX_SIZE = 9999999999;
 // const MAX_TILESET_TILES = 16 * 12;

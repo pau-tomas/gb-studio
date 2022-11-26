@@ -10,9 +10,9 @@ import {
   spriteSheetSelectors,
 } from "renderer/project/store/features/entities/entitiesState";
 import entitiesActions from "renderer/project/store/features/entities/entitiesActions";
-import { detectClassic } from "lib/sprite/detect";
-import { compileSprite } from "lib/compiler/compileSprites";
+import { detectClassic } from "renderer/lib/sprite/detect";
 import { denormalizeSprite } from "renderer/project/store/features/entities/entitiesHelpers";
+import API from "renderer/lib/api";
 
 const spriteMiddleware: Middleware<Dispatch, RootState> =
   (store) => (next) => async (action) => {
@@ -91,7 +91,7 @@ const spriteMiddleware: Middleware<Dispatch, RootState> =
         spriteStates,
       });
 
-      const res = await compileSprite(spriteData, projectRoot);
+      const res = await API.project.compileSprite(spriteData, projectRoot);
       const numTiles = res.tiles.length / 2;
 
       if (numTiles !== spriteSheet.numTiles) {

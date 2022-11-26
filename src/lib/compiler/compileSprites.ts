@@ -3,7 +3,7 @@ import { assetFilename } from "shared/lib/assets/helpers";
 import {
   optimiseTiles,
   indexedImageTo2bppSpriteData,
-} from "lib/sprite/spriteData";
+} from "shared/lib/sprites/spriteData";
 import {
   animationMapBySpriteType,
   toEngineOrder,
@@ -13,7 +13,7 @@ import type {
   ObjPalette,
   SpriteAnimationType,
 } from "renderer/project/store/features/entities/entitiesTypes";
-import { IndexedImage } from "lib/tiles/indexedImage";
+import { IndexedImage } from "shared/lib/tiles/indexedImage";
 
 const S_PALETTE = 0x10;
 const S_FLIPX = 0x20;

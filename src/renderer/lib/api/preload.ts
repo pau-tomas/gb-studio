@@ -1,7 +1,11 @@
 import { ipcRenderer } from "electron";
 import type { BackgroundInfo } from "lib/backgrounds/validation";
+import type { PrecompiledSpriteSheetData } from "lib/compiler/compileSprites";
 import l10n, { setLanguageData } from "lib/helpers/l10n";
-import type { Background } from "renderer/project/store/features/entities/entitiesTypes";
+import type {
+  Background,
+  SpriteSheetData,
+} from "renderer/project/store/features/entities/entitiesTypes";
 
 type JsonValue = string | number | boolean | null;
 
@@ -84,5 +88,10 @@ export const API = {
         is360,
         projectPath
       ),
+    compileSprite: async (
+      spriteSheet: SpriteSheetData,
+      projectRoot: string
+    ): Promise<PrecompiledSpriteSheetData> =>
+      ipcRenderer.invoke("project:compile-sprite", spriteSheet, projectRoot),
   },
 } as const;

@@ -10,13 +10,13 @@ import type {
 } from "renderer/project/store/features/entities/entitiesTypes";
 import { assetFilename } from "shared/lib/assets/helpers";
 import DetectSpriteWorker, { DetectSpriteResult } from "./detectSprite.worker";
-import {
+import type {
   Position,
-  roundUp16,
   SliceDef,
   SpriteCluster,
   SpriteTileLocation,
-} from "./spriteData";
+} from "shared/lib/sprites/spriteData";
+import { roundUp16 } from "shared/lib/math/8bit";
 
 interface DetectedSprite {
   spriteSheetId: string;

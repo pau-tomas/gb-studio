@@ -9,7 +9,8 @@ import {
   readFileToIndexedImage,
   sliceIndexedImage,
   toIndex,
-} from "lib/tiles/indexedImage";
+} from "shared/lib/tiles/indexedImage";
+import { roundDown8, roundUp16, roundUp8 } from "shared/lib/math/8bit";
 
 const TILE_SIZE = 8;
 
@@ -1158,10 +1159,6 @@ export const readFileToSpriteTilesData = async (
 };
 
 // ------------
-
-export const roundDown8 = (v: number): number => Math.floor(v / 8) * 8;
-export const roundUp16 = (x: number): number => Math.ceil(x / 16) * 16;
-export const roundUp8 = (x: number): number => Math.ceil(x / 8) * 8;
 
 const uniqWith = <T>(arr: T[], comparator: (a: T, b: T) => boolean) => {
   const uniques = [];

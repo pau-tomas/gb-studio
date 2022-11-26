@@ -1,7 +1,7 @@
 import promiseLimit from "lib/helpers/promiseLimit2";
 import { assetFilename } from "shared/lib/assets/helpers";
 import getFileModifiedTime from "lib/helpers/fs/getModifiedTime";
-import { readFileToSpriteTilesData } from "lib/sprite/spriteData";
+import { readFileToSpriteTilesData } from "shared/lib/sprites/spriteData";
 import { EmoteAssetData } from "lib/project/loadEmoteData";
 
 type CompileEmoteOptions = {

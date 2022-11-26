@@ -7,7 +7,11 @@ import { l10nStrings } from "lib/helpers/l10n";
 import getTmp from "lib/helpers/getTmp";
 import pkg from "package.json";
 import { getBackgroundInfo } from "lib/backgrounds/validation";
-import type { Background } from "renderer/project/store/features/entities/entitiesTypes";
+import type {
+  Background,
+  SpriteSheetData,
+} from "renderer/project/store/features/entities/entitiesTypes";
+import { compileSprite } from "lib/compiler/compileSprites";
 
 declare const COMMITHASH: string;
 
@@ -192,6 +196,13 @@ const initIPC = ({
     "project:get-background-info",
     (_event, background: Background, is360: boolean, projectPath: string) => {
       return getBackgroundInfo(background, is360, projectPath);
+    }
+  );
+
+  ipcMain.handle(
+    "project:compile-sprite",
+    (_event, spriteSheet: SpriteSheetData, projectRoot: string) => {
+      return compileSprite(spriteSheet, projectRoot);
     }
   );
 };
