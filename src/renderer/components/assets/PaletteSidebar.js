@@ -9,7 +9,7 @@ import { PaletteShape } from "renderer/project/store/stateShape";
 import PaletteBlock from "components/library/PaletteBlock";
 import editorActions from "renderer/project/store/features/editor/editorActions";
 import navigationActions from "renderer/project/store/features/navigation/navigationActions";
-import { clampSidebarWidth } from "lib/helpers/window/sidebar";
+import { clampSidebarWidth } from "renderer/lib/window/sidebar";
 
 class PaletteSidebar extends Component {
   constructor(props) {

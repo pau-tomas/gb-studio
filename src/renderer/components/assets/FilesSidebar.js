@@ -8,7 +8,7 @@ import { l10n } from "renderer/lib/api";
 import { groupBy } from "lib/helpers/array";
 import editorActions from "renderer/project/store/features/editor/editorActions";
 import navigationActions from "renderer/project/store/features/navigation/navigationActions";
-import { clampSidebarWidth } from "lib/helpers/window/sidebar";
+import { clampSidebarWidth } from "renderer/lib/window/sidebar";
 
 const groupByPlugin = groupBy("plugin");
 

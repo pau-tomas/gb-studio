@@ -19,7 +19,7 @@ import projectActions from "renderer/project/store/features/project/projectActio
 import settingsActions from "renderer/project/store/features/settings/settingsActions";
 import entitiesActions from "renderer/project/store/features/entities/entitiesActions";
 import spriteActions from "renderer/project/store/features/sprite/spriteActions";
-import { MIN_SIDEBAR_WIDTH } from "lib/helpers/window/sidebar";
+import { MIN_SIDEBAR_WIDTH } from "renderer/lib/window/sidebar";
 
 export type Tool =
   | "triggers"

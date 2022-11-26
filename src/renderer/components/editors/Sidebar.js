@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import cx from "classnames";
 import editorActions from "renderer/project/store/features/editor/editorActions";
-import { clampSidebarWidth } from "lib/helpers/window/sidebar";
+import { clampSidebarWidth } from "renderer/lib/window/sidebar";
 
 const SidebarTabs = ({
   values,
