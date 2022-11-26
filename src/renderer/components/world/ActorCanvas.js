@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import SpriteSheetCanvas from "./SpriteSheetCanvas";
 import { PaletteShape } from "renderer/project/store/stateShape";
-import { getCachedObject } from "lib/helpers/cache";
+import { getCachedObject } from "shared/lib/data/cache";
 import { DMG_PALETTE } from "shared/consts";
 import { paletteSelectors } from "renderer/project/store/features/entities/entitiesState";
 import { getSettings } from "renderer/project/store/features/settings/settingsState";

@@ -24,7 +24,7 @@ import {
   MIDDLE_MOUSE,
   TILE_COLOR_PROP_PRIORITY,
 } from "shared/consts";
-import { getCachedObject } from "lib/helpers/cache";
+import { getCachedObject } from "shared/lib/data/cache";
 import SceneInfo from "./SceneInfo";
 import {
   sceneSelectors,

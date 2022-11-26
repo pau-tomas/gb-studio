@@ -32,7 +32,7 @@ import { PaletteShape } from "renderer/project/store/stateShape";
 import Modal, { ModalFade, ModalContent } from "components/library/Modal";
 import Button from "components/library/Button";
 import { FormField } from "components/library/Forms";
-import { getCachedObject } from "lib/helpers/cache";
+import { getCachedObject } from "shared/lib/data/cache";
 import editorActions from "renderer/project/store/features/editor/editorActions";
 import {
   backgroundSelectors,
