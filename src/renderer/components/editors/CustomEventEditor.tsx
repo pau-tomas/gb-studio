@@ -2,7 +2,7 @@ import React, { useCallback, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import ScriptEditor from "components/script/ScriptEditor";
 import { l10n } from "renderer/lib/api";
-import castEventValue from "lib/helpers/castEventValue";
+import castEventValue from "renderer/lib/forms/castEventValue";
 import { DropdownButton } from "ui/buttons/DropdownButton";
 import { MenuItem } from "ui/menu/Menu";
 import { WorldEditor } from "./WorldEditor";

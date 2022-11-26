@@ -3,7 +3,7 @@ import React, { FC, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { SceneSelect } from "components/forms/SceneSelect";
 import DirectionPicker from "components/forms/DirectionPicker";
-import castEventValue from "lib/helpers/castEventValue";
+import castEventValue from "renderer/lib/forms/castEventValue";
 import { l10n } from "renderer/lib/api";
 import { MovementSpeedSelect } from "components/forms/MovementSpeedSelect";
 import { AnimationSpeedSelect } from "components/forms/AnimationSpeedSelect";

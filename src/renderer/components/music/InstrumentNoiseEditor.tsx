@@ -1,6 +1,6 @@
 import React from "react";
 import { useDispatch } from "react-redux";
-import castEventValue from "lib/helpers/castEventValue";
+import castEventValue from "renderer/lib/forms/castEventValue";
 import { l10n } from "renderer/lib/api";
 import trackerDocumentActions from "renderer/project/store/features/trackerDocument/trackerDocumentActions";
 import { NoiseInstrument } from "renderer/project/store/features/trackerDocument/trackerDocumentTypes";

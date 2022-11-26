@@ -32,7 +32,7 @@ import editorActions from "renderer/project/store/features/editor/editorActions"
 import spriteActions from "renderer/project/store/features/sprite/spriteActions";
 import clipboardActions from "renderer/project/store/features/clipboard/clipboardActions";
 import { RootState } from "renderer/project/store/configureStore";
-import castEventValue from "lib/helpers/castEventValue";
+import castEventValue from "renderer/lib/forms/castEventValue";
 import { Button } from "ui/buttons/Button";
 import {
   FlipHorizontalIcon,

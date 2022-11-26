@@ -27,7 +27,7 @@ import { Sidebar, SidebarColumn } from "ui/sidebars/Sidebar";
 import { CoordinateInput } from "ui/form/CoordinateInput";
 import { Checkbox } from "ui/form/Checkbox";
 import { LockIcon, LockOpenIcon, PinIcon } from "ui/icons/Icons";
-import castEventValue from "lib/helpers/castEventValue";
+import castEventValue from "renderer/lib/forms/castEventValue";
 import { CheckboxField } from "ui/form/CheckboxField";
 import DirectionPicker from "components/forms/DirectionPicker";
 import { DMG_PALETTE } from "shared/consts";

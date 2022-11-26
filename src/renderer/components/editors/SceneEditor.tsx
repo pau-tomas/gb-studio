@@ -1,7 +1,7 @@
 import React, { useCallback, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import ScriptEditor from "components/script/ScriptEditor";
-import castEventValue from "lib/helpers/castEventValue";
+import castEventValue from "renderer/lib/forms/castEventValue";
 import { l10n } from "renderer/lib/api";
 import { WorldEditor } from "./WorldEditor";
 import ScriptEditorDropdownButton from "components/script/ScriptEditorDropdownButton";

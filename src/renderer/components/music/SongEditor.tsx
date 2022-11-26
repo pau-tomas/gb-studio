@@ -16,7 +16,7 @@ import { InstrumentDutyEditor } from "./InstrumentDutyEditor";
 import { InstrumentWaveEditor } from "./InstrumentWaveEditor";
 import { InstrumentNoiseEditor } from "./InstrumentNoiseEditor";
 import { Song } from "lib/helpers/uge/song/Song";
-import castEventValue from "lib/helpers/castEventValue";
+import castEventValue from "renderer/lib/forms/castEventValue";
 import { l10n } from "renderer/lib/api";
 import {
   DutyInstrument,

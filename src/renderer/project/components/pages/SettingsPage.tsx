@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 // import Path from "path";
 import { FormField } from "components/library/Forms";
 import { l10n } from "renderer/lib/api";
-import castEventValue from "lib/helpers/castEventValue";
+import castEventValue from "renderer/lib/forms/castEventValue";
 import CustomControlsPicker from "components/forms/CustomControlsPicker";
 import { PaletteSelect } from "components/forms/PaletteSelect";
 import { Button } from "ui/buttons/Button";
