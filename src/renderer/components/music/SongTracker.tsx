@@ -17,7 +17,7 @@ import {
   parseClipboardToPattern,
   parsePatternFieldsToClipboard,
 } from "./helpers";
-import { getKeys, KeyWhen } from "lib/keybindings/keyBindings";
+import { getKeys, KeyWhen } from "renderer/lib/keybindings/keyBindings";
 import trackerActions from "renderer/project/store/features/tracker/trackerActions";
 import clipboardActions from "renderer/project/store/features/clipboard/clipboardActions";
 import { clipboard } from "renderer/project/store/features/clipboard/clipboardHelpers";
