@@ -9,9 +9,9 @@ import {
 } from "./buildMakeScript";
 import { cacheObjData, fetchCachedObjData } from "./objCache";
 import ensureBuildTools from "./ensureBuildTools";
-import { l10n } from "renderer/lib/api";
 import spawn from "lib/helpers/cli/spawn";
 import { gbspack } from "./gbspack";
+import l10n from "lib/helpers/l10n";
 
 const cpuCount = os.cpus().length;
 
