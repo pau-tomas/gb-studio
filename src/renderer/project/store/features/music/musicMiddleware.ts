@@ -1,5 +1,5 @@
 import { Dispatch, Middleware } from "@reduxjs/toolkit";
-import ScripTracker from "lib/vendor/scriptracker/scriptracker";
+import ScripTracker from "renderer/lib/vendor/scriptracker/scriptracker";
 import { RootState } from "renderer/project/store/configureStore";
 import soundfxActions from "renderer/project/store/features/soundfx/soundfxActions";
 import navigationActions from "renderer/project/store/features/navigation/navigationActions";
