@@ -1,6 +1,6 @@
 import { readFile } from "fs-extra";
 import { decHexVal } from "shared/lib/math/8bit";
-import clamp from "lib/helpers/clamp";
+import clamp from "shared/lib/math/clamp";
 import { WaveFile } from "wavefile";
 
 type CompileOutputFmt = "c" | "asm";

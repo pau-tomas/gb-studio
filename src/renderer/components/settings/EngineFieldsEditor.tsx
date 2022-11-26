@@ -17,7 +17,7 @@ import { SettingRowInput, SettingRowLabel } from "ui/form/SettingRow";
 import { EngineFieldValue } from "renderer/project/store/features/entities/entitiesTypes";
 import { Input } from "ui/form/Input";
 import { Checkbox } from "ui/form/Checkbox";
-import clamp from "lib/helpers/clamp";
+import clamp from "shared/lib/math/clamp";
 import { Select } from "ui/form/Select";
 
 const { editEngineFieldValue, removeEngineFieldValue } = entitiesActions;

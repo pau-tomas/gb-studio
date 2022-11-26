@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef, useCallback } from "react";
-import clamp from "lib/helpers/clamp";
+import clamp from "shared/lib/math/clamp";
 import isEqual from "lodash/isEqual";
 
 type SplitDirection = "horizontal" | "vertical";

@@ -20,7 +20,7 @@ import {
   TILE_COLOR_PALETTE,
 } from "shared/consts";
 import { isVariableField, isPropertyField } from "lib/helpers/eventSystem";
-import clamp from "lib/helpers/clamp";
+import clamp from "shared/lib/math/clamp";
 import { RootState } from "renderer/project/store/configureStore";
 import settingsActions from "renderer/project/store/features/settings/settingsActions";
 import uuid from "uuid";
