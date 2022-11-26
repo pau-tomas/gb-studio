@@ -1,6 +1,6 @@
 import React, { useCallback } from "react";
 import styled, { css } from "styled-components";
-import { PatternCell } from "lib/helpers/uge/song/PatternCell";
+import { PatternCell } from "shared/lib/uge/song/PatternCell";
 import trackerActions from "renderer/project/store/features/tracker/trackerActions";
 import trackerDocumentActions from "renderer/project/store/features/trackerDocument/trackerDocumentActions";
 import { useDispatch, useSelector } from "react-redux";

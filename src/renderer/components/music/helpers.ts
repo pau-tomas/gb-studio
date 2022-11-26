@@ -1,5 +1,5 @@
-import { PatternCell } from "lib/helpers/uge/song/PatternCell";
-import { Song } from "lib/helpers/uge/song/Song";
+import { PatternCell } from "shared/lib/uge/song/PatternCell";
+import { Song } from "shared/lib/uge/song/Song";
 import { InstrumentType } from "renderer/project/store/features/editor/editorState";
 import { noteNames } from "./helpers/music_constants";
 

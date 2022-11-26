@@ -1,7 +1,7 @@
 import compiler from "./compiler";
 import storage from "./storage";
 import emulator from "./emulator";
-import { Song } from "lib/helpers/uge/song/Song";
+import { Song } from "shared/lib/uge/song/Song";
 import { lo, hi } from "shared/lib/math/8bit";
 
 type PlaybackPosition = [number, number];

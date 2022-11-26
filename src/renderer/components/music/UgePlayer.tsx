@@ -1,7 +1,7 @@
 // import { ipcRenderer } from "electron";
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Song } from "lib/helpers/uge/song/Song";
+import { Song } from "shared/lib/uge/song/Song";
 import { RootState } from "renderer/project/store/configureStore";
 import trackerActions from "renderer/project/store/features/tracker/trackerActions";
 

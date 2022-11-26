@@ -1,5 +1,5 @@
 /* eslint-disable camelcase */
-import { PatternCell } from "lib/helpers/uge/song/PatternCell";
+import { PatternCell } from "shared/lib/uge/song/PatternCell";
 
 export type Song = {
   name: string;

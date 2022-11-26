@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import trackerDocumentActions from "renderer/project/store/features/trackerDocument/trackerDocumentActions";
 import { FormField, FormRow, FormSectionTitle } from "ui/form/FormLayout";
 import { RootState } from "renderer/project/store/configureStore";
-import { PatternCell } from "lib/helpers/uge/song/PatternCell";
+import { PatternCell } from "shared/lib/uge/song/PatternCell";
 import { Select, Option, OptionLabelWithInfo } from "ui/form/Select";
 import { l10n } from "renderer/lib/api";
 import { SliderField } from "ui/form/SliderField";

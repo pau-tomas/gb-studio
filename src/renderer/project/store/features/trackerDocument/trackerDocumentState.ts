@@ -8,8 +8,8 @@ import {
 // import { pathExists, readFile } from "fs-extra";
 import cloneDeep from "lodash/cloneDeep";
 // import { writeFileWithBackupAsync } from "lib/helpers/fs/writeFileWithBackup";
-import { PatternCell } from "lib/helpers/uge/song/PatternCell";
-import { Song } from "lib/helpers/uge/song/Song";
+import { PatternCell } from "shared/lib/uge/song/PatternCell";
+import { Song } from "shared/lib/uge/song/Song";
 // import { loadUGESong, saveUGESong } from "lib/helpers/uge/ugeHelper";
 import { RootState } from "renderer/project/store/configureStore";
 import {
