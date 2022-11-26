@@ -1,5 +1,5 @@
 import { readFile } from "fs-extra";
-import { decHexVal } from "lib/helpers/8bit";
+import { decHexVal } from "shared/lib/math/8bit";
 import clamp from "lib/helpers/clamp";
 import { WaveFile } from "wavefile";
 

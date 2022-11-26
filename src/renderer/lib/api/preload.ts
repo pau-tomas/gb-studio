@@ -1,5 +1,7 @@
 import { ipcRenderer } from "electron";
+import type { BackgroundInfo } from "lib/backgrounds/validation";
 import l10n, { setLanguageData } from "lib/helpers/l10n";
+import type { Background } from "renderer/project/store/features/entities/entitiesTypes";
 
 type JsonValue = string | number | boolean | null;
 
@@ -71,5 +73,16 @@ export const API = {
       ipcRenderer.invoke("open-play", outputRoot, sgbMode),
     openAsset: (filePath: string, type?: "music" | "image" | undefined) =>
       ipcRenderer.invoke("open-asset", filePath, type),
+    getBackgroundInfo: (
+      background: Background,
+      is360: boolean,
+      projectPath: string
+    ): Promise<BackgroundInfo> =>
+      ipcRenderer.invoke(
+        "project:get-background-info",
+        background,
+        is360,
+        projectPath
+      ),
   },
 } as const;

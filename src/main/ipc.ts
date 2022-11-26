@@ -6,6 +6,8 @@ import loadProject from "lib/project/loadProjectData";
 import { l10nStrings } from "lib/helpers/l10n";
 import getTmp from "lib/helpers/getTmp";
 import pkg from "package.json";
+import { getBackgroundInfo } from "lib/backgrounds/validation";
+import type { Background } from "renderer/project/store/features/entities/entitiesTypes";
 
 declare const COMMITHASH: string;
 
@@ -185,6 +187,13 @@ const initIPC = ({
   ipcMain.handle("show-error", (_event, title: string, content: string) => {
     dialog.showErrorBox(title, content);
   });
+
+  ipcMain.handle(
+    "project:get-background-info",
+    (_event, background: Background, is360: boolean, projectPath: string) => {
+      return getBackgroundInfo(background, is360, projectPath);
+    }
+  );
 };
 
 export default initIPC;

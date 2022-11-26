@@ -1,15 +1,15 @@
-import { divisibleBy8 } from "./8bit";
-import { assetFilename } from "./gbstudio";
-import { l10n } from "renderer/lib/api";
+import { divisibleBy8 } from "shared/lib/math/8bit";
+import { assetFilename } from "lib/helpers/gbstudio";
 import type { Background } from "renderer/project/store/features/entities/entitiesTypes";
 import { readFileToTilesDataArray, toTileLookup } from "lib/tiles/tileData";
+import l10n from "lib/helpers/l10n";
 
 const MAX_IMAGE_WIDTH = 2040;
 const MAX_IMAGE_HEIGHT = 2040;
 const MAX_PIXELS = 16380 * 64;
 const MAX_TILESET_TILES = 16 * 12;
 
-interface BackgroundInfo {
+export interface BackgroundInfo {
   numTiles: number;
   warnings: string[];
 }

@@ -1,4 +1,4 @@
-import { decBin } from "lib/helpers/8bit";
+import { decBin } from "shared/lib/math/8bit";
 import { assetFilename } from "lib/helpers/gbstudio";
 import type { Sound } from "renderer/project/store/features/entities/entitiesTypes";
 import { compileFXHammer } from "./compileFXHammer";

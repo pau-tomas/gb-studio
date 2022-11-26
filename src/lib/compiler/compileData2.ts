@@ -8,7 +8,7 @@ import type {
   Trigger,
 } from "renderer/project/store/features/entities/entitiesTypes";
 import { FontData } from "lib/fonts/fontData";
-import { decHex32Val, hexDec, wrap8Bit } from "lib/helpers/8bit";
+import { decHex32Val, hexDec, wrap8Bit } from "shared/lib/math/8bit";
 import { PrecompiledSpriteSheetData } from "./compileSprites";
 import { dirEnum } from "./helpers";
 

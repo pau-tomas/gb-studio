@@ -1,5 +1,5 @@
 import { inputDec, textSpeedDec } from "./helpers";
-import { decBin, decHex, decOct, hexDec } from "lib/helpers/8bit";
+import { decBin, decHex, decOct, hexDec } from "shared/lib/math/8bit";
 import trimlines from "lib/helpers/trimlines";
 import { is16BitCType } from "lib/helpers/engineFields";
 import {

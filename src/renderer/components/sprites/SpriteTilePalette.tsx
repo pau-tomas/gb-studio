@@ -6,7 +6,7 @@ import { SpriteTileSelection } from "renderer/project/store/features/editor/edit
 import { spriteSheetSelectors } from "renderer/project/store/features/entities/entitiesState";
 import editorActions from "renderer/project/store/features/editor/editorActions";
 import entitiesActions from "renderer/project/store/features/entities/entitiesActions";
-import { roundDown8 } from "lib/helpers/8bit";
+import { roundDown8 } from "shared/lib/math/8bit";
 import styled from "styled-components";
 import { l10n } from "renderer/lib/api";
 import electronActions from "renderer/project/store/features/electron/electronActions";

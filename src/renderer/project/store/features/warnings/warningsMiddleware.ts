@@ -1,8 +1,8 @@
 import { Middleware, Action, Dispatch } from "@reduxjs/toolkit";
-import { getBackgroundInfo } from "lib/helpers/validation";
 import actions from "./warningsActions";
 import { RootState } from "renderer/project/store/configureStore";
 import { backgroundSelectors } from "renderer/project/store/features/entities/entitiesState";
+import API from "renderer/lib/api";
 
 const warningsMiddleware: Middleware<Dispatch, RootState> =
   (store) => (next) => (action: Action) => {
@@ -20,8 +20,9 @@ const warningsMiddleware: Middleware<Dispatch, RootState> =
           cachedWarnings.timestamp < background._v ||
           cachedWarnings.is360 !== action.payload.is360
         ) {
-          getBackgroundInfo(background, action.payload.is360, projectRoot).then(
-            (info) => {
+          API.project
+            .getBackgroundInfo(background, action.payload.is360, projectRoot)
+            .then((info) => {
               store.dispatch(
                 actions.setBackgroundWarnings({
                   id: action.payload.backgroundId,
@@ -30,8 +31,7 @@ const warningsMiddleware: Middleware<Dispatch, RootState> =
                   numTiles: info.numTiles,
                 })
               );
-            }
-          );
+            });
         }
       }
     }

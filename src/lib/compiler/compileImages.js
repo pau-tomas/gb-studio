@@ -1,6 +1,6 @@
 import { assetFilename } from "lib/helpers/gbstudio";
 import getFileModifiedTime from "lib/helpers/fs/getModifiedTime";
-import { getBackgroundInfo } from "lib/helpers/validation";
+import { getBackgroundInfo } from "lib/backgrounds/validation";
 import {
   readFileToTilesDataArray,
   tileLookupToTileData,
