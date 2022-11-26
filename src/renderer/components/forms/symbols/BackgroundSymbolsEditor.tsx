@@ -6,7 +6,7 @@ import {
   tilesetSymbol,
   tilemapSymbol,
   tilemapAttrSymbol,
-} from "lib/helpers/symbols";
+} from "shared/lib/compiler/symbols";
 import { addBankRef, AssetReference } from "components/forms/ReferencesSelect";
 
 interface BackgroundSymbolsEditorProps {

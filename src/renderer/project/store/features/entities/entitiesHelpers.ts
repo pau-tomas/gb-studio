@@ -45,7 +45,7 @@ import {
   EntityState,
 } from "@reduxjs/toolkit";
 import { l10n } from "renderer/lib/api";
-import { genSymbol, toValidSymbol } from "lib/helpers/symbols";
+import { genSymbol, toValidSymbol } from "shared/lib/compiler/symbols";
 import parseAssetPath from "lib/helpers/path/parseAssetPath";
 
 export interface NormalisedEntities {

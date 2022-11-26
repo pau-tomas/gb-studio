@@ -2,7 +2,7 @@ import React from "react";
 import { useDispatch } from "react-redux";
 import { spriteSheetSelectors } from "renderer/project/store/features/entities/entitiesState";
 import entitiesActions from "renderer/project/store/features/entities/entitiesActions";
-import { tilesetSymbol } from "lib/helpers/symbols";
+import { tilesetSymbol } from "shared/lib/compiler/symbols";
 import { addBankRef, AssetReference } from "components/forms/ReferencesSelect";
 
 interface SpriteSymbolsEditorProps {
