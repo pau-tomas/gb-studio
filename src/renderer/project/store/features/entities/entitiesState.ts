@@ -24,7 +24,7 @@ import clamp from "shared/lib/math/clamp";
 import { RootState } from "renderer/project/store/configureStore";
 import settingsActions from "renderer/project/store/features/settings/settingsActions";
 import uuid from "uuid";
-import { paint, paintLine, floodFill } from "lib/helpers/paint";
+import { paint, paintLine, floodFill } from "shared/lib/math/paint";
 import { Brush } from "renderer/project/store/features/editor/editorState";
 import projectActions from "renderer/project/store/features/project/projectActions";
 import {
