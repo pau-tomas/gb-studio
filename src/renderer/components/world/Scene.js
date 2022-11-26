@@ -13,7 +13,7 @@ import {
   BackgroundShape,
   PaletteShape,
 } from "renderer/project/store/stateShape";
-import { assetFilename } from "lib/helpers/gbstudio";
+import { assetFilename } from "shared/lib/assets/helpers";
 import SceneCursor from "./SceneCursor";
 import ColorizedImage from "./ColorizedImage";
 import {

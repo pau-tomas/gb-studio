@@ -1,6 +1,6 @@
 import React, { FC, useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { assetFilename } from "lib/helpers/gbstudio";
+import { assetFilename } from "shared/lib/assets/helpers";
 import {
   backgroundSelectors,
   sceneSelectors,

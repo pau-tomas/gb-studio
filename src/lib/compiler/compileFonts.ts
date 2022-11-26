@@ -1,4 +1,4 @@
-import { assetFilename } from "lib/helpers/gbstudio";
+import { assetFilename } from "shared/lib/assets/helpers";
 import { FontAssetData } from "lib/project/loadFontData";
 import { FontData, readFileToFontData } from "lib/fonts/fontData";
 

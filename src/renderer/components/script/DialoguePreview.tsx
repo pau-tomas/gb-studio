@@ -2,7 +2,7 @@ import keyBy from "lodash/keyBy";
 import uniq from "lodash/uniq";
 import React, { FC, useEffect, useLayoutEffect, useRef, useState } from "react";
 import { useSelector } from "react-redux";
-import { assetFilename } from "lib/helpers/gbstudio";
+import { assetFilename } from "shared/lib/assets/helpers";
 import { textNumLines } from "lib/helpers/trimlines";
 import { RootState } from "renderer/project/store/configureStore";
 import {

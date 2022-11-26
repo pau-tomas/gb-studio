@@ -20,7 +20,7 @@ import useSplitPane from "ui/hooks/use-split-pane";
 import styled from "styled-components";
 import { SplitPaneVerticalDivider } from "ui/splitpane/SplitPaneDivider";
 import { NoSongsMessage } from "./NoSongsMessage";
-import { assetFilename } from "lib/helpers/gbstudio";
+import { assetFilename } from "shared/lib/assets/helpers";
 import { addNewSongFile } from "renderer/project/store/features/trackerDocument/trackerDocumentState";
 import trackerActions from "renderer/project/store/features/tracker/trackerActions";
 // import settings from "electron-settings";

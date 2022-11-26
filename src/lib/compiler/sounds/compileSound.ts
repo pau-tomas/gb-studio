@@ -1,5 +1,5 @@
 import { decBin } from "shared/lib/math/8bit";
-import { assetFilename } from "lib/helpers/gbstudio";
+import { assetFilename } from "shared/lib/assets/helpers";
 import type { Sound } from "renderer/project/store/features/entities/entitiesTypes";
 import { compileFXHammer } from "./compileFXHammer";
 import { compileVGM } from "./compileVGM";

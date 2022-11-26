@@ -5,7 +5,7 @@ import soundfxActions from "renderer/project/store/features/soundfx/soundfxActio
 import navigationActions from "renderer/project/store/features/navigation/navigationActions";
 import actions from "./musicActions";
 import { musicSelectors } from "renderer/project/store/features/entities/entitiesState";
-import { assetFilename } from "lib/helpers/gbstudio";
+import { assetFilename } from "shared/lib/assets/helpers";
 import { MusicSettings } from "renderer/project/store/features/entities/entitiesTypes";
 // import { ipcRenderer } from "electron";
 // import { readFile } from "fs-extra";

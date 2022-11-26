@@ -1,5 +1,5 @@
 import promiseLimit from "lib/helpers/promiseLimit";
-import { assetFilename } from "lib/helpers/gbstudio";
+import { assetFilename } from "shared/lib/assets/helpers";
 import getFileModifiedTime from "lib/helpers/fs/getModifiedTime";
 import { readFileToTilesData } from "lib/tiles/tileData";
 

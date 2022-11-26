@@ -1,5 +1,5 @@
 import promiseLimit from "lib/helpers/promiseLimit2";
-import { assetFilename } from "lib/helpers/gbstudio";
+import { assetFilename } from "shared/lib/assets/helpers";
 import {
   optimiseTiles,
   indexedImageTo2bppSpriteData,

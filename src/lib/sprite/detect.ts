@@ -8,7 +8,7 @@ import type {
   SpriteSheet,
   SpriteState,
 } from "renderer/project/store/features/entities/entitiesTypes";
-import { assetFilename } from "lib/helpers/gbstudio";
+import { assetFilename } from "shared/lib/assets/helpers";
 import DetectSpriteWorker, { DetectSpriteResult } from "./detectSprite.worker";
 import {
   Position,

@@ -1,7 +1,7 @@
 import React, { FC, useState, useEffect } from "react";
 import uniq from "lodash/uniq";
 import { useSelector } from "react-redux";
-import { assetFilename } from "lib/helpers/gbstudio";
+import { assetFilename } from "shared/lib/assets/helpers";
 import { backgroundSelectors } from "renderer/project/store/features/entities/entitiesState";
 import {
   OptGroup,

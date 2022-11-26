@@ -8,7 +8,7 @@ import {
   sceneSelectors,
 } from "renderer/project/store/features/entities/entitiesState";
 import ColorizedImage from "components/world/ColorizedImage";
-import { assetFilename } from "lib/helpers/gbstudio";
+import { assetFilename } from "shared/lib/assets/helpers";
 import { DMG_PALETTE } from "shared/consts";
 import { Palette } from "renderer/project/store/features/entities/entitiesTypes";
 

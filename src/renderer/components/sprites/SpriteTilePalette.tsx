@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { assetFilename } from "lib/helpers/gbstudio";
+import { assetFilename } from "shared/lib/assets/helpers";
 import { RootState } from "renderer/project/store/configureStore";
 import { SpriteTileSelection } from "renderer/project/store/features/editor/editorState";
 import { spriteSheetSelectors } from "renderer/project/store/features/entities/entitiesState";

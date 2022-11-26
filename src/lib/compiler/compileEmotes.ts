@@ -1,5 +1,5 @@
 import promiseLimit from "lib/helpers/promiseLimit2";
-import { assetFilename } from "lib/helpers/gbstudio";
+import { assetFilename } from "shared/lib/assets/helpers";
 import getFileModifiedTime from "lib/helpers/fs/getModifiedTime";
 import { readFileToSpriteTilesData } from "lib/sprite/spriteData";
 import { EmoteAssetData } from "lib/project/loadEmoteData";

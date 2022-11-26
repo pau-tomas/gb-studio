@@ -12,7 +12,7 @@ import musicActions from "renderer/project/store/features/music/musicActions";
 import navigationActions from "renderer/project/store/features/navigation/navigationActions";
 import actions from "./soundfxActions";
 import { soundSelectors } from "renderer/project/store/features/entities/entitiesState";
-// import { assetFilename } from "lib/helpers/gbstudio";
+// import { assetFilename } from "shared/lib/assets/helpers";
 // import { ipcRenderer } from "electron";
 // import { compileWav } from "lib/compiler/sounds/compileWav";
 import { Sound } from "renderer/project/store/features/entities/entitiesTypes";

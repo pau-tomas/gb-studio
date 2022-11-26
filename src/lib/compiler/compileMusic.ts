@@ -1,7 +1,7 @@
 import childProcess from "child_process";
 import Path from "path";
 import { checksumFile, checksumString } from "lib/helpers/checksum";
-import { assetFilename } from "lib/helpers/gbstudio";
+import { assetFilename } from "shared/lib/assets/helpers";
 import { readFile, ensureDir, pathExists, writeFile, unlink } from "fs-extra";
 import ensureBuildTools from "./ensureBuildTools";
 import { exportToC, loadUGESong } from "lib/helpers/uge/ugeHelper";

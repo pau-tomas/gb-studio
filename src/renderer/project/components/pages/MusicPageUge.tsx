@@ -19,7 +19,7 @@ import editorActions from "renderer/project/store/features/editor/editorActions"
 import { NavigatorSongs } from "components/music/NavigatorSongs";
 import { SongTracker } from "components/music/SongTracker";
 import { musicSelectors } from "renderer/project/store/features/entities/entitiesState";
-import { assetFilename } from "lib/helpers/gbstudio";
+import { assetFilename } from "shared/lib/assets/helpers";
 import { SongEditor } from "components/music/SongEditor";
 import SongEditorToolsPanel from "components/music/SongEditorToolsPanel";
 import SongEditorRightToolsPanel from "components/music/SongEditorRightToolsPanel";
