@@ -1,6 +1,6 @@
+import l10n from "lib/helpers/l10n";
 import flatten from "lodash/flatten";
 import uniq from "lodash/uniq";
-import { l10n } from "renderer/lib/api";
 
 type EngineChange = {
   version: string;
