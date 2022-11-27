@@ -71,7 +71,7 @@ import {
 } from "./entitiesHelpers";
 import spriteActions from "renderer/project/store/features/sprite/spriteActions";
 import { isVariableCustomEvent } from "lib/compiler/scriptBuilder";
-import { sortByKey } from "lib/helpers/sortByKey";
+import { sortByKey } from "shared/lib/math/sort";
 
 const MIN_SCENE_X = 60;
 const MIN_SCENE_Y = 30;

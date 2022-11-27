@@ -4,7 +4,7 @@ import { RootState } from "renderer/project/store/configureStore";
 import { customEventName } from "renderer/project/store/features/entities/entitiesHelpers";
 import { customEventSelectors } from "renderer/project/store/features/entities/entitiesState";
 import { Option, Select, SelectCommonProps } from "ui/form/Select";
-import { sortByLabel } from "lib/helpers/sort";
+import { sortByLabel } from "shared/lib/math/sort";
 
 interface CustomEventSelectProps extends SelectCommonProps {
   name: string;
