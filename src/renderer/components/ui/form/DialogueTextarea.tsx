@@ -1,7 +1,7 @@
 import React, { FC, useCallback, useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 import { MentionsInput, SuggestionDataItem } from "react-mentions";
-import { NamedVariable } from "lib/helpers/variables";
+import { NamedVariable } from "renderer/lib/variables/namedVariables";
 import keyBy from "lodash/keyBy";
 import { Dictionary } from "@reduxjs/toolkit";
 import { Font } from "renderer/project/store/features/entities/entitiesTypes";

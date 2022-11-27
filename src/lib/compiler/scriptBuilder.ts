@@ -6,7 +6,7 @@ import {
   globalVariableDefaultName,
   localVariableName,
   tempVariableName,
-} from "lib/helpers/variables";
+} from "shared/lib/variables/variableNames";
 import type {
   ActorDirection,
   CustomEvent,

@@ -1,18 +1,24 @@
-import { ScriptEditorContextType } from "renderer/components/script/ScriptEditorContext";
+import type { ScriptEditorContextType } from "components/script/ScriptEditorContext";
 import { l10n } from "renderer/lib/api";
 import uniq from "lodash/uniq";
-import {
+import type {
   CustomEvent,
   Variable,
 } from "renderer/project/store/features/entities/entitiesTypes";
-
-const arrayNStrings = (n: number) =>
-  Array.from(Array(n).keys()).map((n) => String(n));
-
-export const allVariables = arrayNStrings(512);
-export const localVariables = arrayNStrings(6);
-export const tempVariables = arrayNStrings(2);
-export const customEventVariables = arrayNStrings(10);
+import {
+  allVariables,
+  customEventVariableCode,
+  customEventVariableName,
+  customEventVariables,
+  globalVariableCode,
+  globalVariableName,
+  localVariableCode,
+  localVariableName,
+  localVariables,
+  tempVariableCode,
+  tempVariableName,
+  tempVariables,
+} from "shared/lib/variables/variableNames";
 
 type VariablesLookup = { [name: string]: Variable | undefined };
 
@@ -118,95 +124,4 @@ export const groupVariables = (variables: NamedVariable[]): VariableGroup[] => {
       variables: groupVariables,
     };
   });
-};
-
-/******************************************************************************
- * Custom Event Variables
- */
-
-export const customEventVariableName = (
-  variable: string,
-  customEvent: CustomEvent
-): string => {
-  const customEventVariable = customEvent.variables[`V${variable}`];
-  if (customEventVariable) {
-    return customEventVariable.name;
-  }
-  const letter = String.fromCharCode(
-    "A".charCodeAt(0) + parseInt(variable, 10)
-  );
-  return `Variable ${letter}`;
-};
-
-export const customEventVariableCode = (variable: string) => {
-  return `V${variable}`;
-};
-
-/******************************************************************************
- * Local Variables
- */
-
-export const localVariableName = (
-  variable: string,
-  entityId: string,
-  variablesLookup: VariablesLookup
-) => {
-  return (
-    variablesLookup[`${entityId}__L${variable}`]?.name || `Local ${variable}`
-  );
-};
-
-export const localVariableCode = (variable: string) => {
-  return `L${variable}`;
-};
-
-/******************************************************************************
- * Temp Variables
- */
-
-export const tempVariableName = (variable: string) => {
-  return `Temp ${variable}`;
-};
-
-export const tempVariableCode = (variable: string) => {
-  return `T${variable}`;
-};
-
-/******************************************************************************
- * Global Variables
- */
-
-export const globalVariableName = (
-  variable: string,
-  variablesLookup: VariablesLookup
-) => {
-  return variablesLookup[variable]?.name || globalVariableDefaultName(variable);
-};
-
-export const globalVariableDefaultName = (variable: string) => {
-  return `Variable ${variable}`;
-};
-
-export const globalVariableCode = (variable: string) => {
-  return variable.padStart(2, "0");
-};
-
-/*****************************************************************************/
-
-export const prevVariable = (variable = "0") => {
-  const start = variable[0];
-  if (start === "T" || start === "L") {
-    const value = parseInt(variable.substr(1), 10) - 1;
-    return `${start}${value}`;
-  }
-  return String(parseInt(variable, 10) - 1);
-};
-
-export const nextVariable = (variable = "0") => {
-  const start = variable[0];
-  if (start === "T" || start === "L") {
-    const value = parseInt(variable.substr(1), 10) + 1;
-    return `${start}${value}`;
-  }
-  return String(parseInt(variable, 10) + 1);
 };

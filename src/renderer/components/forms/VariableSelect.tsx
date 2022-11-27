@@ -13,10 +13,10 @@ import {
 } from "renderer/project/store/features/entities/entitiesState";
 import { RootState } from "renderer/project/store/configureStore";
 import {
-  groupVariables,
   NamedVariable,
+  groupVariables,
   namedVariablesByContext,
-} from "lib/helpers/variables";
+} from "renderer/lib/variables/namedVariables";
 import { CheckIcon, PencilIcon } from "ui/icons/Icons";
 import { Input } from "ui/form/Input";
 import entitiesActions from "renderer/project/store/features/entities/entitiesActions";
