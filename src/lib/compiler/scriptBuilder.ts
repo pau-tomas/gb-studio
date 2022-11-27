@@ -51,7 +51,7 @@ import { clone } from "lib/helpers/clone";
 import {
   defaultVariableForContext,
   ScriptEditorContextType,
-} from "renderer/components/script/ScriptEditorContext";
+} from "shared/lib/scripting/context";
 
 type ScriptOutput = string[];
 
