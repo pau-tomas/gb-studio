@@ -1,4 +1,4 @@
-export default function getCoords(elem) {
+export default function getCoords(elem: HTMLDivElement) {
   const box = elem.getBoundingClientRect();
 
   const body = document.body;
