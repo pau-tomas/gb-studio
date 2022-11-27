@@ -218,3 +218,15 @@ export const toEngineOrder = <T>(arr: T[]): T[] => {
     arr[5], // Left Moving
   ];
 };
+
+export const maxSpriteTilesForBackgroundTilesLength = (
+  backgroundTilesLength: number
+) => {
+  if (backgroundTilesLength <= 128) {
+    return 96;
+  }
+  if (backgroundTilesLength < 192) {
+    return 96 - Math.ceil((backgroundTilesLength - 128) / 2);
+  }
+  return 64;
+};

@@ -28,7 +28,7 @@ import {
 import { SpriteSheet } from "renderer/project/store/features/entities/entitiesTypes";
 import clamp from "shared/lib/math/clamp";
 import { useDebounce } from "ui/hooks/use-debounce";
-import maxSpriteTilesForBackgroundTilesLength from "lib/helpers/maxSpriteTilesForBackgroundTilesLength";
+import { maxSpriteTilesForBackgroundTilesLength } from "shared/lib/sprites/helpers";
 import {
   EVENT_ACTOR_SET_SPRITE,
   EVENT_PLAYER_SET_SPRITE,
