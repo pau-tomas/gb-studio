@@ -50,10 +50,8 @@ import ToggleButtons from "ui/form/ToggleButtons";
 import { BlankIcon, CheckIcon, ConnectIcon } from "ui/icons/Icons";
 import { MenuItem, MenuItemIcon } from "ui/menu/Menu";
 import { OffscreenSkeletonInput } from "ui/skeleton/Skeleton";
-import {
-  defaultVariableForContext,
-  ScriptEditorContext,
-} from "./ScriptEditorContext";
+import { ScriptEditorContext } from "./ScriptEditorContext";
+import { defaultVariableForContext } from "shared/lib/scripting/context";
 import ScriptEventFormMathArea from "./ScriptEventFormMatharea";
 import ScriptEventFormTextArea from "./ScriptEventFormTextarea";
 

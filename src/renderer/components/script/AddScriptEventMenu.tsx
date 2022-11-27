@@ -33,10 +33,8 @@ import {
 } from "renderer/project/store/features/entities/entitiesState";
 import { EVENT_TEXT } from "lib/compiler/eventTypes";
 import { useDebounce } from "ui/hooks/use-debounce";
-import {
-  defaultVariableForContext,
-  ScriptEditorContext,
-} from "./ScriptEditorContext";
+import { ScriptEditorContext } from "./ScriptEditorContext";
+import { defaultVariableForContext } from "shared/lib/scripting/context";
 
 interface AddScriptEventMenuProps {
   parentType: ScriptEventParentType;
