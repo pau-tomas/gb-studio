@@ -1,4 +1,4 @@
-import promiseLimit from "lib/helpers/promiseLimit";
+import promiseLimit from "shared/lib/promise/promiseLimit";
 import { assetFilename } from "shared/lib/assets/helpers";
 import getFileModifiedTime from "lib/helpers/fs/getModifiedTime";
 import { readFileToTilesData } from "shared/lib/tiles/tileData";

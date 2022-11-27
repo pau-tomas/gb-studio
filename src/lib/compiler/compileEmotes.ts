@@ -1,4 +1,4 @@
-import promiseLimit from "lib/helpers/promiseLimit2";
+import promiseLimit from "shared/lib/promise/promiseLimit";
 import { assetFilename } from "shared/lib/assets/helpers";
 import getFileModifiedTime from "lib/helpers/fs/getModifiedTime";
 import { readFileToSpriteTilesData } from "shared/lib/sprites/spriteData";
