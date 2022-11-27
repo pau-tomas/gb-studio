@@ -3,7 +3,7 @@ import uniq from "lodash/uniq";
 import React, { FC, useEffect, useLayoutEffect, useRef, useState } from "react";
 import { useSelector } from "react-redux";
 import { assetFilename } from "shared/lib/assets/helpers";
-import { textNumLines } from "lib/helpers/trimlines";
+import { textNumLines } from "shared/lib/text/trimlines";
 import { RootState } from "renderer/project/store/configureStore";
 import {
   avatarSelectors,
