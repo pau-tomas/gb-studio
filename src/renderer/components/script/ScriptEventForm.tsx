@@ -1,9 +1,6 @@
 import React, { useMemo } from "react";
 import { useSelector } from "react-redux";
-import events, {
-  engineFieldUpdateEvents,
-  engineFieldStoreEvents,
-} from "lib/events";
+import type { EventHandler } from "lib/events";
 import {
   customEventSelectors,
   scriptEventSelectors,
@@ -20,6 +17,11 @@ import {
   ScriptEventFieldSchema,
 } from "renderer/project/store/features/entities/entitiesTypes";
 import ScriptEventFields from "./ScriptEventFields";
+
+const events: Dictionary<EventHandler> = {};
+const engineFieldUpdateEvents: Dictionary<EventHandler> = {};
+const engineFieldStoreEvents: Dictionary<EventHandler> = {};
+console.warn("@TODO Move events and engineField events to redux store");
 
 interface ScriptEventFormProps {
   id: string;
