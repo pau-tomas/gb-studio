@@ -1,29 +1,28 @@
-import Path from "path";
+// import Path from "path";
 import { ActionCreators } from "redux-undo";
 // import { ipcRenderer, webFrame } from "electron";
 // import settings from "electron-settings";
 import debounce from "lodash/debounce";
-import mapValues from "lodash/mapValues";
+// import mapValues from "lodash/mapValues";
 import store from "renderer/project/store/configureStore";
-import watchProject from "lib/project/watchProject";
-import plugins, { initPlugins } from "lib/plugins/plugins";
+// import watchProject from "lib/project/watchProject";
+// import plugins, { initPlugins } from "lib/plugins/plugins";
 import editorActions from "renderer/project/store/features/editor/editorActions";
-import entitiesActions from "renderer/project/store/features/entities/entitiesActions";
+// import entitiesActions from "renderer/project/store/features/entities/entitiesActions";
 import settingsActions from "renderer/project/store/features/settings/settingsActions";
 import navigationActions from "renderer/project/store/features/navigation/navigationActions";
 import projectActions from "renderer/project/store/features/project/projectActions";
 import buildGameActions from "renderer/project/store/features/buildGame/buildGameActions";
 import clipboardActions from "renderer/project/store/features/clipboard/clipboardActions";
-import engineActions from "renderer/project/store/features/engine/engineActions";
+// import engineActions from "renderer/project/store/features/engine/engineActions";
 import errorActions from "renderer/project/store/features/error/errorActions";
-import initElectronL10n from "lib/helpers/initElectronL10n";
 import { clampSidebarWidth } from "renderer/lib/window/sidebar";
 import { initKeyBindings } from "renderer/lib/keybindings/keyBindings";
 import { TRACKER_REDO, TRACKER_UNDO } from "shared/consts";
-import {
-  initEngineFields,
-  engineFieldsEmitter,
-} from "lib/project/engineFields";
+// import {
+//   initEngineFields,
+//   engineFieldsEmitter,
+// } from "lib/project/engineFields";
 
 const ipcRenderer = {
   send: (..._a) => {
@@ -37,64 +36,64 @@ const ipcRenderer = {
   },
 };
 
-initElectronL10n();
+// const actions = {
+//   ...editorActions,
+//   ...entitiesActions,
+//   ...settingsActions,
+//   ...navigationActions,
+//   ...buildGameActions,
+//   ...clipboardActions,
+// };
 
-const actions = {
-  ...editorActions,
-  ...entitiesActions,
-  ...settingsActions,
-  ...navigationActions,
-  ...buildGameActions,
-  ...clipboardActions,
-};
-
-const vmActions = mapValues(actions, (_fn, key) => {
-  // Strip proxy object from VM2 output
-  return (payload) => actions[key](JSON.parse(JSON.stringify(payload)));
-});
+// const vmActions = mapValues(actions, (_fn, key) => {
+//   // Strip proxy object from VM2 output
+//   return (payload) => actions[key](JSON.parse(JSON.stringify(payload)));
+// });
+console.warn("@TODO Allow plugins to call redux actions");
 
 const urlParams = new URLSearchParams(window.location.search);
 const projectPath = urlParams.get("path");
 
 if (projectPath) {
-  const projectRoot = Path.dirname(projectPath);
+  // const projectRoot = Path.dirname(projectPath);
   store.dispatch(projectActions.openProject(projectPath));
 
-  initPlugins(projectRoot);
-  initEngineFields(projectRoot);
-  initKeyBindings();
+  console.warn("@TODO Handle watching project for changes (in main process)");
+  // initPlugins(projectRoot);
+  // initEngineFields(projectRoot);
+  // initKeyBindings();
 
-  watchProject(projectPath, {
-    onAddSprite: (f) => store.dispatch(projectActions.loadSprite(f)),
-    onAddBackground: (f) => store.dispatch(projectActions.loadBackground(f)),
-    onAddMusic: (f) => store.dispatch(projectActions.loadMusic(f)),
-    onAddSound: (f) => store.dispatch(projectActions.loadSound(f)),
-    onAddFont: (f) => store.dispatch(projectActions.loadFont(f)),
-    onAddAvatar: (f) => store.dispatch(projectActions.loadAvatar(f)),
-    onAddEmote: (f) => store.dispatch(projectActions.loadEmote(f)),
-    onChangedSprite: (f) => store.dispatch(projectActions.loadSprite(f)),
-    onChangedBackground: (f) =>
-      store.dispatch(projectActions.loadBackground(f)),
-    onChangedMusic: (f) => store.dispatch(projectActions.loadMusic(f)),
-    onChangedSound: (f) => store.dispatch(projectActions.loadSound(f)),
-    onChangedFont: (f) => store.dispatch(projectActions.loadFont(f)),
-    onChangedAvatar: (f) => store.dispatch(projectActions.loadAvatar(f)),
-    onChangedEmote: (f) => store.dispatch(projectActions.loadEmote(f)),
-    onRemoveSprite: (f) => store.dispatch(projectActions.removeSprite(f)),
-    onRemoveBackground: (f) =>
-      store.dispatch(projectActions.removeBackground(f)),
-    onRemoveMusic: (f) => store.dispatch(projectActions.removeMusic(f)),
-    onRemoveSound: (f) => store.dispatch(projectActions.removeSound(f)),
-    onRemoveFont: (f) => store.dispatch(projectActions.removeFont(f)),
-    onRemoveAvatar: (f) => store.dispatch(projectActions.removeAvatar(f)),
-    onRemoveEmote: (f) => store.dispatch(projectActions.removeEmote(f)),
-    onChangedUI: (_f) => store.dispatch(projectActions.loadUI()),
-    onChangedEngineSchema: (_f) => initEngineFields(projectRoot),
-  });
+  // watchProject(projectPath, {
+  //   onAddSprite: (f) => store.dispatch(projectActions.loadSprite(f)),
+  //   onAddBackground: (f) => store.dispatch(projectActions.loadBackground(f)),
+  //   onAddMusic: (f) => store.dispatch(projectActions.loadMusic(f)),
+  //   onAddSound: (f) => store.dispatch(projectActions.loadSound(f)),
+  //   onAddFont: (f) => store.dispatch(projectActions.loadFont(f)),
+  //   onAddAvatar: (f) => store.dispatch(projectActions.loadAvatar(f)),
+  //   onAddEmote: (f) => store.dispatch(projectActions.loadEmote(f)),
+  //   onChangedSprite: (f) => store.dispatch(projectActions.loadSprite(f)),
+  //   onChangedBackground: (f) =>
+  //     store.dispatch(projectActions.loadBackground(f)),
+  //   onChangedMusic: (f) => store.dispatch(projectActions.loadMusic(f)),
+  //   onChangedSound: (f) => store.dispatch(projectActions.loadSound(f)),
+  //   onChangedFont: (f) => store.dispatch(projectActions.loadFont(f)),
+  //   onChangedAvatar: (f) => store.dispatch(projectActions.loadAvatar(f)),
+  //   onChangedEmote: (f) => store.dispatch(projectActions.loadEmote(f)),
+  //   onRemoveSprite: (f) => store.dispatch(projectActions.removeSprite(f)),
+  //   onRemoveBackground: (f) =>
+  //     store.dispatch(projectActions.removeBackground(f)),
+  //   onRemoveMusic: (f) => store.dispatch(projectActions.removeMusic(f)),
+  //   onRemoveSound: (f) => store.dispatch(projectActions.removeSound(f)),
+  //   onRemoveFont: (f) => store.dispatch(projectActions.removeFont(f)),
+  //   onRemoveAvatar: (f) => store.dispatch(projectActions.removeAvatar(f)),
+  //   onRemoveEmote: (f) => store.dispatch(projectActions.removeEmote(f)),
+  //   onChangedUI: (_f) => store.dispatch(projectActions.loadUI()),
+  //   onChangedEngineSchema: (_f) => initEngineFields(projectRoot),
+  // });
 
-  engineFieldsEmitter.on("sync", (res) => {
-    store.dispatch(engineActions.setEngineFields(res.fields));
-  });
+  // engineFieldsEmitter.on("sync", (res) => {
+  //   store.dispatch(engineActions.setEngineFields(res.fields));
+  // });
 }
 
 window.ActionCreators = ActionCreators;
@@ -211,9 +210,10 @@ const onExportProject = (_event, exportType) => {
 };
 
 const onPluginRun = (_event, pluginId) => {
-  if (plugins.menu[pluginId] && plugins.menu[pluginId].run) {
-    plugins.menu[pluginId].run(store, vmActions);
-  }
+  console.warn("@TODO Handle running plugin " + pluginId);
+  // if (plugins.menu[pluginId] && plugins.menu[pluginId].run) {
+  //   plugins.menu[pluginId].run(store, vmActions);
+  // }
 };
 
 const onPasteInPlace = (_event) => {
