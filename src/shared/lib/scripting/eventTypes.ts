@@ -1,3 +1,9 @@
+export interface ScriptEventData {
+  id: string;
+  command: string;
+  args?: Record<string, unknown>;
+}
+
 export const EVENT_END = "EVENT_END";
 export const EVENT_STOP = "EVENT_STOP"; // Same as End except explicitly user created
 export const EVENT_WAIT = "EVENT_WAIT";

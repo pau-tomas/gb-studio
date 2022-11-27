@@ -1,16 +1,14 @@
 import { Dictionary } from "@reduxjs/toolkit";
-import { EVENT_FADE_IN } from "shared/lib/scripting/eventTypes";
+import { ScriptEventData } from "shared/lib/scripting/eventTypes";
 import { EventHandler } from "lib/events";
-import { walkNormalisedScriptEvents } from "renderer/project/store/features/entities/entitiesHelpers";
 import type {
   ActorDenormalized,
   CustomEventDenormalized,
   SceneDenormalized,
-  ScriptEvent,
-  CustomEvent,
   ScriptEventDenormalized,
   TriggerDenormalized,
 } from "renderer/project/store/features/entities/entitiesTypes";
+import { calculateAutoFadeEventId } from "shared/lib/scripting/eventHelpers";
 
 type WalkDenormalizedOptions =
   | undefined
@@ -142,6 +140,54 @@ export const walkDenormalizedEvents = (
   }
 };
 
+export const walkScript = function* walkScript(
+  script: ScriptEventDenormalized[],
+  options: WalkDenormalizedOptions
+): Generator<ScriptEventData> {
+  for (let i = 0; i < script.length; i++) {
+    const scriptEvent = script[i];
+    // If filter is provided skip events that fail filter
+    if (options?.filter && !options.filter(scriptEvent)) {
+      continue;
+    }
+    if (scriptEvent?.args?.__comment) {
+      // Skip commented events
+      continue;
+    }
+    yield replaceCustomEventArgs(scriptEvent, options?.customEvents?.args);
+    if (
+      scriptEvent.children &&
+      scriptEvent.command !== "EVENT_CALL_CUSTOM_EVENT"
+    ) {
+      for (const scriptEventChildren of Object.values(scriptEvent.children)) {
+        if (scriptEventChildren) {
+          yield* walkScript(scriptEventChildren, options);
+        }
+      }
+    }
+    if (
+      options?.customEvents &&
+      options.customEvents.maxDepth >= 0 &&
+      scriptEvent.command === "EVENT_CALL_CUSTOM_EVENT"
+    ) {
+      const customEvent =
+        options.customEvents.lookup[
+          String(scriptEvent.args?.customEventId || "")
+        ];
+      if (customEvent) {
+        yield* walkScript(customEvent.script, {
+          ...options,
+          customEvents: {
+            ...options.customEvents,
+            maxDepth: options.customEvents.maxDepth - 1,
+            args: scriptEvent.args || {},
+          },
+        });
+      }
+    }
+  }
+};
+
 export const walkDenormalizedActorEvents = (
   actor: ActorDenormalized,
   options: WalkDenormalizedOptions,
@@ -222,108 +268,22 @@ export const walkDenormalizedScenesEvents = (
   });
 };
 
-export const calculateAutoFadeEventIdNormalised = (
-  script: string[],
-  scriptEventsLookup: Dictionary<ScriptEvent>,
-  customEventsLookup: Dictionary<CustomEvent>
-) => {
-  // eslint-disable-next-line @typescript-eslint/no-var-requires
-  const events = require("../events").default;
-  let fadeEventId = "";
-  const checkEvent = (eventId: string) => (scriptEvent: ScriptEvent) => {
-    if (!fadeEventId && events[scriptEvent.command]?.waitUntilAfterInitFade) {
-      if (scriptEvent.command === EVENT_FADE_IN) {
-        fadeEventId = "MANUAL";
-      } else {
-        fadeEventId = eventId;
-      }
-    }
-  };
-  for (const eventValue of script) {
-    const scriptEvent = scriptEventsLookup[eventValue];
-    if (scriptEvent?.args?.__comment) {
-      continue;
-    }
-    if (scriptEvent?.command === EVENT_FADE_IN) {
-      fadeEventId = "MANUAL";
-      break;
-    }
-    walkNormalisedScriptEvents(
-      [eventValue],
-      scriptEventsLookup,
-      {
-        customEvents: {
-          lookup: customEventsLookup,
-          maxDepth: 5,
-        },
-        filter: (childEvent) => {
-          if (childEvent?.args?.__comment) {
-            return false;
-          }
-          if (events[childEvent.command]?.allowChildrenBeforeInitFade) {
-            return false;
-          }
-          return true;
-        },
-      },
-      checkEvent(eventValue)
-    );
-    if (fadeEventId.length > 0) {
-      break;
-    }
-  }
-  return fadeEventId;
-};
-
 export const calculateAutoFadeEventIdDenormalised = (
   script: ScriptEventDenormalized[],
   customEventsLookup: Dictionary<CustomEventDenormalized>
-) => {
-  // eslint-disable-next-line @typescript-eslint/no-var-requires
-  const events = require("../events").default;
-  let fadeEventId = "";
-  const checkEvent =
-    (eventId: string) => (scriptEvent: ScriptEventDenormalized) => {
-      if (!fadeEventId && events[scriptEvent.command]?.waitUntilAfterInitFade) {
-        if (scriptEvent.command === EVENT_FADE_IN) {
-          fadeEventId = "MANUAL";
-        } else {
-          fadeEventId = eventId;
-        }
-      }
-    };
-  for (const scriptEvent of script) {
-    if (scriptEvent?.args?.__comment) {
-      continue;
-    }
-    if (scriptEvent?.command === EVENT_FADE_IN) {
-      fadeEventId = "MANUAL";
-      break;
-    }
-    walkDenormalizedEvents(
-      [scriptEvent],
-      {
+): string => {
+  return calculateAutoFadeEventId(
+    script,
+    (item) => item,
+    (script, filter) =>
+      walkScript(script, {
         customEvents: {
           lookup: customEventsLookup,
           maxDepth: 5,
         },
-        filter: (childEvent) => {
-          if (childEvent?.args?.__comment) {
-            return false;
-          }
-          if (events[childEvent.command]?.allowChildrenBeforeInitFade) {
-            return false;
-          }
-          return true;
-        },
-      },
-      checkEvent(scriptEvent.id)
-    );
-    if (fadeEventId.length > 0) {
-      break;
-    }
-  }
-  return fadeEventId;
+        filter,
+      })
+  );
 };
 
 export const isEmptyScript = (script: ScriptEventDenormalized[]) => {

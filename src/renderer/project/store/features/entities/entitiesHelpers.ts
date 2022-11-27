@@ -47,6 +47,8 @@ import {
 import { l10n } from "renderer/lib/api";
 import { genSymbol, toValidSymbol } from "shared/lib/compiler/symbols";
 import { parseAssetPath } from "shared/lib/assets/helpers";
+import { ScriptEventData } from "shared/lib/scripting/eventTypes";
+import { calculateAutoFadeEventId } from "shared/lib/scripting/eventHelpers";
 
 export interface NormalisedEntities {
   scenes: Record<EntityId, Scene>;
@@ -731,4 +733,77 @@ export const updateEntitySymbol = <T extends { id: string; symbol?: string }>(
     id,
     changes,
   });
+};
+
+export const walkScriptNormalised = function* walkScript(
+  ids: string[] = [],
+  lookup: Dictionary<ScriptEvent>,
+  options: WalkNormalizedOptions
+): Generator<ScriptEventData> {
+  for (let i = 0; i < ids.length; i++) {
+    const scriptEvent = lookup[ids[i]];
+    if (!scriptEvent) {
+      continue;
+    }
+    // If filter is provided skip events that fail filter
+    if (options?.filter && !options.filter(scriptEvent)) {
+      continue;
+    }
+    if (scriptEvent?.args?.__comment) {
+      // Skip commented events
+      continue;
+    }
+    yield replaceCustomEventArgs(scriptEvent, options?.customEvents?.args);
+    if (
+      scriptEvent.children &&
+      scriptEvent.command !== "EVENT_CALL_CUSTOM_EVENT"
+    ) {
+      for (const scriptEventChildren of Object.values(scriptEvent.children)) {
+        if (scriptEventChildren) {
+          yield* walkScriptNormalised(scriptEventChildren, lookup, options);
+        }
+      }
+    }
+    if (
+      options?.customEvents &&
+      options.customEvents.maxDepth >= 0 &&
+      scriptEvent.command === "EVENT_CALL_CUSTOM_EVENT"
+    ) {
+      const customEvent =
+        options.customEvents.lookup[
+          String(scriptEvent.args?.customEventId || "")
+        ];
+      if (customEvent) {
+        yield* walkScript(customEvent.script, lookup, {
+          ...options,
+          customEvents: {
+            ...options.customEvents,
+            maxDepth: options.customEvents.maxDepth - 1,
+            args: scriptEvent.args || {},
+          },
+        });
+      }
+    }
+  }
+};
+
+export const calculateAutoFadeEventIdNormalised = (
+  script: string[],
+  scriptEventsLookup: Dictionary<ScriptEvent>,
+  customEventsLookup: Dictionary<CustomEvent>
+): string => {
+  return calculateAutoFadeEventId(
+    script,
+    (item) => scriptEventsLookup[item],
+    (script, filter) =>
+      walkScriptNormalised(script, scriptEventsLookup, {
+        customEvents: {
+          lookup: customEventsLookup,
+          maxDepth: 5,
+        },
+        filter: (item) => {
+          return filter(item.id);
+        },
+      })
+  );
 };

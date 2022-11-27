@@ -1,6 +1,7 @@
 import React, { useEffect, useMemo, useRef, useState } from "react";
 import { useSelector } from "react-redux";
 import { RootState } from "renderer/project/store/configureStore";
+import { calculateAutoFadeEventIdNormalised } from "renderer/project/store/features/entities/entitiesHelpers";
 import {
   customEventSelectors,
   scriptEventSelectors,
@@ -10,7 +11,6 @@ import styled from "styled-components";
 import AddButton from "./AddButton";
 import ScriptEditorEvent from "./ScriptEditorEvent";
 import { ScriptEventAutoFade } from "./ScriptEventAutoFade";
-import { calculateAutoFadeEventIdNormalised } from "lib/helpers/eventHelpers";
 
 interface ScriptEditorProps {
   value: string[];
