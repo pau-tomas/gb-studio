@@ -54,6 +54,7 @@ import { SceneSymbolsEditor } from "components/forms/symbols/SceneSymbolsEditor"
 import { BackgroundSymbolsEditor } from "components/forms/symbols/BackgroundSymbolsEditor";
 import { SymbolEditorWrapper } from "components/forms/symbols/SymbolEditorWrapper";
 import { ScriptEditorContext } from "components/script/ScriptEditorContext";
+import { sceneName } from "renderer/project/store/features/entities/entitiesHelpers";
 
 interface SceneEditorProps {
   id: string;
@@ -123,9 +124,6 @@ const getScriptKey = (
   }
   return "script";
 };
-
-const sceneName = (scene: Scene, sceneIndex: number) =>
-  scene.name ? scene.name : `Scene ${sceneIndex + 1}`;
 
 export const SceneEditor = ({ id, multiColumn }: SceneEditorProps) => {
   const scene = useSelector((state: RootState) =>

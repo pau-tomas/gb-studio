@@ -12,8 +12,8 @@ import { l10n } from "renderer/lib/api";
 import { SceneSelect } from "components/forms/SceneSelect";
 import { SelectMenu, selectMenuStyleProps } from "ui/form/Select";
 import { RelativePortal } from "ui/layout/RelativePortal";
-import { sceneName } from "lib/compiler/compileData2";
 import { FixedSpacer } from "ui/spacing/Spacing";
+import { sceneName } from "renderer/project/store/features/entities/entitiesHelpers";
 
 interface BackgroundPreviewSettingsProps {
   backgroundId: string;

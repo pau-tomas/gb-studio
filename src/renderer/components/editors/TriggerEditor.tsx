@@ -36,6 +36,7 @@ import { ClipboardTypeTriggers } from "renderer/project/store/features/clipboard
 import { TriggerSymbolsEditor } from "components/forms/symbols/TriggerSymbolsEditor";
 import { SymbolEditorWrapper } from "components/forms/symbols/SymbolEditorWrapper";
 import { ScriptEditorContext } from "components/script/ScriptEditorContext";
+import { triggerName } from "renderer/project/store/features/entities/entitiesHelpers";
 
 interface TriggerEditorProps {
   id: string;
@@ -73,9 +74,6 @@ const getScriptKey = (tab: keyof typeof scriptTabs): TriggerScriptKey => {
   }
   return "script";
 };
-
-const triggerName = (trigger: Trigger, triggerIndex: number) =>
-  trigger.name ? trigger.name : `Trigger ${triggerIndex + 1}`;
 
 const tabs = Object.keys(scriptTabs);
 

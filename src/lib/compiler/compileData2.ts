@@ -136,13 +136,13 @@ export const chunk = <T>(arr: T[], len?: number): T[][] => {
 export const toHex = (n: number) =>
   "0x" + n.toString(16).toUpperCase().padStart(2, "0");
 
-export const sceneName = (scene: Entity, sceneIndex: number) =>
+const sceneName = (scene: Entity, sceneIndex: number) =>
   scene.name || `Scene ${sceneIndex + 1}`;
 
-export const actorName = (actor: Entity, actorIndex: number) =>
+const actorName = (actor: Entity, actorIndex: number) =>
   actor.name || `Actor ${actorIndex + 1}`;
 
-export const triggerName = (trigger: Entity, triggerIndex: number) =>
+const triggerName = (trigger: Entity, triggerIndex: number) =>
   trigger.name || `Trigger ${triggerIndex + 1}`;
 
 export const toFarPtr = (ref: string): string => {

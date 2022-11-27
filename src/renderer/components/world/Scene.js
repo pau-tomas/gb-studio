@@ -35,6 +35,7 @@ import {
 import editorActions from "renderer/project/store/features/editor/editorActions";
 import entitiesActions from "renderer/project/store/features/entities/entitiesActions";
 import ScenePriorityMap from "./ScenePriorityMap";
+import { sceneName } from "renderer/project/store/features/entities/entitiesHelpers";
 
 const TILE_SIZE = 8;
 
@@ -441,10 +442,10 @@ function mapStateToProps(state, props) {
     : 0;
 
   const searchTerm = state.editor.searchTerm;
-  const sceneName = scene.name || `Scene ${props.index + 1}`;
+  const name = sceneName(scene, props.index);
   const sceneFiltered =
     (searchTerm &&
-      sceneName.toUpperCase().indexOf(searchTerm.toUpperCase()) === -1 &&
+      name.toUpperCase().indexOf(searchTerm.toUpperCase()) === -1 &&
       scene.id !== searchTerm) ||
     false;
 
