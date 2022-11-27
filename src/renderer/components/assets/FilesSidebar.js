@@ -5,7 +5,7 @@ import cx from "classnames";
 import Button from "components/library/Button";
 import { HelpIcon } from "ui/icons/Icons";
 import { l10n } from "renderer/lib/api";
-import { groupBy } from "lib/helpers/array";
+import { groupBy } from "shared/lib/array/helpers";
 import editorActions from "renderer/project/store/features/editor/editorActions";
 import navigationActions from "renderer/project/store/features/navigation/navigationActions";
 import { clampSidebarWidth } from "renderer/lib/window/sidebar";

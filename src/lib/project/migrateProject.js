@@ -1,5 +1,5 @@
 /* eslint-disable no-nested-ternary */
-import { indexBy } from "lib/helpers/array";
+import { indexBy } from "shared/lib/array/helpers";
 import {
   mapScenesEvents,
   mapEvents,

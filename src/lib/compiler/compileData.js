@@ -1,7 +1,7 @@
 import keyBy from "lodash/keyBy";
 import { eventHasArg } from "lib/helpers/eventSystem";
 import compileImages from "./compileImages";
-import { indexBy } from "lib/helpers/array";
+import { indexBy, chunk } from "shared/lib/array/helpers";
 import compileEntityEvents from "./compileEntityEvents";
 import {
   // EVENT_TEXT,
@@ -67,7 +67,6 @@ import compileSGBImage from "./sgb";
 import { readFileToTilesData } from "shared/lib/tiles/tileData";
 import { compileScriptEngineInit } from "./compileBootstrap";
 import { compileMusicTracks, compileMusicHeader } from "./compileMusic";
-import { chunk } from "lib/helpers/array2";
 import { toProjectileHash } from "./scriptBuilder";
 import {
   calculateAutoFadeEventIdDenormalised,
