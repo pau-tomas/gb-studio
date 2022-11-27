@@ -32,7 +32,7 @@ import { maxSpriteTilesForBackgroundTilesLength } from "shared/lib/sprites/helpe
 import {
   EVENT_ACTOR_SET_SPRITE,
   EVENT_PLAYER_SET_SPRITE,
-} from "lib/compiler/eventTypes";
+} from "shared/lib/scripting/eventTypes";
 
 interface SceneInfoWrapperProps {
   loaded: boolean;

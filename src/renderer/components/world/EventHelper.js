@@ -9,7 +9,7 @@ import {
   EVENT_OVERLAY_MOVE_TO,
   EVENT_IF_ACTOR_AT_POSITION,
   EVENT_IF_ACTOR_DISTANCE_FROM_ACTOR,
-} from "lib/compiler/eventTypes";
+} from "shared/lib/scripting/eventTypes";
 import { actorSelectors } from "renderer/project/store/features/entities/entitiesState";
 
 const TILE_SIZE = 8;

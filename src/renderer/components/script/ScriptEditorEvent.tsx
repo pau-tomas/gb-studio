@@ -18,7 +18,7 @@ import {
   EVENT_CALL_CUSTOM_EVENT,
   EVENT_COMMENT,
   EVENT_END,
-} from "lib/compiler/eventTypes";
+} from "shared/lib/scripting/eventTypes";
 import AddButton from "./AddButton";
 import {
   ScriptEventFormWrapper,

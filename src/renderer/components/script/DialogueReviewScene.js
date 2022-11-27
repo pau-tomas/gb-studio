@@ -9,7 +9,7 @@ import {
   EventShape,
 } from "renderer/project/store/stateShape";
 import { ArrowIcon, SearchIcon } from "ui/icons/Icons";
-import { EVENT_TEXT } from "lib/compiler/eventTypes";
+import { EVENT_TEXT } from "shared/lib/scripting/eventTypes";
 import DialogueReviewLine from "./DialogueReviewLine";
 import Button from "components/library/Button";
 import {

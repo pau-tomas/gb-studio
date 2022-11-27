@@ -55,7 +55,7 @@ import {
 } from "renderer/project/store/features/entities/entitiesHelpers";
 import keyBy from "lodash/keyBy";
 import { patchEventArgs } from "lib/helpers/eventHelpers";
-import { EVENT_CALL_CUSTOM_EVENT } from "lib/compiler/eventTypes";
+import { EVENT_CALL_CUSTOM_EVENT } from "shared/lib/scripting/eventTypes";
 
 const generateLocalVariableInsertActions = (
   originalId: string,

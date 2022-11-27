@@ -9,7 +9,7 @@ import type {
   Sound,
   Variable,
 } from "renderer/project/store/features/entities/entitiesTypes";
-import { EVENT_SOUND_PLAY_EFFECT } from "lib/compiler/eventTypes";
+import { EVENT_SOUND_PLAY_EFFECT } from "shared/lib/scripting/eventTypes";
 
 export const determineUsedAssets = ({
   scenes,

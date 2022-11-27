@@ -9,7 +9,7 @@ import {
   EVENT_END,
   EVENT_PLAYER_SET_SPRITE,
   EVENT_ACTOR_SET_SPRITE,
-} from "./eventTypes";
+} from "shared/lib/scripting/eventTypes";
 import {
   projectTemplatesRoot,
   MAX_ACTORS,

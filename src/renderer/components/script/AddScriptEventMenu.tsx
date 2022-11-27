@@ -31,7 +31,7 @@ import {
   sceneSelectors,
   spriteSheetSelectors,
 } from "renderer/project/store/features/entities/entitiesState";
-import { EVENT_TEXT } from "lib/compiler/eventTypes";
+import { EVENT_TEXT } from "shared/lib/scripting/eventTypes";
 import { useDebounce } from "ui/hooks/use-debounce";
 import { ScriptEditorContext } from "./ScriptEditorContext";
 import { defaultVariableForContext } from "shared/lib/scripting/context";

@@ -7,7 +7,7 @@ import {
   walkActorEvents,
   filterEvents,
 } from "lib/helpers/eventSystem";
-import { EVENT_CALL_CUSTOM_EVENT } from "lib/compiler/eventTypes";
+import { EVENT_CALL_CUSTOM_EVENT } from "shared/lib/scripting/eventTypes";
 // import { l10n } from "renderer/lib/api";
 import editorActions from "renderer/project/store/features/editor/editorActions";
 import { getSettings } from "renderer/project/store/features/settings/settingsState";

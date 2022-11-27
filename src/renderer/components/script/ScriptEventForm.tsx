@@ -11,7 +11,7 @@ import {
 import {
   EVENT_ENGINE_FIELD_STORE,
   EVENT_ENGINE_FIELD_SET,
-} from "lib/compiler/eventTypes";
+} from "shared/lib/scripting/eventTypes";
 import { RootState } from "renderer/project/store/configureStore";
 import { Dictionary } from "@reduxjs/toolkit";
 import { EngineFieldSchema } from "renderer/project/store/features/engine/engineState";
