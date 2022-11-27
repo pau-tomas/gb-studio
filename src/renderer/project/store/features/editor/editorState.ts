@@ -7,7 +7,7 @@ import {
   DRAG_DESTINATION,
   DRAG_PLAYER,
 } from "shared/consts";
-import { zoomIn, zoomOut } from "lib/helpers/zoom";
+import { zoomIn, zoomOut } from "./editorHelpers";
 import {
   Actor,
   Trigger,
