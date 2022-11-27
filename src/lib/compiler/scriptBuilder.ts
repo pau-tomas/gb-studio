@@ -45,7 +45,7 @@ import {
   isUnionPropertyValue,
   isUnionVariableValue,
 } from "renderer/project/store/features/entities/entitiesHelpers";
-import { lexText } from "lib/fonts/lexText";
+import { lexText } from "shared/lib/text/lexText";
 import type { Reference } from "renderer/components/forms/ReferencesSelect";
 import { clone } from "lib/helpers/clone";
 import {
