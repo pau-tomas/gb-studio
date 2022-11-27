@@ -38,7 +38,7 @@ import ScriptEditor from "components/script/ScriptEditor";
 import { AnimationSpeedSelect } from "components/forms/AnimationSpeedSelect";
 import { MovementSpeedSelect } from "components/forms/MovementSpeedSelect";
 import CollisionMaskPicker from "components/forms/CollisionMaskPicker";
-import type { KeysMatching } from "lib/helpers/types";
+import type { KeysMatching } from "shared/lib/types/helpers";
 import { NoteField } from "ui/form/NoteField";
 import { StickyTabs, TabBar, TabSettings } from "ui/tabs/Tabs";
 import { Button } from "ui/buttons/Button";
