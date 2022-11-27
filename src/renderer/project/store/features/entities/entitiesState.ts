@@ -72,7 +72,7 @@ import {
   isUnionPropertyValue,
 } from "shared/lib/scripting/unionValues";
 import spriteActions from "renderer/project/store/features/sprite/spriteActions";
-import { isVariableCustomEvent } from "lib/compiler/scriptBuilder";
+import { isVariableCustomEvent } from "shared/lib/variables/helpers";
 import { sortByKey } from "shared/lib/math/sort";
 
 const MIN_SCENE_X = 60;
