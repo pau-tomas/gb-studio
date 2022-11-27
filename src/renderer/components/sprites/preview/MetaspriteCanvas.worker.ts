@@ -1,5 +1,5 @@
 import { DMG_PALETTE } from "shared/consts";
-import { colorizeSpriteData, chromaKeyData } from "lib/helpers/color";
+import { colorizeSpriteData, chromaKeyData } from "shared/lib/color/helpers";
 import { ObjPalette } from "renderer/project/store/features/entities/entitiesTypes";
 
 // eslint-disable-next-line no-restricted-globals
