@@ -1,6 +1,6 @@
 import { Font } from "renderer/project/store/features/entities/entitiesTypes";
 import { lexText } from "shared/lib/text/lexText";
-import { encodeChar } from "lib/helpers/encodings";
+import { encodeChar } from "shared/lib/text/encodings";
 import { assetFilename } from "shared/lib/assets/helpers";
 
 export interface FontData {
