@@ -2,9 +2,8 @@ import styled from "styled-components";
 import WindowedSelect from "react-windowed-select";
 import CRSelect from "react-select/creatable";
 import React, { CSSProperties, FC, ReactNode } from "react";
-import { setDefault } from "lib/helpers/setDefault";
 import { SearchIcon } from "ui/icons/Icons";
-// import { l10n } from "lib/renderer/api";
+import { l10n } from "renderer/lib/api";
 export { components } from "react-select";
 
 export interface Option {
@@ -57,7 +56,7 @@ export const Select = styled(WindowedSelect).attrs((props) => ({
   },
   inputId: props.name,
   menuPlacement: "auto",
-  menuPortalTarget: setDefault(props.menuPortalTarget, menuPortalEl),
+  menuPortalTarget: props.menuPortalTarget ?? menuPortalEl,
 }))`
   .CustomSelect__control {
     height: 28px;
@@ -259,7 +258,7 @@ export const SingleValueWithPreview: FC<SingleValueWithPreviewProps> = ({
 export const selectMenuStyleProps = {
   autoFocus: true,
   menuIsOpen: true,
-  // placeholder: l10n("TOOLBAR_SEARCH"),
+  placeholder: l10n("TOOLBAR_SEARCH"),
   backspaceRemovesValue: false,
   controlShouldRenderValue: false,
   isClearable: false,
@@ -311,7 +310,7 @@ export const CreatableSelect = styled(CRSelect).attrs((props) => ({
   },
   inputId: props.name,
   menuPlacement: "auto",
-  menuPortalTarget: setDefault(props.menuPortalTarget, menuPortalEl),
+  menuPortalTarget: props.menuPortalTarget ?? menuPortalEl,
 }))`
   .CustomSelect__control {
     height: 28px;

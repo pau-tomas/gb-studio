@@ -5,7 +5,6 @@ import type { EngineFieldSchema } from "renderer/project/store/features/engine/e
 import { engineRoot } from "shared/consts";
 import { l10n } from "renderer/lib/api";
 import { clampToCType } from "lib/helpers/engineFields";
-import { setDefault } from "lib/helpers/setDefault";
 import type { ScriptEventFieldSchema } from "renderer/project/store/features/entities/entitiesTypes";
 import glob from "glob";
 
@@ -40,14 +39,8 @@ const getEngineFieldSchemas = (engineFields: EngineFieldSchema[]) => {
       checkboxLabel: l10n(engineField.label),
       types: [fieldType, "variable"],
       defaultType: fieldType,
-      min: clampToCType(
-        setDefault(engineField.min, -Infinity),
-        engineField.cType
-      ),
-      max: clampToCType(
-        setDefault(engineField.max, Infinity),
-        engineField.cType
-      ),
+      min: clampToCType(engineField.min ?? -Infinity, engineField.cType),
+      max: clampToCType(engineField.max ?? Infinity, engineField.cType),
       options: engineField.options || [],
       defaultValue: {
         [fieldType]: engineField.defaultValue || 0,
