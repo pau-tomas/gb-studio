@@ -27,17 +27,3 @@ export const framesPerDirection = (spriteType, numFrames) => {
   // Static;
   return numFrames;
 };
-
-export const directionToFrame = (direction, numFrames) => {
-  if (numFrames !== 6 && numFrames !== 3) {
-    return 0;
-  }
-  const frames = numFrames === 6 ? 2 : 1;
-  if (direction === "down") {
-    return 0;
-  }
-  if (direction === "up") {
-    return frames;
-  }
-  return frames * 2;
-};
