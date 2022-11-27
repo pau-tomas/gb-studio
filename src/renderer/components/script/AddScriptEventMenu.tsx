@@ -7,7 +7,7 @@ import React, {
 } from "react";
 import cloneDeep from "lodash/cloneDeep";
 import { OptGroup } from "ui/form/Select";
-import events, { EventHandler } from "lib/events";
+import type { EventHandler } from "lib/events";
 import { l10n } from "renderer/lib/api";
 import styled, { css } from "styled-components";
 import { Menu, MenuGroup, MenuItem } from "ui/menu/Menu";
@@ -35,6 +35,9 @@ import { EVENT_TEXT } from "shared/lib/scripting/eventTypes";
 import { useDebounce } from "ui/hooks/use-debounce";
 import { ScriptEditorContext } from "./ScriptEditorContext";
 import { defaultVariableForContext } from "shared/lib/scripting/context";
+
+const events: Dictionary<EventHandler> = {};
+console.warn("@TODO Move events to redux store");
 
 interface AddScriptEventMenuProps {
   parentType: ScriptEventParentType;

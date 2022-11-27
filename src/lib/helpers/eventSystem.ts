@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Dictionary } from "@reduxjs/toolkit";
-import { EventHandler } from "lib/events";
+import type { EventHandler } from "lib/events";
 import mapValues from "lodash/mapValues";
 import uuid from "uuid/v4";
 import {

@@ -32,7 +32,11 @@ import VariableUsesWorker, {
   VariableUse,
   VariableUseResult,
 } from "./VariableUses.worker";
-import { eventLookup } from "lib/events";
+import type { EventHandler } from "lib/events";
+import { Dictionary } from "@reduxjs/toolkit";
+
+const eventLookup: Dictionary<EventHandler> = {};
+console.warn("@TODO Move events to redux store");
 
 const worker = new VariableUsesWorker();
 

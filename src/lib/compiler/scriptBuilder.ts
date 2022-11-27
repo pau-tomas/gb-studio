@@ -18,10 +18,7 @@ import type {
 } from "renderer/project/store/features/entities/entitiesTypes";
 import { Dictionary } from "@reduxjs/toolkit";
 import type { EngineFieldSchema } from "renderer/project/store/features/engine/engineState";
-import {
-  initialState as initialSettingsState,
-  SettingsState,
-} from "renderer/project/store/features/settings/settingsState";
+import type { SettingsState } from "renderer/project/store/features/settings/settingsState";
 import type { FunctionSymbol, OperatorSymbol } from "shared/lib/rpn/types";
 import tokenize from "shared/lib/rpn/tokenizer";
 import shuntingYard from "shared/lib/rpn/shuntingYard";
@@ -496,7 +493,9 @@ class ScriptBuilder {
 
   constructor(
     output: ScriptOutput,
-    options: Partial<ScriptBuilderOptions> & Pick<ScriptBuilderOptions, "scene">
+    options: Partial<ScriptBuilderOptions> &
+      Pick<ScriptBuilderOptions, "scene"> &
+      Pick<ScriptBuilderOptions, "settings">
   ) {
     this.byteSize = 0;
     this.output = output;
@@ -531,7 +530,7 @@ class ScriptBuilder {
         options.compiledCustomEventScriptCache ?? {},
       compiledAssetsCache: options.compiledAssetsCache ?? {},
       compileEvents: options.compileEvents || ((_self, _e) => {}),
-      settings: options.settings || initialSettingsState,
+      settings: options.settings,
     };
     this.dependencies = [];
     this.nextLabel = 1;
