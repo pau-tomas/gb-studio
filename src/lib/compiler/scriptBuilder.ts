@@ -41,7 +41,7 @@ import compileEntityEvents from "./compileEntityEvents";
 import {
   isUnionPropertyValue,
   isUnionVariableValue,
-} from "renderer/project/store/features/entities/entitiesHelpers";
+} from "shared/lib/scripting/unionValues";
 import { lexText } from "shared/lib/text/lexText";
 import type { Reference } from "renderer/components/forms/ReferencesSelect";
 import { clone } from "lib/helpers/clone";

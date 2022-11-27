@@ -22,11 +22,6 @@ import {
   CustomEvent,
   Variable,
   EngineFieldValue,
-  UnionValue,
-  UnionDirectionValue,
-  UnionNumberValue,
-  UnionPropertyValue,
-  UnionVariableValue,
   SpriteState,
   SpriteSheetData,
   ScriptEvent,
@@ -265,64 +260,6 @@ export const sortByFilename = (a: Asset, b: Asset) => {
 
 export const swap = <T>(x: number, y: number, [...xs]: T[]): T[] =>
   xs.length > 1 ? (([xs[x], xs[y]] = [xs[y], xs[x]]), xs) : xs;
-
-export const isUnionValue = (input: unknown): input is UnionValue => {
-  if (typeof input !== "object") {
-    return false;
-  }
-  if (!input || !("type" in input)) {
-    return false;
-  }
-  return true;
-};
-
-export const isUnionVariableValue = (
-  input: unknown
-): input is UnionVariableValue => {
-  if (!isUnionValue(input)) {
-    return false;
-  }
-  if (input.type !== "variable") {
-    return false;
-  }
-  return true;
-};
-
-export const isUnionPropertyValue = (
-  input: unknown
-): input is UnionPropertyValue => {
-  if (!isUnionValue(input)) {
-    return false;
-  }
-  if (input.type !== "property") {
-    return false;
-  }
-  return true;
-};
-
-export const isUnionNumberValue = (
-  input: unknown
-): input is UnionNumberValue => {
-  if (!isUnionValue(input)) {
-    return false;
-  }
-  if (input.type !== "number") {
-    return false;
-  }
-  return true;
-};
-
-export const isUnionDirectionValue = (
-  input: unknown
-): input is UnionDirectionValue => {
-  if (!isUnionValue(input)) {
-    return false;
-  }
-  if (input.type !== "direction") {
-    return false;
-  }
-  return true;
-};
 
 export const replaceCustomEventArgs = (
   scriptEvent: ScriptEvent,

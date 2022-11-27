@@ -60,8 +60,6 @@ import {
   normalizeEntities,
   sortByFilename,
   swap,
-  isUnionVariableValue,
-  isUnionPropertyValue,
   walkNormalisedScriptEvents,
   genEntitySymbol,
   ensureSymbolsUnique,
@@ -69,6 +67,10 @@ import {
   upsertAssetEntity,
   updateEntitySymbol,
 } from "./entitiesHelpers";
+import {
+  isUnionVariableValue,
+  isUnionPropertyValue,
+} from "shared/lib/scripting/unionValues";
 import spriteActions from "renderer/project/store/features/sprite/spriteActions";
 import { isVariableCustomEvent } from "lib/compiler/scriptBuilder";
 import { sortByKey } from "shared/lib/math/sort";
