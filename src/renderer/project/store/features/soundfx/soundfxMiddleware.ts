@@ -4,7 +4,7 @@ import {
   playBuffer,
   stopBuffer,
   decodeAudioData,
-} from "lib/soundfx/soundfx";
+} from "renderer/lib/soundfx/soundfx";
 import { assetsRoot } from "shared/consts";
 import { Dispatch, Middleware } from "@reduxjs/toolkit";
 import { RootState } from "renderer/project/store/configureStore";
