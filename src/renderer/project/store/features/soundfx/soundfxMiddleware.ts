@@ -1,9 +1,9 @@
 import {
   playTone,
   stopTone,
-  playBuffer,
+  // playBuffer,
   stopBuffer,
-  decodeAudioData,
+  // decodeAudioData,
 } from "renderer/lib/soundfx/soundfx";
 import { Dispatch, Middleware } from "@reduxjs/toolkit";
 import { RootState } from "renderer/project/store/configureStore";
@@ -32,7 +32,7 @@ window.addEventListener("click", initMusic);
 window.addEventListener("keydown", initMusic);
 window.addEventListener("blur", pause);
 
-function play(filename: string) {
+function play(_filename: string) {
   console.warn("@TODO PLAY SFX");
   // const url = `file://${assetsRoot}/soundfx/${filename}`;
   // fetch(url)
