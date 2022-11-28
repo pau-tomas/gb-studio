@@ -28,6 +28,7 @@ export interface CreateProjectOptions {
 }
 
 interface IPCOptions {
+  getProjectRoot: () => string | undefined;
   onCreateProject: (
     input: CreateProjectInput,
     options?: CreateProjectOptions
@@ -42,6 +43,7 @@ interface IPCOptions {
 }
 
 const initIPC = ({
+  getProjectRoot,
   onCreateProject,
   onSelectProjectToOpen,
   onOpenProject,
@@ -51,9 +53,22 @@ const initIPC = ({
   onOpenHelp,
   onOpenAsset,
 }: IPCOptions) => {
-  ipcMain.handle("open-item-folder", async (_event, file) => {
+  ipcMain.handle("project:open-item-folder", async (_event, file) => {
     if (!isString(file)) throw new Error("Invalid file path");
+    const projectRoot = getProjectRoot();
+    if (!projectRoot) throw new Error("Project must be loaded to open path");
+    if (!file.startsWith(projectRoot))
+      throw new Error("File must be within open project");
     shell.showItemInFolder(file);
+  });
+
+  ipcMain.handle("project:open-path", async (_event, file) => {
+    if (!isString(file)) throw new Error("Invalid file path");
+    const projectRoot = getProjectRoot();
+    if (!projectRoot) throw new Error("Project must be loaded to open path");
+    if (!file.startsWith(projectRoot))
+      throw new Error("File must be within open project");
+    shell.openPath(file);
   });
 
   ipcMain.handle("open-external", async (_event, url) => {

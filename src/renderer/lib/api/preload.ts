@@ -89,5 +89,8 @@ export const API = {
       projectRoot: string
     ): Promise<PrecompiledSpriteSheetData> =>
       ipcRenderer.invoke("project:compile-sprite", spriteSheet, projectRoot),
+    openItemFolder: (path: string) =>
+      ipcRenderer.invoke("project:open-item-folder", path),
+    openPath: (path: string) => ipcRenderer.invoke("project:open-path", path),
   },
 } as const;

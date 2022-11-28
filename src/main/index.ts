@@ -19,8 +19,10 @@ import createProject from "lib/project/createProject";
 import settings from "electron-settings";
 import { isString } from "@byte.london/byteguards";
 import switchLanguageDialog from "lib/electron/dialog/switchLanguageDialog";
+import ProjectManager from "./projectManager";
 
 const windowManager = new WindowManager();
+const projectManager = new ProjectManager();
 
 const isDevMode = !!process.execPath.match(/[\\/]electron/);
 
@@ -66,6 +68,7 @@ const onCreateProject = async (
 };
 
 const onOpenProject = async (projectPath: string): Promise<void> => {
+  await projectManager.loadProject(projectPath);
   windowManager.openProject(projectPath);
 };
 
@@ -224,6 +227,7 @@ app.on("ready", () => {
     setApplicationMenu,
   });
   initIPC({
+    getProjectRoot: () => projectManager.getRoot(),
     onCreateProject,
     onSelectProjectToOpen,
     onOpenProject,

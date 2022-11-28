@@ -32,7 +32,7 @@ const electronMiddleware: Middleware<Dispatch, RootState> =
     if (actions.openHelp.match(action)) {
       API.app.openHelp(action.payload);
     } else if (actions.openFolder.match(action)) {
-      API.openExternal(action.payload);
+      API.project.openPath(action.payload);
     } else if (actions.openFile.match(action)) {
       API.project.openAsset(action.payload.filename, action.payload.type);
     } else if (editorActions.resizeWorldSidebar.match(action)) {
