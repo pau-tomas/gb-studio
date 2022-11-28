@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import events, { eventLookup } from "lib/events";
+import type { EventHandler } from "lib/events";
 import {
   isActorField,
   isPropertyField,
@@ -36,6 +36,14 @@ import styled from "styled-components";
 import { fadeIn } from "ui/animations/animations";
 import { animLabelLookup } from "components/forms/AnimationSpeedSelect";
 import { ScriptEditorContext } from "./ScriptEditorContext";
+
+const events: Dictionary<EventHandler> = {};
+export const eventLookup = {
+  eventsLookup: {},
+  engineFieldUpdateEventsLookup: {},
+  engineFieldStoreEventsLookup: {},
+} as const;
+console.warn("@TODO Move events and eventLookup to redux store");
 
 interface ScriptEventTitleProps {
   command: string;
