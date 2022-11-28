@@ -13,6 +13,7 @@ import App from "./components/App";
 import "../../styles/App.css";
 // eslint-disable-next-line @typescript-eslint/no-restricted-imports
 import "../../styles/theme.css";
+import { setLanguageData } from "shared/lib/l10n";
 console.warn("@TODO Replace CSS imports with styled components");
 
 const urlParams = new URLSearchParams(window.location.search);
@@ -26,7 +27,7 @@ const projectPath = urlParams.get("path") || undefined;
 ).store = store;
 
 const render = async () => {
-  await API.l10nInit();
+  setLanguageData(await API.getL10NData());
   ReactDOM.render(
     <AppContainer>
       <Provider store={store}>

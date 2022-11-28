@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import { useSelector } from "react-redux";
 import { RootState } from "renderer/project/store/configureStore";
 import { Select, Option, OptGroup } from "ui/form/Select";
-import { l10n } from "renderer/lib/api";
+import l10n from "shared/lib/l10n";
 import { useGroupedEngineFields } from "components/settings/useGroupedEngineFields";
 import { EngineFieldSchema } from "renderer/project/store/features/engine/engineState";
 

@@ -1,35 +1,3 @@
-// import path from "path";
-
-// const isDist = __dirname.indexOf(".webpack") > -1;
-// const isCli = __dirname.indexOf("out/cli") > -1;
-
-// let rootDir = __dirname.substr(0, __dirname.lastIndexOf("node_modules"));
-// if (isDist) {
-//   rootDir = __dirname.substr(0, __dirname.lastIndexOf(".webpack"));
-// } else if (isCli) {
-//   rootDir = __dirname.substr(0, __dirname.lastIndexOf("out/cli"));
-// } else if (process.env.NODE_ENV === "test") {
-//   rootDir = path.normalize(`${__dirname}/../`);
-// }
-
-// const engineRoot = path.normalize(`${rootDir}/appData/src`);
-// const buildToolsRoot = path.normalize(`${rootDir}/buildTools`);
-// const emulatorRoot = path.normalize(`${rootDir}/appData/js-emulator`);
-// const binjgbRoot = path.normalize(`${rootDir}/appData/wasm/binjgb`);
-// const projectTemplatesRoot = path.normalize(`${rootDir}/appData/templates`);
-// const localesRoot = path.normalize(`${rootDir}/src/lib/lang`);
-// const eventsRoot = path.normalize(`${rootDir}/src/lib/events`);
-// const assetsRoot = path.normalize(`${rootDir}/src/assets`);
-console.warn("@TODO Implement directory consts for main process");
-const engineRoot = "";
-const buildToolsRoot = "";
-const emulatorRoot = "";
-const binjgbRoot = "";
-const projectTemplatesRoot = "";
-const localesRoot = "";
-const eventsRoot = "";
-const assetsRoot = "";
-
 const MAX_ACTORS = 20;
 const MAX_ACTORS_SMALL = 10;
 const MAX_TRIGGERS = 30;
@@ -90,14 +58,6 @@ export const TRACKER_UNDO = "TRACKER_UNDO";
 export const TRACKER_REDO = "TRACKER_REDO";
 
 export {
-  engineRoot,
-  buildToolsRoot,
-  emulatorRoot,
-  binjgbRoot,
-  projectTemplatesRoot,
-  localesRoot,
-  eventsRoot,
-  assetsRoot,
   MAX_ACTORS,
   MAX_ACTORS_SMALL,
   MAX_TRIGGERS,

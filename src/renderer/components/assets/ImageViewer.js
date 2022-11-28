@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import Button from "components/library/Button";
-import { l10n } from "renderer/lib/api";
+import l10n from "shared/lib/l10n";
 import BackgroundWarnings from "components/world/BackgroundWarnings";
 import editorActions from "renderer/project/store/features/editor/editorActions";
 import electronActions from "renderer/project/store/features/electron/electronActions";

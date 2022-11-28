@@ -1,6 +1,6 @@
 import React, { FC, useEffect, useState } from "react";
 import { Option, Select, SelectCommonProps } from "ui/form/Select";
-import { l10n } from "renderer/lib/api";
+import l10n from "shared/lib/l10n";
 import { encodings } from "shared/lib/text/encodings";
 
 interface CharacterEncodingSelectProps extends SelectCommonProps {

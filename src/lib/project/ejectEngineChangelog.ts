@@ -1,4 +1,4 @@
-import l10n from "lib/helpers/l10n";
+import l10n from "shared/lib/l10n";
 import flatten from "lodash/flatten";
 import uniq from "lodash/uniq";
 

@@ -1,7 +1,6 @@
 import { ipcRenderer } from "electron";
 import type { BackgroundInfo } from "lib/backgrounds/validation";
 import type { PrecompiledSpriteSheetData } from "lib/compiler/compileSprites";
-import l10n, { setLanguageData } from "lib/helpers/l10n";
 import type {
   Background,
   SpriteSheetData,
@@ -11,11 +10,8 @@ type JsonValue = string | number | boolean | null;
 
 export const API = {
   platform: process.platform,
-
-  l10n: (key: string, params?: Record<string, string | number>) =>
-    l10n(key, params),
-  l10nInit: async () => {
-    setLanguageData(await ipcRenderer.invoke("l10n-get-lang-data"));
+  getL10NData: async () => {
+    return await ipcRenderer.invoke("l10n-get-lang-data");
   },
   openExternal: (path: string) => ipcRenderer.invoke("open-external", path),
   app: {

@@ -1,7 +1,7 @@
 import React from "react";
 import { useDispatch } from "react-redux";
 import castEventValue from "renderer/lib/forms/castEventValue";
-import { l10n } from "renderer/lib/api";
+import l10n from "shared/lib/l10n";
 import trackerDocumentActions from "renderer/project/store/features/trackerDocument/trackerDocumentActions";
 import { NoiseInstrument } from "renderer/project/store/features/trackerDocument/trackerDocumentTypes";
 import { CheckboxField } from "ui/form/CheckboxField";

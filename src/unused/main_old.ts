@@ -6,7 +6,8 @@ import { stat } from "fs-extra";
 import menu from "./menu";
 import { checkForUpdate } from "lib/helpers/updateChecker";
 import switchLanguageDialog from "lib/electron/dialog/switchLanguageDialog";
-import l10n, { locales } from "lib/helpers/l10n";
+import l10n from "shared/lib/l10n";
+import { locales } from "lib/helpers/locales";
 import initElectronL10n from "lib/helpers/initElectronL10n";
 import installExtension, {
   REACT_DEVELOPER_TOOLS,

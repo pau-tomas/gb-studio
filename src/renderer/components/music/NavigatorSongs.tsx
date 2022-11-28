@@ -6,7 +6,7 @@ import { FlatList } from "ui/lists/FlatList";
 import editorActions from "renderer/project/store/features/editor/editorActions";
 import { Music } from "renderer/project/store/features/entities/entitiesTypes";
 import { EntityListItem } from "ui/lists/EntityListItem";
-import { l10n, settings } from "renderer/lib/api";
+import { settings } from "renderer/lib/api";
 import { InstrumentType } from "renderer/project/store/features/editor/editorState";
 import {
   DutyInstrument,
@@ -23,6 +23,7 @@ import { NoSongsMessage } from "./NoSongsMessage";
 import { assetFilename } from "shared/lib/assets/helpers";
 import { addNewSongFile } from "renderer/project/store/features/trackerDocument/trackerDocumentState";
 import trackerActions from "renderer/project/store/features/tracker/trackerActions";
+import l10n from "shared/lib/l10n";
 // import settings from "electron-settings";
 
 const COLLAPSED_SIZE = 30;

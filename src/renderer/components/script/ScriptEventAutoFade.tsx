@@ -1,7 +1,7 @@
 import { FadeSpeedSelect } from "components/forms/FadeSpeedSelect";
 import { DropdownButton } from "ui/buttons/DropdownButton";
 import { MenuItem } from "ui/menu/Menu";
-import { l10n } from "renderer/lib/api";
+import l10n from "shared/lib/l10n";
 import React, { useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "renderer/project/store/configureStore";

@@ -5,7 +5,7 @@ import {
   readFileToTilesDataArray,
   toTileLookup,
 } from "shared/lib/tiles/tileData";
-import l10n from "lib/helpers/l10n";
+import l10n from "shared/lib/l10n";
 
 const MAX_IMAGE_WIDTH = 2040;
 const MAX_IMAGE_HEIGHT = 2040;

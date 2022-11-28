@@ -14,7 +14,7 @@ import {
 import FloatingPanel, { FloatingPanelDivider } from "ui/panels/FloatingPanel";
 import editorActions from "renderer/project/store/features/editor/editorActions";
 import { Button } from "ui/buttons/Button";
-import { l10n } from "renderer/lib/api";
+import l10n from "shared/lib/l10n";
 
 interface MetaspriteEditorToolsPanelProps {
   selectedAnimationId: string;

@@ -5,7 +5,7 @@ import { musicSelectors } from "renderer/project/store/features/entities/entitie
 import { FlatList } from "ui/lists/FlatList";
 import { Music } from "renderer/project/store/features/entities/entitiesTypes";
 import { EntityListItem } from "ui/lists/EntityListItem";
-import { l10n } from "renderer/lib/api";
+import l10n from "shared/lib/l10n";
 import { SplitPaneHeader } from "ui/splitpane/SplitPaneHeader";
 import styled from "styled-components";
 import { NoSongsMessage } from "./NoSongsMessage";

@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import Button from "components/library/Button";
 import { PlayIcon, PauseIcon } from "ui/icons/Icons";
-import { l10n } from "renderer/lib/api";
+import l10n from "shared/lib/l10n";
 import musicActions from "renderer/project/store/features/music/musicActions";
 import electronActions from "renderer/project/store/features/electron/electronActions";
 import entitiesActions from "renderer/project/store/features/entities/entitiesActions";

@@ -5,7 +5,6 @@ import {
   stopBuffer,
   decodeAudioData,
 } from "renderer/lib/soundfx/soundfx";
-import { assetsRoot } from "shared/consts";
 import { Dispatch, Middleware } from "@reduxjs/toolkit";
 import { RootState } from "renderer/project/store/configureStore";
 import musicActions from "renderer/project/store/features/music/musicActions";
@@ -34,13 +33,14 @@ window.addEventListener("keydown", initMusic);
 window.addEventListener("blur", pause);
 
 function play(filename: string) {
-  const url = `file://${assetsRoot}/soundfx/${filename}`;
-  fetch(url)
-    .then((response) => response.arrayBuffer())
-    .then(decodeAudioData)
-    .then((data) => {
-      bufferSource = playBuffer(data);
-    });
+  console.warn("@TODO PLAY SFX");
+  // const url = `file://${assetsRoot}/soundfx/${filename}`;
+  // fetch(url)
+  //   .then((response) => response.arrayBuffer())
+  //   .then(decodeAudioData)
+  //   .then((data) => {
+  //     bufferSource = playBuffer(data);
+  //   });
 }
 
 async function playSound(

@@ -3,7 +3,7 @@ import settings from "electron-settings";
 import path from "path";
 import { isString, isArray } from "@byte.london/byteguards";
 import loadProject from "lib/project/loadProjectData";
-import { l10nStrings } from "lib/helpers/l10n";
+import { l10nStrings } from "shared/lib/l10n";
 import getTmp from "lib/helpers/getTmp";
 import pkg from "package.json";
 import { getBackgroundInfo } from "lib/backgrounds/validation";

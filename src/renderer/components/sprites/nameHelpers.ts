@@ -1,4 +1,4 @@
-import { l10n } from "renderer/lib/api";
+import l10n from "shared/lib/l10n";
 import type { SpriteAnimationType } from "renderer/project/store/features/entities/entitiesTypes";
 import {
   AnimationType,

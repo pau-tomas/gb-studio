@@ -2,7 +2,7 @@ import React, { FC, useCallback, useEffect, useMemo, useState } from "react";
 import { Helmet } from "react-helmet";
 import { useDispatch, useSelector } from "react-redux";
 import debounce from "lodash/debounce";
-import API, { l10n } from "renderer/lib/api";
+import API from "renderer/lib/api";
 import editorActions from "renderer/project/store/features/editor/editorActions";
 import navigationActions from "renderer/project/store/features/navigation/navigationActions";
 import electronActions from "renderer/project/store/features/electron/electronActions";
@@ -30,6 +30,7 @@ import useWindowFocus from "ui/hooks/use-window-focus";
 import useWindowSize from "ui/hooks/use-window-size";
 import { acceleratorForPlatform } from "renderer/lib/ui/acceleratorForPlatform";
 import { zoomForSection } from "renderer/project/store/features/editor/editorHelpers";
+import l10n from "shared/lib/l10n";
 
 const sectionNames = {
   world: l10n("NAV_GAME_WORLD"),

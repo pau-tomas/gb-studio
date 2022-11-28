@@ -2,7 +2,7 @@ import React, { FC, useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styled, { css } from "styled-components";
 import { assetFilename } from "shared/lib/assets/helpers";
-import { l10n } from "renderer/lib/api";
+import l10n from "shared/lib/l10n";
 import { RootState } from "renderer/project/store/configureStore";
 import { backgroundSelectors } from "renderer/project/store/features/entities/entitiesState";
 import warningsActions from "renderer/project/store/features/warnings/warningsActions";

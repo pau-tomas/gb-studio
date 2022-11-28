@@ -1,5 +1,5 @@
 import React, { FC } from "react";
-import { l10n } from "renderer/lib/api";
+import l10n from "shared/lib/l10n";
 import { Select } from "ui/form/Select";
 
 interface SceneTypeSelectProps {

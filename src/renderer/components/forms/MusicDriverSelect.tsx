@@ -1,4 +1,4 @@
-import { l10n } from "renderer/lib/api";
+import l10n from "shared/lib/l10n";
 import React, { FC, useEffect, useState } from "react";
 import { MusicDriverSetting } from "renderer/project/store/features/settings/settingsState";
 import {

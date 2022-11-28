@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 import cx from "classnames";
 import Button from "components/library/Button";
 import { HelpIcon } from "ui/icons/Icons";
-import { l10n } from "renderer/lib/api";
+import l10n from "shared/lib/l10n";
 import { groupBy } from "shared/lib/array/helpers";
 import editorActions from "renderer/project/store/features/editor/editorActions";
 import navigationActions from "renderer/project/store/features/navigation/navigationActions";

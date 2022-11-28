@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import { l10n } from "renderer/lib/api";
+import l10n from "shared/lib/l10n";
 import { Button } from "ui/buttons/Button";
 import settingsActions from "renderer/project/store/features/settings/settingsActions";
 import { Input } from "ui/form/Input";

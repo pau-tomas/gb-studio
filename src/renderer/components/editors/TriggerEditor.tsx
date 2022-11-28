@@ -4,7 +4,7 @@ import ScriptEditor from "components/script/ScriptEditor";
 import castEventValue from "renderer/lib/forms/castEventValue";
 import { DropdownButton } from "ui/buttons/DropdownButton";
 import { MenuDivider, MenuItem } from "ui/menu/Menu";
-import { l10n } from "renderer/lib/api";
+import l10n from "shared/lib/l10n";
 import { WorldEditor } from "./WorldEditor";
 import ScriptEditorDropdownButton from "components/script/ScriptEditorDropdownButton";
 import {

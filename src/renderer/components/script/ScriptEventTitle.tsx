@@ -5,7 +5,7 @@ import {
   isPropertyField,
   isVariableField,
 } from "lib/helpers/eventSystem";
-import { l10n } from "renderer/lib/api";
+import l10n from "shared/lib/l10n";
 import {
   NamedVariable,
   namedVariablesByContext,

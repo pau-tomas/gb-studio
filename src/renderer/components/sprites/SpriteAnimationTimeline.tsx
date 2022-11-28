@@ -15,7 +15,7 @@ import editorActions from "renderer/project/store/features/editor/editorActions"
 import { CloneIcon, PlusIcon } from "ui/icons/Icons";
 import SpriteAnimationTimelineFrame from "./SpriteAnimationTimelineFrame";
 import { FixedSpacer } from "ui/spacing/Spacing";
-import { l10n } from "renderer/lib/api";
+import l10n from "shared/lib/l10n";
 
 interface SpriteAnimationTimelineProps {
   spriteSheetId: string;

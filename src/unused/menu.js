@@ -1,6 +1,6 @@
 import settings from "electron-settings";
 import { app, Menu, shell } from "electron";
-import l10n, { locales } from "lib/helpers/l10n";
+import l10n, { locales } from "shared/lib/l10n";
 
 const isDevMode = process.execPath.match(/[\\/]electron/);
 

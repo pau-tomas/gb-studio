@@ -1,5 +1,5 @@
 import type { ScriptEditorContextType } from "shared/lib/scripting/context";
-import { l10n } from "renderer/lib/api";
+import l10n from "shared/lib/l10n";
 import uniq from "lodash/uniq";
 import type {
   CustomEvent,

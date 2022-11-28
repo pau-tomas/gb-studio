@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { SceneSelect } from "components/forms/SceneSelect";
 import DirectionPicker from "components/forms/DirectionPicker";
 import castEventValue from "renderer/lib/forms/castEventValue";
-import { l10n } from "renderer/lib/api";
+import l10n from "shared/lib/l10n";
 import { MovementSpeedSelect } from "components/forms/MovementSpeedSelect";
 import { AnimationSpeedSelect } from "components/forms/AnimationSpeedSelect";
 import settingsActions from "renderer/project/store/features/settings/settingsActions";

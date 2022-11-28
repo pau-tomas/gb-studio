@@ -1,7 +1,7 @@
 import uniq from "lodash/uniq";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import { l10n } from "renderer/lib/api";
+import l10n from "shared/lib/l10n";
 import { RootState } from "renderer/project/store/configureStore";
 import { EngineFieldSchema } from "renderer/project/store/features/engine/engineState";
 

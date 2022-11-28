@@ -1,5 +1,5 @@
 import React, { useEffect, useRef } from "react";
-import { l10n } from "renderer/lib/api";
+import l10n from "shared/lib/l10n";
 import { FormRow } from "ui/form/FormLayout";
 import { SliderField } from "ui/form/SliderField";
 

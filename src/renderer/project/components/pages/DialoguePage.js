@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 import PageHeader from "components/library/PageHeader";
 import PageContent from "components/library/PageContent";
 import { EVENT_TEXT } from "shared/lib/scripting/eventTypes";
-import { l10n } from "renderer/lib/api";
+import l10n from "shared/lib/l10n";
 import {
   SceneShape,
   ActorShape,

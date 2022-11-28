@@ -2,7 +2,7 @@ import fs from "fs-extra";
 import path from "path";
 import os from "os";
 import stripInvalidFilenameCharacters from "lib/helpers/stripInvalidFilenameCharacters";
-import { projectTemplatesRoot } from "shared/consts";
+import { projectTemplatesRoot } from "lib/pathConsts";
 import copy from "lib/helpers/fsCopy";
 
 const ERR_PROJECT_EXISTS = "ERR_PROJECT_EXISTS";

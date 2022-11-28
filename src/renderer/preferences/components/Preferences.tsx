@@ -9,8 +9,9 @@ import { DotsIcon } from "ui/icons/Icons";
 import { FixedSpacer, FlexGrow } from "ui/spacing/Spacing";
 import { AppSelect } from "ui/form/AppSelect";
 import { OptionLabelWithInfo, Select } from "ui/form/Select";
-import { app, paths, settings, dialog, l10n } from "renderer/lib/api";
+import { app, paths, settings, dialog } from "renderer/lib/api";
 import { SkeletonInput } from "ui/skeleton/Skeleton";
+import l10n from "shared/lib/l10n";
 
 interface Options {
   value: number;

@@ -8,7 +8,7 @@ import {
   filterEvents,
 } from "lib/helpers/eventSystem";
 import { EVENT_CALL_CUSTOM_EVENT } from "shared/lib/scripting/eventTypes";
-// import { l10n } from "renderer/lib/api";
+// import l10n from "shared/lib/l10n";
 import editorActions from "renderer/project/store/features/editor/editorActions";
 import { getSettings } from "renderer/project/store/features/settings/settingsState";
 import settingsActions from "renderer/project/store/features/settings/settingsActions";

@@ -1,5 +1,5 @@
 import React, { useCallback } from "react";
-import { l10n } from "renderer/lib/api";
+import l10n from "shared/lib/l10n";
 import { DropdownButton } from "ui/buttons/DropdownButton";
 import { MenuDivider, MenuItem } from "ui/menu/Menu";
 import { useDispatch, useSelector } from "react-redux";

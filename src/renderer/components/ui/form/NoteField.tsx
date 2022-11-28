@@ -1,6 +1,6 @@
 import React, { FC } from "react";
 import styled from "styled-components";
-import { l10n } from "renderer/lib/api";
+import l10n from "shared/lib/l10n";
 
 const Wrapper = styled.div`
   position: relative;

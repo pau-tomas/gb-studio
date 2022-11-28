@@ -3,9 +3,10 @@ import ReactDOM from "react-dom";
 import { AppContainer } from "react-hot-loader";
 import Preferences from "./components/Preferences";
 import API from "renderer/lib/api";
+import { setLanguageData } from "shared/lib/l10n";
 
 const render = async () => {
-  await API.l10nInit();
+  setLanguageData(await API.getL10NData());
   ReactDOM.render(
     <AppContainer>
       <Preferences />

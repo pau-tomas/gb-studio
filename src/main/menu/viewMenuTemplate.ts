@@ -1,5 +1,6 @@
 import { MenuItemConstructorOptions } from "electron";
-import l10n, { locales } from "lib/helpers/l10n";
+import { locales } from "lib/helpers/locales";
+import l10n from "shared/lib/l10n";
 
 interface ViewMenuTemplateProps {
   isProjectOpen: () => boolean;

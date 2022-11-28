@@ -39,7 +39,7 @@ import {
   EntityId,
   EntityState,
 } from "@reduxjs/toolkit";
-import { l10n } from "renderer/lib/api";
+import l10n from "shared/lib/l10n";
 import { genSymbol, toValidSymbol } from "shared/lib/compiler/symbols";
 import { parseAssetPath } from "shared/lib/assets/helpers";
 import { ScriptEventData } from "shared/lib/scripting/eventTypes";

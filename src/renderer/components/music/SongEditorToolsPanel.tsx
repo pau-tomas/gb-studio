@@ -24,7 +24,7 @@ import { InstrumentSelect } from "./InstrumentSelect";
 import { Select } from "ui/form/Select";
 import { PianoRollToolType } from "renderer/project/store/features/tracker/trackerState";
 // import { ipcRenderer } from "electron";
-import { l10n } from "renderer/lib/api";
+import l10n from "shared/lib/l10n";
 import { InstrumentType } from "renderer/project/store/features/editor/editorState";
 
 const octaveOffsetOptions: OctaveOffsetOptions[] = [0, 1, 2, 3].map((i) => ({

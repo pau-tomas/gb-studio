@@ -79,7 +79,7 @@ import { ensureDir } from "fs-extra";
 import Path from "path";
 import { determineUsedAssets } from "./precompile/determineUsedAssets";
 import { compileSound } from "./sounds/compileSound";
-import l10n from "lib/helpers/l10n";
+import l10n from "shared/lib/l10n";
 
 const indexById = indexBy("id");
 

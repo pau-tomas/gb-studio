@@ -4,7 +4,7 @@ import { RootState } from "renderer/project/store/configureStore";
 import { paletteSelectors } from "renderer/project/store/features/entities/entitiesState";
 import { FlatList } from "ui/lists/FlatList";
 import { Palette } from "renderer/project/store/features/entities/entitiesTypes";
-import { l10n } from "renderer/lib/api";
+import l10n from "shared/lib/l10n";
 import { SplitPaneHeader } from "ui/splitpane/SplitPaneHeader";
 import styled from "styled-components";
 import navigationActions from "renderer/project/store/features/navigation/navigationActions";

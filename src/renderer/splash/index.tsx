@@ -3,6 +3,7 @@ import ReactDOM from "react-dom";
 import { AppContainer } from "react-hot-loader";
 import Splash from "./components/Splash";
 import API from "renderer/lib/api";
+import { setLanguageData } from "shared/lib/l10n";
 
 window.addEventListener("error", (error) => {
   if (error.message.indexOf("dead code elimination") > -1) {
@@ -33,7 +34,7 @@ window.addEventListener("error", (error) => {
 });
 
 const render = async () => {
-  await API.l10nInit();
+  setLanguageData(await API.getL10NData());
   ReactDOM.render(
     <AppContainer>
       <Splash />
