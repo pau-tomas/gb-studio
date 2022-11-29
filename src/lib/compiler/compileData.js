@@ -64,7 +64,6 @@ import {
   compileSaveSignature,
 } from "./compileData2";
 import compileSGBImage from "./sgb";
-import { readFileToTilesData } from "shared/lib/tiles/tileData";
 import { compileScriptEngineInit } from "./compileBootstrap";
 import { compileMusicTracks, compileMusicHeader } from "./compileMusic";
 import { toProjectileHash } from "./scriptBuilder";
@@ -80,6 +79,7 @@ import Path from "path";
 import { determineUsedAssets } from "./precompile/determineUsedAssets";
 import { compileSound } from "./sounds/compileSound";
 import l10n from "shared/lib/l10n";
+import { readFileToTilesData } from "lib/tiles/loadData";
 
 const indexById = indexBy("id");
 

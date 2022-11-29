@@ -1,9 +1,6 @@
 import promiseLimit from "shared/lib/promise/promiseLimit";
 import { assetFilename } from "shared/lib/assets/helpers";
-import {
-  optimiseTiles,
-  indexedImageTo2bppSpriteData,
-} from "shared/lib/sprites/spriteData";
+import { indexedImageTo2bppSpriteData } from "shared/lib/sprites/spriteData";
 import {
   animationMapBySpriteType,
   toEngineOrder,
@@ -14,6 +11,7 @@ import type {
   SpriteAnimationType,
 } from "renderer/project/store/features/entities/entitiesTypes";
 import { IndexedImage } from "shared/lib/tiles/indexedImage";
+import { optimiseTiles } from "lib/tiles/loadData";
 
 const S_PALETTE = 0x10;
 const S_FLIPX = 0x20;

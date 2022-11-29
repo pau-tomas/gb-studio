@@ -46,36 +46,6 @@ export type SliceDef = {
 };
 
 /**
- * Load the given PNG image filename into an IndexedImage using the supplied index function.
- *
- * @param filename A local filename which is read using the NodeJS readFile method
- * @param indexFn Function to map an individual RGB pixel value to an 8-bit indexed value
- * @returns A new IndexedImage representing the image data provided
- */
-export const readFileToIndexedImage = async (
-  _filename: string,
-  _indexFn: ImageIndexFunction
-): Promise<IndexedImage> => {
-  console.warn("@TODO Implement readFileToIndexedImage in main process");
-  return {
-    width: 0,
-    height: 0,
-    data: new Uint8Array(),
-  };
-  // const fileData = await readFile(filename);
-  // return new Promise((resolve, reject) => {
-  //   new PNG().parse(fileData, (err, data) => {
-  //     if (err) {
-  //       return reject(err);
-  //     }
-  //     resolve(
-  //       pixelDataToIndexedImage(data.width, data.height, data.data, indexFn)
-  //     );
-  //   });
-  // });
-};
-
-/**
  * Load the given ImageBitmap data into an IndexedImage using the supplied index function.
  *
  * Uses Canvas API and should be run from a browser context. Consider using readFileToIndexedImage instead if calling from Node.
@@ -112,7 +82,7 @@ export const imageToIndexedImage = (
  * @param indexFn A function to convert RGB values to a color index
  * @returns A new IndexedImage representing the pixel data provided
  */
-const pixelDataToIndexedImage = (
+export const pixelDataToIndexedImage = (
   width: number,
   height: number,
   pixels: Buffer | Uint8ClampedArray,

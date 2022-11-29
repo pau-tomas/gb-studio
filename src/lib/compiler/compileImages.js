@@ -2,12 +2,12 @@ import { assetFilename } from "shared/lib/assets/helpers";
 import getFileModifiedTime from "lib/helpers/fs/getModifiedTime";
 import { getBackgroundInfo } from "lib/backgrounds/validation";
 import {
-  readFileToTilesDataArray,
   tileLookupToTileData,
   tileArrayToTileData,
   tilesAndLookupToTilemap,
   toTileLookup,
 } from "shared/lib/tiles/tileData";
+import { readFileToTilesDataArray } from "lib/tiles/loadData";
 
 // const MAX_SIZE = 9999999999;
 // const MAX_TILESET_TILES = 16 * 12;

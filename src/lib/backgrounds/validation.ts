@@ -1,11 +1,9 @@
 import { divisibleBy8 } from "shared/lib/math/8bit";
 import { assetFilename } from "shared/lib/assets/helpers";
 import type { Background } from "renderer/project/store/features/entities/entitiesTypes";
-import {
-  readFileToTilesDataArray,
-  toTileLookup,
-} from "shared/lib/tiles/tileData";
+import { toTileLookup } from "shared/lib/tiles/tileData";
 import l10n from "shared/lib/l10n";
+import { readFileToTilesDataArray } from "lib/tiles/loadData";
 
 const MAX_IMAGE_WIDTH = 2040;
 const MAX_IMAGE_HEIGHT = 2040;
