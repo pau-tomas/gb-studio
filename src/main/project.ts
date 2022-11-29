@@ -1,5 +1,7 @@
 import chokidar, { FSWatcher } from "chokidar";
+import { cloneDictionary } from "lib/helpers/clone";
 import loadProject from "lib/project/loadProjectData";
+import loadAllScriptEvents from "lib/project/loadScriptEvents";
 import Path from "path";
 
 const awaitWriteFinish = {
@@ -52,5 +54,9 @@ export default class Project {
 
   getData() {
     return loadProject(this.filename);
+  }
+
+  async getScriptEvents() {
+    return cloneDictionary(await loadAllScriptEvents(this.filename));
   }
 }

@@ -1,10 +1,18 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
-const plugins = require("./webpack.plugins");
+const globalPlugins = require("./webpack.plugins");
 const Path = require("path");
+const CopyPlugin = require("copy-webpack-plugin");
 
 const srcPath = (subdir) => {
   return Path.join(__dirname, "src", subdir);
 };
+
+const plugins = [].concat(
+  globalPlugins,
+  new CopyPlugin({
+    patterns: [{ from: "node_modules/vm2", to: "node_modules/vm2" }],
+  })
+);
 
 module.exports = {
   target: "electron-main",
@@ -32,5 +40,11 @@ module.exports = {
       "package.json": Path.join(__dirname, "package.json"),
       "contributors.json": Path.join(__dirname, "contributors.json"),
     },
+  },
+  optimization: {
+    minimize: false,
+  },
+  externals: {
+    vm2: "vm2",
   },
 };

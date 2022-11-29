@@ -10,6 +10,8 @@ import loadAllEmoteData from "./loadEmoteData";
 import loadAllSoundData from "./loadSoundData";
 import migrateProject from "./migrateProject";
 import { indexByFn, indexBy } from "shared/lib/array/helpers";
+import loadAllScriptEvents from "./loadScriptEvents";
+import { cloneDictionary } from "lib/helpers/clone";
 
 const toUnixFilename = (filename) => {
   return filename.replace(/\\/g, "/");
@@ -323,6 +325,9 @@ const loadProject = async (projectPath) => {
 
   const fixedEngineFieldValues = json.engineFieldValues || [];
 
+  const scriptEvents = cloneDictionary(await loadAllScriptEvents(projectRoot));
+  console.log({ scriptEvents });
+
   return {
     data: {
       ...json,
@@ -340,6 +345,7 @@ const loadProject = async (projectPath) => {
     },
     path: projectPath,
     modifiedSpriteIds,
+    scriptEvents: cloneDictionary(scriptEvents),
   };
 };
 
