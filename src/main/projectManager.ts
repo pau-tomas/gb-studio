@@ -1,47 +1,30 @@
-import chokidar, { FSWatcher } from "chokidar";
-import Path from "path";
-
-const awaitWriteFinish = {
-  stabilityThreshold: 1000,
-  pollInterval: 100,
-};
+import Project from "./project";
 
 export default class ProjectManager {
-  private projectRoot?: string;
-  //Watchers
-  private spriteWatcher?: FSWatcher;
+  private static instance?: ProjectManager;
+  private projects: Record<number, Project> = {};
 
-  async loadProject(filename: string) {
-    await this.closeProject();
-    this.projectRoot = Path.dirname(filename);
-
-    const onAddSprite = (n: string) => console.log(`watch:add:${n}`);
-    const onChangedSprite = (n: string) => console.log(`watch:update:${n}`);
-    const onRemoveSprite = (n: string) => console.log(`watch:remove:${n}`);
-
-    // Init Watchers
-    const spritesRoot = `${this.projectRoot}/assets/sprites`;
-    this.spriteWatcher = chokidar
-      .watch(`${spritesRoot}/**/*.{png,PNG}`, {
-        ignoreInitial: true,
-        persistent: true,
-        awaitWriteFinish,
-      })
-      .on("add", onAddSprite)
-      .on("change", onChangedSprite)
-      .on("unlink", onRemoveSprite);
+  static getInstance(): ProjectManager {
+    if (this.instance) {
+      return this.instance;
+    }
+    const projectManager = (this.instance = new ProjectManager());
+    return projectManager;
   }
 
-  async closeProject() {
-    await this.spriteWatcher?.close();
-    this.projectRoot = "";
+  registerProject(processId: number, project: Project) {
+    this.projects[processId] = project;
   }
 
-  getRoot() {
-    return this.projectRoot;
+  getProject(processId: number): Project | undefined {
+    return this.projects[processId];
+  }
+
+  closeProject(processId: number) {
+    const project = this.projects[processId];
+    if (project) {
+      project.close();
+      delete this.projects[processId];
+    }
   }
 }
-
-// @TODO Implement projectManager (or remove it)
-// createProject
-// etc.

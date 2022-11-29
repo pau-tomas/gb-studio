@@ -338,6 +338,7 @@ const loadProject = async (projectPath) => {
       palettes: fixedPalettes,
       engineFieldValues: fixedEngineFieldValues,
     },
+    path: projectPath,
     modifiedSpriteIds,
   };
 };

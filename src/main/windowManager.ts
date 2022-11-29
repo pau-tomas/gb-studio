@@ -2,6 +2,8 @@ import { app, BrowserWindow, dialog, nativeTheme } from "electron";
 import windowStateKeeper from "electron-window-state";
 import l10n from "shared/lib/l10n";
 import { checkForUpdate } from "lib/helpers/updateChecker";
+import Project from "./project";
+import ProjectManager from "./projectManager";
 
 declare const ABOUT_WINDOW_PRELOAD_WEBPACK_ENTRY: string;
 declare const ABOUT_WINDOW_WEBPACK_ENTRY: string;
@@ -21,6 +23,7 @@ interface WindowManagerProps {
 }
 
 export default class WindowManager {
+  projectManager: ProjectManager;
   keepOpen = false;
   mainWindowCloseCancelled = false;
   documentName = "";
@@ -139,7 +142,7 @@ export default class WindowManager {
     });
   }
 
-  private createProjectWindow(projectPath: string) {
+  private createProjectWindow(project: Project) {
     const mainWindowState = windowStateKeeper({
       defaultWidth: 1000,
       defaultHeight: 800,
@@ -175,15 +178,16 @@ export default class WindowManager {
 
     this.setApplicationMenu?.();
 
-    win.loadURL(
-      `${PROJECT_WINDOW_WEBPACK_ENTRY}?path=${encodeURIComponent(projectPath)}`
-    );
+    win.loadURL(PROJECT_WINDOW_WEBPACK_ENTRY);
 
-    win.setRepresentedFilename(projectPath);
+    win.setRepresentedFilename(project.getFilename());
+
+    let processId = 0;
 
     win.once("ready-to-show", () => {
-      win?.webContents.send("open-project", projectPath);
       win.show();
+      processId = win.webContents.getProcessId();
+      ProjectManager.getInstance().registerProject(processId, project);
     });
 
     win.on("enter-full-screen", () => {
@@ -234,6 +238,7 @@ export default class WindowManager {
     win.on("closed", () => {
       this.projectWindow = undefined;
       this.setApplicationMenu?.();
+      ProjectManager.getInstance().closeProject(processId);
 
       if (this.musicWindow) {
         this.musicWindow.destroy();
@@ -335,18 +340,18 @@ export default class WindowManager {
     }
   }
 
-  async openProject(projectPath: string) {
+  async openProject(project: Project) {
     this.keepOpen = true;
     if (this.splashWindow) {
       this.splashWindow.close();
     }
     if (!this.projectWindow) {
-      this.createProjectWindow(projectPath);
+      this.createProjectWindow(project);
     } else {
       this.keepOpen = true;
       this.projectWindow.close();
       await this.waitUntilProjectClosed();
-      this.createProjectWindow(projectPath);
+      this.createProjectWindow(project);
     }
     this.keepOpen = false;
   }
@@ -372,6 +377,10 @@ export default class WindowManager {
 
   isProjectWindowOpen() {
     return !!this.projectWindow;
+  }
+
+  constructor(projectManager: ProjectManager) {
+    this.projectManager = projectManager;
   }
 
   init({ setApplicationMenu }: WindowManagerProps) {

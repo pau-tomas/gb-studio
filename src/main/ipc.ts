@@ -12,6 +12,8 @@ import type {
   SpriteSheetData,
 } from "renderer/project/store/features/entities/entitiesTypes";
 import { compileSprite } from "lib/compiler/compileSprites";
+import ProjectManager from "./projectManager";
+import Project from "./project";
 
 declare const COMMITHASH: string;
 
@@ -28,7 +30,7 @@ export interface CreateProjectOptions {
 }
 
 interface IPCOptions {
-  getProjectRoot: () => string | undefined;
+  projectManager: ProjectManager;
   onCreateProject: (
     input: CreateProjectInput,
     options?: CreateProjectOptions
@@ -43,7 +45,7 @@ interface IPCOptions {
 }
 
 const initIPC = ({
-  getProjectRoot,
+  projectManager,
   onCreateProject,
   onSelectProjectToOpen,
   onOpenProject,
@@ -53,18 +55,28 @@ const initIPC = ({
   onOpenHelp,
   onOpenAsset,
 }: IPCOptions) => {
-  ipcMain.handle("project:open-item-folder", async (_event, file) => {
+  const getEventProject = (event: Electron.IpcMainInvokeEvent): Project => {
+    const project = projectManager.getProject(event.processId);
+    if (!project) {
+      throw new Error("No project open for window");
+    }
+    return project;
+  };
+
+  ipcMain.handle("project:open-item-folder", async (event, file) => {
     if (!isString(file)) throw new Error("Invalid file path");
-    const projectRoot = getProjectRoot();
+    const project = getEventProject(event);
+    const projectRoot = project.getRoot();
     if (!projectRoot) throw new Error("Project must be loaded to open path");
     if (!file.startsWith(projectRoot))
       throw new Error("File must be within open project");
     shell.showItemInFolder(file);
   });
 
-  ipcMain.handle("project:open-path", async (_event, file) => {
+  ipcMain.handle("project:open-path", async (event, file) => {
     if (!isString(file)) throw new Error("Invalid file path");
-    const projectRoot = getProjectRoot();
+    const project = getEventProject(event);
+    const projectRoot = project.getRoot();
     if (!projectRoot) throw new Error("Project must be loaded to open path");
     if (!file.startsWith(projectRoot))
       throw new Error("File must be within open project");
@@ -163,9 +175,9 @@ const initIPC = ({
     return undefined;
   });
 
-  ipcMain.handle("open-project", (_, projectPath: string) =>
-    onOpenProject(projectPath)
-  );
+  ipcMain.handle("open-project", (event, projectPath: string) => {
+    return onOpenProject(projectPath);
+  });
 
   ipcMain.handle(
     "create-project",
@@ -173,7 +185,9 @@ const initIPC = ({
       onCreateProject(input, options)
   );
 
-  ipcMain.handle("load-project", async (_event, projectPath: string) => {
+  ipcMain.handle("load-project", async (event) => {
+    const project = getEventProject(event);
+    const projectPath = project.getFilename();
     return loadProject(projectPath);
   });
 

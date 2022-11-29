@@ -17,11 +17,7 @@ import SoundsPage from "./pages/SoundsPage";
 import { useAppDispatch, useAppSelector } from "renderer/project/store/hooks";
 import GlobalError from "components/library/GlobalError";
 
-interface AppProps {
-  projectPath?: string;
-}
-
-const App = ({ projectPath }: AppProps) => {
+const App = () => {
   const dispatch = useAppDispatch();
   const loaded = useAppSelector((state) => state.document.loaded);
   const section = useAppSelector((state) => state.navigation.section);
@@ -69,10 +65,8 @@ const App = ({ projectPath }: AppProps) => {
   );
 
   useEffect(() => {
-    if (projectPath) {
-      dispatch(projectActions.loadProject(projectPath));
-    }
-  }, [dispatch, projectPath]);
+    dispatch(projectActions.loadProject());
+  }, [dispatch]);
 
   useEffect(() => {
     window.addEventListener("blur", onBlur);

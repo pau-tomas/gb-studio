@@ -117,16 +117,17 @@ export const trimDenormalisedProject = (data: ProjectData): ProjectData => {
 const openProject = createAction<string>("project/openProject");
 const closeProject = createAction<void>("project/closeProject");
 
-const loadProject = createAsyncThunk<
-  { data: ProjectData; path: string; modifiedSpriteIds: string[] },
-  string
->("project/loadProject", async (path) => {
-  const { data, modifiedSpriteIds } = (await API.project.loadProjectData(
-    path
-  )) as {
-    data: ProjectData;
-    modifiedSpriteIds: string[];
-  };
+const loadProject = createAsyncThunk<{
+  data: ProjectData;
+  path: string;
+  modifiedSpriteIds: string[];
+}>("project/loadProject", async () => {
+  const { data, path, modifiedSpriteIds } =
+    (await API.project.loadProjectData()) as {
+      data: ProjectData;
+      path: string;
+      modifiedSpriteIds: string[];
+    };
 
   return {
     data,

@@ -16,9 +16,6 @@ import "../../styles/theme.css";
 import { setLanguageData } from "shared/lib/l10n";
 console.warn("@TODO Replace CSS imports with styled components");
 
-const urlParams = new URLSearchParams(window.location.search);
-const projectPath = urlParams.get("path") || undefined;
-
 // Attach store to global scope for debugging
 (
   window as unknown as {
@@ -34,7 +31,7 @@ const render = async () => {
         <DndProvider backend={HTML5Backend}>
           <ThemeProvider>
             <GlobalStyle />
-            <App projectPath={projectPath} />
+            <App />
           </ThemeProvider>
         </DndProvider>
       </Provider>

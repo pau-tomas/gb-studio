@@ -65,8 +65,7 @@ export const API = {
     ) => ipcRenderer.invoke("create-project", input, options),
     openProject: (filePath: string) =>
       ipcRenderer.invoke("open-project", filePath),
-    loadProjectData: (projectPath: string) =>
-      ipcRenderer.invoke("load-project", projectPath),
+    loadProjectData: () => ipcRenderer.invoke("load-project"),
     buildProject: (projectPath: string, projectData: unknown) =>
       ipcRenderer.invoke("build-project", projectPath, projectData),
     openPlayWindow: (outputRoot: string, sgbMode: boolean) =>
