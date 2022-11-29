@@ -2,7 +2,6 @@ import { app, dialog, ipcMain, nativeTheme, shell } from "electron";
 import settings from "electron-settings";
 import path from "path";
 import { isString, isArray } from "@byte.london/byteguards";
-import loadProject from "lib/project/loadProjectData";
 import { l10nStrings } from "shared/lib/l10n";
 import getTmp from "lib/helpers/getTmp";
 import pkg from "package.json";
@@ -187,8 +186,7 @@ const initIPC = ({
 
   ipcMain.handle("load-project", async (event) => {
     const project = getEventProject(event);
-    const projectPath = project.getFilename();
-    return loadProject(projectPath);
+    return project.getData();
   });
 
   ipcMain.handle(

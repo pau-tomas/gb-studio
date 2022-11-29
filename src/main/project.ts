@@ -1,4 +1,5 @@
 import chokidar, { FSWatcher } from "chokidar";
+import loadProject from "lib/project/loadProjectData";
 import Path from "path";
 
 const awaitWriteFinish = {
@@ -47,5 +48,9 @@ export default class Project {
 
   getRoot() {
     return this.projectRoot;
+  }
+
+  getData() {
+    return loadProject(this.filename);
   }
 }
