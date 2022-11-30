@@ -1,3 +1,5 @@
+import { Dictionary } from "@reduxjs/toolkit";
+import type { ScriptEventDef } from "lib/project/loadScriptEvents";
 import { EVENT_FADE_IN, ScriptEventData } from "./eventTypes";
 
 export const calculateAutoFadeEventId = <T>(
@@ -6,10 +8,9 @@ export const calculateAutoFadeEventId = <T>(
   makeWalker: (
     script: T[],
     filter: (item: T) => boolean
-  ) => Generator<ScriptEventData>
+  ) => Generator<ScriptEventData>,
+  scriptEventsLookup: Dictionary<ScriptEventDef>
 ): string => {
-  // eslint-disable-next-line @typescript-eslint/no-var-requires
-  const events = require("lib/events").default;
   for (const scriptItem of script) {
     const scriptEvent = getScriptData(scriptItem);
     if (!scriptEvent) {
@@ -26,14 +27,14 @@ export const calculateAutoFadeEventId = <T>(
       if (!childEvent || childEvent?.args?.__comment) {
         return false;
       }
-      if (events[childEvent.command]?.allowChildrenBeforeInitFade) {
+      if (scriptEventsLookup[childEvent.command]?.allowChildrenBeforeInitFade) {
         return false;
       }
       return true;
     });
 
     for (const childEvent of walker) {
-      if (events[childEvent.command]?.waitUntilAfterInitFade) {
+      if (scriptEventsLookup[childEvent.command]?.waitUntilAfterInitFade) {
         if (childEvent.command === EVENT_FADE_IN) {
           return "MANUAL";
         } else {

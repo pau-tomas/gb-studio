@@ -55,6 +55,7 @@ import {
   isVariableCustomEvent,
   toVariableNumber,
 } from "shared/lib/variables/helpers";
+import { ScriptEventHandler } from "lib/project/loadScriptEvents";
 
 type ScriptOutput = string[];
 
@@ -139,6 +140,7 @@ interface ScriptBuilderOptions {
   }>;
   compiledAssetsCache: Dictionary<string>;
   compileEvents: (self: ScriptBuilder, events: ScriptEvent[]) => void;
+  scriptEventsLookup: Dictionary<ScriptEventHandler>;
 }
 
 type ScriptBuilderMoveType = "horizontal" | "vertical" | "diagonal";
@@ -516,6 +518,7 @@ class ScriptBuilder {
         options.compiledCustomEventScriptCache ?? {},
       compiledAssetsCache: options.compiledAssetsCache ?? {},
       compileEvents: options.compileEvents || ((_self, _e) => {}),
+      scriptEventsLookup: options.scriptEventsLookup ?? {},
       settings: options.settings,
     };
     this.dependencies = [];
@@ -3266,8 +3269,7 @@ extern void __mute_mask_${symbol};
   };
 
   compileCustomEventScript = (customEventId: string) => {
-    // eslint-disable-next-line @typescript-eslint/no-var-requires
-    const eventLookup = require("lib/events").eventLookup;
+    const eventLookup = this.options.scriptEventsLookup;
     const { customEvents, compiledCustomEventScriptCache } = this.options;
     const customEvent = customEvents.find((ce) => ce.id === customEventId);
 
@@ -3355,7 +3357,7 @@ extern void __mute_mask_${symbol};
         Object.keys(e.args).forEach((arg) => {
           const argValue = e.args[arg];
           // Update variable fields
-          if (isVariableField(e.command, arg, e.args, eventLookup)) {
+          if (isVariableField(e.command, arg, e.args, eventLookup as any)) {
             if (
               isUnionVariableValue(argValue) &&
               argValue.value &&
@@ -3373,7 +3375,7 @@ extern void __mute_mask_${symbol};
             }
           }
           // Update property fields
-          if (isPropertyField(e.command, arg, e.args, eventLookup)) {
+          if (isPropertyField(e.command, arg, e.args, eventLookup as any)) {
             const replacePropertyValueActor = (p: string) => {
               const actorValue = p.replace(/:.*/, "");
               if (actorValue === "player") {
@@ -3396,7 +3398,7 @@ extern void __mute_mask_${symbol};
           }
           // Update actor fields
           if (
-            isActorField(e.command, arg, e.args, eventLookup) &&
+            isActorField(e.command, arg, e.args, eventLookup as any) &&
             typeof argValue === "string"
           ) {
             e.args[arg] = getArg("actor", argValue); // input[`$variable[${argValue}]$`];

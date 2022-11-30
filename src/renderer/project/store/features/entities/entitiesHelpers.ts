@@ -741,6 +741,7 @@ export const calculateAutoFadeEventIdNormalised = (
         filter: (item) => {
           return filter(item.id);
         },
-      })
+      }),
+    {} as any
   );
 };

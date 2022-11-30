@@ -13,22 +13,6 @@ import { readFile } from "fs-extra";
 const VM2 = __non_webpack_require__("vm2");
 const NodeVM = VM2.NodeVM;
 
-export interface EventHandler {
-  id: string;
-  autoLabel?: (
-    lookup: (key: string) => string,
-    args: Record<string, unknown>
-  ) => string;
-  fields: ScriptEventFieldSchema[];
-  name?: string;
-  description?: string;
-  groups?: string[] | string;
-  deprecated?: boolean;
-  isConditional?: boolean;
-  editableSymbol?: boolean;
-  compile: (input: unknown, helpers: unknown) => void;
-}
-
 export interface ScriptEventDef {
   id: string;
   fields: ScriptEventFieldSchema[];
@@ -38,6 +22,22 @@ export interface ScriptEventDef {
   deprecated?: boolean;
   isConditional?: boolean;
   editableSymbol?: boolean;
+  allowChildrenBeforeInitFade?: boolean;
+  waitUntilAfterInitFade?: boolean;
+}
+
+export type ScriptEventHandler = ScriptEventDef & {
+  autoLabel?: (
+    lookup: (key: string) => string,
+    args: Record<string, unknown>
+  ) => string;
+  compile: (input: unknown, helpers: unknown) => void;
+};
+
+export interface ScriptEventDefLookup {
+  byCommand: Dictionary<ScriptEventDef>;
+  engineFieldUpdateByField: Dictionary<ScriptEventDef>;
+  engineFieldStoreByField: Dictionary<ScriptEventDef>;
 }
 
 const vm = new NodeVM({

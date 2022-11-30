@@ -138,6 +138,11 @@
                 "allowTypeImports": true
               },
               {
+                "group": ["lib/*"],
+                "message": "Can't use lib/* imports within shared modules!",
+                "allowTypeImports": true
+              },                
+              {
                 "group": ["renderer/*"],
                 "message": "Can't use renderer/* imports within shared modules!",
                 "allowTypeImports": true

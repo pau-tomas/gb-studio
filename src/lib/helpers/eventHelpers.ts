@@ -1,6 +1,6 @@
 import { Dictionary } from "@reduxjs/toolkit";
 import { ScriptEventData } from "shared/lib/scripting/eventTypes";
-import { EventHandler } from "lib/events";
+import type { EventHandler } from "lib/events";
 import type {
   ActorDenormalized,
   CustomEventDenormalized,
@@ -282,7 +282,8 @@ export const calculateAutoFadeEventIdDenormalised = (
           maxDepth: 5,
         },
         filter,
-      })
+      }),
+    {} as any
   );
 };
 

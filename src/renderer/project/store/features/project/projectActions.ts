@@ -1,4 +1,4 @@
-import { createAsyncThunk, createAction } from "@reduxjs/toolkit";
+import { createAsyncThunk, createAction, Dictionary } from "@reduxjs/toolkit";
 import {
   Background,
   SpriteSheet,
@@ -29,6 +29,7 @@ import { MetadataState } from "renderer/project/store/features/metadata/metadata
 import { parseAssetPath } from "shared/lib/assets/helpers";
 import { denormalizeEntities } from "renderer/project/store/features/entities/entitiesHelpers";
 import API from "renderer/lib/api";
+import type { ScriptEventDef } from "lib/project/loadScriptEvents";
 // import { loadAvatarData } from "lib/project/loadAvatarData";
 // import { loadEmoteData } from "lib/project/loadEmoteData";
 // import { loadSoundData } from "lib/project/loadSoundData";
@@ -120,18 +121,21 @@ const closeProject = createAction<void>("project/closeProject");
 const loadProject = createAsyncThunk<{
   data: ProjectData;
   path: string;
+  scriptEventDefs: Dictionary<ScriptEventDef>;
   modifiedSpriteIds: string[];
 }>("project/loadProject", async () => {
-  const { data, path, modifiedSpriteIds } =
+  const { data, path, scriptEventDefs, modifiedSpriteIds } =
     (await API.project.loadProjectData()) as {
       data: ProjectData;
       path: string;
+      scriptEventDefs: Dictionary<ScriptEventDef>;
       modifiedSpriteIds: string[];
     };
 
   return {
     data,
     path,
+    scriptEventDefs,
     modifiedSpriteIds,
   };
 });

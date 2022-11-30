@@ -345,7 +345,7 @@ const loadProject = async (projectPath) => {
     },
     path: projectPath,
     modifiedSpriteIds,
-    scriptEvents: cloneDictionary(scriptEvents),
+    scriptEventDefs: cloneDictionary(scriptEvents),
   };
 };
 

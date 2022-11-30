@@ -17,8 +17,10 @@ import {
   ScriptEventFieldSchema,
 } from "renderer/project/store/features/entities/entitiesTypes";
 import ScriptEventFields from "./ScriptEventFields";
+import { useAppSelector } from "renderer/project/store/hooks";
+import { selectScriptEventDefsLookup } from "renderer/project/store/features/scriptEventDefs/scriptEventDefsState";
+import type { ScriptEventDef } from "lib/project/loadScriptEvents";
 
-const events: Dictionary<EventHandler> = {};
 const engineFieldUpdateEvents: Dictionary<EventHandler> = {};
 const engineFieldStoreEvents: Dictionary<EventHandler> = {};
 console.warn("@TODO Move events and engineField events to redux store");
@@ -35,9 +37,13 @@ const getScriptEventFields = (
   command: string,
   value: { customEventId?: string; engineFieldKey?: string },
   customEvents: Dictionary<CustomEvent>,
-  engineFields: EngineFieldSchema[]
+  engineFields: EngineFieldSchema[],
+  scriptEventDefsLookup: Dictionary<ScriptEventDef>
 ) => {
-  const eventCommands = (events[command] && events[command]?.fields) || [];
+  const eventCommands =
+    (scriptEventDefsLookup[command] &&
+      scriptEventDefsLookup[command]?.fields) ||
+    [];
   if (value.customEventId && customEvents[value.customEventId]) {
     const customEvent = customEvents[value.customEventId];
     const description = customEvent?.description
@@ -127,6 +133,7 @@ const ScriptEventForm = ({
   altBg,
   renderEvents,
 }: ScriptEventFormProps) => {
+  const scriptEventDefsLookup = useAppSelector(selectScriptEventDefsLookup);
   const scriptEvent = useSelector((state: RootState) =>
     scriptEventSelectors.selectById(state, id)
   );
@@ -143,11 +150,12 @@ const ScriptEventForm = ({
         command,
         value || {},
         customEvents,
-        engineFields
+        engineFields,
+        scriptEventDefsLookup
       );
     }
     return [];
-  }, [command, value, customEvents, engineFields]);
+  }, [command, value, customEvents, engineFields, scriptEventDefsLookup]);
 
   if (!scriptEvent) {
     return null;
