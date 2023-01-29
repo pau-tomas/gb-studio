@@ -35,9 +35,8 @@ import { EVENT_TEXT } from "shared/lib/scripting/eventTypes";
 import { useDebounce } from "ui/hooks/use-debounce";
 import { ScriptEditorContext } from "./ScriptEditorContext";
 import { defaultVariableForContext } from "shared/lib/scripting/context";
-
-const events: Dictionary<EventHandler> = {};
-console.warn("@TODO Move events to redux store");
+import { useAppSelector } from "renderer/project/store/hooks";
+import { selectScriptEventDefsLookup } from "renderer/project/store/features/scriptEventDefs/scriptEventDefsState";
 
 interface AddScriptEventMenuProps {
   parentType: ScriptEventParentType;
@@ -466,6 +465,7 @@ const AddScriptEventMenu = ({
     (state: RootState) => emoteSelectors.selectIds(state)[0]
   );
   const context = useContext(ScriptEditorContext);
+  const scriptEventDefsLookup = useAppSelector(selectScriptEventDefsLookup);
 
   useEffect(() => {
     if (selectedCategoryIndex === -1) {
@@ -475,7 +475,7 @@ const AddScriptEventMenu = ({
 
   useEffect(() => {
     const eventList = (
-      Object.values(events).filter(identity) as EventHandler[]
+      Object.values(scriptEventDefsLookup).filter(identity) as EventHandler[]
     ).filter(notDeprecated);
     fuseRef.current = new Fuse(eventList.map(eventToOption(favoriteEvents)), {
       includeScore: true,
@@ -516,7 +516,7 @@ const AddScriptEventMenu = ({
     const allOptions = ([] as (EventOptGroup | EventOption)[]).concat(
       (
         (firstLoad.current ? favoritesCache : favoriteEvents)
-          .map((id: string) => events[id])
+          .map((id: string) => scriptEventDefsLookup[id])
           .filter(identity) as EventHandler[]
       )
         .map(eventToOption(favoriteEvents))
@@ -553,7 +553,7 @@ const AddScriptEventMenu = ({
       setOptions(allOptions);
       firstLoad.current = true;
     }
-  }, [favoriteEvents, favoritesCache]);
+  }, [favoriteEvents, favoritesCache, scriptEventDefsLookup]);
 
   const updateOptions = useCallback(() => {
     if (searchTerm && fuseRef.current) {
@@ -576,7 +576,7 @@ const AddScriptEventMenu = ({
               {
                 value: "",
                 label: `${l10n(EVENT_TEXT)} "${searchTerm}"`,
-                event: events[EVENT_TEXT] as EventHandler,
+                event: scriptEventDefsLookup[EVENT_TEXT] as EventHandler,
                 defaultArgs: {
                   text: [searchTerm],
                 },
@@ -589,7 +589,7 @@ const AddScriptEventMenu = ({
     } else {
       setOptions(allOptions);
     }
-  }, [allOptions, searchTerm]);
+  }, [allOptions, searchTerm, scriptEventDefsLookup]);
 
   const debouncedUpdateOptions = useDebounce(updateOptions, 200);
 
