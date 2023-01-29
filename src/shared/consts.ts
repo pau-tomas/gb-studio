@@ -57,6 +57,8 @@ export const TMP_VAR_2 = "T1";
 export const TRACKER_UNDO = "TRACKER_UNDO";
 export const TRACKER_REDO = "TRACKER_REDO";
 
+export const ERR_PROJECT_EXISTS = "ERR_PROJECT_EXISTS";
+
 export {
   MAX_ACTORS,
   MAX_ACTORS_SMALL,

@@ -40,6 +40,7 @@ import { FormRow, FormField } from "ui/form/FormLayout";
 import { TextField } from "ui/form/TextField";
 import API, { dialog, settings, paths } from "renderer/lib/api";
 import l10n from "shared/lib/l10n";
+import { ERR_PROJECT_EXISTS } from "shared/consts";
 
 declare const DOCS_URL: string;
 
@@ -203,23 +204,22 @@ const Splash = () => {
         }
       );
     } catch (err) {
-      console.error(err);
-      // @TODO Fix project create error handling
-      /*
-      if (err === ERR_PROJECT_EXISTS) {
-        setNameError(l10n("ERROR_PROJECT_ALREADY_EXISTS"));
-        setCreating(false);
-      } else if (
-        String(err.message).startsWith("ENOTDIR") ||
-        String(err.message).startsWith("EEXIST")
-      ) {
-        setPathError(l10n("ERROR_PROJECT_PATH_INVALID"));
-        setCreating(false);
-      } else {
-        setPathError(err.message);
-        setCreating(false);
+      if (err instanceof Error) {
+        if (err.message.includes(ERR_PROJECT_EXISTS)) {
+          setNameError(l10n("ERROR_PROJECT_ALREADY_EXISTS"));
+          setCreating(false);
+        } else if (
+          err.message.includes("ENOTDIR") ||
+          err.message.includes("EEXIST") ||
+          err.message.includes("EROFS")
+        ) {
+          setPathError(l10n("ERROR_PROJECT_PATH_INVALID"));
+          setCreating(false);
+        } else {
+          setPathError(err.message);
+          setCreating(false);
+        }
       }
-      */
     }
   };
 

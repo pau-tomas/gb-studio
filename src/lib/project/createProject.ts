@@ -4,8 +4,7 @@ import os from "os";
 import stripInvalidFilenameCharacters from "lib/helpers/stripInvalidFilenameCharacters";
 import { projectTemplatesRoot } from "lib/pathConsts";
 import copy from "lib/helpers/fsCopy";
-
-const ERR_PROJECT_EXISTS = "ERR_PROJECT_EXISTS";
+import { ERR_PROJECT_EXISTS } from "shared/consts";
 
 export interface CreateProjectInput {
   name: string;
@@ -39,5 +38,3 @@ const createProject = async (input: CreateProjectInput) => {
 };
 
 export default createProject;
-
-export { ERR_PROJECT_EXISTS };
