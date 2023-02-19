@@ -229,6 +229,7 @@ app.on("ready", () => {
   });
   initIPC({
     projectManager: ProjectManager.getInstance(),
+    windowManager,
     onCreateProject,
     onSelectProjectToOpen,
     onOpenProject,

@@ -31,6 +31,7 @@ import useWindowSize from "ui/hooks/use-window-size";
 import { acceleratorForPlatform } from "renderer/lib/ui/acceleratorForPlatform";
 import { zoomForSection } from "renderer/project/store/features/editor/editorHelpers";
 import l10n from "shared/lib/l10n";
+import { useIsFullscreen } from "ui/hooks/use-is-fullscreen";
 
 const sectionNames = {
   world: l10n("NAV_GAME_WORLD"),
@@ -86,6 +87,7 @@ const AppToolbar: FC = () => {
   const windowSize = useWindowSize();
   const smallZoom = (windowSize.width || 0) < 900;
   const showTitle = API.platform === "darwin" && (windowSize.width || 0) > 800;
+  const isFullScreen = useIsFullscreen();
 
   const onRun = useCallback(() => {
     dispatch(buildGameActions.buildGame({ buildType: "web" }));
@@ -154,7 +156,11 @@ const AppToolbar: FC = () => {
   }
 
   return (
-    <Toolbar focus={windowFocus}>
+    <Toolbar
+      focus={windowFocus}
+      fullScreen={isFullScreen}
+      platform={API.platform}
+    >
       <Helmet>
         <title>{`GB Studio - ${name || "Untitled"}${
           modified ? ` (${l10n("TOOLBAR_MODIFIED")})` : ""

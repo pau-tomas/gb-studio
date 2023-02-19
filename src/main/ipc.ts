@@ -13,6 +13,7 @@ import type {
 import { compileSprite } from "lib/compiler/compileSprites";
 import ProjectManager from "./projectManager";
 import Project from "./project";
+import WindowManager from "./windowManager";
 
 declare const COMMITHASH: string;
 
@@ -30,6 +31,7 @@ export interface CreateProjectOptions {
 
 interface IPCOptions {
   projectManager: ProjectManager;
+  windowManager: WindowManager;
   onCreateProject: (
     input: CreateProjectInput,
     options?: CreateProjectOptions
@@ -45,6 +47,7 @@ interface IPCOptions {
 
 const initIPC = ({
   projectManager,
+  windowManager,
   onCreateProject,
   onSelectProjectToOpen,
   onOpenProject,
@@ -129,6 +132,10 @@ const initIPC = ({
   ipcMain.handle(
     "get-theme-should-use-dark-colors",
     () => nativeTheme.shouldUseDarkColors
+  );
+
+  ipcMain.handle("get-is-full-screen", () =>
+    windowManager.projectWindow?.isFullScreen()
   );
 
   ipcMain.handle("get-recent-projects", async () => {

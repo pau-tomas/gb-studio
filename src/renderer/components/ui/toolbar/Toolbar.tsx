@@ -5,6 +5,8 @@ import { Button } from "ui/buttons/Button";
 export interface ToolbarProps {
   readonly children?: ReactNode;
   readonly focus?: boolean;
+  readonly fullScreen?: boolean;
+  readonly platform?: string;
 }
 
 export const Toolbar = styled.div<ToolbarProps>`
@@ -25,14 +27,6 @@ export const Toolbar = styled.div<ToolbarProps>`
   -webkit-app-region: drag;
   position: relative;
   z-index: 1000;
-
-  .Platform__darwin & {
-    padding-left: 80px;
-  }
-
-  .full-screen & {
-    padding-left: 10px;
-  }
 
   & > *:not(:last-child) {
     margin-right: 5px;
@@ -55,11 +49,17 @@ export const Toolbar = styled.div<ToolbarProps>`
   }
 
   ${(props) => (props.focus === false ? blurStyles : "")}
+  ${(props) =>
+    props.platform === "darwin" && !props.fullScreen ? darwinOffset : ""}
 `;
 
 const blurStyles = css`
   background: ${(props) => props.theme.colors.toolbar.inactiveBackground};
   opacity: 0.5;
+`;
+
+const darwinOffset = css`
+  padding-left: 80px;
 `;
 
 export const ToolbarText = styled.div`

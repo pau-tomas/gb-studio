@@ -22,6 +22,12 @@ export const API = {
     setTrackerKeyBindings: (value: number) =>
       ipcRenderer.invoke("set-tracker-keybindings", value),
     openHelp: (page: string) => ipcRenderer.invoke("open-help", page),
+    onEnterFullScreen: (callback: () => void) =>
+      ipcRenderer.on("enter-full-screen", callback),
+    onLeaveFullScreen: (callback: () => void) =>
+      ipcRenderer.on("leave-full-screen", callback),
+    isFullScreen: (): Promise<boolean> =>
+      ipcRenderer.invoke("get-is-full-screen"),
   },
   theme: {
     getShouldUseDarkColors: () =>
