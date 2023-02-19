@@ -1,4 +1,4 @@
-import { createSlice, Dictionary } from "@reduxjs/toolkit";
+import { createSelector, createSlice, Dictionary } from "@reduxjs/toolkit";
 import type { ScriptEventDef } from "lib/project/loadScriptEvents";
 import projectActions from "renderer/project/store/features/project/projectActions";
 import { RootState } from "renderer/project/store/configureStore";
@@ -36,5 +36,28 @@ const { reducer } = scriptEventDefsSlice;
 
 export const selectScriptEventDefsLookup = (state: RootState) =>
   state.scriptEventDefs.eventsLookup;
+
+export const selectEngineFieldUpdateEventDefsLookup = (state: RootState) =>
+  state.scriptEventDefs.engineFieldUpdateEventsLookup;
+
+export const selectEngineFieldStoreEventDefsLookup = (state: RootState) =>
+  state.scriptEventDefs.engineFieldStoreEventsLookup;
+
+export const selectScriptEventDefsLookups = createSelector(
+  [
+    selectScriptEventDefsLookup,
+    selectEngineFieldUpdateEventDefsLookup,
+    selectEngineFieldStoreEventDefsLookup,
+  ],
+  (
+    eventsLookup,
+    engineFieldUpdateEventsLookup,
+    engineFieldStoreEventsLookup
+  ) => ({
+    eventsLookup,
+    engineFieldUpdateEventsLookup,
+    engineFieldStoreEventsLookup,
+  })
+);
 
 export default reducer;

@@ -32,11 +32,8 @@ import VariableUsesWorker, {
   VariableUse,
   VariableUseResult,
 } from "./VariableUses.worker";
-import type { EventHandler } from "lib/events";
-import { Dictionary } from "@reduxjs/toolkit";
-
-const eventLookup: Dictionary<EventHandler> = {};
-console.warn("@TODO Move events to redux store");
+import { useAppSelector } from "renderer/project/store/hooks";
+import { selectScriptEventDefsLookups } from "renderer/project/store/features/scriptEventDefs/scriptEventDefsState";
 
 const worker = new VariableUsesWorker();
 
@@ -79,6 +76,8 @@ export const VariableEditor: FC<VariableEditorProps> = ({ id }) => {
   const scriptEventsLookup = useSelector((state: RootState) =>
     scriptEventSelectors.selectEntities(state)
   );
+  const scriptEventDefsLookups = useAppSelector(selectScriptEventDefsLookups);
+
   const [showSymbols, setShowSymbols] = useState(false);
 
   const dispatch = useDispatch();
@@ -109,9 +108,16 @@ export const VariableEditor: FC<VariableEditorProps> = ({ id }) => {
       actorsLookup,
       triggersLookup,
       scriptEventsLookup,
-      eventLookup,
+      scriptEventDefsLookups,
     });
-  }, [scenes, actorsLookup, triggersLookup, id, scriptEventsLookup]);
+  }, [
+    scenes,
+    actorsLookup,
+    triggersLookup,
+    id,
+    scriptEventsLookup,
+    scriptEventDefsLookups,
+  ]);
 
   const onRename = (e: React.ChangeEvent<HTMLInputElement>) => {
     const editValue = e.currentTarget.value;

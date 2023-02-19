@@ -1,20 +1,23 @@
-// import { Dictionary } from "@reduxjs/toolkit";
-// import { EventLookup, isVariableField } from "lib/helpers/eventSystem";
-// import {
-//   actorName,
-//   isUnionValue,
-//   sceneName,
-//   triggerName,
-//   walkNormalisedActorEvents,
-//   walkNormalisedSceneSpecificEvents,
-//   walkNormalisedTriggerEvents,
-// } from "project/store/features/entities/entitiesHelpers";
+import { Dictionary } from "@reduxjs/toolkit";
+import {
+  actorName,
+  sceneName,
+  triggerName,
+  walkNormalisedActorEvents,
+  walkNormalisedSceneSpecificEvents,
+  walkNormalisedTriggerEvents,
+} from "renderer/project/store/features/entities/entitiesHelpers";
 import {
   Actor,
   Scene,
   ScriptEvent,
   Trigger,
 } from "renderer/project/store/features/entities/entitiesTypes";
+import { isUnionValue } from "shared/lib/scripting/unionValues";
+import {
+  isVariableField,
+  ScriptEventsDefLookups,
+} from "shared/lib/scripting/eventHelpers";
 
 export type VariableUse = {
   id: string;
@@ -51,11 +54,10 @@ export interface VariableUseResult {
 // eslint-disable-next-line no-restricted-globals
 const workerCtx: Worker = self as unknown as Worker;
 
-/*
 const onVariableEventContainingId =
   (
     id: string,
-    eventLookup: EventLookup,
+    eventLookup: ScriptEventsDefLookups,
     callback: (event: ScriptEvent) => void
   ) =>
   (event: ScriptEvent) => {
@@ -75,11 +77,8 @@ const onVariableEventContainingId =
       }
     }
   };
-*/
 
-workerCtx.onmessage = async (_evt) => {
-  console.warn("@TODO Implement VariableUses worker");
-  /*
+workerCtx.onmessage = async (evt) => {
   const id = evt.data.id;
   const variableId: string = evt.data.variableId;
   const scenes: Scene[] = evt.data.scenes;
@@ -87,7 +86,8 @@ workerCtx.onmessage = async (_evt) => {
     evt.data.scriptEventsLookup;
   const actorsLookup: Dictionary<Actor> = evt.data.actorsLookup;
   const triggersLookup: Dictionary<Trigger> = evt.data.triggersLookup;
-  const eventsLookup: EventLookup = evt.data.eventLookup;
+  const scriptEventDefsLookups: ScriptEventsDefLookups =
+    evt.data.scriptEventDefsLookups;
 
   const uses: VariableUse[] = [];
   const useLookup: Dictionary<boolean> = {};
@@ -100,7 +100,7 @@ workerCtx.onmessage = async (_evt) => {
       undefined,
       onVariableEventContainingId(
         variableId,
-        eventsLookup,
+        scriptEventDefsLookups,
         (event: ScriptEvent) => {
           if (!useLookup[scene.id]) {
             uses.push({
@@ -127,7 +127,7 @@ workerCtx.onmessage = async (_evt) => {
           undefined,
           onVariableEventContainingId(
             variableId,
-            eventsLookup,
+            scriptEventDefsLookups,
             (event: ScriptEvent) => {
               if (!useLookup[scene.id]) {
                 uses.push({
@@ -170,7 +170,7 @@ workerCtx.onmessage = async (_evt) => {
           undefined,
           onVariableEventContainingId(
             variableId,
-            eventsLookup,
+            scriptEventDefsLookups,
             (event: ScriptEvent) => {
               if (!useLookup[scene.id]) {
                 uses.push({
@@ -206,7 +206,6 @@ workerCtx.onmessage = async (_evt) => {
   }
 
   workerCtx.postMessage({ id, uses } as VariableUseResult);
-  */
 };
 
 // -----------------------------------------------------------------
