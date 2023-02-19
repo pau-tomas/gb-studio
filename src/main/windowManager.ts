@@ -375,6 +375,10 @@ export default class WindowManager {
     this.projectWindow?.webContents.send("keybindings-update", value);
   }
 
+  async requestSave(saveAs?: boolean) {
+    this.projectWindow?.webContents.send("request-save", saveAs);
+  }
+
   isProjectWindowOpen() {
     return !!this.projectWindow;
   }

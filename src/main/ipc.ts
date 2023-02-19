@@ -14,6 +14,7 @@ import { compileSprite } from "lib/compiler/compileSprites";
 import ProjectManager from "./projectManager";
 import Project from "./project";
 import WindowManager from "./windowManager";
+import type { ProjectData } from "renderer/project/store/features/project/projectActions";
 
 declare const COMMITHASH: string;
 
@@ -43,6 +44,12 @@ interface IPCOptions {
   onOpenPlayWindow: (outputRoot: string, sgbMode: boolean) => Promise<void>;
   onOpenHelp: (page: string) => Promise<void>;
   onOpenAsset: (filePath: string, type: string) => Promise<void>;
+  onSaveProject: (filePath: string, data: ProjectData) => Promise<void>;
+  onSaveProjectAs: (
+    filePath: string,
+    newFilePath: string,
+    data: ProjectData
+  ) => Promise<void>;
 }
 
 const initIPC = ({
@@ -56,6 +63,8 @@ const initIPC = ({
   onOpenPlayWindow,
   onOpenHelp,
   onOpenAsset,
+  onSaveProject,
+  onSaveProjectAs,
 }: IPCOptions) => {
   const getEventProject = (event: Electron.IpcMainInvokeEvent): Project => {
     const project = projectManager.getProject(event.processId);
@@ -230,6 +239,31 @@ const initIPC = ({
     "project:get-background-info",
     (_event, background: Background, is360: boolean, projectPath: string) => {
       return getBackgroundInfo(background, is360, projectPath);
+    }
+  );
+
+  ipcMain.handle(
+    "project:save",
+    async (event, data: ProjectData, saveAs?: boolean) => {
+      const project = getEventProject(event);
+      const projectPath = project.getFilename();
+      if (!projectPath) throw new Error("Project must be loaded to open path");
+
+      if (saveAs) {
+        const newProjectPath = dialog.showSaveDialogSync({
+          filters: [
+            {
+              name: "Projects",
+              extensions: ["gbsproj", "json"],
+            },
+          ],
+        });
+        if (newProjectPath) {
+          onSaveProjectAs(projectPath, newProjectPath, data);
+        }
+      } else {
+        onSaveProject(projectPath, data);
+      }
     }
   );
 

@@ -21,6 +21,11 @@ import { isString } from "@byte.london/byteguards";
 import switchLanguageDialog from "lib/electron/dialog/switchLanguageDialog";
 import ProjectManager from "./projectManager";
 import Project from "./project";
+import type { ProjectData } from "renderer/project/store/features/project/projectActions";
+import { writeFileWithBackupAsync } from "lib/helpers/fs/writeFileWithBackup";
+import { copy } from "fs-extra";
+import path from "path";
+import { writeFileAndFlushAsync } from "lib/helpers/fs/writeFileAndFlush";
 
 const windowManager = new WindowManager(ProjectManager.getInstance());
 
@@ -71,6 +76,28 @@ const onOpenProject = async (projectPath: string): Promise<void> => {
   const project = new Project(projectPath);
   await project.watch();
   windowManager.openProject(project);
+  addRecentProject(projectPath);
+};
+
+const onSaveProject = async (
+  projectPath: string,
+  data: ProjectData
+): Promise<void> => {
+  await writeFileWithBackupAsync(projectPath, JSON.stringify(data, null, 4));
+};
+
+const onSaveProjectAs = async (
+  projectPath: string,
+  newProjectPath: string,
+  data: ProjectData
+): Promise<void> => {
+  const oldAssetsDir = path.join(path.dirname(projectPath), "assets");
+  const newAssetsDir = path.join(path.dirname(newProjectPath), "assets");
+  if (oldAssetsDir !== newAssetsDir) {
+    copy(oldAssetsDir, newAssetsDir);
+  }
+  await writeFileAndFlushAsync(newProjectPath, JSON.stringify(data, null, 4));
+  addRecentProject(newProjectPath);
 };
 
 const onSelectProjectToOpen = async () => {
@@ -136,6 +163,23 @@ const onSetTrackerKeyBindings = async (value: number) => {
   windowManager.notifyTrackerKeyBindings(value);
 };
 
+const addRecentProject = async (projectPath: string) => {
+  // Store recent projects
+  await settings.set(
+    "recentProjects",
+    ([] as string[])
+      .concat((settings.get("recentProjects") || []) as string[], projectPath)
+      .reverse()
+      .filter(
+        (filename: string, index: number, arr: string[]) =>
+          arr.indexOf(filename) === index
+      ) // Only unique
+      .reverse()
+      .slice(-10)
+  );
+  app.addRecentDocument(projectPath);
+};
+
 const setApplicationMenu = async () => {
   const isProjectOpen = () => windowManager.isProjectWindowOpen();
   const platform = process.platform;
@@ -158,8 +202,8 @@ const setApplicationMenu = async () => {
       openNewProject: () => windowManager.openSplashWindow("new"),
       openProject: onSelectProjectToOpen,
       switchProject: () => windowManager.openSplashWindow("recent"),
-      saveProject: () => {},
-      saveProjectAs: () => {},
+      saveProject: () => windowManager.requestSave(),
+      saveProjectAs: () => windowManager.requestSave(true),
       reloadAssets: () => {},
     }),
     editMenuTemplate({
@@ -238,6 +282,8 @@ app.on("ready", () => {
     onOpenPlayWindow,
     onOpenHelp,
     onOpenAsset,
+    onSaveProject,
+    onSaveProjectAs,
   });
   setApplicationMenu();
   console.warn(

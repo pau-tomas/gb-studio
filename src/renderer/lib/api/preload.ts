@@ -5,6 +5,7 @@ import type {
   Background,
   SpriteSheetData,
 } from "renderer/project/store/features/entities/entitiesTypes";
+import type { ProjectData } from "renderer/project/store/features/project/projectActions";
 
 type JsonValue = string | number | boolean | null;
 
@@ -97,5 +98,11 @@ export const API = {
     openItemFolder: (path: string) =>
       ipcRenderer.invoke("project:open-item-folder", path),
     openPath: (path: string) => ipcRenderer.invoke("project:open-path", path),
+    onRequestSave: (callback: (saveAs?: boolean) => void) =>
+      ipcRenderer.on("request-save", (_event, saveAs: boolean) => {
+        callback(saveAs);
+      }),
+    saveProjectData: (data: ProjectData, saveAs?: boolean) =>
+      ipcRenderer.invoke("project:save", data, saveAs),
   },
 } as const;
