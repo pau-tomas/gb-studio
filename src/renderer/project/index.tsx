@@ -14,11 +14,7 @@ import "../../styles/App.css";
 // eslint-disable-next-line @typescript-eslint/no-restricted-imports
 import "../../styles/theme.css";
 import { setLanguageData } from "shared/lib/l10n";
-import {
-  denormalizeProject,
-  ProjectData,
-  trimDenormalisedProject,
-} from "./store/features/project/projectActions";
+import projectActions from "./store/features/project/projectActions";
 console.warn("@TODO Replace CSS imports with styled components");
 
 // Attach store to global scope for debugging
@@ -29,27 +25,7 @@ console.warn("@TODO Replace CSS imports with styled components");
 ).store = store;
 
 API.project.onRequestSave((saveAs) => {
-  const state = store.getState();
-  if (!state.document.loaded) {
-    throw new Error("Cannot save project that has not finished loading");
-  }
-  if (!saveAs && !state.document.modified) {
-    throw new Error("Cannot save unmodified project");
-  }
-  const normalizedProject = trimDenormalisedProject(
-    denormalizeProject(state.project.present)
-  );
-  const data: ProjectData = {
-    ...normalizedProject,
-    settings: {
-      ...normalizedProject.settings,
-      zoom: state.editor.zoom,
-      worldScrollX: state.editor.worldScrollX,
-      worldScrollY: state.editor.worldScrollY,
-      navigatorSplitSizes: state.editor.navigatorSplitSizes,
-    },
-  };
-  API.project.saveProjectData(data, saveAs);
+  store.dispatch(projectActions.saveProject(saveAs));
 });
 
 const render = async () => {

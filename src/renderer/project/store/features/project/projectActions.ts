@@ -430,53 +430,47 @@ const addFileToProject = createAction<string>("project/addFile");
  * Save
  */
 
-const saveProject = createAsyncThunk<void, string | undefined>(
+const saveProject = createAsyncThunk<string, boolean | undefined>(
   "project/saveProject",
-  async (newPath, thunkApi) => {
+  async (saveAs, thunkApi) => {
     const state = thunkApi.getState() as RootState;
 
-    if (!state.document.loaded) {
-      throw new Error("Cannot save project that has not finished loading");
-    }
     if (saving) {
       throw new Error("Cannot save project while already saving");
     }
-    if (!newPath && !state.document.modified) {
+    if (!state.document.loaded) {
+      throw new Error("Cannot save project that has not finished loading");
+    }
+    if (!saveAs && !state.document.modified) {
       throw new Error("Cannot save unmodified project");
     }
+    const normalizedProject = trimDenormalisedProject(
+      denormalizeProject(state.project.present)
+    );
 
     saving = true;
+    let projectPath = "";
 
     try {
-      // const normalizedProject = trimDenormalisedProject(
-      //   denormalizeProject(state.project.present)
-      // );
-
-      // const data = {
-      //   ...normalizedProject,
-      //   settings: {
-      //     ...normalizedProject.settings,
-      //     zoom: state.editor.zoom,
-      //     worldScrollX: state.editor.worldScrollX,
-      //     worldScrollY: state.editor.worldScrollY,
-      //     navigatorSplitSizes: state.editor.navigatorSplitSizes,
-      //   },
-      // };
-
-      if (newPath) {
-        // Save As
-        // await saveAsProjectData(state.document.path, newPath, data);
-        console.warn("@TODO Handle project save as");
-      } else {
-        // Save
-        // await saveProjectData(state.document.path, data);
-        console.warn("@TODO Handle project save");
-      }
+      const data: ProjectData = {
+        ...normalizedProject,
+        settings: {
+          ...normalizedProject.settings,
+          zoom: state.editor.zoom,
+          worldScrollX: state.editor.worldScrollX,
+          worldScrollY: state.editor.worldScrollY,
+          navigatorSplitSizes: state.editor.navigatorSplitSizes,
+        },
+      };
+      projectPath = await API.project.saveProjectData(data, saveAs);
     } catch (e) {
       console.error(e);
+      saving = false;
+      throw e;
     }
-
     saving = false;
+
+    return projectPath;
   }
 );
 

@@ -248,7 +248,6 @@ const initIPC = ({
       const project = getEventProject(event);
       const projectPath = project.getFilename();
       if (!projectPath) throw new Error("Project must be loaded to open path");
-
       if (saveAs) {
         const newProjectPath = dialog.showSaveDialogSync({
           filters: [
@@ -259,10 +258,12 @@ const initIPC = ({
           ],
         });
         if (newProjectPath) {
-          onSaveProjectAs(projectPath, newProjectPath, data);
+          await onSaveProjectAs(projectPath, newProjectPath, data);
+          return newProjectPath;
         }
       } else {
-        onSaveProject(projectPath, data);
+        await onSaveProject(projectPath, data);
+        return projectPath;
       }
     }
   );

@@ -39,15 +39,14 @@ const documentSlice = createSlice({
       .addCase(projectActions.saveProject.rejected, (state, _action) => {
         state.saving = false;
       })
-      .addCase(projectActions.saveProject.fulfilled, (_state, _action) => {
-        console.warn("@TODO Handle document state after save");
-        // state.saving = false;
-        // state.modified = false;
-        // if (action.meta.arg) {
-        //   // If "Save As" set new root path
-        //   state.path = action.meta.arg;
-        //   state.root = path.dirname(action.meta.arg);
-        // }
+      .addCase(projectActions.saveProject.fulfilled, (state, action) => {
+        state.saving = false;
+        state.modified = false;
+        if (action.payload) {
+          // If "Save As" set new root path
+          state.path = action.payload;
+          state.root = path.dirname(action.payload);
+        }
       })
       .addMatcher(
         (action: AnyAction): action is AnyAction =>
