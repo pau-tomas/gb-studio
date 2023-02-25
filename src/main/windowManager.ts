@@ -4,6 +4,10 @@ import l10n from "shared/lib/l10n";
 import { checkForUpdate } from "lib/helpers/updateChecker";
 import Project from "./project";
 import ProjectManager from "./projectManager";
+import installExtension, {
+  REDUX_DEVTOOLS,
+  REACT_DEVELOPER_TOOLS,
+} from "electron-devtools-installer";
 
 declare const ABOUT_WINDOW_PRELOAD_WEBPACK_ENTRY: string;
 declare const ABOUT_WINDOW_WEBPACK_ENTRY: string;
@@ -62,6 +66,7 @@ export default class WindowManager {
 
     win.setMenu(null);
     win.loadURL(ABOUT_WINDOW_WEBPACK_ENTRY);
+    injectDevTools(win);
 
     win.once("ready-to-show", () => {
       win.show();
@@ -96,6 +101,7 @@ export default class WindowManager {
     this.setApplicationMenu?.();
     win.setMenu(null);
     win.loadURL(`${SPLASH_WINDOW_WEBPACK_ENTRY}?tab=${forceTab || ""}`);
+    injectDevTools(win);
 
     win.once("ready-to-show", () => {
       win.show();
@@ -132,6 +138,7 @@ export default class WindowManager {
 
     win.setMenu(null);
     win.loadURL(PREFERENCES_WINDOW_WEBPACK_ENTRY);
+    injectDevTools(win);
 
     win.once("ready-to-show", () => {
       win.show();
@@ -179,6 +186,7 @@ export default class WindowManager {
     this.setApplicationMenu?.();
 
     win.loadURL(PROJECT_WINDOW_WEBPACK_ENTRY);
+    injectDevTools(win);
 
     win.setRepresentedFilename(project.getFilename());
 
@@ -270,6 +278,7 @@ export default class WindowManager {
 
     win.setMenu(null);
     win.loadURL(`${url}?audio=true&sgb=${sgb ? "true" : "false"}`);
+    injectDevTools(win);
 
     win.on("closed", () => {
       this.playWindow = undefined;
@@ -412,3 +421,13 @@ export default class WindowManager {
     });
   }
 }
+
+const injectDevTools = (win: BrowserWindow) => {
+  if (isDevMode) {
+    win.webContents.once("dom-ready", async () => {
+      await installExtension([REDUX_DEVTOOLS, REACT_DEVELOPER_TOOLS])
+        .then((name) => console.log(`Added Extension:  ${name}`))
+        .catch((err) => console.log("An error occurred: ", err));
+    });
+  }
+};
