@@ -48,6 +48,11 @@ export default class Project {
     return this.filename;
   }
 
+  setFilename(filename: string) {
+    this.filename = filename;
+    this.projectRoot = Path.dirname(filename);
+  }
+
   getRoot() {
     return this.projectRoot;
   }

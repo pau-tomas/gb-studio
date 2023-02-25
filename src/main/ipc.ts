@@ -259,6 +259,7 @@ const initIPC = ({
         });
         if (newProjectPath) {
           await onSaveProjectAs(projectPath, newProjectPath, data);
+          project.setFilename(newProjectPath);
           return newProjectPath;
         }
       } else {
