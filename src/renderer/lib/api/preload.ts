@@ -104,5 +104,10 @@ export const API = {
       }),
     saveProjectData: (data: ProjectData, saveAs?: boolean) =>
       ipcRenderer.invoke("project:save", data, saveAs),
+    onZoom: (callback: (direction: "in" | "out" | "reset") => void) =>
+      ipcRenderer.on(
+        "project:zoom",
+        (_event, direction: "in" | "out" | "reset") => callback(direction)
+      ),
   },
 } as const;
