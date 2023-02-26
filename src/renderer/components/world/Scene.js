@@ -531,7 +531,7 @@ function mapStateToProps(state, props) {
     selected,
     dragging,
     hovered,
-    sceneName,
+    sceneName: name,
     sceneFiltered,
     palettes,
     spritePalettes,
