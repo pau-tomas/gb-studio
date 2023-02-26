@@ -87,8 +87,11 @@ const Label = styled.label`
   }
 
   ${Input}:checked + & {
-    color: #fff;
+    color: ${(props) => props.theme.colors.input.background};
     background: ${(props) => props.theme.colors.highlight};
+    svg {
+      fill: ${(props) => props.theme.colors.input.background};
+    }
   }
 
   ${Input}:focus + & {
