@@ -401,6 +401,14 @@ export default class WindowManager {
     this.projectWindow?.webContents.send("project:zoom", "reset");
   }
 
+  async undo() {
+    this.projectWindow?.webContents.send("undo");
+  }
+
+  async redo() {
+    this.projectWindow?.webContents.send("redo");
+  }
+
   async setSection(section: NavigationSection) {
     this.projectWindow?.webContents.send("project:section", section);
   }

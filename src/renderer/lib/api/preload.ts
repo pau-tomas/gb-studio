@@ -30,6 +30,8 @@ export const API = {
       ipcRenderer.on("leave-full-screen", callback),
     isFullScreen: (): Promise<boolean> =>
       ipcRenderer.invoke("get-is-full-screen"),
+    onUndo: (callback: () => void) => ipcRenderer.on("undo", callback),
+    onRedo: (callback: () => void) => ipcRenderer.on("redo", callback),
   },
   theme: {
     getShouldUseDarkColors: () =>

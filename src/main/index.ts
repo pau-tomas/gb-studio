@@ -209,8 +209,8 @@ const setApplicationMenu = async () => {
     editMenuTemplate({
       platform,
       isProjectOpen,
-      undo: () => {},
-      redo: () => {},
+      undo: () => windowManager.undo(),
+      redo: () => windowManager.redo(),
       pasteInPlace: () => {},
       openPreferences,
     }),

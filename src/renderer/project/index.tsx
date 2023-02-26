@@ -18,6 +18,8 @@ import projectActions from "./store/features/project/projectActions";
 import editorActions from "./store/features/editor/editorActions";
 import { isZoomSection } from "./store/features/editor/editorState";
 import navigationActions from "./store/features/navigation/navigationActions";
+import { ActionCreators } from "redux-undo";
+import { TRACKER_REDO, TRACKER_UNDO } from "shared/consts";
 console.warn("@TODO Replace CSS imports with styled components");
 
 // Attach store to global scope for debugging
@@ -46,6 +48,22 @@ API.project.onZoom((zoomType: "in" | "out" | "reset") => {
 });
 API.project.onSetSection((section) => {
   store.dispatch(navigationActions.setSection(section));
+});
+
+API.app.onUndo(() => {
+  if (store.getState().trackerDocument.past.length > 0) {
+    store.dispatch({ type: TRACKER_UNDO });
+  } else {
+    store.dispatch(ActionCreators.undo());
+  }
+});
+
+API.app.onRedo(() => {
+  if (store.getState().trackerDocument.future.length > 0) {
+    store.dispatch({ type: TRACKER_REDO });
+  } else {
+    store.dispatch(ActionCreators.redo());
+  }
 });
 
 // Send document modified state back to main process
