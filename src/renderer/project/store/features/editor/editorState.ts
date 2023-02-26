@@ -47,6 +47,13 @@ export type ZoomSection =
   | "ui"
   | "spriteTiles";
 
+export const isZoomSection = (section: unknown): section is ZoomSection => {
+  return (
+    typeof section === "string" &&
+    ["world", "sprites", "backgrounds", "ui", "spriteTiles"].includes(section)
+  );
+};
+
 export interface SpriteTileSelection {
   x: number;
   y: number;

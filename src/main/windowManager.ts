@@ -388,6 +388,18 @@ export default class WindowManager {
     this.projectWindow?.webContents.send("request-save", saveAs);
   }
 
+  async zoomIn() {
+    this.projectWindow?.webContents.send("project:zoom", "in");
+  }
+
+  async zoomOut() {
+    this.projectWindow?.webContents.send("project:zoom", "out");
+  }
+
+  async zoomReset() {
+    this.projectWindow?.webContents.send("project:zoom", "reset");
+  }
+
   isProjectWindowOpen() {
     return !!this.projectWindow;
   }

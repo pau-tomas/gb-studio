@@ -15,6 +15,8 @@ import "../../styles/App.css";
 import "../../styles/theme.css";
 import { setLanguageData } from "shared/lib/l10n";
 import projectActions from "./store/features/project/projectActions";
+import editorActions from "./store/features/editor/editorActions";
+import { isZoomSection } from "./store/features/editor/editorState";
 console.warn("@TODO Replace CSS imports with styled components");
 
 // Attach store to global scope for debugging
@@ -26,6 +28,20 @@ console.warn("@TODO Replace CSS imports with styled components");
 
 API.project.onRequestSave((saveAs) => {
   store.dispatch(projectActions.saveProject(saveAs));
+});
+API.project.onZoom((zoomType: "in" | "out" | "reset") => {
+  const state = store.getState();
+  const section = state.navigation.section;
+  if (!isZoomSection(section)) {
+    return;
+  }
+  if (zoomType === "in") {
+    store.dispatch(editorActions.zoomIn({ section }));
+  } else if (zoomType === "out") {
+    store.dispatch(editorActions.zoomOut({ section }));
+  } else {
+    store.dispatch(editorActions.zoomReset({ section }));
+  }
 });
 
 const render = async () => {

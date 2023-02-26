@@ -241,9 +241,9 @@ const setApplicationMenu = async () => {
       setShowConnections: () => {},
       getShowNavigator: () => undefined,
       setShowNavigator: () => {},
-      zoomIn: () => {},
-      zoomOut: () => {},
-      zoomReset: () => {},
+      zoomIn: () => windowManager.zoomIn(),
+      zoomOut: () => windowManager.zoomOut(),
+      zoomReset: () => windowManager.zoomReset(),
     }),
     ...(isDevMode ? [devMenuTemplate] : []),
     windowMenuTemplate({
