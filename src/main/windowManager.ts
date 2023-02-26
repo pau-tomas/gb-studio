@@ -232,7 +232,7 @@ export default class WindowManager {
         if (choice === 0) {
           // Save
           e.preventDefault();
-          win.webContents.send("save-project-and-close");
+          this.requestSaveAndQuit();
         } else if (choice === 1) {
           // Cancel
           e.preventDefault();
@@ -389,6 +389,10 @@ export default class WindowManager {
     this.projectWindow?.webContents.send("request-save", saveAs);
   }
 
+  async requestSaveAndQuit() {
+    this.projectWindow?.webContents.send("request-save-and-quit");
+  }
+
   async zoomIn() {
     this.projectWindow?.webContents.send("project:zoom", "in");
   }
@@ -415,6 +419,7 @@ export default class WindowManager {
 
   async setDocumentModified(modified: boolean) {
     this.projectWindow?.setDocumentEdited(modified);
+    this.documentEdited = modified;
   }
 
   isProjectWindowOpen() {

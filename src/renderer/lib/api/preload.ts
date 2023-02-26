@@ -105,6 +105,8 @@ export const API = {
       ipcRenderer.on("request-save", (_event, saveAs: boolean) => {
         callback(saveAs);
       }),
+    onRequestSaveAndQuit: (callback: () => void) =>
+      ipcRenderer.on("request-save-and-quit", callback),
     saveProjectData: (data: ProjectData, saveAs?: boolean) =>
       ipcRenderer.invoke("project:save", data, saveAs),
     onZoom: (callback: (direction: "in" | "out" | "reset") => void) =>

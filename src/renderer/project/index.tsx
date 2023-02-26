@@ -32,6 +32,10 @@ console.warn("@TODO Replace CSS imports with styled components");
 API.project.onRequestSave((saveAs) => {
   store.dispatch(projectActions.saveProject(saveAs));
 });
+API.project.onRequestSaveAndQuit(async () => {
+  await store.dispatch(projectActions.saveProject());
+  window.close();
+});
 API.project.onZoom((zoomType: "in" | "out" | "reset") => {
   const state = store.getState();
   const section = state.navigation.section;
