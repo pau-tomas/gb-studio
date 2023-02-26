@@ -1,10 +1,11 @@
 import { MenuItemConstructorOptions } from "electron";
 import { locales } from "lib/helpers/locales";
+import type { NavigationSection } from "renderer/project/store/features/navigation/navigationState";
 import l10n from "shared/lib/l10n";
 
 interface ViewMenuTemplateProps {
   isProjectOpen: () => boolean;
-  setSection: (section: string) => void;
+  setSection: (section: NavigationSection) => void;
   theme?: string;
   setTheme: (theme: string) => void;
   resetTheme: () => void;

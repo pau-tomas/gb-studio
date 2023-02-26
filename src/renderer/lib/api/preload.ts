@@ -5,6 +5,7 @@ import type {
   Background,
   SpriteSheetData,
 } from "renderer/project/store/features/entities/entitiesTypes";
+import { NavigationSection } from "renderer/project/store/features/navigation/navigationState";
 import type { ProjectData } from "renderer/project/store/features/project/projectActions";
 
 type JsonValue = string | number | boolean | null;
@@ -108,6 +109,10 @@ export const API = {
       ipcRenderer.on(
         "project:zoom",
         (_event, direction: "in" | "out" | "reset") => callback(direction)
+      ),
+    onSetSection: (callback: (section: NavigationSection) => void) =>
+      ipcRenderer.on("project:section", (_event, section: NavigationSection) =>
+        callback(section)
       ),
   },
 } as const;

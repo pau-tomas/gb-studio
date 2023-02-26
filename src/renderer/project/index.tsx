@@ -17,6 +17,7 @@ import { setLanguageData } from "shared/lib/l10n";
 import projectActions from "./store/features/project/projectActions";
 import editorActions from "./store/features/editor/editorActions";
 import { isZoomSection } from "./store/features/editor/editorState";
+import navigationActions from "./store/features/navigation/navigationActions";
 console.warn("@TODO Replace CSS imports with styled components");
 
 // Attach store to global scope for debugging
@@ -42,6 +43,9 @@ API.project.onZoom((zoomType: "in" | "out" | "reset") => {
   } else {
     store.dispatch(editorActions.zoomReset({ section }));
   }
+});
+API.project.onSetSection((section) => {
+  store.dispatch(navigationActions.setSection(section));
 });
 
 const render = async () => {

@@ -8,6 +8,7 @@ import installExtension, {
   REDUX_DEVTOOLS,
   REACT_DEVELOPER_TOOLS,
 } from "electron-devtools-installer";
+import type { NavigationSection } from "renderer/project/store/features/navigation/navigationState";
 
 declare const ABOUT_WINDOW_PRELOAD_WEBPACK_ENTRY: string;
 declare const ABOUT_WINDOW_WEBPACK_ENTRY: string;
@@ -398,6 +399,10 @@ export default class WindowManager {
 
   async zoomReset() {
     this.projectWindow?.webContents.send("project:zoom", "reset");
+  }
+
+  async setSection(section: NavigationSection) {
+    this.projectWindow?.webContents.send("project:section", section);
   }
 
   isProjectWindowOpen() {

@@ -229,7 +229,7 @@ const setApplicationMenu = async () => {
       : []),
     viewMenuTemplate({
       isProjectOpen,
-      setSection: () => {},
+      setSection: (section) => windowManager.setSection(section),
       theme,
       setTheme: onSetTheme,
       resetTheme: onResetTheme,
