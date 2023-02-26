@@ -260,10 +260,12 @@ const initIPC = ({
         if (newProjectPath) {
           await onSaveProjectAs(projectPath, newProjectPath, data);
           project.setFilename(newProjectPath);
+          windowManager.setDocumentModified(false);
           return newProjectPath;
         }
       } else {
         await onSaveProject(projectPath, data);
+        windowManager.setDocumentModified(false);
         return projectPath;
       }
     }
@@ -275,6 +277,10 @@ const initIPC = ({
       return compileSprite(spriteSheet, projectRoot);
     }
   );
+
+  ipcMain.handle("project:modified", () => {
+    windowManager.setDocumentModified(true);
+  });
 };
 
 export default initIPC;

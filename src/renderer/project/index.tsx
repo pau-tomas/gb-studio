@@ -48,6 +48,16 @@ API.project.onSetSection((section) => {
   store.dispatch(navigationActions.setSection(section));
 });
 
+// Send document modified state back to main process
+let modified = true;
+store.subscribe(() => {
+  const state = store.getState();
+  if (!modified && state.document.modified) {
+    API.project.setModified();
+  }
+  modified = state.document.modified;
+});
+
 const render = async () => {
   setLanguageData(await API.getL10NData());
   ReactDOM.render(

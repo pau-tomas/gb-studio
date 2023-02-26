@@ -114,5 +114,6 @@ export const API = {
       ipcRenderer.on("project:section", (_event, section: NavigationSection) =>
         callback(section)
       ),
+    setModified: () => ipcRenderer.invoke("project:modified"),
   },
 } as const;

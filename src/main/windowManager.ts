@@ -405,6 +405,10 @@ export default class WindowManager {
     this.projectWindow?.webContents.send("project:section", section);
   }
 
+  async setDocumentModified(modified: boolean) {
+    this.projectWindow?.setDocumentEdited(modified);
+  }
+
   isProjectWindowOpen() {
     return !!this.projectWindow;
   }
