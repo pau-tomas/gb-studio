@@ -229,15 +229,21 @@ const AppToolbar: FC = () => {
       >
         <MenuItem onClick={onBuild("rom")}>
           {l10n("TOOLBAR_EXPORT_ROM")}{" "}
-          <MenuAccelerator accelerator="CommandOrControl+Shift+B" />
+          <MenuAccelerator
+            accelerator={acceleratorForPlatform("CommandOrControl+Shift+B")}
+          />
         </MenuItem>
         <MenuItem onClick={onBuild("web")}>
           {l10n("TOOLBAR_EXPORT_WEB")}{" "}
-          <MenuAccelerator accelerator="CommandOrControl+Shift+N" />
+          <MenuAccelerator
+            accelerator={acceleratorForPlatform("CommandOrControl+Shift+N")}
+          />
         </MenuItem>
         <MenuItem onClick={onBuild("pocket")}>
           {l10n("TOOLBAR_EXPORT_POCKET")}
-          <MenuAccelerator accelerator="CommandOrControl+Shift+M" />
+          <MenuAccelerator
+            accelerator={acceleratorForPlatform("CommandOrControl+Shift+M")}
+          />
         </MenuItem>
       </DropdownButton>
       <FixedSpacer width={10} />
