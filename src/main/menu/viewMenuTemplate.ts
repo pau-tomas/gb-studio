@@ -1,6 +1,7 @@
 import { MenuItemConstructorOptions } from "electron";
 import { locales } from "lib/helpers/locales";
 import type { NavigationSection } from "renderer/project/store/features/navigation/navigationState";
+import type { ShowConnectionsSetting } from "renderer/project/store/features/settings/settingsState";
 import l10n from "shared/lib/l10n";
 
 interface ViewMenuTemplateProps {
@@ -12,9 +13,10 @@ interface ViewMenuTemplateProps {
   locale: string | undefined;
   setLocale: (locale: string) => void;
   resetLocale: () => void;
+  getShowCollisions: () => boolean | undefined;
   setShowCollisions: (value: boolean | undefined) => void;
-  getShowConnections: () => string | undefined;
-  setShowConnections: (value: string | undefined) => void;
+  getShowConnections: () => ShowConnectionsSetting | undefined;
+  setShowConnections: (value: ShowConnectionsSetting | undefined) => void;
   getShowNavigator: () => boolean | undefined;
   setShowNavigator: (value: boolean | undefined) => void;
   zoomIn: () => void;
@@ -31,6 +33,7 @@ const viewMenuTemplate = ({
   setLocale,
   resetLocale,
   locale,
+  getShowCollisions,
   setShowCollisions,
   getShowConnections,
   setShowConnections,
@@ -158,7 +161,7 @@ const viewMenuTemplate = ({
             id: "showCollisions",
             label: l10n("MENU_SHOW_COLLISIONS"),
             type: "checkbox",
-            checked: true,
+            checked: getShowCollisions() !== false,
             click: (item) => {
               setShowCollisions(item.checked);
             },
@@ -191,7 +194,7 @@ const viewMenuTemplate = ({
                 type: "checkbox",
                 checked: !getShowConnections(),
                 click() {
-                  setShowConnections("");
+                  setShowConnections(false);
                 },
               },
             ],

@@ -64,8 +64,7 @@ const electronMiddleware: Middleware<Dispatch, RootState> =
       // ipcRenderer.send("project-loaded", action.payload.data.settings);
       console.warn("@TODO disabled project-loaded IPC call");
     } else if (settingsActions.setShowNavigator.match(action)) {
-      // ipcRenderer.send("set-show-navigator", action.payload);
-      console.warn("@TODO disabled set-show-navigator IPC call");
+      API.project.setShowNavigator(action.payload);
     } else if (projectActions.loadProject.rejected.match(action)) {
       console.warn("@TODO disabled close project window on load project fail");
       // const window = remote.getCurrentWindow();

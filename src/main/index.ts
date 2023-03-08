@@ -17,7 +17,7 @@ import windowMenuTemplate from "./menu/windowMenuTemplate";
 import WindowManager from "./windowManager";
 import createProject from "lib/project/createProject";
 import settings from "electron-settings";
-import { isString } from "@byte.london/byteguards";
+import { isBoolean, isString } from "@byte.london/byteguards";
 import switchLanguageDialog from "lib/electron/dialog/switchLanguageDialog";
 import ProjectManager from "./projectManager";
 import Project from "./project";
@@ -26,6 +26,7 @@ import { writeFileWithBackupAsync } from "lib/helpers/fs/writeFileWithBackup";
 import { copy } from "fs-extra";
 import path from "path";
 import { writeFileAndFlushAsync } from "lib/helpers/fs/writeFileAndFlush";
+import type { ShowConnectionsSetting } from "renderer/project/store/features/settings/settingsState";
 
 const windowManager = new WindowManager(ProjectManager.getInstance());
 
@@ -100,6 +101,14 @@ const onSaveProjectAs = async (
   addRecentProject(newProjectPath);
 };
 
+const onLoadedProject = async (data: ProjectData) => {
+  const { showCollisions, showConnections, showNavigator } = data.settings;
+  settings.set("showCollisions", showCollisions);
+  settings.set("showConnections", showConnections);
+  settings.set("showNavigator", showNavigator);
+  setApplicationMenu();
+};
+
 const onSelectProjectToOpen = async () => {
   const files = dialog.showOpenDialogSync({
     properties: ["openFile"],
@@ -153,6 +162,11 @@ const onResetLocale = async () => {
   switchLanguageDialog();
 };
 
+const onSetShowNavigator = async (showNavigator: boolean) => {
+  await settings.set("showNavigator", showNavigator);
+  setApplicationMenu();
+};
+
 const onSetWindowZoom = async (zoomLevel: number) => {
   await settings.set("zoomLevel", zoomLevel);
   windowManager.notifyWindowZoom(zoomLevel);
@@ -180,6 +194,13 @@ const addRecentProject = async (projectPath: string) => {
   app.addRecentDocument(projectPath);
 };
 
+const toShowConnectionsSetting = (value: unknown): ShowConnectionsSetting => {
+  if (value === false || value === "all" || value === "selected") {
+    return value;
+  }
+  return "selected";
+};
+
 const setApplicationMenu = async () => {
   const isProjectOpen = () => windowManager.isProjectWindowOpen();
   const platform = process.platform;
@@ -187,6 +208,17 @@ const setApplicationMenu = async () => {
   const theme = isString(themeSetting) ? themeSetting : undefined;
   const localeSetting = await settings.get("locale");
   const locale = isString(localeSetting) ? localeSetting : undefined;
+  const showCollisionsSetting = await settings.get("showCollisions");
+  const showCollisions = isBoolean(showCollisionsSetting)
+    ? showCollisionsSetting
+    : undefined;
+  const showConnectionsSetting = await settings.get("showConnections");
+  const showConnections = toShowConnectionsSetting(showConnectionsSetting);
+  const showNavigatorSetting = await settings.get("showNavigator");
+  const showNavigator = isBoolean(showNavigatorSetting)
+    ? showNavigatorSetting
+    : undefined;
+
   const menus = [
     ...(platform === "darwin"
       ? [
@@ -236,11 +268,22 @@ const setApplicationMenu = async () => {
       locale,
       setLocale: onSetLocale,
       resetLocale: onResetLocale,
-      setShowCollisions: () => {},
-      getShowConnections: () => undefined,
-      setShowConnections: () => {},
-      getShowNavigator: () => undefined,
-      setShowNavigator: () => {},
+      setShowCollisions: (value) => {
+        settings.set("showCollisions", value as boolean);
+        windowManager.updateSetting("showCollisions", value ?? false);
+      },
+      getShowCollisions: () => showCollisions,
+      getShowConnections: () => showConnections,
+      setShowConnections: (value) => {
+        settings.set("showConnections", value as string);
+        windowManager.updateSetting("showConnections", value ?? "all");
+        setApplicationMenu();
+      },
+      getShowNavigator: () => showNavigator,
+      setShowNavigator: (value) => {
+        settings.set("showNavigator", value as boolean);
+        windowManager.updateSetting("showNavigator", value ?? false);
+      },
       zoomIn: () => windowManager.zoomIn(),
       zoomOut: () => windowManager.zoomOut(),
       zoomReset: () => windowManager.zoomReset(),
@@ -284,6 +327,8 @@ app.on("ready", () => {
     onOpenAsset,
     onSaveProject,
     onSaveProjectAs,
+    onLoadedProject,
+    onSetShowNavigator,
   });
   setApplicationMenu();
   console.warn(

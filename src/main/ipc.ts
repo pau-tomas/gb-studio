@@ -39,6 +39,7 @@ interface IPCOptions {
   ) => Promise<void>;
   onSelectProjectToOpen: () => Promise<void>;
   onOpenProject: (projectPath: string) => Promise<void>;
+  onLoadedProject: (projectData: ProjectData) => Promise<void>;
   onSetWindowZoom: (zoomLevel: number) => Promise<void>;
   onSetTrackerKeyBindings: (zoomLevel: number) => Promise<void>;
   onOpenPlayWindow: (outputRoot: string, sgbMode: boolean) => Promise<void>;
@@ -50,6 +51,7 @@ interface IPCOptions {
     newFilePath: string,
     data: ProjectData
   ) => Promise<void>;
+  onSetShowNavigator: (showNavigator: boolean) => Promise<void>;
 }
 
 const initIPC = ({
@@ -65,6 +67,8 @@ const initIPC = ({
   onOpenAsset,
   onSaveProject,
   onSaveProjectAs,
+  onLoadedProject,
+  onSetShowNavigator,
 }: IPCOptions) => {
   const getEventProject = (event: Electron.IpcMainInvokeEvent): Project => {
     const project = projectManager.getProject(event.processId);
@@ -202,7 +206,9 @@ const initIPC = ({
 
   ipcMain.handle("load-project", async (event) => {
     const project = getEventProject(event);
-    return project.getData();
+    const data = await project.getData();
+    onLoadedProject(data.data);
+    return data;
   });
 
   ipcMain.handle(
@@ -219,6 +225,10 @@ const initIPC = ({
 
   ipcMain.handle("set-zoom-level", (_event, zoomLevel: number) => {
     onSetWindowZoom(zoomLevel);
+  });
+
+  ipcMain.handle("set-show-navigator", (_event, showNavigator: boolean) => {
+    onSetShowNavigator(showNavigator);
   });
 
   ipcMain.handle("set-tracker-keybindings", (_, value: number) => {

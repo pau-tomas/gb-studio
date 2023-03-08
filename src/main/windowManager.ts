@@ -9,6 +9,7 @@ import installExtension, {
   REACT_DEVELOPER_TOOLS,
 } from "electron-devtools-installer";
 import type { NavigationSection } from "renderer/project/store/features/navigation/navigationState";
+import type { SettingsState } from "renderer/project/store/features/settings/settingsState";
 
 declare const ABOUT_WINDOW_PRELOAD_WEBPACK_ENTRY: string;
 declare const ABOUT_WINDOW_WEBPACK_ENTRY: string;
@@ -403,6 +404,17 @@ export default class WindowManager {
 
   async zoomReset() {
     this.projectWindow?.webContents.send("project:zoom", "reset");
+  }
+
+  async updateSetting<K extends keyof SettingsState>(
+    setting: K,
+    value: SettingsState[K]
+  ) {
+    this.projectWindow?.webContents.send(
+      "project:update-setting",
+      setting,
+      value
+    );
   }
 
   async undo() {

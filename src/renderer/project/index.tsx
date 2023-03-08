@@ -20,6 +20,7 @@ import { isZoomSection } from "./store/features/editor/editorState";
 import navigationActions from "./store/features/navigation/navigationActions";
 import { ActionCreators } from "redux-undo";
 import { TRACKER_REDO, TRACKER_UNDO } from "shared/consts";
+import settingsActions from "./store/features/settings/settingsActions";
 console.warn("@TODO Replace CSS imports with styled components");
 
 // Attach store to global scope for debugging
@@ -68,6 +69,14 @@ API.app.onRedo(() => {
   } else {
     store.dispatch(ActionCreators.redo());
   }
+});
+
+API.project.onUpdateSetting((setting, value) => {
+  store.dispatch(
+    settingsActions.editSettings({
+      [setting]: value,
+    })
+  );
 });
 
 // Send document modified state back to main process

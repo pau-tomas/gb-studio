@@ -1,8 +1,12 @@
+import { Dictionary } from "@reduxjs/toolkit";
 import chokidar, { FSWatcher } from "chokidar";
 import { cloneDictionary } from "lib/helpers/clone";
 import loadProject from "lib/project/loadProjectData";
-import loadAllScriptEvents from "lib/project/loadScriptEvents";
+import loadAllScriptEvents, {
+  ScriptEventDef,
+} from "lib/project/loadScriptEvents";
 import Path from "path";
+import type { ProjectData } from "renderer/project/store/features/project/projectActions";
 
 const awaitWriteFinish = {
   stabilityThreshold: 1000,
@@ -57,7 +61,12 @@ export default class Project {
     return this.projectRoot;
   }
 
-  getData() {
+  getData(): Promise<{
+    data: ProjectData;
+    path: string;
+    scriptEventDefs: Dictionary<ScriptEventDef>;
+    modifiedSpriteIds: string[];
+  }> {
     return loadProject(this.filename);
   }
 

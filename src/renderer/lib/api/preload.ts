@@ -7,6 +7,7 @@ import type {
 } from "renderer/project/store/features/entities/entitiesTypes";
 import { NavigationSection } from "renderer/project/store/features/navigation/navigationState";
 import type { ProjectData } from "renderer/project/store/features/project/projectActions";
+import { SettingsState } from "renderer/project/store/features/settings/settingsState";
 
 type JsonValue = string | number | boolean | null;
 
@@ -119,5 +120,15 @@ export const API = {
         callback(section)
       ),
     setModified: () => ipcRenderer.invoke("project:modified"),
+    onUpdateSetting: <K extends keyof SettingsState>(
+      callback: (setting: K, value: SettingsState[K]) => void
+    ) =>
+      ipcRenderer.on(
+        "project:update-setting",
+        (_event, setting: K, value: SettingsState[K]) =>
+          callback(setting, value)
+      ),
+    setShowNavigator: (value: boolean) =>
+      ipcRenderer.invoke("set-show-navigator", value),
   },
 } as const;
