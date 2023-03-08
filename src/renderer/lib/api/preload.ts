@@ -1,4 +1,4 @@
-import { ipcRenderer } from "electron";
+import { ipcRenderer, webFrame } from "electron";
 import type { BackgroundInfo } from "lib/backgrounds/validation";
 import type { PrecompiledSpriteSheetData } from "lib/compiler/compileSprites";
 import type {
@@ -11,6 +11,10 @@ import { SettingsState } from "renderer/project/store/features/settings/settings
 
 type JsonValue = string | number | boolean | null;
 
+ipcRenderer.on("win:set-ui-scale", (_event, zoomLevel: number) => {
+  webFrame.setZoomLevel(zoomLevel);
+});
+
 export const API = {
   platform: process.platform,
   getL10NData: async () => {
@@ -20,8 +24,7 @@ export const API = {
   app: {
     processVersions: process.versions,
     getInfo: () => ipcRenderer.invoke("get-app-info"),
-    setZoomLevel: (zoomLevel: number) =>
-      ipcRenderer.invoke("set-zoom-level", zoomLevel),
+    setUIScale: (scale: number) => ipcRenderer.invoke("set-ui-scale", scale),
     setTrackerKeyBindings: (value: number) =>
       ipcRenderer.invoke("set-tracker-keybindings", value),
     openHelp: (page: string) => ipcRenderer.invoke("open-help", page),

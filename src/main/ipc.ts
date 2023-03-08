@@ -40,7 +40,7 @@ interface IPCOptions {
   onSelectProjectToOpen: () => Promise<void>;
   onOpenProject: (projectPath: string) => Promise<void>;
   onLoadedProject: (projectData: ProjectData) => Promise<void>;
-  onSetWindowZoom: (zoomLevel: number) => Promise<void>;
+  onSetUIScale: (scale: number) => Promise<void>;
   onSetTrackerKeyBindings: (zoomLevel: number) => Promise<void>;
   onOpenPlayWindow: (outputRoot: string, sgbMode: boolean) => Promise<void>;
   onOpenHelp: (page: string) => Promise<void>;
@@ -60,7 +60,7 @@ const initIPC = ({
   onCreateProject,
   onSelectProjectToOpen,
   onOpenProject,
-  onSetWindowZoom,
+  onSetUIScale,
   onSetTrackerKeyBindings,
   onOpenPlayWindow,
   onOpenHelp,
@@ -223,8 +223,8 @@ const initIPC = ({
     return l10nStrings;
   });
 
-  ipcMain.handle("set-zoom-level", (_event, zoomLevel: number) => {
-    onSetWindowZoom(zoomLevel);
+  ipcMain.handle("set-ui-scale", (_event, scale: number) => {
+    onSetUIScale(scale);
   });
 
   ipcMain.handle("set-show-navigator", (_event, showNavigator: boolean) => {

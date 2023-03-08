@@ -26,6 +26,7 @@ const isDevMode = !!process.execPath.match(/[\\/]electron/);
 
 interface WindowManagerProps {
   setApplicationMenu: () => void;
+  uiScale: number;
 }
 
 export default class WindowManager {
@@ -43,6 +44,7 @@ export default class WindowManager {
   playWindowSgb?: boolean;
   hasCheckedForUpdate = false;
   setApplicationMenu?: () => void;
+  uiScale = 0;
 
   private createAboutWindow() {
     const win = new BrowserWindow({
@@ -196,6 +198,7 @@ export default class WindowManager {
 
     win.once("ready-to-show", () => {
       win.show();
+      win.webContents.send("win:set-ui-scale", this.uiScale);
       processId = win.webContents.getProcessId();
       ProjectManager.getInstance().registerProject(processId, project);
     });
@@ -378,8 +381,9 @@ export default class WindowManager {
     this.aboutWindow?.webContents.send("update-theme");
   }
 
-  async notifyWindowZoom(zoomLevel: number) {
-    this.projectWindow?.webContents.send("windowZoom", zoomLevel);
+  async notifyUIScale(zoomLevel: number) {
+    this.uiScale = zoomLevel;
+    this.projectWindow?.webContents.send("win:set-ui-scale", this.uiScale);
   }
 
   async notifyTrackerKeyBindings(value: number) {
@@ -442,8 +446,9 @@ export default class WindowManager {
     this.projectManager = projectManager;
   }
 
-  init({ setApplicationMenu }: WindowManagerProps) {
+  init({ setApplicationMenu, uiScale }: WindowManagerProps) {
     this.setApplicationMenu = setApplicationMenu;
+    this.uiScale = uiScale;
 
     app.whenReady().then(() => {
       this.createSplashWindow();

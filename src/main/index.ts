@@ -17,7 +17,7 @@ import windowMenuTemplate from "./menu/windowMenuTemplate";
 import WindowManager from "./windowManager";
 import createProject from "lib/project/createProject";
 import settings from "electron-settings";
-import { isBoolean, isString } from "@byte.london/byteguards";
+import { isBoolean, isNumber, isString } from "@byte.london/byteguards";
 import switchLanguageDialog from "lib/electron/dialog/switchLanguageDialog";
 import ProjectManager from "./projectManager";
 import Project from "./project";
@@ -167,9 +167,9 @@ const onSetShowNavigator = async (showNavigator: boolean) => {
   setApplicationMenu();
 };
 
-const onSetWindowZoom = async (zoomLevel: number) => {
-  await settings.set("zoomLevel", zoomLevel);
-  windowManager.notifyWindowZoom(zoomLevel);
+const onSetUIScale = async (scale: number) => {
+  await settings.set("zoomLevel", scale);
+  windowManager.notifyUIScale(scale);
 };
 
 const onSetTrackerKeyBindings = async (value: number) => {
@@ -309,10 +309,14 @@ protocol.registerSchemesAsPrivileged([
   { scheme: "file", privileges: { bypassCSP: true } },
 ]);
 
-app.on("ready", () => {
+app.on("ready", async () => {
+  const uiScaleSetting = await settings.get("zoomLevel");
+  const uiScale = isNumber(uiScaleSetting) ? uiScaleSetting : 0;
+
   initElectronL10n();
   windowManager.init({
     setApplicationMenu,
+    uiScale,
   });
   initIPC({
     projectManager: ProjectManager.getInstance(),
@@ -320,7 +324,7 @@ app.on("ready", () => {
     onCreateProject,
     onSelectProjectToOpen,
     onOpenProject,
-    onSetWindowZoom,
+    onSetUIScale,
     onSetTrackerKeyBindings,
     onOpenPlayWindow,
     onOpenHelp,

@@ -90,7 +90,7 @@ const Preferences = () => {
 
   const onChangeZoomLevel = async (zoomLevel: number) => {
     setZoomLevel(zoomLevel);
-    app.setZoomLevel(zoomLevel);
+    app.setUIScale(zoomLevel);
   };
 
   const onChangeTrackerKeyBindings = async (trackerKeyBindings: number) => {
