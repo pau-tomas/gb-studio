@@ -38,10 +38,11 @@ import { FormInfo } from "ui/form/FormInfo";
 // import electronActions from "project/store/features/electron/electronActions";
 import CartSettingsEditor from "components/settings/CartSettingsEditor";
 import { UIAssetPreview } from "components/forms/UIAssetPreviewButton";
+import electronActions from "renderer/project/store/features/electron/electronActions";
 
 const SettingsPage: FC = () => {
   const dispatch = useDispatch();
-  // const projectRoot = useSelector((state: RootState) => state.document.root);
+  const projectRoot = useSelector((state: RootState) => state.document.root);
   const settings = useSelector(
     (state: RootState) => state.project.present.settings
   );
@@ -163,17 +164,15 @@ const SettingsPage: FC = () => {
   );
 
   const openAsset = useCallback(
-    (_path: string) => {
-      console.warn("@TODO Handle open asset from settings page");
-      // dispatch(
-      //   electronActions.openFile({
-      //     filename: Path.join(projectRoot, "assets", path),
-      //     type: "image",
-      //   })
-      // );
+    (path: string) => {
+      dispatch(
+        electronActions.openFile({
+          filename: `${projectRoot}/assets/${path}`,
+          type: "image",
+        })
+      );
     },
-    []
-    // [dispatch, projectRoot]
+    [dispatch, projectRoot]
   );
 
   return (
