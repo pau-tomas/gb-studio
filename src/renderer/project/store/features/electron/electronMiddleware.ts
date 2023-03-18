@@ -48,17 +48,18 @@ const electronMiddleware: Middleware<Dispatch, RootState> =
       const state = store.getState();
       const projectSettings = getSettings(state);
       if (!projectSettings.customColorsEnabled) {
-        // const cancel = confirmEnableColorDialog();
-        const cancel = undefined;
-        console.warn("@TODO Handle enable color dialog");
-        if (cancel) {
-          return;
-        }
-        store.dispatch(
-          settingsActions.editSettings({
-            customColorsEnabled: true,
-          })
-        );
+        API.dialog.confirmEnableColorDialog().then((cancel) => {
+          if (cancel) {
+            return;
+          }
+          store.dispatch(
+            settingsActions.editSettings({
+              customColorsEnabled: true,
+            })
+          );
+          store.dispatch(action);
+        });
+        return;
       }
     } else if (projectActions.loadProject.fulfilled.match(action)) {
       // ipcRenderer.send("project-loaded", action.payload.data.settings);

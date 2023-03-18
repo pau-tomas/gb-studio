@@ -15,6 +15,7 @@ import ProjectManager from "./projectManager";
 import Project from "./project";
 import WindowManager from "./windowManager";
 import type { ProjectData } from "renderer/project/store/features/project/projectActions";
+import confirmEnableColorDialog from "lib/electron/dialog/confirmEnableColorDialog";
 
 declare const COMMITHASH: string;
 
@@ -168,6 +169,10 @@ const initIPC = ({
 
   ipcMain.handle("get-tmp-path", async () => {
     return getTmp();
+  });
+
+  ipcMain.handle("dialog:confirm-color", async () => {
+    return confirmEnableColorDialog();
   });
 
   ipcMain.handle("open-directory-picker", async () => {

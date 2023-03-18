@@ -61,6 +61,8 @@ export const API = {
       ipcRenderer.invoke("open-filepicker"),
     showError: (title: string, content: string) =>
       ipcRenderer.invoke("show-error", title, content),
+    confirmEnableColorDialog: (): Promise<number | false> =>
+      ipcRenderer.invoke("dialog:confirm-color"),
   },
   project: {
     openProjectFilePicker: () => ipcRenderer.invoke("open-project-filepicker"),
