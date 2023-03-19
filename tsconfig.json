@@ -31,5 +31,6 @@
       "contributors.json": ["../contributors.json"],
     }
   },
-  "include": ["src"]
+  "include": ["src", "test"],
+  "rootDirs": ["src", "test"]
 }

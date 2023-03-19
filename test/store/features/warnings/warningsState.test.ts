@@ -1,8 +1,8 @@
 import reducer, {
   initialState,
   WarningsState,
-} from "../../../../src/store/features/warnings/warningsState";
-import actions from "../../../../src/store/features/warnings/warningsActions";
+} from "renderer/project/store/features/warnings/warningsState";
+import actions from "renderer/project/store/features/warnings/warningsActions";
 
 test("Should set loading flag while fetching background warnings", () => {
   const state: WarningsState = {

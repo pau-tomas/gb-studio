@@ -1,9 +1,9 @@
 import reducer, {
   initialState,
   EditorState,
-} from "../../../../src/store/features/editor/editorState";
-import actions from "../../../../src/store/features/editor/editorActions";
-import entitiesActions from "../../../../src/store/features/entities/entitiesActions";
+} from "renderer/project/store/features/editor/editorState";
+import actions from "renderer/project/store/features/editor/editorActions";
+import entitiesActions from "renderer/project/store/features/entities/entitiesActions";
 
 test("Should allow setting tool", () => {
   const state: EditorState = {

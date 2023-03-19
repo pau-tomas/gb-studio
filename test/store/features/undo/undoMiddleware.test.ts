@@ -1,9 +1,9 @@
 import "jest-extended";
-import middleware from "../../../../src/store/features/undo/undoMiddleware";
-import { RootState } from "../../../../src/store/configureStore";
+import middleware from "renderer/project/store/features/undo/undoMiddleware";
+import { RootState } from "renderer/project/store/configureStore";
 import { dummyProjectData } from "../../../dummydata";
 import { MiddlewareAPI, Dispatch, AnyAction } from "@reduxjs/toolkit";
-import projectActions from "../../../../src/store/features/project/projectActions";
+import projectActions from "renderer/project/store/features/project/projectActions";
 import { ActionCreators } from "redux-undo";
 
 test("Should trigger undo clear history after successful project load", async () => {

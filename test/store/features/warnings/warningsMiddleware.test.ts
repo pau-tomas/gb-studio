@@ -1,7 +1,7 @@
 import { mocked } from "ts-jest/utils";
-import middleware from "../../../../src/store/features/warnings/warningsMiddleware";
-import actions from "../../../../src/store/features/warnings/warningsActions";
-import { RootState } from "../../../../src/store/configureStore";
+import middleware from "renderer/project/store/features/warnings/warningsMiddleware";
+import actions from "renderer/project/store/features/warnings/warningsActions";
+import { RootState } from "renderer/project/store/configureStore";
 import { dummyBackground } from "../../../dummydata";
 import { MiddlewareAPI, Dispatch, AnyAction } from "@reduxjs/toolkit";
 import { getBackgroundInfo } from "../../../../src/lib/helpers/validation";

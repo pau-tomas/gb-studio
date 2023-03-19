@@ -1,7 +1,7 @@
 import reducer, {
   initialState,
-} from "../../../../src/store/features/document/documentState";
-import actions from "../../../../src/store/features/project/projectActions";
+} from "renderer/project/store/features/document/documentState";
+import actions from "renderer/project/store/features/project/projectActions";
 
 test("Should not change the path and root if saving existing project", () => {
   const state = {

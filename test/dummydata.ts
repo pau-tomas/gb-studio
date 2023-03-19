@@ -8,28 +8,29 @@ import {
   Palette,
   CustomEvent,
   SceneDenormalized,
-} from "../src/store/features/entities/entitiesTypes";
-import { ProjectData } from "../src/store/features/project/projectActions";
-import { RootState } from "../src/store/configureStore";
-import { initialState as initialEditorState } from "../src/store/features/editor/editorState";
-import { initialState as initialConsoleState } from "../src/store/features/console/consoleState";
-import { initialState as initialMetadataState } from "../src/store/features/metadata/metadataState";
-import { initialState as initialEntitiesState } from "../src/store/features/entities/entitiesState";
-import { initialState as initialSettingsState } from "../src/store/features/settings/settingsState";
-import { initialState as initialMusicState } from "../src/store/features/music/musicState";
-import { initialState as initialNavigationState } from "../src/store/features/navigation/navigationState";
-import { initialState as initialDocumentState } from "../src/store/features/document/documentState";
-import { initialState as initialErrorState } from "../src/store/features/error/errorState";
-import { initialState as initialWarningsState } from "../src/store/features/warnings/warningsState";
-import { initialState as initialEngineState } from "../src/store/features/engine/engineState";
-import { initialState as initialClipboardState } from "../src/store/features/clipboard/clipboardState";
-import { initialState as initialSpriteState } from "../src/store/features/sprite/spriteState";
-import { initialState as initialTrackerState } from "../src/store/features/tracker/trackerState";
-import { initialState as initialTrackerDocumentState } from "../src/store/features/trackerDocument/trackerDocumentState";
+} from "renderer/project/store/features/entities/entitiesTypes";
+import { ProjectData } from "renderer/project/store/features/project/projectActions";
+import { RootState } from "renderer/project/store/configureStore";
+import { initialState as initialEditorState } from "renderer/project/store/features/editor/editorState";
+import { initialState as initialConsoleState } from "renderer/project/store/features/console/consoleState";
+import { initialState as initialMetadataState } from "renderer/project/store/features/metadata/metadataState";
+import { initialState as initialEntitiesState } from "renderer/project/store/features/entities/entitiesState";
+import { initialState as initialSettingsState } from "renderer/project/store/features/settings/settingsState";
+import { initialState as initialMusicState } from "renderer/project/store/features/music/musicState";
+import { initialState as initialNavigationState } from "renderer/project/store/features/navigation/navigationState";
+import { initialState as initialDocumentState } from "renderer/project/store/features/document/documentState";
+import { initialState as initialErrorState } from "renderer/project/store/features/error/errorState";
+import { initialState as initialWarningsState } from "renderer/project/store/features/warnings/warningsState";
+import { initialState as initialEngineState } from "renderer/project/store/features/engine/engineState";
+import { initialState as initialClipboardState } from "renderer/project/store/features/clipboard/clipboardState";
+import { initialState as initialSpriteState } from "renderer/project/store/features/sprite/spriteState";
+import { initialState as initialScriptEventDefsState } from "renderer/project/store/features/scriptEventDefs/scriptEventDefsState";
+import { initialState as initialTrackerState } from "renderer/project/store/features/tracker/trackerState";
+import { initialState as initialTrackerDocumentState } from "renderer/project/store/features/trackerDocument/trackerDocumentState";
 import compileFonts, {
   PrecompiledFontData,
 } from "../src/lib/compiler/compileFonts";
-import { projectTemplatesRoot } from "../src/consts";
+import { projectTemplatesRoot } from "lib/pathConsts";
 import {
   PrecompiledBackground,
   PrecompiledSprite,
@@ -302,6 +303,9 @@ export const dummyRootState: RootState = {
   },
   sprite: {
     ...initialSpriteState,
+  },
+  scriptEventDefs: {
+    ...initialScriptEventDefsState,
   },
   tracker: {
     ...initialTrackerState,

@@ -1,8 +1,8 @@
 import reducer, {
   initialState,
   MusicState,
-} from "../../../../src/store/features/music/musicState";
-import actions from "../../../../src/store/features/music/musicActions";
+} from "renderer/project/store/features/music/musicState";
+import actions from "renderer/project/store/features/music/musicActions";
 
 test("Should set playing to true while playing music", () => {
   const state: MusicState = {

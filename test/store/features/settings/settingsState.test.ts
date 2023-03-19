@@ -2,13 +2,13 @@ import reducer, {
   initialState,
   SettingsState,
   getSettings,
-} from "../../../../src/store/features/settings/settingsState";
-import actions from "../../../../src/store/features/settings/settingsActions";
+} from "renderer/project/store/features/settings/settingsState";
+import actions from "renderer/project/store/features/settings/settingsActions";
 import projectActions, {
   ProjectData,
-} from "../../../../src/store/features/project/projectActions";
+} from "renderer/project/store/features/project/projectActions";
 import { dummyProjectData, dummyRootState } from "../../../dummydata";
-import { RootState } from "../../../../src/store/configureStore";
+import { RootState } from "renderer/project/store/configureStore";
 
 test("Should be able to change settings", () => {
   const state: SettingsState = {

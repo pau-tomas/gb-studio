@@ -2,8 +2,8 @@ import reducer, {
   initialState,
   EngineState,
   EngineFieldSchema,
-} from "../../../../src/store/features/engine/engineState";
-import actions from "../../../../src/store/features/engine/engineActions";
+} from "renderer/project/store/features/engine/engineState";
+import actions from "renderer/project/store/features/engine/engineActions";
 
 test("Should be able to set section", () => {
   const state: EngineState = {

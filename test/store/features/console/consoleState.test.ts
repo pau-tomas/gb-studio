@@ -1,8 +1,8 @@
 import reducer, {
   initialState,
   ConsoleState,
-} from "../../../../src/store/features/console/consoleState";
-import actions from "../../../../src/store/features/console/consoleActions";
+} from "renderer/project/store/features/console/consoleState";
+import actions from "renderer/project/store/features/console/consoleActions";
 
 test("Should be able to write to console", () => {
   const state: ConsoleState = {

@@ -1,6 +1,6 @@
 import reducer, {
   initialState,
-} from "../../../../src/store/features/document/documentState";
+} from "renderer/project/store/features/document/documentState";
 
 test("Should set modified if any entity actions have fired", () => {
   const state = {

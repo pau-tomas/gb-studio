@@ -1,12 +1,12 @@
 import "jest-extended";
-import middleware from "../../../../src/store/features/clipboard/clipboardMiddleware";
-import actions from "../../../../src/store/features/clipboard/clipboardActions";
-import { RootState } from "../../../../src/store/configureStore";
+import middleware from "renderer/project/store/features/clipboard/clipboardMiddleware";
+import actions from "renderer/project/store/features/clipboard/clipboardActions";
+import { RootState } from "renderer/project/store/configureStore";
 import { dummyActor } from "../../../dummydata";
 import { MiddlewareAPI, Dispatch, AnyAction } from "@reduxjs/toolkit";
 import { remote } from "electron";
 import { mocked } from "ts-jest/utils";
-import { ClipboardTypeActors } from "../../../../src/store/features/clipboard/clipboardTypes";
+import { ClipboardTypeActors } from "renderer/project/store/features/clipboard/clipboardTypes";
 
 jest.mock("electron");
 

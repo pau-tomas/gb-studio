@@ -1,7 +1,7 @@
 import reducer, {
   initialState,
-} from "../../../../src/store/features/document/documentState";
-import actions from "../../../../src/store/features/project/projectActions";
+} from "renderer/project/store/features/document/documentState";
+import actions from "renderer/project/store/features/project/projectActions";
 
 test("Should cause the project to enter saving state", () => {
   const state = {

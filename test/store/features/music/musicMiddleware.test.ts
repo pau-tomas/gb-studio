@@ -3,9 +3,9 @@
  */
 
 import { mocked } from "ts-jest/utils";
-import actions from "../../../../src/store/features/music/musicActions";
-import navigationActions from "../../../../src/store/features/navigation/navigationActions";
-import { RootState } from "../../../../src/store/configureStore";
+import actions from "renderer/project/store/features/music/musicActions";
+import navigationActions from "renderer/project/store/features/navigation/navigationActions";
+import { RootState } from "renderer/project/store/configureStore";
 import { dummyBackground, dummyMusic } from "../../../dummydata";
 import { MiddlewareAPI, Dispatch, AnyAction } from "@reduxjs/toolkit";
 import ScripTracker from "../../../../src/lib/vendor/scriptracker/scriptracker";
@@ -19,7 +19,7 @@ beforeEach(() => {
 
 test("Should trigger call to play music", async () => {
   const musicModule = await import(
-    "../../../../src/store/features/music/musicMiddleware"
+    "renderer/project/store/features/music/musicMiddleware"
   );
   const middleware = musicModule.default;
 
@@ -79,7 +79,7 @@ test("Should trigger call to play music", async () => {
 
 test("Should trigger a call to pause music", async () => {
   const musicModule = await import(
-    "../../../../src/store/features/music/musicMiddleware"
+    "renderer/project/store/features/music/musicMiddleware"
   );
   const middleware = musicModule.default;
 
@@ -131,7 +131,7 @@ test("Should trigger a call to pause music", async () => {
 
 test("Should pause music when switching section", async () => {
   const musicModule = await import(
-    "../../../../src/store/features/music/musicMiddleware"
+    "renderer/project/store/features/music/musicMiddleware"
   );
   const middleware = musicModule.default;
 

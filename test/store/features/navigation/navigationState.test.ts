@@ -1,10 +1,10 @@
 import reducer, {
   initialState,
   NavigationState,
-} from "../../../../src/store/features/navigation/navigationState";
-import actions from "../../../../src/store/features/navigation/navigationActions";
-import entityActions from "../../../../src/store/features/entities/entitiesActions";
-import consoleActions from "../../../../src/store/features/console/consoleActions";
+} from "renderer/project/store/features/navigation/navigationState";
+import actions from "renderer/project/store/features/navigation/navigationActions";
+import entityActions from "renderer/project/store/features/entities/entitiesActions";
+import consoleActions from "renderer/project/store/features/console/consoleActions";
 
 test("Should be able to set section", () => {
   const state: NavigationState = {

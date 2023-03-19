@@ -1,16 +1,16 @@
 import reducer, {
   initialState,
-} from "../../../../src/store/features/entities/entitiesState";
+} from "renderer/project/store/features/entities/entitiesState";
 import {
   EntitiesState,
   Background,
   SpriteSheet,
   Music,
-} from "../../../../src/store/features/entities/entitiesTypes";
-import actions from "../../../../src/store/features/entities/entitiesActions";
+} from "renderer/project/store/features/entities/entitiesTypes";
+import actions from "renderer/project/store/features/entities/entitiesActions";
 import projectActions, {
   ProjectData,
-} from "../../../../src/store/features/project/projectActions";
+} from "renderer/project/store/features/project/projectActions";
 import {
   dummyProjectData,
   dummyScene,
@@ -22,7 +22,7 @@ import {
   dummyTrigger,
   dummyPalette,
 } from "../../../dummydata";
-import { DMG_PALETTE } from "../../../../src/consts";
+import { DMG_PALETTE } from "shared/consts";
 
 test("Should fix scene widths if backgrounds has been removed since save", () => {
   const state: EntitiesState = {
@@ -47,9 +47,9 @@ test("Should fix scene widths if backgrounds has been removed since save", () =>
       data: loadData,
       path: "project.gbsproj",
       modifiedSpriteIds: [],
+      scriptEventDefs: {},
     },
-    "randomid",
-    "project.gbsproj"
+    "randomid"
   );
   const newState = reducer(state, action);
   expect(newState.scenes.entities["scene1"]?.width).toBe(32);
@@ -87,9 +87,9 @@ test("Should fix scene widths if backgrounds have changed dimensions since save"
       data: loadData,
       path: "project.gbsproj",
       modifiedSpriteIds: [],
+      scriptEventDefs: {},
     },
-    "randomid",
-    "project.gbsproj"
+    "randomid"
   );
   const newState = reducer(state, action);
   expect(newState.scenes.entities["scene1"]?.width).toBe(64);
@@ -127,9 +127,9 @@ test("Should keep scene widths if backgrounds have NOT changed dimensions since 
       data: loadData,
       path: "project.gbsproj",
       modifiedSpriteIds: [],
+      scriptEventDefs: {},
     },
-    "randomid",
-    "project.gbsproj"
+    "randomid"
   );
   const newState = reducer(state, action);
   expect(newState.scenes.entities["scene1"]?.width).toBe(20);

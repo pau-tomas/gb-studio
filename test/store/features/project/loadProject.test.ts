@@ -1,7 +1,7 @@
 import reducer, {
   initialState,
-} from "../../../../src/store/features/document/documentState";
-import actions from "../../../../src/store/features/project/projectActions";
+} from "renderer/project/store/features/document/documentState";
+import actions from "renderer/project/store/features/project/projectActions";
 import { dummyProjectData } from "../../../dummydata";
 
 test("Should set loaded state to false while loading project", () => {

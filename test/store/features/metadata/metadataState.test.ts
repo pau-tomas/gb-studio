@@ -1,11 +1,11 @@
 import reducer, {
   initialState,
   getMetadata,
-} from "../../../../src/store/features/metadata/metadataState";
-import projectActions from "../../../../src/store/features/project/projectActions";
-import actions from "../../../../src/store/features/metadata/metadataActions";
+} from "renderer/project/store/features/metadata/metadataState";
+import projectActions from "renderer/project/store/features/project/projectActions";
+import actions from "renderer/project/store/features/metadata/metadataActions";
 import { dummyProjectData, dummyRootState } from "../../../dummydata";
-import { RootState } from "../../../../src/store/configureStore";
+import { RootState } from "renderer/project/store/configureStore";
 
 test("Should change the path and root to new path and root and set loaded to true after loading is finished", () => {
   const state = {
