@@ -62,11 +62,11 @@ const loadAllScriptEvents = async (projectRoot: string) => {
     `${projectRoot}/plugins/**/events/event*.js`
   );
 
-  console.log({ corePaths, pluginPaths });
+  // console.log({ corePaths, pluginPaths });
 
   const eventHandlers: Dictionary<ScriptEventDef> = {};
   for (const path of corePaths) {
-    console.log("PATH", path);
+    // console.log("PATH", path);
     const handlerCode = await readFile(path, "utf8");
     const handler = vm.run(handlerCode) as ScriptEventDef;
     if (!handler.id) {
@@ -78,7 +78,7 @@ const loadAllScriptEvents = async (projectRoot: string) => {
     eventHandlers[handler.id] = handler;
   }
 
-  console.log({ eventHandlers });
+  // console.log({ eventHandlers });
 
   return eventHandlers;
 };

@@ -16,6 +16,7 @@ import Project from "./project";
 import WindowManager from "./windowManager";
 import type { ProjectData } from "renderer/project/store/features/project/projectActions";
 import confirmEnableColorDialog from "lib/electron/dialog/confirmEnableColorDialog";
+import confirmDeleteCustomEvent from "lib/electron/dialog/confirmDeleteCustomEvent";
 
 declare const COMMITHASH: string;
 
@@ -174,6 +175,13 @@ const initIPC = ({
   ipcMain.handle("dialog:confirm-color", async () => {
     return confirmEnableColorDialog();
   });
+
+  ipcMain.handle(
+    "dialog:confirm-delete-custom-event",
+    async (_event, name: string, sceneNames: string[], count: number) => {
+      return confirmDeleteCustomEvent(name, sceneNames, count);
+    }
+  );
 
   ipcMain.handle("open-directory-picker", async () => {
     const selection = await dialog.showOpenDialogSync({

@@ -9,12 +9,13 @@ import {
 } from "shared/lib/variables/variableNames";
 import type {
   ActorDirection,
-  CustomEvent,
   Palette,
   ScriptEvent,
   Sound,
   DistanceUnitType,
   Variable,
+  CustomEventDenormalized,
+  ScriptEventDenormalized,
 } from "renderer/project/store/features/entities/entitiesTypes";
 import { Dictionary } from "@reduxjs/toolkit";
 import type { EngineFieldSchema } from "renderer/project/store/features/engine/engineState";
@@ -31,12 +32,7 @@ import {
   PrecompiledEmote,
 } from "./compileData2";
 import { DMG_PALETTE } from "shared/consts";
-import {
-  isPropertyField,
-  isVariableField,
-  isActorField,
-  mapEvents,
-} from "lib/helpers/eventSystem";
+import { mapEvents } from "lib/helpers/eventSystem";
 import compileEntityEvents from "./compileEntityEvents";
 import {
   isUnionPropertyValue,
@@ -55,7 +51,12 @@ import {
   isVariableCustomEvent,
   toVariableNumber,
 } from "shared/lib/variables/helpers";
-import { ScriptEventHandler } from "lib/project/loadScriptEvents";
+import {
+  isActorField,
+  isPropertyField,
+  isVariableField,
+  ScriptEventsDefLookups,
+} from "shared/lib/scripting/eventHelpers";
 
 type ScriptOutput = string[];
 
@@ -119,7 +120,7 @@ interface ScriptBuilderOptions {
   avatars: ScriptBuilderEntity[];
   emotes: PrecompiledEmote[];
   palettes: Palette[];
-  customEvents: CustomEvent[];
+  customEvents: CustomEventDenormalized[];
   entity?: ScriptBuilderEntity;
   engineFields: Dictionary<EngineFieldSchema>;
   settings: SettingsState;
@@ -140,7 +141,7 @@ interface ScriptBuilderOptions {
   }>;
   compiledAssetsCache: Dictionary<string>;
   compileEvents: (self: ScriptBuilder, events: ScriptEvent[]) => void;
-  scriptEventsLookup: Dictionary<ScriptEventHandler>;
+  scriptEventsLookup: ScriptEventsDefLookups;
 }
 
 type ScriptBuilderMoveType = "horizontal" | "vertical" | "diagonal";
@@ -518,7 +519,11 @@ class ScriptBuilder {
         options.compiledCustomEventScriptCache ?? {},
       compiledAssetsCache: options.compiledAssetsCache ?? {},
       compileEvents: options.compileEvents || ((_self, _e) => {}),
-      scriptEventsLookup: options.scriptEventsLookup ?? {},
+      scriptEventsLookup: options.scriptEventsLookup ?? {
+        eventsLookup: {},
+        engineFieldUpdateEventsLookup: {},
+        engineFieldStoreEventsLookup: {},
+      },
       settings: options.settings,
     };
     this.dependencies = [];
@@ -3082,7 +3087,7 @@ extern void __mute_mask_${symbol};
   inputScriptSet = (
     input: string,
     override: boolean,
-    script: ScriptEvent[],
+    script: ScriptEventDenormalized[],
     symbol?: string
   ) => {
     this._addComment(`Input Script Attach`);
@@ -3108,7 +3113,7 @@ extern void __mute_mask_${symbol};
 
   timerScriptSet = (
     frames = 600,
-    script: ScriptEvent[],
+    script: ScriptEventDenormalized[],
     symbol?: string,
     timer = 1
   ) => {
@@ -3345,69 +3350,66 @@ extern void __mute_mask_${symbol};
       }
     }
 
-    const script = mapEvents(
-      customEvent.script,
-      (event: ScriptEvent): ScriptEvent => {
-        if (!event.args || event.args.__comment) return event;
-        // Clone event
-        const e = {
-          ...event,
-          args: { ...event.args },
-        };
-        Object.keys(e.args).forEach((arg) => {
-          const argValue = e.args[arg];
-          // Update variable fields
-          if (isVariableField(e.command, arg, e.args, eventLookup as any)) {
-            if (
-              isUnionVariableValue(argValue) &&
-              argValue.value &&
-              isVariableCustomEvent(argValue.value)
-            ) {
-              e.args[arg] = {
-                ...argValue,
-                value: getArg("variable", argValue.value),
-              };
-            } else if (
-              typeof argValue === "string" &&
-              isVariableCustomEvent(argValue)
-            ) {
-              e.args[arg] = getArg("variable", argValue);
-            }
-          }
-          // Update property fields
-          if (isPropertyField(e.command, arg, e.args, eventLookup as any)) {
-            const replacePropertyValueActor = (p: string) => {
-              const actorValue = p.replace(/:.*/, "");
-              if (actorValue === "player") {
-                return p;
-              }
-              const newActorValue = getArg("actor", actorValue);
-              return {
-                value: newActorValue,
-                property: p.replace(/.*:/, ""),
-              };
-            };
-            if (isUnionPropertyValue(argValue) && argValue.value) {
-              e.args[arg] = {
-                ...argValue,
-                value: replacePropertyValueActor(argValue.value),
-              };
-            } else if (typeof argValue === "string") {
-              e.args[arg] = replacePropertyValueActor(argValue);
-            }
-          }
-          // Update actor fields
+    const script = mapEvents(customEvent.script, (event) => {
+      if (!event.args || event.args.__comment) return event;
+      // Clone event
+      const e = {
+        ...event,
+        args: { ...event.args },
+      };
+      Object.keys(e.args).forEach((arg) => {
+        const argValue = e.args[arg];
+        // Update variable fields
+        if (isVariableField(e.command, arg, e.args, eventLookup)) {
           if (
-            isActorField(e.command, arg, e.args, eventLookup as any) &&
-            typeof argValue === "string"
+            isUnionVariableValue(argValue) &&
+            argValue.value &&
+            isVariableCustomEvent(argValue.value)
           ) {
-            e.args[arg] = getArg("actor", argValue); // input[`$variable[${argValue}]$`];
+            e.args[arg] = {
+              ...argValue,
+              value: getArg("variable", argValue.value),
+            };
+          } else if (
+            typeof argValue === "string" &&
+            isVariableCustomEvent(argValue)
+          ) {
+            e.args[arg] = getArg("variable", argValue);
           }
-        });
+        }
+        // Update property fields
+        if (isPropertyField(e.command, arg, e.args, eventLookup)) {
+          const replacePropertyValueActor = (p: string) => {
+            const actorValue = p.replace(/:.*/, "");
+            if (actorValue === "player") {
+              return p;
+            }
+            const newActorValue = getArg("actor", actorValue);
+            return {
+              value: newActorValue,
+              property: p.replace(/.*:/, ""),
+            };
+          };
+          if (isUnionPropertyValue(argValue) && argValue.value) {
+            e.args[arg] = {
+              ...argValue,
+              value: replacePropertyValueActor(argValue.value),
+            };
+          } else if (typeof argValue === "string") {
+            e.args[arg] = replacePropertyValueActor(argValue);
+          }
+        }
+        // Update actor fields
+        if (
+          isActorField(e.command, arg, e.args, eventLookup) &&
+          typeof argValue === "string"
+        ) {
+          e.args[arg] = getArg("actor", argValue); // input[`$variable[${argValue}]$`];
+        }
+      });
 
-        return e;
-      }
-    );
+      return e;
+    });
 
     // Generate symbol and cache it before compiling script to allow recursive function calls to work
     const symbol = this._getAvailableSymbol(
@@ -4002,7 +4004,7 @@ extern void __mute_mask_${symbol};
 
   musicRoutineSet = (
     routine: number,
-    script: ScriptEvent[],
+    script: ScriptEventDenormalized[],
     symbol?: string
   ) => {
     this._addComment(`Music Routine Attach`);
@@ -4951,7 +4953,7 @@ extern void __mute_mask_${symbol};
 
   _compileSubScript = (
     type: "input" | "timer" | "music" | "custom",
-    script: ScriptEvent[],
+    script: ScriptEventDenormalized[],
     inputSymbol?: string,
     options?: Partial<ScriptBuilderOptions>
   ) => {

@@ -326,7 +326,7 @@ const loadProject = async (projectPath) => {
   const fixedEngineFieldValues = json.engineFieldValues || [];
 
   const scriptEvents = cloneDictionary(await loadAllScriptEvents(projectRoot));
-  console.log({ scriptEvents });
+  // console.log({ scriptEvents });
 
   return {
     data: {

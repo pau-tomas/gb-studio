@@ -1,10 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
 import type { EventHandler } from "lib/events";
-import {
-  isActorField,
-  isPropertyField,
-  isVariableField,
-} from "lib/helpers/eventSystem";
 import l10n from "shared/lib/l10n";
 import {
   NamedVariable,
@@ -36,6 +31,11 @@ import styled from "styled-components";
 import { fadeIn } from "ui/animations/animations";
 import { animLabelLookup } from "components/forms/AnimationSpeedSelect";
 import { ScriptEditorContext } from "./ScriptEditorContext";
+import {
+  isActorField,
+  isPropertyField,
+  isVariableField,
+} from "shared/lib/scripting/eventHelpers";
 
 const events: Dictionary<EventHandler> = {};
 export const eventLookup = {

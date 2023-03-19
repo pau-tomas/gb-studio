@@ -7,7 +7,6 @@ import {
   filterEvents,
   walkScenesEvents,
   walkEvents,
-  isVariableField,
 } from "lib/helpers/eventSystem";
 import generateRandomWalkScript from "lib/movement/generateRandomWalkScript";
 import generateRandomLookScript from "lib/movement/generateRandomLookScript";
@@ -18,6 +17,7 @@ import { copySync, chmodSync } from "fs-extra";
 import { projectTemplatesRoot } from "shared/consts";
 import uniq from "lodash/uniq";
 import { toValidSymbol } from "shared/lib/compiler/symbols";
+import { isVariableField } from "shared/lib/scripting/eventHelpers";
 
 const indexById = indexBy("id");
 

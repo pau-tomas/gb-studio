@@ -138,6 +138,38 @@ export const isVariableField = (
   );
 };
 
+export const isActorField = (
+  cmd: string,
+  fieldName: string,
+  args: Record<string, unknown>,
+  lookup: ScriptEventsDefLookups
+) => {
+  const field = getField(cmd, fieldName, args, lookup);
+  return field && field.type === "actor" && isFieldVisible(field, args);
+};
+
+export const isPropertyField = (
+  cmd: string,
+  fieldName: string,
+  args: Record<string, unknown>,
+  lookup: ScriptEventsDefLookups
+) => {
+  const event = lookup.eventsLookup[cmd];
+  if (!event) return false;
+  const field = getField(cmd, fieldName, args, lookup);
+  const fieldValue = args[fieldName];
+  return (
+    field &&
+    (field.type === "property" ||
+      (field.type === "union" &&
+        fieldValue &&
+        typeof fieldValue === "object" &&
+        "type" in fieldValue &&
+        fieldValue.type === "property")) &&
+    isFieldVisible(field, args)
+  );
+};
+
 const isFieldVisible = (
   field: ScriptEventFieldSchema,
   args: Record<string, unknown>

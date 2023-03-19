@@ -7,6 +7,8 @@ import {
   scriptEventSelectors,
 } from "renderer/project/store/features/entities/entitiesState";
 import { ScriptEventParentType } from "renderer/project/store/features/entities/entitiesTypes";
+import { selectScriptEventDefsLookups } from "renderer/project/store/features/scriptEventDefs/scriptEventDefsState";
+import { useAppSelector } from "renderer/project/store/hooks";
 import styled from "styled-components";
 import AddButton from "./AddButton";
 import ScriptEditorEvent from "./ScriptEditorEvent";
@@ -40,16 +42,24 @@ const ScriptEditor = React.memo(
     const customEventsLookup = useSelector((state: RootState) =>
       customEventSelectors.selectEntities(state)
     );
+    const scriptEventDefsLookups = useAppSelector(selectScriptEventDefsLookups);
 
     const autoFadeEventId = useMemo(() => {
       return showAutoFadeIndicator
         ? calculateAutoFadeEventIdNormalised(
             value,
             scriptEventsLookup,
-            customEventsLookup
+            customEventsLookup,
+            scriptEventDefsLookups.eventsLookup
           )
         : "";
-    }, [customEventsLookup, scriptEventsLookup, showAutoFadeIndicator, value]);
+    }, [
+      customEventsLookup,
+      scriptEventDefsLookups.eventsLookup,
+      scriptEventsLookup,
+      showAutoFadeIndicator,
+      value,
+    ]);
 
     // Reset renderTo on script tab change
     useEffect(() => {

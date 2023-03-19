@@ -19,7 +19,6 @@ import {
   TILE_COLOR_PROPS,
   TILE_COLOR_PALETTE,
 } from "shared/consts";
-import { isVariableField, isPropertyField } from "lib/helpers/eventSystem";
 import clamp from "shared/lib/math/clamp";
 import { RootState } from "renderer/project/store/configureStore";
 import settingsActions from "renderer/project/store/features/settings/settingsActions";
@@ -74,6 +73,11 @@ import {
 import spriteActions from "renderer/project/store/features/sprite/spriteActions";
 import { isVariableCustomEvent } from "shared/lib/variables/helpers";
 import { sortByKey } from "shared/lib/math/sort";
+import {
+  isPropertyField,
+  isVariableField,
+  ScriptEventsDefLookups,
+} from "shared/lib/scripting/eventHelpers";
 
 const MIN_SCENE_X = 60;
 const MIN_SCENE_Y = 30;
@@ -2161,15 +2165,17 @@ const removeCustomEvent: CaseReducer<
 
 const refreshCustomEventArgs: CaseReducer<
   EntitiesState,
-  PayloadAction<{ customEventId: string }>
+  PayloadAction<{
+    customEventId: string;
+    scriptEventsDefLookups: ScriptEventsDefLookups;
+  }>
 > = (state, action) => {
   const customEvent = state.customEvents.entities[action.payload.customEventId];
   if (!customEvent) {
     return;
   }
 
-  // eslint-disable-next-line @typescript-eslint/no-var-requires
-  const eventLookup = require("lib/events").eventLookup;
+  const scriptEventsDefLookups = action.payload.scriptEventsDefLookups;
 
   const variables = {} as Dictionary<CustomEventVariable>;
   const actors = {} as Dictionary<CustomEventActor>;
@@ -2213,7 +2219,14 @@ const refreshCustomEventArgs: CaseReducer<
         };
       }
       Object.keys(args).forEach((arg) => {
-        if (isVariableField(scriptEvent.command, arg, args, eventLookup)) {
+        if (
+          isVariableField(
+            scriptEvent.command,
+            arg,
+            args,
+            scriptEventsDefLookups
+          )
+        ) {
           const addVariable = (variable: string) => {
             const letter = String.fromCharCode(
               "A".charCodeAt(0) + parseInt(variable[1])
@@ -2238,7 +2251,14 @@ const refreshCustomEventArgs: CaseReducer<
             addVariable(variable);
           }
         }
-        if (isPropertyField(scriptEvent.command, arg, args, eventLookup)) {
+        if (
+          isPropertyField(
+            scriptEvent.command,
+            arg,
+            args,
+            scriptEventsDefLookups
+          )
+        ) {
           const addPropertyActor = (property: string) => {
             const actor = property && property.replace(/:.*/, "");
             if (actor !== "player" && actor !== "$self$") {
@@ -2930,10 +2950,14 @@ const entitiesSlice = createSlice({
     removeCustomEvent,
     refreshCustomEventArgs: {
       reducer: refreshCustomEventArgs,
-      prepare: (payload: { customEventId: string }) => {
+      prepare: (payload: {
+        customEventId: string;
+        scriptEventsDefLookups: ScriptEventsDefLookups;
+      }) => {
         return {
           payload: {
             customEventId: payload.customEventId,
+            scriptEventsDefLookups: payload.scriptEventsDefLookups,
           },
           meta: {
             throttle: 1000,

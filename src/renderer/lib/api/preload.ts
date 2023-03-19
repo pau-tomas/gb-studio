@@ -63,6 +63,17 @@ export const API = {
       ipcRenderer.invoke("show-error", title, content),
     confirmEnableColorDialog: (): Promise<number | false> =>
       ipcRenderer.invoke("dialog:confirm-color"),
+    confirmDeleteCustomEvent: (
+      name: string,
+      sceneNames: string[],
+      count: number
+    ): Promise<number | false> =>
+      ipcRenderer.invoke(
+        "dialog:confirm-delete-custom-event",
+        name,
+        sceneNames,
+        count
+      ),
   },
   project: {
     openProjectFilePicker: () => ipcRenderer.invoke("open-project-filepicker"),

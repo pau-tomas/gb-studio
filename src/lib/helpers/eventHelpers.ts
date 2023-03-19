@@ -9,6 +9,7 @@ import type {
   TriggerDenormalized,
 } from "renderer/project/store/features/entities/entitiesTypes";
 import { calculateAutoFadeEventId } from "shared/lib/scripting/eventHelpers";
+import { ScriptEventDef } from "lib/project/loadScriptEvents";
 
 type WalkDenormalizedOptions =
   | undefined
@@ -270,7 +271,8 @@ export const walkDenormalizedScenesEvents = (
 
 export const calculateAutoFadeEventIdDenormalised = (
   script: ScriptEventDenormalized[],
-  customEventsLookup: Dictionary<CustomEventDenormalized>
+  customEventsLookup: Dictionary<CustomEventDenormalized>,
+  eventsLookup: Dictionary<ScriptEventDef>
 ): string => {
   return calculateAutoFadeEventId(
     script,
@@ -283,7 +285,7 @@ export const calculateAutoFadeEventIdDenormalised = (
         },
         filter,
       }),
-    {} as any
+    eventsLookup
   );
 };
 

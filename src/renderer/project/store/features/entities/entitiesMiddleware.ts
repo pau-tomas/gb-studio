@@ -1,5 +1,6 @@
 import { Dispatch, Middleware } from "@reduxjs/toolkit";
 import { RootState } from "renderer/project/store/configureStore";
+import { selectScriptEventDefsLookups } from "renderer/project/store/features/scriptEventDefs/scriptEventDefsState";
 import entitiesActions from "./entitiesActions";
 
 const entitiesMiddleware: Middleware<Dispatch, RootState> =
@@ -15,10 +16,12 @@ const entitiesMiddleware: Middleware<Dispatch, RootState> =
       const state = store.getState();
       const editorType = state.editor.type;
       const entityId = state.editor.entityId;
+      const scriptEventsDefLookups = selectScriptEventDefsLookups(state);
       if (editorType === "customEvent") {
         store.dispatch(
           entitiesActions.refreshCustomEventArgs({
             customEventId: entityId,
+            scriptEventsDefLookups,
           })
         );
       }

@@ -410,7 +410,7 @@ export type ProjectEntitiesData = {
   backgrounds: BackgroundData[];
   spriteSheets: SpriteSheetData[];
   palettes: Palette[];
-  customEvents: CustomEvent[];
+  customEvents: CustomEventDenormalized[];
   music: MusicData[];
   sounds: SoundData[];
   fonts: FontData[];

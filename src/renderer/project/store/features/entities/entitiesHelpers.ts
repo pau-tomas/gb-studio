@@ -32,6 +32,7 @@ import {
   TriggerScriptKey,
   triggerScriptKeys,
   Sound,
+  ScriptEventParentType,
 } from "./entitiesTypes";
 import {
   Dictionary,
@@ -44,6 +45,7 @@ import { genSymbol, toValidSymbol } from "shared/lib/compiler/symbols";
 import { parseAssetPath } from "shared/lib/assets/helpers";
 import { ScriptEventData } from "shared/lib/scripting/eventTypes";
 import { calculateAutoFadeEventId } from "shared/lib/scripting/eventHelpers";
+import type { ScriptEventDef } from "lib/project/loadScriptEvents";
 
 export interface NormalisedEntities {
   scenes: Record<EntityId, Scene>;
@@ -87,6 +89,14 @@ export type NormalisedData = NormalizedSchema<
   NormalisedResult
 >;
 
+type ScriptEventParent =
+  | {
+      type: ScriptEventParentType;
+      id: string;
+      key: string;
+    }
+  | undefined;
+
 type WalkNormalizedOptions =
   | undefined
   | {
@@ -96,6 +106,7 @@ type WalkNormalizedOptions =
         maxDepth: number;
         args?: Record<string, unknown>;
       };
+      parent?: ScriptEventParent;
     };
 
 const inodeToAssetCache: Dictionary<Asset> = {};
@@ -284,7 +295,7 @@ export const walkNormalisedScriptEvents = (
   ids: string[] = [],
   lookup: Dictionary<ScriptEvent>,
   options: WalkNormalizedOptions,
-  callback: (scriptEvent: ScriptEvent) => void
+  callback: (scriptEvent: ScriptEvent, parent: ScriptEventParent) => void
 ) => {
   for (let i = 0; i < ids.length; i++) {
     const scriptEvent = lookup[ids[i]];
@@ -295,7 +306,8 @@ export const walkNormalisedScriptEvents = (
       }
 
       callback(
-        replaceCustomEventArgs(scriptEvent, options?.customEvents?.args)
+        replaceCustomEventArgs(scriptEvent, options?.customEvents?.args),
+        options?.parent
       );
       if (
         scriptEvent.children &&
@@ -304,7 +316,19 @@ export const walkNormalisedScriptEvents = (
         Object.keys(scriptEvent.children).forEach((key) => {
           const script = scriptEvent.children?.[key];
           if (script) {
-            walkNormalisedScriptEvents(script, lookup, options, callback);
+            walkNormalisedScriptEvents(
+              script,
+              lookup,
+              {
+                ...options,
+                parent: {
+                  type: "scriptEvent",
+                  id: scriptEvent.id,
+                  key,
+                },
+              },
+              callback
+            );
           }
         });
       }
@@ -328,6 +352,11 @@ export const walkNormalisedScriptEvents = (
                 maxDepth: options.customEvents.maxDepth - 1,
                 args: scriptEvent.args || {},
               },
+              parent: {
+                type: "customEvent",
+                id: customEvent.id,
+                key: "script",
+              },
             },
             callback
           );
@@ -341,22 +370,82 @@ export const walkNormalisedSceneSpecificEvents = (
   scene: Scene,
   lookup: Dictionary<ScriptEvent>,
   options: WalkNormalizedOptions,
-  callback: (scriptEvent: ScriptEvent) => void
+  callback: (scriptEvent: ScriptEvent, parent: ScriptEventParent) => void
 ) => {
-  walkNormalisedScriptEvents(scene.script, lookup, options, callback);
-  walkNormalisedScriptEvents(scene.playerHit1Script, lookup, options, callback);
-  walkNormalisedScriptEvents(scene.playerHit2Script, lookup, options, callback);
-  walkNormalisedScriptEvents(scene.playerHit3Script, lookup, options, callback);
+  walkNormalisedScriptEvents(
+    scene.script,
+    lookup,
+    {
+      ...options,
+      parent: {
+        type: "scene",
+        id: scene.id,
+        key: "script",
+      },
+    },
+    callback
+  );
+  walkNormalisedScriptEvents(
+    scene.playerHit1Script,
+    lookup,
+    {
+      ...options,
+      parent: {
+        type: "scene",
+        id: scene.id,
+        key: "playerHit1Script",
+      },
+    },
+    callback
+  );
+  walkNormalisedScriptEvents(
+    scene.playerHit2Script,
+    lookup,
+    {
+      ...options,
+      parent: {
+        type: "scene",
+        id: scene.id,
+        key: "playerHit2Script",
+      },
+    },
+    callback
+  );
+  walkNormalisedScriptEvents(
+    scene.playerHit3Script,
+    lookup,
+    {
+      ...options,
+      parent: {
+        type: "scene",
+        id: scene.id,
+        key: "playerHit3Script",
+      },
+    },
+    callback
+  );
 };
 
 export const walkNormalisedActorEvents = (
   actor: Actor,
   lookup: Dictionary<ScriptEvent>,
   options: WalkNormalizedOptions,
-  callback: (scriptEvent: ScriptEvent) => void
+  callback: (scriptEvent: ScriptEvent, parent: ScriptEventParent) => void
 ) => {
   walkActorScriptsKeys((key) => {
-    walkNormalisedScriptEvents(actor[key], lookup, options, callback);
+    walkNormalisedScriptEvents(
+      actor[key],
+      lookup,
+      {
+        ...options,
+        parent: {
+          type: "actor",
+          id: actor.id,
+          key,
+        },
+      },
+      callback
+    );
   });
 };
 
@@ -364,10 +453,34 @@ export const walkNormalisedTriggerEvents = (
   trigger: Trigger,
   lookup: Dictionary<ScriptEvent>,
   options: WalkNormalizedOptions,
-  callback: (scriptEvent: ScriptEvent) => void
+  callback: (scriptEvent: ScriptEvent, parent: ScriptEventParent) => void
 ) => {
-  walkNormalisedScriptEvents(trigger.script, lookup, options, callback);
-  walkNormalisedScriptEvents(trigger.leaveScript, lookup, options, callback);
+  walkNormalisedScriptEvents(
+    trigger.script,
+    lookup,
+    {
+      ...options,
+      parent: {
+        type: "trigger",
+        id: trigger.id,
+        key: "script",
+      },
+    },
+    callback
+  );
+  walkNormalisedScriptEvents(
+    trigger.leaveScript,
+    lookup,
+    {
+      ...options,
+      parent: {
+        type: "trigger",
+        id: trigger.id,
+        key: "leaveScript",
+      },
+    },
+    callback
+  );
 };
 
 export const walkNormalisedSceneEvents = (
@@ -376,24 +489,29 @@ export const walkNormalisedSceneEvents = (
   actorsLookup: Dictionary<Actor>,
   triggersLookup: Dictionary<Trigger>,
   options: WalkNormalizedOptions,
-  callback: (scriptEvent: ScriptEvent, actor?: Actor, trigger?: Trigger) => void
+  callback: (
+    scriptEvent: ScriptEvent,
+    parent: ScriptEventParent,
+    actor?: Actor,
+    trigger?: Trigger
+  ) => void
 ) => {
-  walkNormalisedSceneSpecificEvents(scene, lookup, options, (e) =>
-    callback(e, undefined, undefined)
+  walkNormalisedSceneSpecificEvents(scene, lookup, options, (e, parent) =>
+    callback(e, parent, undefined, undefined)
   );
   scene.actors.forEach((actorId) => {
     const actor = actorsLookup[actorId];
     if (actor) {
-      walkNormalisedActorEvents(actor, lookup, options, (e) =>
-        callback(e, actor, undefined)
+      walkNormalisedActorEvents(actor, lookup, options, (e, parent) =>
+        callback(e, parent, actor, undefined)
       );
     }
   });
   scene.triggers.forEach((triggerId) => {
     const trigger = triggersLookup[triggerId];
     if (trigger) {
-      walkNormalisedTriggerEvents(trigger, lookup, options, (e) =>
-        callback(e, undefined, trigger)
+      walkNormalisedTriggerEvents(trigger, lookup, options, (e, parent) =>
+        callback(e, parent, undefined, trigger)
       );
     }
   });
@@ -405,7 +523,19 @@ export const walkNormalisedCustomEventEvents = (
   options: WalkNormalizedOptions,
   callback: (scriptEvent: ScriptEvent) => void
 ) => {
-  walkNormalisedScriptEvents(customEvent.script, lookup, options, callback);
+  walkNormalisedScriptEvents(
+    customEvent.script,
+    lookup,
+    {
+      ...options,
+      parent: {
+        type: "customEvent",
+        id: customEvent.id,
+        key: "script",
+      },
+    },
+    callback
+  );
 };
 
 export const walkActorScriptsKeys = (
@@ -727,7 +857,8 @@ export const walkScriptNormalised = function* walkScript(
 export const calculateAutoFadeEventIdNormalised = (
   script: string[],
   scriptEventsLookup: Dictionary<ScriptEvent>,
-  customEventsLookup: Dictionary<CustomEvent>
+  customEventsLookup: Dictionary<CustomEvent>,
+  scriptEventDefsLookup: Dictionary<ScriptEventDef>
 ): string => {
   return calculateAutoFadeEventId(
     script,
@@ -742,6 +873,6 @@ export const calculateAutoFadeEventIdNormalised = (
           return filter(item.id);
         },
       }),
-    {} as any
+    scriptEventDefsLookup
   );
 };

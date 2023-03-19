@@ -155,7 +155,7 @@ const SceneInfo = () => {
             maxDepth: MAX_NESTED_SCRIPT_DEPTH,
           },
         },
-        (scriptEvent, actor, _trigger) => {
+        (scriptEvent, _parent, actor, _trigger) => {
           // Skip commented events
           if (scriptEvent.args?.__comment) {
             return;

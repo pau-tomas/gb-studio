@@ -34,8 +34,6 @@ const compileEntityEvents = (scriptSymbolName, input = [], options = {}) => {
   };
 
   const compileEventsWithScriptBuilder = (scriptBuilder, subInput = []) => {
-    // eslint-disable-next-line global-require
-    // eslint-disable-next-line @typescript-eslint/no-var-requires
     const events = require("../events").default;
     for (let i = 0; i < subInput.length; i++) {
       const command = subInput[i].command;
