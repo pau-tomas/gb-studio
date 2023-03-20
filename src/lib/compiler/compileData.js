@@ -1167,6 +1167,7 @@ const compile = async (
 ) => {
   const output = {};
   const symbols = {};
+  const scriptMap = {};
 
   if (projectData.scenes.length === 0) {
     throw new Error(
@@ -1334,6 +1335,13 @@ const compile = async (
 
       output[`${scriptName}.s`] = compiledScript;
       output[`${scriptName}.h`] = compileScriptHeader(scriptName);
+
+      scriptMap[scriptName] = {
+        script: script.map((s) => s.id),
+        entityId: entity.id,
+        entityType,
+        scriptType,
+      };
       return scriptName;
     };
 
@@ -1791,6 +1799,7 @@ VM_ACTOR_SET_SPRITESHEET_BY_REF .ARG2, .ARG1`,
 
   return {
     files: output,
+    scriptMap,
   };
 };
 

@@ -18,6 +18,7 @@ import { FixedSpacer, FlexGrow } from "ui/spacing/Spacing";
 import { SearchInput } from "ui/form/SearchInput";
 import { Button } from "ui/buttons/Button";
 import {
+  DebugIcon,
   DotsIcon,
   ExportIcon,
   FolderIcon,
@@ -251,6 +252,12 @@ const AppToolbar: FC = () => {
           {running ? <LoadingIcon /> : <PlayIcon />}
         </Button>
       )}
+      <Button
+        title={l10n("TOOLBAR_RUN")}
+        onClick={running ? setSection("build") : onRun}
+      >
+        {running ? <LoadingIcon /> : <DebugIcon />}
+      </Button>
     </Toolbar>
   );
 };

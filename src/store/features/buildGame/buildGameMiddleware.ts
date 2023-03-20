@@ -10,11 +10,13 @@ import consoleActions from "../console/consoleActions";
 import navigationActions from "../navigation/navigationActions";
 import { denormalizeProject } from "../project/projectActions";
 import confirmEjectEngineDialog from "lib/electron/dialog/confirmEjectEngineDialog";
-import { statSync } from "fs-extra";
+import { readFileSync, statSync } from "fs-extra";
 import confirmEjectEngineReplaceDialog from "lib/electron/dialog/confirmEjectEngineReplaceDialog";
 import ejectEngineToDir from "lib/project/ejectEngineToDir";
 import actions from "./buildGameActions";
 import l10n from "lib/helpers/l10n";
+import debuggerActions from "../debugger/debuggerActions";
+import { ScriptMapItem } from "../debugger/debuggerState";
 
 const rmdir = promisify(rimraf);
 
@@ -55,7 +57,7 @@ const buildGameMiddleware: Middleware<Dispatch, RootState> =
           (module) => module.default
         );
 
-        await buildProject(project, {
+        const data = await buildProject(project, {
           projectRoot,
           buildType,
           outputRoot,
@@ -81,7 +83,7 @@ const buildGameMiddleware: Middleware<Dispatch, RootState> =
             }
           },
           warnings: (message) => {
-            console.error(message);
+            console.trace(message);
             dispatch(consoleActions.stdErr(message));
           },
         });
@@ -111,6 +113,61 @@ const buildGameMiddleware: Middleware<Dispatch, RootState> =
         if (buildType === "web" && !exportBuild) {
           dispatch(consoleActions.stdOut("-"));
           dispatch(consoleActions.stdOut("Success! Starting emulator..."));
+
+          console.log(data);
+
+          const noi = readFileSync(`${outputRoot}/build/rom/game.noi`, "utf8");
+
+          const map = Object.fromEntries(
+            noi
+              .split("\n")
+              .map((r) => r.split(" ").slice(1, 3))
+              .map((_, i, keys) => [keys[i][0], keys[i][1]])
+          );
+
+          const dict = new Map<number, Map<number, string>>();
+          Object.keys(map).forEach((k) => {
+            const match = k.match(/___bank_(.*)/);
+            if (match) {
+              const label = `_${match[1]}`;
+              const bank = parseInt(map[k]);
+              if (map[label]) {
+                const n = dict.get(bank) ?? new Map<number, string>();
+                const ptr = parseInt(map[label]) & 0x0ffff;
+                n.set(ptr, label);
+                dict.set(bank, n);
+              }
+            }
+          });
+          console.log(dict);
+
+          // console.log(map);
+          console.log(map["_script_memory"]);
+          console.log(map["_VM_STEP"]);
+
+          const gameGlobals = readFileSync(
+            outputRoot + "/include/data/game_globals.i",
+            "utf8"
+          );
+
+          const globals = Object.fromEntries(
+            gameGlobals
+              .split("\n")
+              .map((r) => r.split(" = "))
+              .map((_, i, keys) => [keys[i][0], keys[i][1]])
+          );
+
+          console.log(map["_script_memory"]);
+          console.log(globals);
+
+          dispatch(debuggerActions.setMemoryMap(map));
+          dispatch(debuggerActions.setMemoryDict(dict));
+          dispatch(debuggerActions.setGlobalVariables(globals));
+          dispatch(
+            debuggerActions.setScriptMap(
+              data.scriptMap as { [key: string]: ScriptMapItem }
+            )
+          );
 
           ipcRenderer.send(
             "open-play",

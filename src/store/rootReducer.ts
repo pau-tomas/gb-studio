@@ -1,6 +1,7 @@
 import { combineReducers } from "redux";
 import undoable from "redux-undo";
 import console from "./features/console/consoleState";
+import debug from "./features/debugger/debuggerState";
 import music from "./features/music/musicState";
 import assets from "./features/assets/assetsState";
 import entities from "./features/entities/entitiesState";
@@ -23,6 +24,7 @@ const UNDO_THROTTLE = 300;
 const rootReducer = combineReducers({
   editor,
   console,
+  debug,
   music,
   navigation,
   document,

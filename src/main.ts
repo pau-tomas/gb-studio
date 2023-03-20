@@ -34,6 +34,8 @@ declare const PREFERENCES_WINDOW_PRELOAD_WEBPACK_ENTRY: string;
 declare const PREFERENCES_WINDOW_WEBPACK_ENTRY: string;
 declare const MUSIC_WINDOW_PRELOAD_WEBPACK_ENTRY: string;
 declare const MUSIC_WINDOW_WEBPACK_ENTRY: string;
+declare const DEBUGGER_WINDOW_PRELOAD_WEBPACK_ENTRY: string;
+declare const DEBUGGER_WINDOW_WEBPACK_ENTRY: string;
 
 type SplashTab = "info" | "new" | "recent";
 
@@ -280,11 +282,14 @@ const openHelp = async (helpPage: string) => {
   }
 };
 
-const createPlay = async (url: string, sgb: boolean) => {
+const createPlay = async (url: string, sgb: boolean, debugUrl: string) => {
   if (playWindow && sgb !== playWindowSgb) {
     playWindow.close();
     playWindow = null;
   }
+
+  console.log("DEBUG", debugUrl);
+  console.log(DEBUGGER_WINDOW_PRELOAD_WEBPACK_ENTRY);
 
   if (!playWindow) {
     // Create the browser window.
@@ -297,6 +302,7 @@ const createPlay = async (url: string, sgb: boolean) => {
       webPreferences: {
         nodeIntegration: false,
         webSecurity: process.env.NODE_ENV !== "development",
+        preload: DEBUGGER_WINDOW_PRELOAD_WEBPACK_ENTRY,
       },
     });
     playWindowSgb = sgb;
@@ -314,6 +320,8 @@ const createPlay = async (url: string, sgb: boolean) => {
 
 const createMusic = async (sfx?: string) => {
   if (!musicWindow) {
+    console.log(MUSIC_WINDOW_WEBPACK_ENTRY);
+
     // Create the browser window.
     musicWindow = new BrowserWindow({
       show: false,
@@ -435,8 +443,8 @@ ipcMain.on("open-help", async (_event, helpPage) => {
   openHelp(helpPage);
 });
 
-ipcMain.on("open-play", async (_event, url, sgb) => {
-  createPlay(url, sgb);
+ipcMain.on("open-play", async (_event, url, sgb, debugUrl) => {
+  createPlay(url, sgb, debugUrl);
 });
 
 ipcMain.handle("open-external", async (_event, url) => {
@@ -588,6 +596,19 @@ ipcMain.handle("settings-set", (_, key: string, value: JsonValue) => {
 });
 ipcMain.handle("settings-delete", (_, key: string) => {
   settings.delete(key);
+});
+
+ipcMain.on("emulator-message-send", (_event, data) => {
+  if (playWindow) {
+    playWindow.webContents.send("emulator-data", data);
+  }
+});
+
+ipcMain.on("emulator-message-receive", (_event, data) => {
+  if (mainWindow) {
+    // mainWindow.webContents.send("emulator-data", data);
+    mainWindow.webContents.send("emulator-data", data);
+  }
 });
 
 menu.on("new", async () => {
