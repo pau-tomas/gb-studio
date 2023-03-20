@@ -3,7 +3,7 @@
  */
 
 import React from "react";
-import { SearchableCard } from "../../../../src/components/ui/cards/SearchableCard";
+import { SearchableCard } from "ui/cards/SearchableCard";
 import { render, screen } from "../../../react-utils";
 
 test("Should show card if search term matches term from list", () => {

@@ -1,8 +1,14 @@
 const API = {
+  platform: "darwin",
   settings: {},
   app: {},
   paths: {},
   dialog: {},
+  theme: {
+    getThemeSetting: () => Promise.resolve("light"),
+    getShouldUseDarkColors: () => Promise.resolve(false),
+    onChange: () => {},
+  },
 };
 export const settings = API.settings;
 export const app = API.app;

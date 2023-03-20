@@ -6,7 +6,7 @@ import {
   resizeAbsPaneBy,
   toSplitAbs,
   toSplitRel,
-} from "../../../../src/components/ui/hooks/use-split-pane";
+} from "ui/hooks/use-split-pane";
 
 test("Should calculate resized split pane", () => {
   const absoluteSizes = [100, 200, 300, 400];

@@ -3,11 +3,11 @@
  */
 
 import React from "react";
-import { VariableSelect } from "../../../src/components/forms/VariableSelect";
+import { VariableSelect } from "renderer/components/forms/VariableSelect";
 import { render, screen, fireEvent } from "../../react-utils";
 import { AnyAction, Store } from "@reduxjs/toolkit";
-import { RootState } from "../../../src/store/configureStore";
-import { ScriptEditorContext } from "../../../src/components/script/ScriptEditorContext";
+import { RootState } from "renderer/project/store/configureStore";
+import { ScriptEditorContext } from "renderer/components/script/ScriptEditorContext";
 
 test("Should use default variable name with not renamed", () => {
   const state = {

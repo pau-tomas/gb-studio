@@ -2,8 +2,8 @@ import React from "react";
 import { render } from "@testing-library/react";
 import { Provider } from "react-redux";
 import { AnyAction, Store } from "@reduxjs/toolkit";
-import { RootState } from "../src/store/configureStore";
-import ThemeProvider from "../src/components/ui/theme/ThemeProvider";
+import { RootState } from "renderer/project/store/configureStore";
+import ThemeProvider from "ui/theme/ThemeProvider";
 
 type RenderParameters = Parameters<typeof render>;
 

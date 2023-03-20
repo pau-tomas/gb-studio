@@ -1,12 +1,12 @@
 import compile, {
   precompileBackgrounds,
   precompileScenes,
-} from "../../../src/lib/compiler/compileData";
+} from "lib/compiler/compileData";
 import {
   EVENT_TEXT,
   EVENT_IF_TRUE,
   EVENT_SET_TRUE,
-} from "../../../src/lib/compiler/eventTypes";
+} from "shared/lib/scripting/eventTypes";
 
 test("should compile simple project into files object", async () => {
   const project = {

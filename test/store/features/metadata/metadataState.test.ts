@@ -20,9 +20,9 @@ test("Should change the path and root to new path and root and set loaded to tru
       },
       path: "new_test_root/project_copy.gbsproj",
       modifiedSpriteIds: [],
+      scriptEventDefs: {},
     },
-    "randomid",
-    "new_test_root/project_copy.gbsproj"
+    "randomid"
   );
   const newState = reducer(state, action);
   expect(newState.name).toBe("Testing Project");
