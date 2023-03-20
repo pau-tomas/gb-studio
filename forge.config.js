@@ -98,6 +98,19 @@ module.exports = {
                 "vendor-lodash",
               ],
             },
+            {
+              html: "./src/app/debugger/debugger.html",
+              js: "./src/app/debugger/DebugRoot.js",
+              name: "debugger_window",
+              preload: {
+                js: "./src/app/debugger/DebugPreload.js",
+              },
+              additionalChunks: [
+                "vendor-react",
+                "vendor-hotloader",
+                "vendor-lodash",
+              ],
+            },
           ],
         },
       },

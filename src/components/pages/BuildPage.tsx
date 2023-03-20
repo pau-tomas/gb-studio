@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useRef } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import { Button } from "ui/buttons/Button";
@@ -8,6 +8,11 @@ import consoleActions from "store/features/console/consoleActions";
 import buildGameActions from "store/features/buildGame/buildGameActions";
 import { FixedSpacer, FlexGrow } from "ui/spacing/Spacing";
 import { RootState } from "store/configureStore";
+import { ipcRenderer } from "electron";
+import { NextIcon, PauseIcon, PlayIcon } from "ui/icons/Icons";
+import ScriptEditor from "components/script/ScriptEditor";
+import { ScriptEventParentType } from "store/features/entities/entitiesTypes";
+import { ScriptMapItem } from "store/features/debugger/debuggerState";
 
 const PIN_TO_BOTTOM_RANGE = 100;
 
@@ -16,6 +21,13 @@ const Wrapper = styled.div`
   height: calc(100vh - 38px);
   display: flex;
   flex-direction: column;
+`;
+
+const VerticalWrapper = styled.div`
+  width: 100%;
+  height: calc(100vh - 38px);
+  display: flex;
+  flex-direction: row;
 `;
 
 const Terminal = styled.div`
@@ -27,6 +39,29 @@ const Terminal = styled.div`
   white-space: pre-wrap;
   overflow: auto;
   user-select: text;
+`;
+
+const Debugger = styled.div`
+  display: flex;
+  flex-direction: column;
+  background: #111;
+  color: #fff;
+  padding: 20px;
+  font-family: monospace;
+  white-space: pre-wrap;
+  overflow: auto;
+  user-select: text;
+`;
+
+const DebuggerRow = styled.div`
+  display: flex;
+  flex-direction: row;
+`;
+const DebuggerColumn = styled.div`
+  display: flex;
+  flex-direction: column;
+  max-width: 300px;
+  min-width: 300px;
 `;
 
 const ButtonToolbar = styled.div`
@@ -107,34 +142,193 @@ const BuildPage = () => {
     }
   }, []);
 
+  const globals = useSelector(
+    (state: RootState) => state.debug.globalVariables
+  );
+  const memoryMap = useSelector((state: RootState) => state.debug.memoryMap);
+  const memoryDict = useSelector((state: RootState) => state.debug.memoryDict);
+  const scriptMap = useSelector((state: RootState) => state.debug.scriptMap);
+
+  const [debugStd, setDebugStd] = useState<string>("");
+  const [debugVram, setDebugVram] = useState<string>("");
+  const [isPaused, setIsPaused] = useState<boolean>(false);
+
+  const [currentScript, setCurrentScript] = useState<string>("");
+  const [currentScriptEvents, setCurrentScriptEvents] =
+    useState<ScriptMapItem>();
+
+  const onDebug = useCallback(() => {
+    ipcRenderer.send("emulator-message-send", {
+      action: "add-breakpoint",
+      data: {
+        address: memoryMap["_VM_STEP"],
+      },
+    });
+  }, [memoryMap]);
+
+  const onPause = useCallback(() => {
+    ipcRenderer.send("emulator-message-send", {
+      action: isPaused ? "resume" : "pause",
+    });
+  }, [isPaused]);
+  const onStep = useCallback(() => {
+    ipcRenderer.send("emulator-message-send", {
+      action: "step-frame",
+    });
+  }, []);
+
+  useEffect(() => {
+    const listener = (_event: any, d: any) => {
+      switch (d.action) {
+        case "debugger-ready":
+          ipcRenderer.send("emulator-message-send", {
+            action: "listener-ready",
+            data: {
+              address: memoryMap["_script_memory"],
+              length: globals["MAX_GLOBAL_VARS"],
+              executingCtxAddr: memoryMap["_executing_ctx"],
+              firstCtxAddr: memoryMap["_first_ctx"],
+            },
+          });
+          break;
+        case "update-globals":
+          const std = Object.keys(globals)
+            .map((k, i) => {
+              return `${k} = ${d.data[i]}`;
+            })
+            .join("\n");
+
+          setDebugStd(std);
+          setDebugVram(d.vram);
+          setIsPaused(d.paused);
+
+          const getClosestAddress = (bank: number, address: number) => {
+            const bankScripts = memoryDict.get(bank);
+            const currentAddress = address;
+            let closestAddress = -1;
+            if (bankScripts) {
+              const addresses = Array.from(bankScripts.keys());
+              for (let i = 0; i < addresses.length; i++) {
+                if (addresses[i] > currentAddress) {
+                  break;
+                } else {
+                  closestAddress = addresses[i];
+                }
+              }
+            }
+
+            return closestAddress;
+          };
+
+          // const address = getClosestAddress(d.currentBank, d.currentAddress);
+          // setCurrentScript(
+          //   `[${d.currentBank}] ${
+          //     memoryDict.get(d.currentBank)?.get(address) ?? "NONE"
+          //   }:${d.currentAddress}`
+          // );
+
+          let string = "";
+          d.scriptContexts.forEach((c: any) => {
+            string += `${c.current ? ">>>" : "   "} [${String(c.bank).padStart(
+              3,
+              "0"
+            )}] ${
+              memoryDict
+                .get(c.bank)
+                ?.get(getClosestAddress(c.bank, c.address)) ?? "NONE"
+            }:${String(c.address).padStart(6, "0")}\n`;
+
+            if (c.current) {
+              const script = memoryDict
+                .get(c.bank)
+                ?.get(getClosestAddress(c.bank, c.address));
+
+              console.log(script, scriptMap);
+
+              if (script) {
+                setCurrentScriptEvents(scriptMap[script.slice(1)]);
+              }
+            }
+          });
+          setCurrentScript(string);
+
+          break;
+        default:
+          console.log(`Action ${d.action} not supported`);
+      }
+    };
+
+    ipcRenderer.on("emulator-data", listener);
+
+    return () => {
+      ipcRenderer.removeListener("emulator-data", listener);
+    };
+  }, [globals, memoryDict, memoryMap, scriptMap, setDebugStd]);
+
   return (
     <Wrapper>
-      <Terminal ref={scrollRef}>
-        {outputLines.map((out, index) => (
-          <div
-            // eslint-disable-next-line react/no-array-index-key
-            key={index}
-            style={{ color: out.type === "err" ? "orange" : "white" }}
-          >
-            {out.text}
-          </div>
-        ))}
-        {status === "cancelled" && (
-          <div style={{ color: "orange" }}>{l10n("BUILD_CANCELLING")}...</div>
-        )}
-        {status === "complete" && warnings.length > 0 && (
-          <div>
-            <br />
-            Warnings:
-            {warnings.map((out, index) => (
+      <VerticalWrapper>
+        <Terminal ref={scrollRef}>
+          {outputLines.map((out, index) => (
+            <div
               // eslint-disable-next-line react/no-array-index-key
-              <div key={index} style={{ color: "orange" }}>
-                - {out.text}
-              </div>
-            ))}
+              key={index}
+              style={{ color: out.type === "err" ? "orange" : "white" }}
+            >
+              {out.text}
+            </div>
+          ))}
+          {status === "cancelled" && (
+            <div style={{ color: "orange" }}>{l10n("BUILD_CANCELLING")}...</div>
+          )}
+          {status === "complete" && warnings.length > 0 && (
+            <div>
+              <br />
+              Warnings:
+              {warnings.map((out, index) => (
+                // eslint-disable-next-line react/no-array-index-key
+                <div key={index} style={{ color: "orange" }}>
+                  - {out.text}
+                </div>
+              ))}
+            </div>
+          )}
+        </Terminal>
+        <Debugger>
+          <div>
+            <Button onClick={onPause}>
+              {isPaused ? <PlayIcon /> : <PauseIcon />}
+            </Button>
+            <Button onClick={onStep}>
+              <NextIcon />
+            </Button>
+
+            <Button onClick={onDebug}>BREAKPOINT</Button>
           </div>
-        )}
-      </Terminal>
+          <DebuggerRow>
+            <DebuggerColumn>
+              <div>
+                <img src={debugVram} alt=""></img>
+              </div>
+              <strong>{currentScript}</strong>
+              <p>------</p>
+              <div>{debugStd}</div>
+            </DebuggerColumn>
+            <DebuggerColumn>
+              {currentScriptEvents ? (
+                <ScriptEditor
+                  value={currentScriptEvents.script}
+                  type={currentScriptEvents.entityType as ScriptEventParentType}
+                  entityId={currentScriptEvents.entityId}
+                  scriptKey={currentScriptEvents.scriptType}
+                />
+              ) : (
+                ""
+              )}
+            </DebuggerColumn>
+          </DebuggerRow>
+        </Debugger>
+      </VerticalWrapper>
       <ButtonToolbar>
         {status === "running" ? (
           <Button onClick={onRun}>{l10n("BUILD_CANCEL")}</Button>

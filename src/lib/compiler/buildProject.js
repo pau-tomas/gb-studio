@@ -85,6 +85,8 @@ const buildProject = async (
       `${outputRoot}/build/pocket/game.pocket`
     );
   }
+
+  return compiledData;
 };
 
 export default buildProject;
