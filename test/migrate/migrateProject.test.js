@@ -3,7 +3,7 @@ import migrateProject, {
   LATEST_PROJECT_MINOR_VERSION,
 } from "../../src/lib/project/migrateProject";
 
-test("should migrate conditional events from 1.0.0 to 2.0.0", () => {
+test("should migrate conditional events from 1.0.0 to 2.0.0", async () => {
   const oldProject = {
     _version: "1",
     settings: {},
@@ -39,7 +39,9 @@ test("should migrate conditional events from 1.0.0 to 2.0.0", () => {
     spriteSheets: [],
   };
 
-  const newProject = JSON.parse(JSON.stringify(migrateProject(oldProject)));
+  const newProject = JSON.parse(
+    JSON.stringify(await migrateProject(oldProject))
+  );
   expect(newProject).toEqual({
     _version: LATEST_PROJECT_VERSION,
     _release: LATEST_PROJECT_MINOR_VERSION,
@@ -118,7 +120,7 @@ test("should migrate conditional events from 1.0.0 to 2.0.0", () => {
   });
 });
 
-test("should migrate conditional events from 1.2.0 to 2.0.0", () => {
+test("should migrate conditional events from 1.2.0 to 2.0.0", async () => {
   const oldProject = {
     _version: "1.2.0",
     settings: {},
@@ -156,7 +158,9 @@ test("should migrate conditional events from 1.2.0 to 2.0.0", () => {
     spriteSheets: [],
     variables: [],
   };
-  const newProject = JSON.parse(JSON.stringify(migrateProject(oldProject)));
+  const newProject = JSON.parse(
+    JSON.stringify(await migrateProject(oldProject))
+  );
   expect(newProject).toEqual({
     _version: LATEST_PROJECT_VERSION,
     _release: LATEST_PROJECT_MINOR_VERSION,

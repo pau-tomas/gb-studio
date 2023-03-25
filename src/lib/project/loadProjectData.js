@@ -38,7 +38,10 @@ const sortByName = (a, b) => {
 
 const loadProject = async (projectPath) => {
   const projectRoot = path.dirname(projectPath);
-  const json = migrateProject(await fs.readJson(projectPath), projectRoot);
+  const json = await migrateProject(
+    await fs.readJson(projectPath),
+    projectRoot
+  );
 
   const [backgrounds, sprites, music, sounds, fonts, avatars, emotes] =
     await Promise.all([

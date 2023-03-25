@@ -120,11 +120,14 @@ const isUnionValue = (value: unknown): value is UnionValue => {
 export const isVariableField = (
   cmd: string,
   fieldName: string,
-  args: Record<string, unknown>,
+  args: Record<string, unknown> | undefined,
   lookup: ScriptEventsDefLookups
 ) => {
   if (fieldName.startsWith("$variable[")) {
     return true;
+  }
+  if (!args) {
+    return false;
   }
   const field = getField(cmd, fieldName, args, lookup);
   const argValue = args[fieldName];

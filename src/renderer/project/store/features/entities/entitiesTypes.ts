@@ -417,6 +417,7 @@ export type ProjectEntitiesData = {
   avatars: AvatarData[];
   emotes: EmoteData[];
   variables: Variable[];
+  engineFieldValues: EngineFieldValue[];
 };
 
 export interface EntitiesState {

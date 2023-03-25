@@ -5,7 +5,7 @@ import {
   migrateFrom300r3To310r1,
   migrateFrom310r1To310r2Event,
   migrateFrom310r3To311r1Event,
-} from "../../src/lib/project/migrateProject";
+} from "lib/project/migrateProject";
 
 test("should not fail on empty project", () => {
   const oldProject = {
@@ -237,7 +237,22 @@ test("should migrate custom script events to prefix values with V", () => {
     },
     id: "event-1",
   };
-  expect(migrateFrom300r3To310r1ScriptEvent(oldEvent)).toEqual({
+  const eventLookup = {
+    eventsLookup: {
+      EVENT_INC_VALUE: {
+        fields: [
+          {
+            key: "variable",
+            type: "variable",
+            defaultValue: "LAST_VARIABLE",
+          },
+        ],
+      },
+    },
+    engineFieldUpdateEventsLookup: {},
+    engineFieldStoreEventsLookup: {},
+  };
+  expect(migrateFrom300r3To310r1ScriptEvent(oldEvent, eventLookup)).toEqual({
     command: "EVENT_INC_VALUE",
     args: {
       variable: "V0",
@@ -258,7 +273,33 @@ test("should migrate custom script events to prefix values with V when using uni
     },
     id: "event-1",
   };
-  expect(migrateFrom300r3To310r1ScriptEvent(oldEvent)).toEqual({
+  const eventLookup = {
+    eventsLookup: {
+      EVENT_ACTOR_SET_DIRECTION: {
+        fields: [
+          {
+            key: "actorId",
+            type: "actor",
+            defaultValue: "$self$",
+          },
+          {
+            key: "direction",
+            type: "union",
+            types: ["direction", "variable", "property"],
+            defaultType: "direction",
+            defaultValue: {
+              direction: "up",
+              variable: "LAST_VARIABLE",
+              property: "$self$:direction",
+            },
+          },
+        ],
+      },
+    },
+    engineFieldUpdateEventsLookup: {},
+    engineFieldStoreEventsLookup: {},
+  };
+  expect(migrateFrom300r3To310r1ScriptEvent(oldEvent, eventLookup)).toEqual({
     command: "EVENT_ACTOR_SET_DIRECTION",
     args: {
       actorId: "player",
@@ -367,7 +408,7 @@ test("should keep existing engine field store events variable value if set", () 
   });
 });
 
-test("should migrate custom event definitions", () => {
+test("should migrate custom event definitions", async () => {
   const oldProject = {
     scenes: [],
     customEvents: [
@@ -409,7 +450,22 @@ test("should migrate custom event definitions", () => {
       },
     ],
   };
-  expect(migrateFrom300r3To310r1(oldProject)).toEqual({
+  const eventLookup = {
+    eventsLookup: {
+      EVENT_INC_VALUE: {
+        fields: [
+          {
+            key: "variable",
+            type: "variable",
+            defaultValue: "LAST_VARIABLE",
+          },
+        ],
+      },
+    },
+    engineFieldUpdateEventsLookup: {},
+    engineFieldStoreEventsLookup: {},
+  };
+  expect(migrateFrom300r3To310r1(oldProject, eventLookup)).toEqual({
     scenes: [],
     customEvents: [
       {
