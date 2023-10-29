@@ -18,9 +18,10 @@ test("Should trigger undo clear history after successful project load", async ()
       data: { ...dummyProjectData },
       path: "project.gbsproj",
       modifiedSpriteIds: [],
+      scriptEventDefs: {},
     },
-    "randomid",
-    "project.gbsproj"
+    "project.gbsproj",
+    undefined
   );
 
   middleware(store)(next)(action);
@@ -38,8 +39,8 @@ test("Should not trigger undo clear history after successful project save", asyn
 
   const next = jest.fn();
   const action = projectActions.saveProject.fulfilled(
-    undefined,
     "randomid",
+    "project.gbsproj",
     undefined
   );
 

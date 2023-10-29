@@ -4,7 +4,7 @@ import actions from "renderer/project/store/features/warnings/warningsActions";
 import { RootState } from "renderer/project/store/configureStore";
 import { dummyBackground } from "../../../dummydata";
 import { MiddlewareAPI, Dispatch, AnyAction } from "@reduxjs/toolkit";
-import { getBackgroundInfo } from "../../../../src/lib/helpers/validation";
+import { getBackgroundInfo } from "lib/backgrounds/validation";
 
 const flushPromises = () => new Promise((resolve) => setTimeout(resolve, 0));
 

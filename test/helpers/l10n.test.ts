@@ -1,6 +1,7 @@
-import l10n, { replaceParams, loadLanguage } from "../../src/lib/helpers/l10n";
 import glob from "glob";
 import { readFile } from "fs-extra";
+import l10n, { replaceParams } from "shared/lib/l10n";
+import { loadLanguage } from "lib/helpers/initElectronL10n";
 
 jest.mock("../../src/consts");
 

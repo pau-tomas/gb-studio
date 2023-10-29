@@ -9,7 +9,7 @@ test("Should set loaded state to false while loading project", () => {
     ...initialState,
     loaded: true,
   };
-  const action = actions.loadProject.pending("newfile.gbsproj", "randomid");
+  const action = actions.loadProject.pending("newfile.gbsproj");
   const newState = reducer(state, action);
   expect(newState.loaded).toBe(false);
 });
@@ -27,8 +27,8 @@ test("Should change the path and root to new path and root and set loaded to tru
       data: dummyProjectData,
       path: "new_test_root/project_copy.gbsproj",
       modifiedSpriteIds: [],
+      scriptEventDefs: {},
     },
-    "randomid",
     "new_test_root/project_copy.gbsproj"
   );
   const newState = reducer(state, action);

@@ -8,7 +8,7 @@ import navigationActions from "renderer/project/store/features/navigation/naviga
 import { RootState } from "renderer/project/store/configureStore";
 import { dummyBackground, dummyMusic } from "../../../dummydata";
 import { MiddlewareAPI, Dispatch, AnyAction } from "@reduxjs/toolkit";
-import ScripTracker from "../../../../src/lib/vendor/scriptracker/scriptracker";
+import ScripTracker from "renderer/lib/vendor/scriptracker/scriptracker";
 
 jest.mock("../../../../src/lib/vendor/scriptracker/scriptracker");
 const mockedScripTracker = mocked(ScripTracker, true);

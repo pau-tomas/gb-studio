@@ -4,9 +4,9 @@ import actions from "renderer/project/store/features/clipboard/clipboardActions"
 import { RootState } from "renderer/project/store/configureStore";
 import { dummyActor } from "../../../dummydata";
 import { MiddlewareAPI, Dispatch, AnyAction } from "@reduxjs/toolkit";
-import { remote } from "electron";
 import { mocked } from "ts-jest/utils";
 import { ClipboardTypeActors } from "renderer/project/store/features/clipboard/clipboardTypes";
+import { remote } from "../../../__mocks__/electronMock";
 
 jest.mock("electron");
 

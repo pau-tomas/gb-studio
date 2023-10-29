@@ -56,8 +56,8 @@ test("Should fetch settings from loaded project", () => {
       data: loadData,
       path: "project.gbsproj",
       modifiedSpriteIds: [],
+      scriptEventDefs: {},
     },
-    "randomid",
     "project.gbsproj"
   );
   const newState = reducer(state, action);

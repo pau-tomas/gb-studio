@@ -12,7 +12,7 @@ test("Should not change the path and root if saving existing project", () => {
     modified: true,
   };
   const action = actions.saveProject.fulfilled(
-    undefined,
+    "initial_test_root/project.gbsproj",
     "randomid",
     undefined
   );

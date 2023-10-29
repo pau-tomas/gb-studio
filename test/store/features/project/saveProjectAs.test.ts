@@ -8,7 +8,7 @@ test("Should cause the project to enter saving state", () => {
     ...initialState,
     saving: false,
   };
-  const action = actions.saveProject.pending("newfile.gbsproj", "randomid");
+  const action = actions.saveProject.pending("newfile.gbsproj", undefined);
   const newState = reducer(state, action);
   expect(newState.saving).toBe(true);
 });
@@ -21,7 +21,7 @@ test("Should cause project to exit saving state without changing anything", () =
   const action = actions.saveProject.rejected(
     new Error("Failed"),
     "randomid",
-    "randomid"
+    undefined
   );
   const newState = reducer(state, action);
   expect(newState.saving).toBe(false);
@@ -36,9 +36,9 @@ test("Should change the path and root to new path and root and update modified s
     modified: true,
   };
   const action = actions.saveProject.fulfilled(
-    undefined,
+    "new_test_root/project_copy.gbsproj",
     "randomid",
-    "new_test_root/project_copy.gbsproj"
+    undefined
   );
   const newState = reducer(state, action);
   expect(newState.saving).toBe(false);
@@ -56,9 +56,9 @@ test("Should change the path and root to new path and root and keep modified sta
     modified: false,
   };
   const action = actions.saveProject.fulfilled(
-    undefined,
     "randomid",
-    "new_test_root/project_copy.gbsproj"
+    "new_test_root/project_copy.gbsproj",
+    undefined
   );
   const newState = reducer(state, action);
   expect(newState.saving).toBe(false);
