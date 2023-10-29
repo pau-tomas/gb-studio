@@ -5,11 +5,13 @@ import { createReadStream } from "fs-extra";
 import { stat } from "fs";
 import { PNG } from "pngjs";
 import { parseAssetPath } from "shared/lib/assets/helpers";
+import { toValidSymbol } from "shared/lib/compiler/symbols";
 
 export interface AvatarAssetData {
   id: string;
   plugin: string | undefined;
   name: string;
+  symbol: string;
   width: number;
   height: number;
   filename: string;
@@ -39,10 +41,12 @@ const loadAvatarData =
       const size = await sizeOfAsync(filename);
       const fileStat = await statAsync(filename, { bigint: true });
       const inode = fileStat.ino.toString();
+      const name = file.replace(/.png/i, "");
       return {
         id: uuid(),
         plugin,
-        name: file.replace(/.png/i, ""),
+        name: name,
+        symbol: toValidSymbol(`avatar_${name}`),
         width: size.width,
         height: size.height,
         filename: file,

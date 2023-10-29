@@ -1,4 +1,4 @@
-import { dialog } from "electron";
+import { MessageBoxSyncOptions, dialog } from "electron";
 import { AssetFolder } from "lib/project/assets";
 import l10n from "shared/lib/l10n";
 import assertIsMainProcess from "lib/electron/assertIsMainProcess";
@@ -17,7 +17,7 @@ const confirmAssetFolder = (
     title: l10n("DIALOG_IMPORT_ASSET"),
     message: l10n("DIALOG_IMPORT_ASSET"),
     detail: l10n("DIALOG_IMPORT_ASSET_DESCRIPTION"),
-  };
+  } as MessageBoxSyncOptions;
 
   const res = dialog.showMessageBoxSync(dialogOptions);
 

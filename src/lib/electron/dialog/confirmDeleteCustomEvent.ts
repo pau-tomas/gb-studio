@@ -1,4 +1,4 @@
-import { dialog } from "electron";
+import { MessageBoxSyncOptions, dialog } from "electron";
 import l10n from "shared/lib/l10n";
 import assertIsMainProcess from "lib/electron/assertIsMainProcess";
 
@@ -22,7 +22,7 @@ const confirmDeleteCustomEvent = (
         : "DIALOG_DELETE_CUSTOM_EVENT_USED",
       { count, sceneNames: sceneNames.join(", ") }
     ),
-  };
+  } as MessageBoxSyncOptions;
 
   return dialog.showMessageBoxSync(dialogOptions);
 };

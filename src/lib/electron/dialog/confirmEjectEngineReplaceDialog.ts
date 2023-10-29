@@ -1,4 +1,4 @@
-import { dialog } from "electron";
+import { MessageBoxSyncOptions, dialog } from "electron";
 import l10n from "shared/lib/l10n";
 import assertIsMainProcess from "lib/electron/assertIsMainProcess";
 
@@ -13,7 +13,7 @@ const confirmEjectEngineReplaceDialog = () => {
     title: l10n("DIALOG_EJECT_ENGINE_REPLACE"),
     message: l10n("DIALOG_EJECT_ENGINE_REPLACE"),
     detail: l10n("DIALOG_EJECT_ENGINE_REPLACE_DESCRIPTION"),
-  };
+  } as MessageBoxSyncOptions;
 
   return dialog.showMessageBoxSync(dialogOptions);
 };
