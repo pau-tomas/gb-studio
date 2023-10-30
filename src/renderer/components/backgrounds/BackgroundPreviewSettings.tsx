@@ -137,7 +137,7 @@ const BackgroundPreviewSettings = ({
   };
 
   const delayedButtonFocus = () => {
-    timerRef.current = setTimeout(() => {
+    timerRef.current = window.setTimeout(() => {
       buttonRef.current?.focus();
     }, 100);
   };

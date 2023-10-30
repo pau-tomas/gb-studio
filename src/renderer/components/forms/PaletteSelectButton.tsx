@@ -144,7 +144,7 @@ export const PaletteSelectButton: FC<PaletteSelectProps> = ({
   };
 
   const delayedButtonFocus = () => {
-    timerRef.current = setTimeout(() => {
+    timerRef.current = window.setTimeout(() => {
       buttonRef.current?.focus();
     }, 100);
   };

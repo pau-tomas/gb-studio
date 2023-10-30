@@ -69,7 +69,7 @@ const ScriptEditor = React.memo(
     // Load long scripts asynchronously
     useEffect(() => {
       if (value.length >= renderTo) {
-        timerRef.current = setTimeout(() => {
+        timerRef.current = window.setTimeout(() => {
           setRenderTo(renderTo + 1);
         }, 1);
         return () => {

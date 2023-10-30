@@ -415,7 +415,7 @@ const ReferenceGroup = ({ header, extraReferences }: ReferenceGroupProps) => {
   const timerRef = useRef<number>();
 
   const onMouseEnter = useCallback(() => {
-    timerRef.current = setTimeout(() => {
+    timerRef.current = window.setTimeout(() => {
       setExpanded(true);
     }, 300);
   }, []);
