@@ -126,10 +126,10 @@ const onSelectProjectToOpen = async () => {
 
 const onOpenAsset = async (filePath: string, type: string) => {
   if (type === "image") {
-    const app = String(settings.get("imageEditorPath") || "") || undefined;
+    const app = String(settings.getSync("imageEditorPath") || "") || undefined;
     open(filePath, { app });
   } else if (type === "music") {
-    const app = String(settings.get("musicEditorPath") || "") || undefined;
+    const app = String(settings.getSync("musicEditorPath") || "") || undefined;
     open(filePath, { app });
   } else {
     shell.openPath(filePath);
@@ -143,7 +143,7 @@ const onSetTheme = async (theme: string) => {
 };
 
 const onResetTheme = async () => {
-  await settings.delete("theme");
+  await settings.unset("theme");
   windowManager.notifyThemeUpdate();
   setApplicationMenu();
 };
@@ -156,7 +156,7 @@ const onSetLocale = async (locale: string) => {
 };
 
 const onResetLocale = async () => {
-  await settings.delete("locale");
+  await settings.unset("locale");
   initElectronL10n();
   setApplicationMenu();
   switchLanguageDialog();
@@ -182,7 +182,10 @@ const addRecentProject = async (projectPath: string) => {
   await settings.set(
     "recentProjects",
     ([] as string[])
-      .concat((settings.get("recentProjects") || []) as string[], projectPath)
+      .concat(
+        (settings.getSync("recentProjects") || []) as string[],
+        projectPath
+      )
       .reverse()
       .filter(
         (filename: string, index: number, arr: string[]) =>
@@ -204,17 +207,17 @@ const toShowConnectionsSetting = (value: unknown): ShowConnectionsSetting => {
 const setApplicationMenu = async () => {
   const isProjectOpen = () => windowManager.isProjectWindowOpen();
   const platform = process.platform;
-  const themeSetting = await settings.get("theme");
+  const themeSetting = await settings.getSync("theme");
   const theme = isString(themeSetting) ? themeSetting : undefined;
-  const localeSetting = await settings.get("locale");
+  const localeSetting = await settings.getSync("locale");
   const locale = isString(localeSetting) ? localeSetting : undefined;
-  const showCollisionsSetting = await settings.get("showCollisions");
+  const showCollisionsSetting = await settings.getSync("showCollisions");
   const showCollisions = isBoolean(showCollisionsSetting)
     ? showCollisionsSetting
     : undefined;
-  const showConnectionsSetting = await settings.get("showConnections");
+  const showConnectionsSetting = await settings.getSync("showConnections");
   const showConnections = toShowConnectionsSetting(showConnectionsSetting);
-  const showNavigatorSetting = await settings.get("showNavigator");
+  const showNavigatorSetting = await settings.getSync("showNavigator");
   const showNavigator = isBoolean(showNavigatorSetting)
     ? showNavigatorSetting
     : undefined;
@@ -310,7 +313,7 @@ protocol.registerSchemesAsPrivileged([
 ]);
 
 app.on("ready", async () => {
-  const uiScaleSetting = await settings.get("zoomLevel");
+  const uiScaleSetting = await settings.getSync("zoomLevel");
   const uiScale = isNumber(uiScaleSetting) ? uiScaleSetting : 0;
 
   initElectronL10n();

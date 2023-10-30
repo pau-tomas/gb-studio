@@ -55,7 +55,7 @@ export const checkForUpdate = async (force) => {
     settings.set("dontCheckForUpdates", false);
     settings.set("dontNotifyUpdatesForVersion", false);
   }
-  if (!settings.get("dontCheckForUpdates")) {
+  if (!settings.getSync("dontCheckForUpdates")) {
     let latestVersion;
 
     try {
@@ -81,7 +81,7 @@ export const checkForUpdate = async (force) => {
     }
 
     if (await needsUpdate()) {
-      if (settings.get("dontNotifyUpdatesForVersion") === latestVersion) {
+      if (settings.getSync("dontNotifyUpdatesForVersion") === latestVersion) {
         // User has chosen to ignore this version so don't show any details
         return;
       }

@@ -1,6 +1,5 @@
 import fs from "fs-extra";
-import rimraf from "rimraf";
-import { promisify } from "util";
+import { rimrafSync as rmdir } from "rimraf";
 import Path from "path";
 import { engineRoot } from "shared/consts";
 import copy from "lib/helpers/fsCopy";
@@ -12,8 +11,6 @@ import {
 import ensureBuildTools from "./ensureBuildTools";
 import { globSync } from "glob";
 import l10n from "shared/lib/l10n";
-
-const rmdir = promisify(rimraf);
 
 const readEngineVersion = async (path) => {
   return (await fs.readJSON(path, "utf8")).version;
@@ -42,7 +39,7 @@ const ejectBuild = async ({
   const { settings } = projectData;
 
   progress(`Unlink ${Path.basename(outputRoot)}`);
-  await rmdir(outputRoot);
+  rmdir(outputRoot);
   await fs.ensureDir(outputRoot);
   progress("Copy default engine");
 

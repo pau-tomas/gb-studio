@@ -1,10 +1,7 @@
 import fs from "fs-extra";
-import rimraf from "rimraf";
-import { promisify } from "util";
+import { rimrafSync as rmdir } from "rimraf";
 import { engineRoot } from "shared/consts";
 import copy from "lib/helpers/fsCopy";
-
-const rmdir = promisify(rimraf);
 
 const ejectEngineToDir = async (ejectPath, { projectType = "gb" } = {}) => {
   const enginePath = `${engineRoot}/${projectType}`;
@@ -15,7 +12,7 @@ const ejectEngineToDir = async (ejectPath, { projectType = "gb" } = {}) => {
   const ejectIncludePath = `${ejectPath}/include`;
   const ejectMetaPath = `${ejectPath}/engine.json`;
 
-  await rmdir(ejectPath);
+  rmdir(ejectPath);
 
   await fs.ensureDir(ejectPath);
   await fs.ensureDir(ejectSrcPath);

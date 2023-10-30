@@ -40,7 +40,7 @@ const initElectronL10n = () => {
   if (process.env.DEBUG_L10N) {
     setDebug(true);
   }
-  const settingsLocale = settings.get("locale");
+  const settingsLocale = settings.getSync("locale");
   const systemLocale = app.getLocale();
   const appLocale = String(settingsLocale || systemLocale);
   loadLanguage(appLocale);

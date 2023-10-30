@@ -131,7 +131,7 @@ const initIPC = ({
 
   ipcMain.handle("settings-get", async (_event, key) => {
     if (!isString(key)) throw new Error("Invalid setting key");
-    return settings.get(key);
+    return settings.getSync(key);
   });
 
   ipcMain.handle("settings-set", async (_event, key, value) => {
@@ -141,7 +141,7 @@ const initIPC = ({
 
   ipcMain.handle("settings-delete", async (_event, key) => {
     if (!isString(key)) throw new Error("Invalid setting key");
-    settings.delete(key);
+    settings.unset(key);
   });
 
   ipcMain.handle(
@@ -154,7 +154,7 @@ const initIPC = ({
   );
 
   ipcMain.handle("get-recent-projects", async () => {
-    const recentProjects = settings.get("recentProjects");
+    const recentProjects = settings.getSync("recentProjects");
     if (!isStringArray(recentProjects)) return [];
     return recentProjects;
   });

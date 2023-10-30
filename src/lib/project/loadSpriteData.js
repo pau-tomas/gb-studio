@@ -1,6 +1,6 @@
 import { globSync } from "glob";
 import { promisify } from "util";
-import uuidv4 from "uuid/v4";
+import { v4 as uuidv4 } from "uuid";
 import sizeOf from "image-size";
 import { stat } from "fs-extra";
 import { parseAssetPath } from "shared/lib/assets/helpers";

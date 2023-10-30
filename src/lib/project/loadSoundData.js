@@ -1,5 +1,5 @@
 import { globSync } from "glob";
-import uuidv4 from "uuid/v4";
+import { v4 as uuidv4 } from "uuid";
 import { stat } from "fs-extra";
 import { parseAssetPath } from "shared/lib/assets/helpers";
 import { toValidSymbol } from "shared/lib/compiler/symbols";

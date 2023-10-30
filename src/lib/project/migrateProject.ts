@@ -11,7 +11,7 @@ import generateRandomWalkScript from "lib/movement/generateRandomWalkScript";
 import generateRandomLookScript from "lib/movement/generateRandomLookScript";
 import { COLLISION_ALL, DMG_PALETTE } from "shared/consts";
 import { EVENT_END } from "shared/lib/scripting/eventTypes";
-import uuid from "uuid";
+import { v4 as uuid } from "uuid";
 import { copySync, chmodSync } from "fs-extra";
 import { projectTemplatesRoot } from "lib/pathConsts";
 import uniq from "lodash/uniq";

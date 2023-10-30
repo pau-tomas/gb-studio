@@ -1,10 +1,7 @@
 import fs from "fs-extra";
-import rimraf from "rimraf";
-import { promisify } from "util";
+import { rimrafSync as rmdir } from "rimraf";
 import { buildToolsRoot } from "shared/consts";
 import copy from "lib/helpers/fsCopy";
-
-const rmdir = promisify(rimraf);
 
 let firstBuild = true;
 
@@ -20,7 +17,7 @@ const ensureBuildTools = async (tmpPath) => {
   const tmpBuildToolsVersionPath = `${tmpPath}/_gbstools/tools_version`;
 
   if (firstBuild) {
-    await rmdir(tmpBuildToolsPath);
+    rmdir(tmpBuildToolsPath);
     await copy(buildToolsPath, tmpBuildToolsPath, {
       overwrite: true,
       mode: 0o755,
@@ -33,7 +30,7 @@ const ensureBuildTools = async (tmpPath) => {
         throw new Error("Incorrect tools version found");
       }
     } catch (e) {
-      await rmdir(tmpBuildToolsPath);
+      rmdir(tmpBuildToolsPath);
       await copy(buildToolsPath, tmpBuildToolsPath, {
         overwrite: false,
         mode: 0o755,
