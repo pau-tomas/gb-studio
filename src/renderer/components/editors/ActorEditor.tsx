@@ -375,7 +375,7 @@ export const ActorEditor: FC<ActorEditorProps> = ({
             {showNotes && (
               <FormRow>
                 <NoteField
-                  autofocus
+                  autoFocus
                   value={actor.notes || ""}
                   onChange={onChangeFieldInput("notes")}
                 />

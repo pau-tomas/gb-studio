@@ -261,7 +261,7 @@ export const TriggerEditor = ({
           {showNotes && (
             <FormRow>
               <NoteField
-                autofocus
+                autoFocus
                 value={trigger.notes || ""}
                 onChange={onChangeFieldInput("notes")}
               />

@@ -244,7 +244,7 @@ const CustomEventEditor = ({ id, multiColumn }: CustomEventEditorProps) => {
 
             <FormRow>
               <NoteField
-                autofocus
+                autoFocus
                 value={customEvent.description || ""}
                 onChange={onEdit("description")}
               />

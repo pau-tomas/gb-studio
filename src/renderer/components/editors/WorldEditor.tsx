@@ -130,7 +130,7 @@ export const WorldEditor: FC = () => {
           {showNotes && (
             <FormRow>
               <NoteField
-                autofocus
+                autoFocus
                 value={metadata.notes || ""}
                 onChange={onChangeMetadataInput("notes")}
               />
