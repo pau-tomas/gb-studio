@@ -1,5 +1,5 @@
 import fs from "fs";
-import glob from "glob";
+import { glob } from "glob";
 import Path from "path";
 import chokidar from "chokidar";
 import EventEmitter from "events";

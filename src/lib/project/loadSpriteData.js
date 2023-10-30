@@ -1,4 +1,4 @@
-import glob from "glob";
+import { globSync } from "glob";
 import { promisify } from "util";
 import uuidv4 from "uuid/v4";
 import sizeOf from "image-size";
@@ -10,7 +10,6 @@ import { toValidSymbol } from "shared/lib/compiler/symbols";
 
 const FRAME_SIZE = 16;
 
-const globAsync = promisify(glob);
 const sizeOfAsync = promisify(sizeOf);
 
 const loadSpriteData = (projectRoot) => async (filename) => {
@@ -52,10 +51,10 @@ const loadSpriteData = (projectRoot) => async (filename) => {
 };
 
 const loadAllSpriteData = async (projectRoot) => {
-  const spritePaths = await globAsync(
+  const spritePaths = globSync(
     `${projectRoot}/assets/sprites/**/@(*.png|*.PNG)`
   );
-  const pluginPaths = await globAsync(
+  const pluginPaths = globSync(
     `${projectRoot}/plugins/*/sprites/**/@(*.png|*.PNG)`
   );
   const spriteData = (

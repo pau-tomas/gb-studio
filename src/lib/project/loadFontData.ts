@@ -1,4 +1,4 @@
-import glob from "glob";
+import { globSync } from "glob";
 import { promisify } from "util";
 import uuid from "uuid/v4";
 import { createReadStream, readJson } from "fs-extra";
@@ -21,7 +21,6 @@ export interface FontAssetData {
   _v: number;
 }
 
-const globAsync = promisify(glob);
 const statAsync = promisify(stat);
 
 const sizeOfAsync = (
@@ -82,10 +81,8 @@ const loadFontData =
 const loadAllFontData = async (
   projectRoot: string
 ): Promise<FontAssetData[]> => {
-  const imagePaths = await globAsync(
-    `${projectRoot}/assets/fonts/**/@(*.png|*.PNG)`
-  );
-  const pluginPaths = await globAsync(
+  const imagePaths = globSync(`${projectRoot}/assets/fonts/**/@(*.png|*.PNG)`);
+  const pluginPaths = globSync(
     `${projectRoot}/plugins/*/fonts/**/@(*.png|*.PNG)`
   );
   const imageData = (

@@ -1,10 +1,7 @@
-import glob from "glob";
-import { promisify } from "util";
+import { globSync } from "glob";
 import { pathExists, readFile, writeFile } from "fs-extra";
 import Path from "path";
 import l10n from "shared/lib/l10n";
-
-const globAsync = promisify(glob);
 
 const buildMakeScript = async (
   buildRoot,
@@ -54,7 +51,7 @@ const buildMakeScript = async (
   }
 
   const srcRoot = `${buildRoot}/src/**/*.@(c|s)`;
-  const buildFiles = await globAsync(srcRoot);
+  const buildFiles = globSync(srcRoot);
 
   const addCommand = (label, cmd) => {
     if (platform === "win32") {
@@ -106,7 +103,7 @@ export const getBuildCommands = async (
   }
 ) => {
   const srcRoot = `${buildRoot}/src/**/*.@(c|s)`;
-  const buildFiles = await globAsync(srcRoot);
+  const buildFiles = globSync(srcRoot);
   const output = [];
 
   const CC =
@@ -192,7 +189,7 @@ export const getBuildCommands = async (
 export const buildPackFile = async (buildRoot) => {
   const output = [];
   const srcRoot = `${buildRoot}/src/**/*.@(c|s)`;
-  const buildFiles = await globAsync(srcRoot);
+  const buildFiles = globSync(srcRoot);
   for (const file of buildFiles) {
     const objFile = `${file
       .replace(/src.*\//, "obj/")
@@ -206,7 +203,7 @@ export const buildPackFile = async (buildRoot) => {
 export const getPackFiles = async (buildRoot) => {
   const output = [];
   const srcRoot = `${buildRoot}/src/**/*.@(c|s)`;
-  const buildFiles = await globAsync(srcRoot);
+  const buildFiles = globSync(srcRoot);
   for (const file of buildFiles) {
     const objFile = `${file
       .replace(/src.*\//, "obj/")
@@ -220,7 +217,7 @@ export const getPackFiles = async (buildRoot) => {
 export const buildLinkFile = async (buildRoot, cartSize) => {
   const output = [`-g __start_save=${cartSize - 4}`];
   const srcRoot = `${buildRoot}/src/**/*.@(c|s)`;
-  const buildFiles = await globAsync(srcRoot);
+  const buildFiles = globSync(srcRoot);
   for (const file of buildFiles) {
     const objFile = `${file
       .replace(/src.*\//, "obj/")

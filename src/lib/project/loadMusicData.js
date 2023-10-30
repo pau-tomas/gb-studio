@@ -1,11 +1,8 @@
-import glob from "glob";
-import { promisify } from "util";
+import { globSync } from "glob";
 import uuidv4 from "uuid/v4";
 import { stat } from "fs-extra";
 import { parseAssetPath } from "shared/lib/assets/helpers";
 import { toValidSymbol } from "shared/lib/compiler/symbols";
-
-const globAsync = promisify(glob);
 
 const loadMusicData = (projectRoot) => async (filename) => {
   const { file, plugin } = parseAssetPath(filename, projectRoot, "music");
@@ -26,10 +23,10 @@ const loadMusicData = (projectRoot) => async (filename) => {
 };
 
 const loadAllMusicData = async (projectRoot) => {
-  const musicPaths = await globAsync(
+  const musicPaths = globSync(
     `${projectRoot}/assets/music/**/@(*.mod|*.MOD|*.uge|*.UGE)`
   );
-  const pluginPaths = await globAsync(
+  const pluginPaths = globSync(
     `${projectRoot}/plugins/*/music/**/@(*.mod|*.MOD|*.uge|*.UGE)`
   );
   const musicData = await Promise.all(

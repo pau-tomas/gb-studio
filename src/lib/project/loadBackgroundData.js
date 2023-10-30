@@ -1,4 +1,4 @@
-import glob from "glob";
+import { globSync } from "glob";
 import { promisify } from "util";
 import uuid from "uuid/v4";
 import sizeOf from "image-size";
@@ -8,7 +8,6 @@ import { toValidSymbol } from "shared/lib/compiler/symbols";
 
 const TILE_SIZE = 8;
 
-const globAsync = promisify(glob);
 const sizeOfAsync = promisify(sizeOf);
 
 const loadBackgroundData = (projectRoot) => async (filename) => {
@@ -38,10 +37,10 @@ const loadBackgroundData = (projectRoot) => async (filename) => {
 };
 
 const loadAllBackgroundData = async (projectRoot) => {
-  const imagePaths = await globAsync(
+  const imagePaths = globSync(
     `${projectRoot}/assets/backgrounds/**/@(*.png|*.PNG)`
   );
-  const pluginPaths = await globAsync(
+  const pluginPaths = globSync(
     `${projectRoot}/plugins/*/backgrounds/**/@(*.png|*.PNG)`
   );
   const imageData = (

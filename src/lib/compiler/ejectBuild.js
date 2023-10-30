@@ -10,7 +10,7 @@ import {
   makefileInjectToolsPath,
 } from "./buildMakeScript";
 import ensureBuildTools from "./ensureBuildTools";
-import glob from "glob";
+import { globSync } from "glob";
 import l10n from "shared/lib/l10n";
 
 const rmdir = promisify(rimraf);
@@ -85,7 +85,7 @@ const ejectBuild = async ({
   }
 
   progress("Looking for engine plugins in plugins/*/engine");
-  const enginePlugins = glob.sync(`${pluginsPath}/*/engine`);
+  const enginePlugins = globSync(`${pluginsPath}/*/engine`);
   for (const enginePluginPath of enginePlugins) {
     progress(
       `Using engine plugin: ${Path.relative(pluginsPath, enginePluginPath)}`

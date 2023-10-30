@@ -1,11 +1,8 @@
-import glob from "glob";
-import { promisify } from "util";
+import { globSync } from "glob";
 import uuidv4 from "uuid/v4";
 import { stat } from "fs-extra";
 import { parseAssetPath } from "shared/lib/assets/helpers";
 import { toValidSymbol } from "shared/lib/compiler/symbols";
-
-const globAsync = promisify(glob);
 
 export const toVGMType = (filename) => {
   const lowerFilename = filename.toLowerCase();
@@ -40,10 +37,10 @@ const loadSoundData = (projectRoot) => async (filename) => {
 };
 
 const loadAllSoundData = async (projectRoot) => {
-  const soundPaths = await globAsync(
+  const soundPaths = globSync(
     `${projectRoot}/assets/sounds/**/@(*.vgm|*.VGM|*.vgz|*.VGZ|*.wav|*.WAV|*.sav|*.SAV)`
   );
-  const pluginPaths = await globAsync(
+  const pluginPaths = globSync(
     `${projectRoot}/plugins/*/sounds/**/@(*.vgm|*.VGM|*.vgz|*.VGZ|*.wav|*.WAV|*.sav|*.SAV)`
   );
   const soundsData = await Promise.all(

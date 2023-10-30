@@ -6,7 +6,7 @@ import { engineRoot } from "lib/pathConsts";
 import l10n from "shared/lib/l10n";
 import { clampToCType } from "lib/helpers/engineFields";
 import type { ScriptEventFieldSchema } from "renderer/project/store/features/entities/entitiesTypes";
-import glob from "glob";
+import { glob } from "glob";
 
 interface EngineData {
   fields?: EngineFieldSchema[];

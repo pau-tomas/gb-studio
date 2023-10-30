@@ -1,4 +1,3 @@
-import globAsync from "lib/helpers/fs/globAsync";
 import { eventsRoot } from "lib/pathConsts";
 import * as l10n from "shared/lib/l10n";
 import * as eventHelpers from "lib/events/helpers";
@@ -9,6 +8,7 @@ import trimLines from "shared/lib/text/trimlines";
 import type { ScriptEventFieldSchema } from "renderer/project/store/features/entities/entitiesTypes";
 import { Dictionary } from "@reduxjs/toolkit";
 import { readFile } from "fs-extra";
+import { globSync } from "glob";
 
 const VM2 = __non_webpack_require__("vm2");
 const NodeVM = VM2.NodeVM;
@@ -56,11 +56,9 @@ const vm = new NodeVM({
 });
 
 const loadAllScriptEvents = async (projectRoot: string) => {
-  const corePaths = await globAsync(`${eventsRoot}/event*.js`);
+  const corePaths = globSync(`${eventsRoot}/event*.js`);
 
-  const pluginPaths = await globAsync(
-    `${projectRoot}/plugins/**/events/event*.js`
-  );
+  const pluginPaths = globSync(`${projectRoot}/plugins/**/events/event*.js`);
 
   // console.log({ corePaths, pluginPaths });
 

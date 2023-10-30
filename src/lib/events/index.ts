@@ -1,4 +1,4 @@
-// import glob from "glob";
+// import { glob } from "glob";
 // import fs from "fs";
 // import plugins, { pluginEmitter } from "../plugins/plugins";
 // import {

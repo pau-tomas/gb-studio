@@ -1,10 +1,7 @@
-import glob from "glob";
+import { globSync } from "glob";
 import Path from "path";
-import { promisify } from "util";
 import { ensureDir, copyFile, readFile, pathExists } from "fs-extra";
 import { checksumString } from "lib/helpers/checksum";
-
-const globAsync = promisify(glob);
 
 export const objCache = {};
 
@@ -55,7 +52,7 @@ const fileChecksum = async (
 };
 
 const generateIncludesLookup = async (buildIncludeRoot) => {
-  const allIncludeFiles = await globAsync(`${buildIncludeRoot}/**/*.{h,i}`);
+  const allIncludeFiles = globSync(`${buildIncludeRoot}/**/*.{h,i}`);
   const includesLookup = {};
   for (const filePath of allIncludeFiles) {
     const fileContents = await readFile(filePath, "utf8");
@@ -95,8 +92,8 @@ export const cacheObjData = async (buildRoot, tmpPath, env) => {
     includesLookup[GAME_GLOBALS_FILE]?.contents
   );
 
-  const objFiles = await globAsync(`${buildObjRoot}/*.o`);
-  const srcFiles = await globAsync(`${buildSrcRoot}/**/*.{c,s}`);
+  const objFiles = globSync(`${buildObjRoot}/*.o`);
+  const srcFiles = globSync(`${buildSrcRoot}/**/*.{c,s}`);
 
   const envChecksum = checksumString(JSON.stringify(env));
 
@@ -139,7 +136,7 @@ export const fetchCachedObjData = async (buildRoot, tmpPath, env) => {
     includesLookup[GAME_GLOBALS_FILE]?.contents
   );
 
-  const srcFiles = await globAsync(`${buildSrcRoot}/**/*.{c,s}`);
+  const srcFiles = globSync(`${buildSrcRoot}/**/*.{c,s}`);
 
   for (let i = 0; i < srcFiles.length; i++) {
     const srcFilePath = srcFiles[i];

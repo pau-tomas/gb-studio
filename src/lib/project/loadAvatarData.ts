@@ -1,4 +1,4 @@
-import glob from "glob";
+import { globSync } from "glob";
 import { promisify } from "util";
 import uuid from "uuid/v4";
 import { createReadStream } from "fs-extra";
@@ -19,7 +19,6 @@ export interface AvatarAssetData {
   _v: number;
 }
 
-const globAsync = promisify(glob);
 const statAsync = promisify(stat);
 
 const sizeOfAsync = (
@@ -62,11 +61,13 @@ const loadAvatarData =
 const loadAllAvatarData = async (
   projectRoot: string
 ): Promise<AvatarAssetData[]> => {
-  const imagePaths = await globAsync(
-    `${projectRoot}/assets/avatars/**/@(*.png|*.PNG)`
+  const imagePaths = globSync(
+    `${projectRoot}/assets/avatars/**/@(*.png|*.PNG)`,
+    {}
   );
-  const pluginPaths = await globAsync(
-    `${projectRoot}/plugins/*/avatars/**/@(*.png|*.PNG)`
+  const pluginPaths = globSync(
+    `${projectRoot}/plugins/*/avatars/**/@(*.png|*.PNG)`,
+    {}
   );
   const imageData = (
     await Promise.all(

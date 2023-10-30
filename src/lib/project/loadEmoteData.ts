@@ -1,4 +1,4 @@
-import glob from "glob";
+import { globSync } from "glob";
 import { promisify } from "util";
 import uuid from "uuid/v4";
 import { createReadStream } from "fs-extra";
@@ -19,7 +19,6 @@ export interface EmoteAssetData {
   _v: number;
 }
 
-const globAsync = promisify(glob);
 const statAsync = promisify(stat);
 
 const sizeOfAsync = (
@@ -62,10 +61,8 @@ const loadEmoteData =
 const loadAllEmoteData = async (
   projectRoot: string
 ): Promise<EmoteAssetData[]> => {
-  const imagePaths = await globAsync(
-    `${projectRoot}/assets/emotes/**/@(*.png|*.PNG)`
-  );
-  const pluginPaths = await globAsync(
+  const imagePaths = globSync(`${projectRoot}/assets/emotes/**/@(*.png|*.PNG)`);
+  const pluginPaths = globSync(
     `${projectRoot}/plugins/*/emotes/**/@(*.png|*.PNG)`
   );
   const imageData = (

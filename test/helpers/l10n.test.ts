@@ -1,4 +1,4 @@
-import glob from "glob";
+import { glob } from "glob";
 import { readFile } from "fs-extra";
 import l10n, { replaceParams } from "shared/lib/l10n";
 import { loadLanguage } from "lib/helpers/initElectronL10n";
