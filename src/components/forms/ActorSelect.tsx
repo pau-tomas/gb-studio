@@ -20,6 +20,10 @@ import { actorName } from "shared/lib/entities/entitiesHelpers";
 import SpriteSheetCanvas from "components/world/SpriteSheetCanvas";
 import { ScriptEditorContext } from "components/script/ScriptEditorContext";
 import l10n from "shared/lib/lang/l10n";
+import { InfoIcon } from "ui/icons/Icons";
+import { TooltipWrapper } from "ui/tooltips/Tooltip";
+import styled from "styled-components";
+import { Button } from "ui/buttons/Button";
 
 interface ActorSelectProps {
   name: string;
@@ -38,6 +42,18 @@ const allCustomEventActors = Array.from(Array(10).keys()).map((i) => ({
   id: String(i),
   name: `Actor ${String.fromCharCode("A".charCodeAt(0) + i)}`,
 }));
+
+const SelectWrapper = styled.div`
+  display: flex;
+`;
+
+const WarningButton = styled.div`
+  ${Button} {
+    min-width: 15px;
+    padding: 0;
+    height: 28px;
+  }
+`;
 
 export const ActorSelect = ({
   name,
@@ -74,6 +90,8 @@ export const ActorSelect = ({
   const selfActor = actorsLookup[contextEntityId];
   const playerSpriteSheetId =
     scenePlayerSpriteSheetId || (sceneType && defaultPlayerSprites[sceneType]);
+
+  const [warning, setWarning] = useState<string>();
 
   useEffect(() => {
     if (context === "script" && customEvent) {
@@ -128,6 +146,9 @@ export const ActorSelect = ({
           spriteSheetId: playerSpriteSheetId,
         },
       ]);
+      setWarning(
+        "Parameter actors aren’t supported in nested scripts inside custom scripts"
+      );
     }
   }, [
     actorsLookup,
@@ -150,48 +171,63 @@ export const ActorSelect = ({
   }, [options, value]);
 
   return (
-    <Select
-      name={name}
-      value={currentValue}
-      options={options}
-      onChange={(newValue: ActorOption) => {
-        onChange?.(newValue.value);
-      }}
-      formatOptionLabel={(option: ActorOption) => {
-        return option.spriteSheetId ? (
-          <OptionLabelWithPreview
-            preview={
-              <SpriteSheetCanvas
-                spriteSheetId={option.spriteSheetId}
-                direction={direction || option.direction}
-                frame={frame}
-              />
-            }
-          >
-            {option.label}
-          </OptionLabelWithPreview>
-        ) : (
-          option.label
-        );
-      }}
-      components={{
-        SingleValue: () =>
-          currentValue?.spriteSheetId ? (
-            <SingleValueWithPreview
-              preview={
-                <SpriteSheetCanvas
-                  spriteSheetId={currentValue.spriteSheetId}
-                  direction={direction || currentValue.direction}
-                  frame={frame}
-                />
-              }
-            >
-              {currentValue?.label}
-            </SingleValueWithPreview>
-          ) : (
-            currentValue?.label
-          ),
-      }}
-    />
+    <SelectWrapper>
+      <div style={{ flexGrow: 1, marginRight: "2px" }}>
+        <Select
+          name={name}
+          value={currentValue}
+          options={options}
+          onChange={(newValue: ActorOption) => {
+            onChange?.(newValue.value);
+          }}
+          formatOptionLabel={(option: ActorOption) => {
+            return option.spriteSheetId ? (
+              <OptionLabelWithPreview
+                preview={
+                  <SpriteSheetCanvas
+                    spriteSheetId={option.spriteSheetId}
+                    direction={direction || option.direction}
+                    frame={frame}
+                  />
+                }
+              >
+                {option.label}
+              </OptionLabelWithPreview>
+            ) : (
+              option.label
+            );
+          }}
+          components={{
+            SingleValue: () =>
+              currentValue?.spriteSheetId ? (
+                <SingleValueWithPreview
+                  preview={
+                    <SpriteSheetCanvas
+                      spriteSheetId={currentValue.spriteSheetId}
+                      direction={direction || currentValue.direction}
+                      frame={frame}
+                    />
+                  }
+                >
+                  {currentValue?.label}
+                </SingleValueWithPreview>
+              ) : (
+                currentValue?.label
+              ),
+          }}
+        />
+      </div>
+      {warning ? (
+        <TooltipWrapper tooltip={warning}>
+          <WarningButton>
+            <Button variant="transparent" size="small">
+              <InfoIcon />
+            </Button>
+          </WarningButton>
+        </TooltipWrapper>
+      ) : (
+        ""
+      )}
+    </SelectWrapper>
   );
 };
