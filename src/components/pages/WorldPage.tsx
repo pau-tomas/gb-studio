@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useRef } from "react";
+import React, { useCallback, useContext, useEffect, useRef } from "react";
 import styled, { ThemeContext } from "styled-components";
 import World from "../world/World";
 import ToolPicker from "../world/ToolPicker";
@@ -7,7 +7,10 @@ import EditorSidebar from "../editors/EditorSidebar";
 import StatusBar from "../world/StatusBar";
 import useResizable from "ui/hooks/use-resizable";
 import useWindowSize from "ui/hooks/use-window-size";
-import { SplitPaneHorizontalDivider } from "ui/splitpane/SplitPaneDivider";
+import {
+  SplitPaneHorizontalDivider,
+  SplitPaneVerticalDivider,
+} from "ui/splitpane/SplitPaneDivider";
 import { Navigator } from "../world/Navigator";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "store/configureStore";
@@ -15,6 +18,9 @@ import editorActions from "store/features/editor/editorActions";
 import settingsActions from "store/features/settings/settingsActions";
 
 import debounce from "lodash/debounce";
+import { SplitPaneHeader } from "ui/splitpane/SplitPaneHeader";
+import l10n from "lib/helpers/l10n";
+import BuildPane from "components/world/BuildPane";
 
 const Wrapper = styled.div`
   display: flex;
@@ -134,6 +140,40 @@ const WorldPage = () => {
     dispatch(settingsActions.setShowNavigator(false));
   };
 
+  const minCenterPaneHeight = 30;
+  const recalculateCenterColumn = () => {
+    const newHeight = Math.min(
+      centerPaneHeight,
+      windowWidth - centerPaneHeight - minCenterPaneHeight
+    );
+    if (newHeight !== rightPaneWidth) {
+      setCenterPaneSize(newHeight);
+    }
+  };
+  const [centerPaneHeight, setCenterPaneSize, startCenterPaneResize] =
+    useResizable({
+      initialSize: 100,
+      direction: "top",
+      minSize: 30,
+      maxSize: Math.max(101, windowHeight - minCenterPaneHeight - 200),
+      onResize: (_v) => {
+        recalculateCenterColumn();
+      },
+      onResizeComplete: (v) => {
+        if (v < 200) {
+          setCenterPaneSize(200);
+        }
+        recalculateCenterColumn();
+      },
+    });
+  const toggleTilesPane = useCallback(() => {
+    if (centerPaneHeight === 30) {
+      setCenterPaneSize(200);
+    } else {
+      setCenterPaneSize(30);
+    }
+  }, [centerPaneHeight, setCenterPaneSize]);
+
   return (
     <Wrapper>
       <div
@@ -176,6 +216,25 @@ const WorldPage = () => {
         <BrushToolbar />
         <ToolPicker />
         <StatusBar />
+
+        <div
+          style={{
+            position: "absolute",
+            width: "100%",
+            bottom: centerPaneHeight - 30,
+            height: centerPaneHeight,
+            border: "2px solid red",
+          }}
+        >
+          <SplitPaneVerticalDivider onMouseDown={startCenterPaneResize} />
+          <SplitPaneHeader
+            onToggle={toggleTilesPane}
+            collapsed={centerPaneHeight === 30}
+          >
+            {l10n("NAV_BUILD_AND_RUN")}
+          </SplitPaneHeader>
+          {centerPaneHeight > 30 ? <BuildPane /> : ""}
+        </div>
       </div>
       <SplitPaneHorizontalDivider onMouseDown={onResizeRight} />
       <div

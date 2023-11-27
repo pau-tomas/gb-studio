@@ -42,7 +42,7 @@ const navigationSlice = createSlice({
       })
       // Switch to build screen on any errors
       .addCase(consoleActions.stdErr, (state, _action) => {
-        state.section = "build";
+        // state.section = "build";
       }),
 });
 

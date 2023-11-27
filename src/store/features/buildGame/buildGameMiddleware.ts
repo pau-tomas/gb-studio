@@ -183,7 +183,7 @@ const buildGameMiddleware: Middleware<Dispatch, RootState> =
       } catch (e) {
         console.error(e);
         if (typeof e === "string") {
-          dispatch(navigationActions.setSection("build"));
+          // dispatch(navigationActions.setSection("build"));
           dispatch(consoleActions.stdErr(e));
         } else if (
           e instanceof Error &&
@@ -191,7 +191,7 @@ const buildGameMiddleware: Middleware<Dispatch, RootState> =
         ) {
           dispatch(consoleActions.stdOut(l10n("BUILD_CANCELLED")));
         } else {
-          dispatch(navigationActions.setSection("build"));
+          // dispatch(navigationActions.setSection("build"));
           dispatch(consoleActions.stdErr(e.toString()));
         }
         dispatch(consoleActions.completeConsole());
@@ -323,10 +323,10 @@ const buildGameMiddleware: Middleware<Dispatch, RootState> =
         remote.shell.openItem(exportRoot);
       } catch (e) {
         if (typeof e === "string") {
-          dispatch(navigationActions.setSection("build"));
+          // dispatch(navigationActions.setSection("build"));
           dispatch(consoleActions.stdErr(e));
         } else {
-          dispatch(navigationActions.setSection("build"));
+          // dispatch(navigationActions.setSection("build"));
           dispatch(consoleActions.stdErr(e.toString()));
         }
         dispatch(consoleActions.completeConsole());
