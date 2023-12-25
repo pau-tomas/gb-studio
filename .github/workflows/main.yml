@@ -9,6 +9,7 @@ on:
       - v3alpha
       - v2beta
       - uge_v6
+      - github_actions
 
 jobs:
   checkout:
