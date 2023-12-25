@@ -1,0 +1,188 @@
+name: Build and Deploy
+
+on:
+  push:
+    branches:
+      - develop
+      - master
+      - main
+      - v3alpha
+      - v2beta
+      - uge_v6
+
+jobs:
+  checkout:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+
+  test:
+    runs-on: ubuntu-latest
+    needs: checkout
+    steps:
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: "14"
+      - name: Install Dependencies
+        run: yarn --ignore-engines
+      - name: Run Tests
+        run: yarn test
+
+  make-mac:
+    runs-on: ubuntu-latest
+    needs: checkout
+    strategy:
+      matrix:
+        platform: [macos-latest]
+    steps:
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: "14"
+      - name: Install Dependencies
+        run: yarn --ignore-engines
+      - name: Build for macOS
+        run: sudo yarn make:mac
+      - name: Move and Zip Build
+        run: |
+          sudo mv ${{ github.workspace }}/out/make/zip/darwin/x64/*.zip ${{ github.workspace }}/out/make/gb-studio-${{ github.event_name }}-darwin_x86_64.zip
+      - name: Upload macOS Build
+        uses: actions/upload-artifact@v2
+        with:
+          name: mac-build
+          path: ${{ github.workspace }}/out/make
+
+  make-win32:
+    runs-on: ubuntu-latest
+    needs: checkout
+    strategy:
+      matrix:
+        platform: [windows-latest]
+    steps:
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: "14"
+      - name: Install Dependencies
+        run: yarn --ignore-engines
+      - name: Install Wine and Dependencies
+        run: |
+          sudo dpkg --add-architecture i386
+          sudo apt-get -y update
+          sudo apt-get -y install wine
+          sudo apt-get -y install wine32
+          sudo apt-get -y install mono-devel
+      - name: Build for Win32
+        run: sudo yarn make:win32
+      - name: Move and Zip Build
+        run: |
+          sudo mv ${{ github.workspace }}/out/make/zip/win32/ia32/*.zip ${{ github.workspace }}/out/make/gb-studio-${{ github.event_name }}-windows_x86.zip
+          sudo mv ${{ github.workspace }}/out/make/squirrel.windows/ia32 ${{ github.workspace }}/out/make/gb-studio-${{ github.event_name }}-windows_x86-squirrel
+          sudo zip -r ${{ github.workspace }}/out/make/gb-studio-${{ github.event_name }}-windows_x86-squirrel.zip ${{ github.workspace }}/out/make/gb-studio-${{ github.event_name }}-windows_x86-squirrel/*
+      - name: Upload Win32 Build
+        uses: actions/upload-artifact@v2
+        with:
+          name: win32-build
+          path: ${{ github.workspace }}/out/make
+
+  make-win64:
+    runs-on: ubuntu-latest
+    needs: checkout
+    strategy:
+      matrix:
+        platform: [windows-latest]
+    steps:
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: "14"
+      - name: Install Dependencies
+        run: yarn --ignore-engines
+      - name: Install Wine and Dependencies
+        run: |
+          sudo dpkg --add-architecture i386
+          sudo apt-get -y update
+          sudo apt-get -y install wine
+          sudo apt-get -y install wine32
+          sudo apt-get -y install mono-devel
+      - name: Build for Win64
+        run: sudo yarn make:win64
+      - name: Move and Zip Build
+        run: |
+          sudo mv ${{ github.workspace }}/out/make/zip/win32/x64/*.zip ${{ github.workspace }}/out/make/gb-studio-${{ github.event_name }}-windows_x86_64.zip
+          sudo mv ${{ github.workspace }}/out/make/squirrel.windows/x64 ${{ github.workspace }}/out/make/gb-studio-${{ github.event_name }}-windows_x86_64-squirrel
+          sudo zip -r ${{ github.workspace }}/out/make/gb-studio-${{ github.event_name }}-windows_x86_64-squirrel.zip ${{ github.workspace }}/out/make/gb-studio-${{ github.event_name }}-windows_x86_64-squirrel/*
+      - name: Upload Win64 Build
+        uses: actions/upload-artifact@v2
+        with:
+          name: win64-build
+          path: ${{ github.workspace }}/out/make
+
+  make-linux:
+    runs-on: ubuntu-latest
+    needs: checkout
+    steps:
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: "14"
+      - name: Install Dependencies
+        run: yarn --ignore-engines
+      - name: Install Build Dependencies
+        run: |
+          sudo apt-get -y update
+          sudo apt-get -y install fakeroot
+          sudo apt-get -y install rpm
+          sudo apt-get -y install squashfs-tools
+      - name: Build for Linux
+        run: sudo yarn make:linux
+      - name: Move Builds
+        run: |
+          sudo mv ${{ github.workspace }}/out/make/deb/x64/*.deb ${{ github.workspace }}/out/make/gb-studio-${{ github.event_name }}-linux_x86_64.deb
+          sudo mv ${{ github.workspace }}/out/make/rpm/x64/*.rpm ${{ github.workspace }}/out/make/gb-studio-${{ github.event_name }}-linux_x86_64.rpm
+          sudo mv ${{ github.workspace }}/out/make/AppImage/x64/*.AppImage ${{ github.workspace }}/out/make/gb-studio-${{ github.event_name }}-linux_x86_64.AppImage
+      - name: Upload Linux Builds
+        uses: actions/upload-artifact@v2
+        with:
+          name: linux-builds
+          path: ${{ github.workspace }}/out/make
+
+  upload_artifacts:
+    runs-on: ubuntu-latest
+    needs:
+      - make-mac
+      - make-win32
+      - make-win64
+      - make-linux
+    steps:
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: "14"
+      - name: Download Artifacts
+        uses: actions/download-artifact@v2
+        with:
+          name: mac-build
+          path: ${{ github.workspace }}/mac-build
+      - name: Download Win32 Artifacts
+        uses: actions/download-artifact@v2
+        with:
+          name: win32-build
+          path: ${{ github.workspace }}/win32-build
+      - name: Download Win64 Artifacts
+        uses: actions/download-artifact@v2
+        with:
+          name: win64-build
+          path: ${{ github.workspace }}/win64-build
+      - name: Download Linux Artifacts
+        uses: actions/download-artifact@v2
+        with:
+          name: linux-builds
+          path: ${{ github.workspace }}/linux-builds
+      - name: Upload Artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: all-builds
+          path: ${{ github.workspace }}/*
