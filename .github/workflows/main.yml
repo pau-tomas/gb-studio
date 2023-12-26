@@ -46,12 +46,11 @@ jobs:
           node-version: "14"
       - name: Install Dependencies
         run: yarn --ignore-engines
-      - name: Node version
+      - name: Build for macOS
         run: |
           node -v
           npm -v
-      - name: Build for macOS
-        run: sudo yarn make:mac
+          sudo yarn make:mac
       - name: Move and Zip Build
         run: |
           sudo mv ${{ github.workspace }}/out/make/zip/darwin/x64/*.zip ${{ github.workspace }}/out/make/gb-studio-${{ github.event_name }}-darwin_x86_64.zip
