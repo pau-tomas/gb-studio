@@ -36,9 +36,10 @@ jobs:
     # runs-on: ubuntu-20.04
     # runs-on: macos-13
     strategy:
+      fail-fast: false
       matrix:
         platform: [macos-latest, ubuntu-20.04, ubuntu-latest]
-        node-version: [10, 11, 12, 13, 14, 15]
+        node-version: [10, 11, 12, 13, 14, 15, 16]
     runs-on: ${{ matrix.platform }}
     steps:
       - name: Checkout Repository
