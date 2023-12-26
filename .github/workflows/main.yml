@@ -33,30 +33,26 @@ jobs:
         run: yarn test
 
   make-mac:
-    runs-on: ubuntu-20.04
+    # runs-on: ubuntu-20.04
     # runs-on: macos-13
     strategy:
       matrix:
-        platform: [macos-latest]
+        platform: [macos-latest, ubuntu-20.04, ubuntu-latest]
+        node-version: [10, 11, 12, 13, 14, 15]
+    runs-on: ${{ matrix.platform }}
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v2
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: "16"
-      - name: Setup environment
-        run: |
-          export NODE_OPTIONS=--openssl-legacy-provider
-          echo $NODE_OPTIONS
+          node-version: ${{ matrix.node-version }}"
       - name: Install Dependencies
         run: yarn --ignore-engines
       - name: Build for macOS
         run: |
           node -v
           npm -v
-          export NODE_OPTIONS=--openssl-legacy-provider
-          echo $NODE_OPTIONS
           sudo yarn make:mac
       - name: Move and Zip Build
         run: |
