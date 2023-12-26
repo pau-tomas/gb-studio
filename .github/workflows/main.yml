@@ -27,8 +27,10 @@ jobs:
         with:
           node-version: "14"
       - name: Install Dependencies
+        working-directory: ./gb-studio
         run: yarn --ignore-engines
       - name: Run Tests
+        working-directory: ./gb-studio
         run: yarn test
 
   make-mac:
