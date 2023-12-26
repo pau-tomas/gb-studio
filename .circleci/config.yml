@@ -148,15 +148,6 @@ workflows:
       - "make:mac":
           requires:
             - checkout
-          filters:
-            branches:
-              only:
-                - develop
-                - master
-                - main
-                - v3alpha
-                - v2beta
-                - uge_v6
       - "make:win32":
           requires:
             - checkout
