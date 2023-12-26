@@ -13,13 +13,13 @@ on:
 
 jobs:
   # checkout:
-  #   runs-on: ubuntu-latest
+  #   runs-on: ubuntu-20.04
   #   steps:
   #     - name: Checkout Repository
   #       uses: actions/checkout@v2
 
   test:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-20.04
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v2
@@ -33,7 +33,7 @@ jobs:
         run: yarn test
 
   make-mac:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-20.04
     strategy:
       matrix:
         platform: [macos-latest]
@@ -61,7 +61,7 @@ jobs:
           path: ${{ github.workspace }}/out/make
 
   # make-win32:
-  #   runs-on: ubuntu-latest
+  #   runs-on: ubuntu-20.04
   #   strategy:
   #     matrix:
   #       platform: [windows-latest]
@@ -95,7 +95,7 @@ jobs:
   #         path: ${{ github.workspace }}/out/make
 
   # make-win64:
-  #   runs-on: ubuntu-latest
+  #   runs-on: ubuntu-20.04
   #   strategy:
   #     matrix:
   #       platform: [windows-latest]
@@ -129,7 +129,7 @@ jobs:
   #         path: ${{ github.workspace }}/out/make
 
   # make-linux:
-  #   runs-on: ubuntu-latest
+  #   runs-on: ubuntu-20.04
   #   steps:
   #     - name: Checkout Repository
   #       uses: actions/checkout@v2
@@ -159,7 +159,7 @@ jobs:
   #         path: ${{ github.workspace }}/out/make
 
   upload_artifacts:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-20.04
     needs:
       - make-mac
       # - make-win32
