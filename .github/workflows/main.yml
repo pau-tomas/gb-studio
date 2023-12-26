@@ -47,7 +47,9 @@ jobs:
       - name: Install Dependencies
         run: yarn --ignore-engines
       - name: Node version
-        run: node -v
+        run: |
+          node -v
+          npm -v
       - name: Build for macOS
         run: sudo yarn make:mac
       - name: Move and Zip Build
