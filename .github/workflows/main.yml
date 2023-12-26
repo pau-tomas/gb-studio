@@ -26,7 +26,7 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: "14"
+          node-version: "10"
       - name: Install Dependencies
         run: yarn --ignore-engines
       - name: Run Tests
@@ -43,7 +43,7 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: "14"
+          node-version: "10"
       - name: Install Dependencies
         run: yarn --ignore-engines
       - name: Build for macOS
