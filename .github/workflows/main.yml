@@ -23,10 +23,10 @@ jobs:
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v2
-      # - name: Set up Node.js
-      #   uses: actions/setup-node@v3
-      #   with:
-      #     node-version: "14"
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: "14"
       - name: Install Dependencies
         run: yarn --ignore-engines
       - name: Run Tests
@@ -40,10 +40,10 @@ jobs:
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v2
-      # - name: Set up Node.js
-      #   uses: actions/setup-node@v3
-      #   with:
-      #     node-version: "14"
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: "14"
       - name: Setup environment
         run: export NODE_OPTIONS=--openssl-legacy-provider
       - name: Install Dependencies
