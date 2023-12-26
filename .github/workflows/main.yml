@@ -17,6 +17,10 @@ jobs:
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v2
+      - name: Check Repo
+        run: |
+          pwd
+          ls -la
 
   test:
     runs-on: ubuntu-latest
@@ -27,10 +31,8 @@ jobs:
         with:
           node-version: "14"
       - name: Install Dependencies
-        working-directory: ./gb-studio
         run: yarn --ignore-engines
       - name: Run Tests
-        working-directory: ./gb-studio
         run: yarn test
 
   make-mac:
