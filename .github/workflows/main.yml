@@ -26,15 +26,15 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: "14"
+          node-version: "16"
       - name: Install Dependencies
         run: yarn --ignore-engines
       - name: Run Tests
         run: yarn test
 
   make-mac:
-    # runs-on: ubuntu-20.04
-    runs-on: macos-13
+    runs-on: ubuntu-20.04
+    # runs-on: macos-13
     strategy:
       matrix:
         platform: [macos-latest]
@@ -44,7 +44,7 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: "14"
+          node-version: "16"
       - name: Setup environment
         run: export NODE_OPTIONS=--openssl-legacy-provider
       - name: Install Dependencies
@@ -74,7 +74,7 @@ jobs:
   #     - name: Set up Node.js
   #       uses: actions/setup-node@v3
   #       with:
-  #         node-version: "14"
+  #         node-version: "16"
   #     - name: Install Dependencies
   #       run: yarn --ignore-engines
   #     - name: Install Wine and Dependencies
@@ -108,7 +108,7 @@ jobs:
   #     - name: Set up Node.js
   #       uses: actions/setup-node@v3
   #       with:
-  #         node-version: "14"
+  #         node-version: "16"
   #     - name: Install Dependencies
   #       run: yarn --ignore-engines
   #     - name: Install Wine and Dependencies
@@ -139,7 +139,7 @@ jobs:
   #     - name: Set up Node.js
   #       uses: actions/setup-node@v3
   #       with:
-  #         node-version: "14"
+  #         node-version: "16"
   #     - name: Install Dependencies
   #       run: yarn --ignore-engines
   #     - name: Install Build Dependencies
@@ -172,7 +172,7 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: "14"
+          node-version: "16"
       - name: Download Artifacts
         uses: actions/download-artifact@v2
         with:
