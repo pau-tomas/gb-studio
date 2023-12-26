@@ -39,8 +39,10 @@ jobs:
       fail-fast: false
       matrix:
         platform: [macos-latest, ubuntu-20.04, ubuntu-latest]
-        node-version: [10, 11, 12, 13, 14, 15, 16]
+        node-version: [14, 15, 16]
+
     runs-on: ${{ matrix.platform }}
+
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v2
@@ -181,23 +183,23 @@ jobs:
         with:
           name: mac-build
           path: ${{ github.workspace }}/mac-build
-      - name: Download Win32 Artifacts
-        uses: actions/download-artifact@v2
-        with:
-          name: win32-build
-          path: ${{ github.workspace }}/win32-build
-      - name: Download Win64 Artifacts
-        uses: actions/download-artifact@v2
-        with:
-          name: win64-build
-          path: ${{ github.workspace }}/win64-build
-      - name: Download Linux Artifacts
-        uses: actions/download-artifact@v2
-        with:
-          name: linux-builds
-          path: ${{ github.workspace }}/linux-builds
-      - name: Upload Artifacts
-        uses: actions/upload-artifact@v2
-        with:
-          name: all-builds
-          path: ${{ github.workspace }}/*
+      # - name: Download Win32 Artifacts
+      #   uses: actions/download-artifact@v2
+      #   with:
+      #     name: win32-build
+      #     path: ${{ github.workspace }}/win32-build
+      # - name: Download Win64 Artifacts
+      #   uses: actions/download-artifact@v2
+      #   with:
+      #     name: win64-build
+      #     path: ${{ github.workspace }}/win64-build
+      # - name: Download Linux Artifacts
+      #   uses: actions/download-artifact@v2
+      #   with:
+      #     name: linux-builds
+      #     path: ${{ github.workspace }}/linux-builds
+      # - name: Upload Artifacts
+      #   uses: actions/upload-artifact@v2
+      #   with:
+      #     name: all-builds
+      #     path: ${{ github.workspace }}/*
