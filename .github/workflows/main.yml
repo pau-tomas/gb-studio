@@ -12,16 +12,18 @@ on:
       - github_actions
 
 jobs:
-  checkout:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout Repository
-        uses: actions/checkout@v2
+  # checkout:
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - name: Checkout Repository
+  #       uses: actions/checkout@v2
 
   test:
     runs-on: ubuntu-latest
-    needs: checkout
+    # needs: checkout
     steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
       - name: Check Repo
         run: |
           pwd
