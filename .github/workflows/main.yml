@@ -55,6 +55,7 @@ jobs:
         run: |
           node -v
           npm -v
+          export NODE_OPTIONS=--openssl-legacy-provider
           echo $NODE_OPTIONS
           sudo yarn make:mac
       - name: Move and Zip Build
