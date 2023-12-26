@@ -46,13 +46,16 @@ jobs:
         with:
           node-version: "16"
       - name: Setup environment
-        run: export NODE_OPTIONS=--openssl-legacy-provider
+        run: |
+          export NODE_OPTIONS=--openssl-legacy-provider
+          echo $NODE_OPTIONS
       - name: Install Dependencies
         run: yarn --ignore-engines
       - name: Build for macOS
         run: |
           node -v
           npm -v
+          echo $NODE_OPTIONS
           sudo yarn make:mac
       - name: Move and Zip Build
         run: |
