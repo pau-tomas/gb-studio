@@ -39,7 +39,7 @@ jobs:
 
   make-mac:
     runs-on: ubuntu-latest
-    needs: checkout
+    # needs: checkout
     strategy:
       matrix:
         platform: [macos-latest]
@@ -63,7 +63,7 @@ jobs:
 
   make-win32:
     runs-on: ubuntu-latest
-    needs: checkout
+    # needs: checkout
     strategy:
       matrix:
         platform: [windows-latest]
@@ -96,7 +96,7 @@ jobs:
 
   make-win64:
     runs-on: ubuntu-latest
-    needs: checkout
+    # needs: checkout
     strategy:
       matrix:
         platform: [windows-latest]
@@ -129,7 +129,7 @@ jobs:
 
   make-linux:
     runs-on: ubuntu-latest
-    needs: checkout
+    # needs: checkout
     steps:
       - name: Set up Node.js
         uses: actions/setup-node@v3
