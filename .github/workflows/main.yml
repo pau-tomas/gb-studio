@@ -17,15 +17,15 @@ jobs:
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v2
-      - name: Check Repo
-        run: |
-          pwd
-          ls -la
 
   test:
     runs-on: ubuntu-latest
     needs: checkout
     steps:
+      - name: Check Repo
+        run: |
+          pwd
+          ls -la
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
