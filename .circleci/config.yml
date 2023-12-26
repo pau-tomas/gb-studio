@@ -46,6 +46,8 @@ jobs:
       - attach_workspace:
           at: ~/
       - checkout
+      - run: node -v
+      - run: npm -v
       - run: sudo yarn make:mac
       - run: sudo mv ~/repo/out/make/zip/darwin/x64/*.zip ~/repo/out/make/gb-studio-${CIRCLE_BRANCH}-darwin_x86_64.zip
       - persist_to_workspace:
