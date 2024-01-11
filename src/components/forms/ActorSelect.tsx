@@ -146,9 +146,7 @@ export const ActorSelect = ({
           spriteSheetId: playerSpriteSheetId,
         },
       ]);
-      setWarning(
-        "Parameter actors aren’t supported in nested scripts inside custom scripts"
-      );
+      setWarning(l10n("WARNING_PARAMETER_ACTORS_IN_NESTED_SCRIPTS"));
     }
   }, [
     actorsLookup,
@@ -172,7 +170,7 @@ export const ActorSelect = ({
 
   return (
     <SelectWrapper>
-      <div style={{ flexGrow: 1, marginRight: "2px" }}>
+      <div style={{ flexGrow: 1, marginRight: "2px", minWidth: "100px" }}>
         <Select
           name={name}
           value={currentValue}
@@ -217,17 +215,15 @@ export const ActorSelect = ({
           }}
         />
       </div>
-      {warning ? (
+      {warning && (
         <TooltipWrapper tooltip={warning}>
           <WarningButton>
-            <Button variant="transparent" size="small">
+            <Button variant="transparent" size="medium">
               <InfoIcon />
             </Button>
           </WarningButton>
         </TooltipWrapper>
-      ) : (
-        ""
-      )}
+      )}{" "}
     </SelectWrapper>
   );
 };
