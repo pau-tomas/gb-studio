@@ -259,6 +259,31 @@ const removeSelectedEntity =
     }
   };
 
+const reorderSelectedEntity =
+  (position: number) =>
+  (
+    dispatch: ThunkDispatch<RootState, unknown, UnknownAction>,
+    getState: () => RootState
+  ) => {
+    console.log(position);
+
+    const state = getState();
+    const { scene, entityId, type: editorType } = state.editor;
+    if (editorType === "scene") {
+      // dispatch(actions.removeScene({ sceneId: scene }));
+    } else if (editorType === "trigger") {
+      // dispatch(actions.removeTrigger({ sceneId: scene, triggerId: entityId }));
+    } else if (editorType === "actor") {
+      dispatch(
+        actions.reorderSceneActor({
+          sceneId: scene,
+          actorId: entityId,
+          offset: position,
+        })
+      );
+    }
+  };
+
 const first = <T>(array: T[]): T | undefined => {
   if (array[0]) {
     return array[0];
@@ -1023,6 +1048,45 @@ const setSceneSymbol: CaseReducer<
     action.payload.sceneId,
     action.payload.symbol,
   );
+};
+
+const reorderSceneActor: CaseReducer<
+  EntitiesState,
+  PayloadAction<{ sceneId: string; actorId: string; offset: number }>
+> = (state, action) => {
+  const scene = state.scenes.entities[action.payload.sceneId];
+
+  if (!scene) {
+    return;
+  }
+
+  const actors = [...scene.actors];
+
+  const index = actors.indexOf(action.payload.actorId);
+
+  if (index === -1) {
+    // Item not found in the array
+    return;
+  }
+
+  const newIndex = index + action.payload.offset;
+
+  if (newIndex < 0 || newIndex >= actors.length) {
+    // Trying to move the item out of bounds
+    return;
+  }
+
+  // Swap the positions
+  const newActors = [...actors];
+  [newActors[index], newActors[newIndex]] = [
+    newActors[newIndex],
+    newActors[index],
+  ];
+
+  scenesAdapter.updateOne(state.scenes, {
+    id: action.payload.sceneId,
+    changes: { actors: newActors },
+  });
 };
 
 const removeScene: CaseReducer<
@@ -4264,6 +4328,7 @@ const entitiesSlice = createSlice({
     editScene,
     editScenes,
     setSceneSymbol,
+    reorderSceneActor,
     removeScene,
     removeScenes,
     moveScene,
@@ -4702,6 +4767,7 @@ export const actions = {
   ...entitiesSlice.actions,
   moveSelectedEntity,
   removeSelectedEntity,
+  reorderSelectedEntity,
 };
 
 /**************************************************************************

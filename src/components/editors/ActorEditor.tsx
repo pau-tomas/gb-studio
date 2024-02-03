@@ -1,4 +1,4 @@
-import React, { FC, useCallback, useState } from "react";
+import React, { FC, useCallback, useEffect, useState } from "react";
 import {
   actorPrefabSelectors,
   actorSelectors,
@@ -172,6 +172,33 @@ export const ActorEditor: FC<ActorEditorProps> = ({ id, sceneId }) => {
     setNotesOpen(true);
   };
 
+  const onReorderActor = (order: number) => () => {
+    dispatch(entitiesActions.reorderSelectedEntity(order));
+  };
+
+  const onKeyDown = useCallback(
+    (e: KeyboardEvent) => {
+      if (e.target && (e.target as Node).nodeName !== "BODY") {
+        return;
+      }
+      if (e.code === "BracketLeft") {
+        dispatch(entitiesActions.reorderSelectedEntity(-1));
+      }
+
+      if (e.code === "BracketRight") {
+        dispatch(entitiesActions.reorderSelectedEntity(1));
+      }
+    },
+    [dispatch]
+  );
+
+  useEffect(() => {
+    window.addEventListener("keydown", onKeyDown);
+    return () => {
+      window.removeEventListener("keydown", onKeyDown);
+    };
+  }, [onKeyDown]);
+
   if (!scene || !actor) {
     return <WorldEditor />;
   }
@@ -226,6 +253,13 @@ export const ActorEditor: FC<ActorEditorProps> = ({ id, sceneId }) => {
                     {l10n("MENU_PASTE_ACTOR")}
                   </MenuItem>
                 )}
+                <MenuDivider />
+                <MenuItem onClick={onReorderActor(1)}>
+                  {l10n("MENU_ACTOR_BRING_FORWARD")}
+                </MenuItem>
+                <MenuItem onClick={onReorderActor(-1)}>
+                  {l10n("MENU_ACTOR_SEND_BACKWARD")}
+                </MenuItem>
                 <MenuDivider />
                 <MenuItem onClick={onRemove}>
                   {l10n("MENU_DELETE_ACTOR")}

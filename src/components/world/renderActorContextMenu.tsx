@@ -27,6 +27,25 @@ const renderActorContextMenu = ({
         ]
       : []),
     <MenuItem
+      onClick={() => {
+        dispatch(
+          entitiesActions.reorderSceneActor({ sceneId, actorId, offset: 1 })
+        );
+      }}
+    >
+      {l10n("MENU_ACTOR_BRING_FORWARD")}
+    </MenuItem>,
+    <MenuItem
+      onClick={() => {
+        dispatch(
+          entitiesActions.reorderSceneActor({ sceneId, actorId, offset: -1 })
+        );
+      }}
+    >
+      {l10n("MENU_ACTOR_SEND_BACKWARD")}
+    </MenuItem>,
+    <MenuDivider />,
+    <MenuItem
       key="delete"
       onClick={() =>
         dispatch(entitiesActions.removeActor({ sceneId, actorId }))
