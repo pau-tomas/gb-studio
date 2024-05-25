@@ -15,7 +15,7 @@ const gbvmGrammar = {
     pattern: /___bank_([^\s]*)\s*,\s*_\1/,
   },
   variable: {
-    pattern: /VAR_([^\s]*)/,
+    pattern: /VAR_([^\s]*)|\.ARG([0-9])|\.LOCAL_(.*)/,
   },
 };
 
