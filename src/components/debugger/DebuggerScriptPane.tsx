@@ -183,6 +183,10 @@ const DebuggerScriptPane = ({ collapsible }: DebuggerScriptPaneProps) => {
 
   const currentGBVMScript = gbvmScripts[`${currentScriptSymbol}.s`] ?? "";
 
+  const prettyCurrentGBVMScript = currentGBVMScript
+    .replaceAll(/(.globl GBVM\$|.globl GBVM_END\$)([a-z0-9_]*\$).*/g, "$1$2...")
+    .replaceAll(/(GBVM\$|GBVM_END\$)([a-z0-9_]*\$).*( = \.)/g, "$1$2...$3");
+
   const scriptCtx: ScriptEditorCtx | undefined = useMemo(
     () =>
       currentThread?.closestGBVMSymbol
@@ -353,7 +357,7 @@ const DebuggerScriptPane = ({ collapsible }: DebuggerScriptPaneProps) => {
               {viewScriptType === "gbvm" && currentGBVMScript ? (
                 <CodeEditorWrapper>
                   <CodeEditor
-                    value={currentGBVMScript}
+                    value={prettyCurrentGBVMScript}
                     onChange={() => {}}
                     currentLineNum={currentScriptLineNum}
                   />

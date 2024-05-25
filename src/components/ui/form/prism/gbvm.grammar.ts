@@ -17,6 +17,10 @@ const gbvmGrammar = {
   variable: {
     pattern: /VAR_([^\s]*)|\.ARG([0-9])|\.LOCAL_(.*)/,
   },
+  debugger: {
+    pattern: /.globl GBVM\$.*|GBVM\$.*|.globl GBVM_END\$.*|GBVM_END\$.*/,
+    greedy: true,
+  },
 };
 
 export default gbvmGrammar;

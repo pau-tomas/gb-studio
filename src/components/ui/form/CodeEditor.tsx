@@ -79,6 +79,10 @@ const Wrapper = styled.div`
     color: ${(props) => props.theme.colors.token.variable};
   }
 
+  .token.debugger {
+    color: ${(props) => props.theme.colors.token.debugger};
+  }
+
   // Line numbers
 
   .editor {
