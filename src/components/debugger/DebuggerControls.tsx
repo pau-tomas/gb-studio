@@ -3,10 +3,22 @@ import API from "renderer/lib/api";
 import l10n, { L10NKey } from "shared/lib/lang/l10n";
 import { useAppDispatch, useAppSelector } from "store/hooks";
 import { Button } from "ui/buttons/Button";
-import { PlayStartIcon, PauseIcon, NextIcon, StepIcon } from "ui/icons/Icons";
+import {
+  PlayStartIcon,
+  PauseIcon,
+  NextIcon,
+  StepIcon,
+  WarningIcon,
+} from "ui/icons/Icons";
 import { FixedSpacer } from "ui/spacing/Spacing";
 import debuggerActions from "store/features/debugger/debuggerActions";
 import settingsActions from "store/features/settings/settingsActions";
+import styled from "styled-components";
+
+const WarningLabel = styled.span`
+  display: flex;
+  gap: 2px;
+`;
 
 const DebuggerControls = () => {
   const dispatch = useAppDispatch();
@@ -16,6 +28,7 @@ const DebuggerControls = () => {
   const debuggerEnabled = useAppSelector(
     (state) => state.project.present.settings.debuggerEnabled
   );
+  const warnings = useAppSelector((state) => state.console.warnings);
 
   const onPlayPause = useCallback(() => {
     if (isPaused) {
@@ -102,6 +115,12 @@ const DebuggerControls = () => {
         onClick={onToggleBuildLog}
       >
         {l10n("FIELD_BUILD_LOG" as L10NKey)}
+        {warnings.length > 0 && (
+          <WarningLabel>
+            <WarningIcon />
+            {warnings.length}
+          </WarningLabel>
+        )}
       </Button>
     </>
   );

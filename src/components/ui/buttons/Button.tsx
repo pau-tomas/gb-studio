@@ -29,6 +29,7 @@ export const Button = styled.button<ButtonProps>`
   border-width: 1px;
   overflow: hidden;
   flex-shrink: 0;
+  gap: 6px;
 
   svg {
     height: 17px;
