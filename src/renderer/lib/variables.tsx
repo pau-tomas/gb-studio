@@ -29,6 +29,8 @@ export interface NamedVariable {
   code: string; // The code to use in dialogue (when wrapped by $ or #)
   name: string; // The user defined name or default when not named
   group: string; // Group name that variable belongs to
+  isArray?: boolean;
+  size?: number;
 }
 
 interface VariableGroup {
@@ -87,6 +89,8 @@ const namedEntityVariables = (
       code: localVariableCode(variable),
       name: localVariableName(variable, entityId, variablesLookup),
       group: l10n("FIELD_LOCAL"),
+      isArray: variablesLookup[variable]?.isArray,
+      size: variablesLookup[variable]?.size,
     })),
     tempVariables.map((variable) => ({
       id: tempVariableCode(variable),
@@ -99,11 +103,13 @@ const namedEntityVariables = (
       code: globalVariableCode(variable),
       name: globalVariableName(variable, variablesLookup),
       group: l10n("FIELD_GLOBAL"),
+      isArray: variablesLookup[variable]?.isArray,
+      size: variablesLookup[variable]?.size,
     })),
   );
 };
 
-const namedGlobalVariables = (
+export const namedGlobalVariables = (
   variablesLookup: VariablesLookup,
 ): NamedVariable[] => {
   return ([] as NamedVariable[]).concat(
@@ -112,6 +118,8 @@ const namedGlobalVariables = (
       code: globalVariableCode(variable),
       name: globalVariableName(variable, variablesLookup),
       group: l10n("FIELD_GLOBAL"),
+      isArray: variablesLookup[variable]?.isArray,
+      size: variablesLookup[variable]?.size,
     })),
   );
 };
@@ -145,4 +153,13 @@ export const nextVariable = (variable = "0") => {
     return `${start}${value}`;
   }
   return String(parseInt(variable, 10) + 1);
+};
+
+export const variableIsArray = (
+  variablesLookup: VariablesLookup,
+  variable?: string,
+) => {
+  return (
+    variable && variablesLookup[variable] && variablesLookup[variable].isArray
+  );
 };

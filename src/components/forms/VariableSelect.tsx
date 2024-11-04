@@ -167,7 +167,7 @@ const VariableSelectComponent = ({
     const groupedOptions: OptGroup[] = groupedVariables.map((g) => {
       const options = g.variables.map((v) => ({
         value: v.id,
-        label: `${v.name}`,
+        label: v.isArray ? `${v.name}[${v.size}]` : `${v.name}`,
       }));
       return {
         label: g.name,
