@@ -1466,6 +1466,8 @@
   "FIELD_MERGE_DOWN": "Merge Down",
   "FIELD_INFO": "Info",
   "FIELD_UNIQUE_TILES": "Unique Tiles",
+  "FIELD_IS_ARRAY": "Is Array",
+  "FIELD_ARRAY_SIZE": "Array Size",
 
   "// 7": "Asset Viewer ---------------------------------------------",
   "ASSET_SEARCH": "Search...",
