@@ -30,6 +30,10 @@ describe("compileGameGlobalsHeader", () => {
           sceneId: "",
         },
       },
+      {
+        var1: { id: "0", name: "", symbol: "var_1", isArray: true, size: 255 },
+        var2: { id: "1", name: "", symbol: "var_2", isArray: false, size: 1 },
+      },
       [
         {
           symbol: "CONST_0",

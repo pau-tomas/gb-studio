@@ -26,10 +26,12 @@ import {
   SceneParallaxLayer,
   Tileset,
   Trigger,
+  Variable,
 } from "shared/lib/resources/types";
 import { VariableMapData } from "./compileData";
 import { GlobalProjectiles } from "./scriptBuilder/types";
 import { pxToSubpx, tileToPx, tileToSubpx } from "shared/lib/helpers/subpixels";
+import { Dictionary } from "lodash";
 
 export interface PrecompiledBackground {
   id: string;
@@ -1307,21 +1309,25 @@ export const replaceScriptSymbols = (
 
 export const compileGameGlobalsInclude = (
   variableAliasLookup: Record<string, VariableMapData>,
+  variablesLookup: Dictionary<Variable>,
   constants: Constant[],
   engineConstants: Record<string, number>,
   stateReferences: string[],
   fonts: PrecompiledFontData[],
 ) => {
-  const variables = Object.values(variableAliasLookup).map(
-    (v) => v?.symbol,
-  ) as string[];
+  const variableKeys = Object.keys(variableAliasLookup) as string[];
+  let offset = 0;
   return (
-    variables
-      .map((string, stringIndex) => {
-        return `${string} = ${stringIndex}\n`;
+    variableKeys
+      .map((key) => {
+        const thisOffset = offset;
+        const variable = variablesLookup[key];
+        const size = variable?.size ?? 1;
+        offset += size;
+        return `${variableAliasLookup[key].symbol} = ${thisOffset}\n`;
       })
       .join("") +
-    `MAX_GLOBAL_VARS = ${variables.length}\n` +
+    `MAX_GLOBAL_VARS = ${offset}\n` +
     constants
       .filter((constant) => constant.symbol)
       .map((constant) => {
@@ -1346,20 +1352,27 @@ export const compileGameGlobalsInclude = (
 
 export const compileGameGlobalsHeader = (
   variableAliasLookup: Record<string, VariableMapData>,
+  variablesLookup: Dictionary<Variable>,
   constants: Constant[],
   engineConstants: Record<string, number>,
   stateReferences: string[],
   fonts: PrecompiledFontData[],
 ) => {
+  let offset = 0;
   return (
     `#ifndef GAME_GLOBALS_H\n#define GAME_GLOBALS_H\n\n` +
-    Object.values(variableAliasLookup)
-      .map((v) => v?.symbol)
-      .map((string, stringIndex) => {
-        return `#define ${string} ${stringIndex}\n`;
+    Object.keys(variableAliasLookup)
+      // .map((v) => v?.symbol)
+      .map((key) => {
+        const thisOffset = offset;
+        const variable = variablesLookup[key];
+        const size = variable?.size ?? 1;
+        offset += size;
+
+        return `#define ${variableAliasLookup[key].symbol} ${thisOffset}\n`;
       })
       .join("") +
-    `#define MAX_GLOBAL_VARS ${Object.values(variableAliasLookup).length}\n` +
+    `#define MAX_GLOBAL_VARS ${offset}\n` +
     constants
       .filter((constant) => constant.symbol)
       .map((constant) => {
