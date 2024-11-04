@@ -163,7 +163,15 @@ describe("save.ts", () => {
       },
       variables: {
         ...dummyVariablesResource,
-        variables: [{ id: "var1", name: "Variable 1", symbol: "symbol" }],
+        variables: [
+          {
+            id: "var1",
+            name: "Variable 1",
+            symbol: "symbol",
+            isArray: false,
+            size: 1,
+          },
+        ],
       },
       engineFieldValues: {
         ...dummyEngineFieldValuesResource,

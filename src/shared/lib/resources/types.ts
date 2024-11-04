@@ -1010,6 +1010,8 @@ export const Variable = Type.Object({
   name: Type.String(),
   symbol: Type.String(),
   flags: Type.Optional(Type.Record(Type.String(), Type.String())),
+  isArray: Type.Boolean(),
+  size: Type.Number(),
 });
 
 export type Variable = Static<typeof Variable>;
