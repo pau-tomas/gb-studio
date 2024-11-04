@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import React, { FC, useState } from "react";
 import styled from "styled-components";
 import { NumberInput } from "./NumberInput";
 import { Label } from "./Label";
@@ -26,19 +26,31 @@ export const NumberField: FC<NumberFieldProps> = ({
   readOnly,
   placeholder,
   onChange,
-}) => (
-  <Wrapper>
-    {label && <Label htmlFor={name}>{label}</Label>}
-    <NumberInput
-      type="number"
-      id={name}
-      name={name}
-      value={value || ""}
-      min={min}
-      max={max}
-      readOnly={readOnly}
-      placeholder={placeholder}
-      onChange={onChange}
-    />
-  </Wrapper>
-);
+}) => {
+  const [val, setVal] = useState(String(value));
+  let displayVal = val;
+  if (displayVal && !isNaN(Number(displayVal))) {
+    if (min) {
+      displayVal = String(Math.max(Number(min), Number(displayVal)));
+    }
+    if (max) {
+      displayVal = String(Math.min(Number(max), Number(displayVal)));
+    }
+  }
+  return (
+    <Wrapper>
+      {label && <Label htmlFor={name}>{label}</Label>}
+      <NumberInput
+        type="number"
+        id={name}
+        name={name}
+        value={value || ""}
+        min={min}
+        max={max}
+        readOnly={readOnly}
+        placeholder={placeholder}
+        onChange={onChange}
+      />
+    </Wrapper>
+  );
+};

@@ -1,4 +1,4 @@
-import React, { FC, useCallback, useEffect, useState } from "react";
+import React, { FC, useCallback, useEffect, useMemo, useState } from "react";
 import {
   actorPrefabSelectors,
   actorSelectors,
@@ -15,6 +15,7 @@ import {
   FormContainer,
   FormDivider,
   FormHeader,
+  FormRow,
 } from "ui/form/layout/FormLayout";
 import { MenuItem } from "ui/menu/Menu";
 import entitiesActions from "store/features/entities/entitiesActions";
@@ -40,6 +41,14 @@ import l10n, { getL10NData } from "shared/lib/lang/l10n";
 import { selectScriptEventDefs } from "store/features/scriptEventDefs/scriptEventDefsState";
 import { useAppDispatch, useAppSelector } from "store/hooks";
 import { CodeIcon } from "ui/icons/Icons";
+import { CheckboxField } from "ui/form/CheckboxField";
+import { NumberField } from "ui/form/NumberField";
+import {
+  castEventToBool,
+  castEventToInt,
+} from "renderer/lib/helpers/castEventValue";
+import useWindowSize from "ui/hooks/use-window-size";
+import { Variable } from "shared/lib/resources/types";
 
 const worker = new VariableUsesWorker();
 
@@ -51,11 +60,8 @@ interface UsesWrapperProps {
 }
 
 const UsesWrapper = styled.div<UsesWrapperProps>`
-  position: absolute;
-  top: ${(props) => (props.$showSymbols ? `71px` : `38px`)};
-  left: 0;
-  bottom: 0;
-  right: 0;
+  flex-grow: 1;
+  border-top: 1px solid ${(props) => props.theme.colors.input.border};
 `;
 
 const UseMessage = styled.div`
@@ -65,7 +71,8 @@ const UseMessage = styled.div`
 
 export const VariableEditor: FC<VariableEditorProps> = ({ id }) => {
   const [fetching, setFetching] = useState(true);
-  const { observe, height } = useDimensions();
+  const { observe, entry } = useDimensions();
+  const { height: winHeight } = useWindowSize();
   const variable = useAppSelector((state) =>
     variableSelectors.selectById(state, id),
   );
@@ -106,6 +113,14 @@ export const VariableEditor: FC<VariableEditorProps> = ({ id }) => {
     },
     [id],
   );
+
+  const usesHeight = useMemo(() => {
+    const top = entry?.target.getBoundingClientRect().top;
+    if (top === undefined || winHeight === undefined) {
+      return 0;
+    }
+    return winHeight - top - 32;
+  }, [entry?.target, winHeight]);
 
   useEffect(() => {
     worker.addEventListener("message", onWorkerComplete);
@@ -148,6 +163,21 @@ export const VariableEditor: FC<VariableEditorProps> = ({ id }) => {
         variableId: id,
         name: editValue,
       }),
+    );
+  };
+
+  const onChangeFieldInput = <T extends keyof Variable>(
+    key: T,
+    value: Variable[T]
+  ) => {
+    console.log(">>>", key, value);
+    dispatch(
+      entitiesActions.editVariable({
+        variableId: id,
+        changes: {
+          [key]: value,
+        },
+      })
     );
   };
 
@@ -220,7 +250,37 @@ export const VariableEditor: FC<VariableEditorProps> = ({ id }) => {
               <FormDivider />
             </>
           )}
+          <FormRow>
+            <CheckboxField
+              name="animated"
+              label={l10n("FIELD_IS_ARRAY")}
+              checked={variable?.isArray ?? false}
+              onChange={(e) =>
+                onChangeFieldInput("isArray", castEventToBool(e))
+              }
+            />
+          </FormRow>
+          {variable?.isArray && (
+            <FormRow>
+              <NumberField
+                name="size"
+                label={l10n("FIELD_ARRAY_SIZE")}
+                value={variable?.size}
+                placeholder="1"
+                min={1}
+                max={255}
+                onChange={(e) =>
+                  onChangeFieldInput(
+                    "size",
+                    // Math.min(1, Math.max(255, castEventToInt(e, 1)))
+                    castEventToInt(e, 1)
+                  )
+                }
+              />
+            </FormRow>
+          )}
         </FormContainer>
+
         <UsesWrapper ref={observe} $showSymbols={showSymbols}>
           <SplitPaneHeader collapsed={false}>
             {l10n("SIDEBAR_VARIABLE_USES")}
@@ -232,7 +292,7 @@ export const VariableEditor: FC<VariableEditorProps> = ({ id }) => {
               {variableUses.length > 0 ? (
                 <FlatList
                   items={variableUses}
-                  height={height - 30}
+                  height={usesHeight}
                   setSelectedId={setSelectedId}
                   children={({ item }) => {
                     switch (item.type) {

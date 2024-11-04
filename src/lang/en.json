@@ -1442,6 +1442,8 @@
   "FIELD_ROW_NAME": "Row Name",
   "FIELD_IMPORT_CSV": "Import .CSV",
   "FIELD_EXPORT_CSV": "Export .CSV",
+  "FIELD_IS_ARRAY": "Is Array",
+  "FIELD_ARRAY_SIZE": "Array Size",
 
   "// 7": "Asset Viewer ---------------------------------------------",
   "ASSET_SEARCH": "Search...",
