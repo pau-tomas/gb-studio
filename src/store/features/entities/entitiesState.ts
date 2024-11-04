@@ -3883,6 +3883,7 @@ const renameVariable: CaseReducer<
   EntitiesState,
   PayloadAction<{ variableId: string; name: string }>
 > = (state, action) => {
+  const variable = localVariableSelectById(state, action.payload.variableId);
   const existingVariable = state.variables.entities[action.payload.variableId];
   const existingHasFlags =
     existingVariable?.flags && Object.keys(existingVariable.flags).length > 0;
@@ -3890,11 +3891,15 @@ const renameVariable: CaseReducer<
     variablesAdapter.upsertOne(state.variables, {
       id: action.payload.variableId,
       name: action.payload.name,
+      isArray: false,
+      size: 1,
       symbol:
         action.payload.name.length > 0
           ? genEntitySymbol(state, `var_${action.payload.name}`)
           : "",
     });
+  } else if (variable && !variable.isArray) {
+    variablesAdapter.removeOne(state.variables, action.payload.variableId);
   } else {
     // Variable is being set with empty name and doesn't have flags
     // set so can safely remove it
@@ -3915,6 +3920,8 @@ const renameVariableFlags: CaseReducer<
       id: action.payload.variableId,
       name: existingVariable?.name ?? "",
       symbol: existingVariable?.symbol ?? "",
+      isArray: existingVariable?.isArray ?? false,
+      size: existingVariable?.size ?? 1,
       flags: action.payload.flags,
     });
   } else {
@@ -3922,6 +3929,21 @@ const renameVariableFlags: CaseReducer<
     // set so can safely remove it
     variablesAdapter.removeOne(state.variables, action.payload.variableId);
   }
+};
+
+const editVariable: CaseReducer<
+  EntitiesState,
+  PayloadAction<{ variableId: string; changes: Partial<Variable> }>
+> = (state, action) => {
+  const variable = localVariableSelectById(state, action.payload.variableId);
+  const patch = { ...action.payload.changes };
+  if (!variable) {
+    return;
+  }
+  variablesAdapter.updateOne(state.variables, {
+    id: action.payload.variableId,
+    changes: patch,
+  });
 };
 
 /**************************************************************************
@@ -5281,6 +5303,7 @@ const entitiesSlice = createSlice({
      */
 
     renameVariable,
+    editVariable,
     renameVariableFlags,
 
     /**************************************************************************

@@ -96,6 +96,8 @@ export const determineUsedAssets = ({
           id,
           name: `VAR_${id}`,
           symbol: `VAR_${id}`,
+          isArray: false,
+          size: 1,
         };
       }
     }
