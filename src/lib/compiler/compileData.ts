@@ -2050,6 +2050,7 @@ const compile = async (
 
   output["game_globals.i"] = compileGameGlobalsInclude(
     variableAliasLookup,
+    variablesLookup,
     projectData.variables.constants,
     engineSchema.consts,
     precompiled.stateReferences,
@@ -2058,6 +2059,7 @@ const compile = async (
 
   output["game_globals.h"] = compileGameGlobalsHeader(
     variableAliasLookup,
+    variablesLookup,
     projectData.variables.constants,
     engineSchema.consts,
     precompiled.stateReferences,
