@@ -2605,6 +2605,77 @@ class ScriptBuilder extends ScriptBuilderBase {
     this._addNL();
   };
 
+  variableArraySetToValue = (
+    arrayVariable: string,
+    indexValue: ScriptValue,
+    value: ScriptValue,
+  ) => {
+    const indexTmpRef = this._declareLocal("index_tmp", 1, true);
+
+    const arrayVariableAlias = this.getVariableAlias(arrayVariable);
+    const [rpnOpsIndexValue, fetchOpsIndexValue] = precompileScriptValue(
+      optimiseScriptValue(indexValue),
+    );
+    const [rpnOpsValue, fetchOpsValue] = precompileScriptValue(
+      optimiseScriptValue(value),
+    );
+
+    this._addComment("Array Set To Value");
+
+    const localsLookup = this._performFetchOperations([
+      ...fetchOpsIndexValue,
+      ...fetchOpsValue,
+    ]);
+
+    const rpn = this._rpn();
+    if (this._isArg(arrayVariableAlias)) {
+      rpn.ref(this._argRef(arrayVariableAlias, 0));
+    } else {
+      rpn.int16(arrayVariableAlias);
+    }
+    this._performValueRPN(rpn, rpnOpsIndexValue, localsLookup);
+    rpn.operator(".ADD");
+    rpn.refSet(indexTmpRef);
+
+    this._performValueRPN(rpn, rpnOpsValue, localsLookup);
+    rpn.refSetInd(indexTmpRef);
+
+    rpn.stop();
+  };
+
+  variableSetToArrayValue = (
+    variable: string,
+    arrayVariable: string,
+    indexValue: ScriptValue,
+  ) => {
+    const indexTmpRef = this._declareLocal("index_tmp", 1, true);
+
+    const variableAlias = this.getVariableAlias(variable);
+    const arrayVariableAlias = this.getVariableAlias(arrayVariable);
+
+    const [rpnOpsIndexValue, fetchOpsIndexValue] = precompileScriptValue(
+      optimiseScriptValue(indexValue),
+    );
+
+    this._addComment("Set Variable to Array Value");
+
+    const localsLookup = this._performFetchOperations([...fetchOpsIndexValue]);
+
+    const rpn = this._rpn();
+    if (this._isArg(arrayVariableAlias)) {
+      rpn.ref(this._argRef(arrayVariableAlias, 0));
+    } else {
+      rpn.int16(arrayVariableAlias);
+    }
+    this._performValueRPN(rpn, rpnOpsIndexValue, localsLookup);
+    rpn.operator(".ADD");
+    rpn.refSet(indexTmpRef);
+    rpn.refInd(indexTmpRef);
+    rpn.refSet(variableAlias);
+
+    rpn.stop();
+  };
+
   variableCopy = (
     setVariable: ScriptBuilderVariable,
     otherVariable: ScriptBuilderVariable,

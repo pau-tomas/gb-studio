@@ -17,7 +17,9 @@ const renameVariable: CaseReducer<
   const existingVariable = state.variables.entities[action.payload.variableId];
   const existingHasFlags =
     existingVariable?.flags && Object.keys(existingVariable.flags).length > 0;
-  if (action.payload.name.length > 0 || existingHasFlags) {
+  if (variable && !action.payload.name && !variable.isArray) {
+    variablesAdapter.removeOne(state.variables, action.payload.variableId);
+  } else if (action.payload.name.length > 0 || existingHasFlags) {
     variablesAdapter.upsertOne(state.variables, {
       id: action.payload.variableId,
       name: action.payload.name,
@@ -25,11 +27,12 @@ const renameVariable: CaseReducer<
       size: variable?.size ?? 1,
       symbol:
         action.payload.name.length > 0
-          ? genEntitySymbol(state, `var_${action.payload.name}`)
+          ? genEntitySymbol(
+              state,
+              `var_${action.payload.name || action.payload.variableId}`,
+            )
           : "",
     });
-  } else if (variable && !variable.isArray) {
-    variablesAdapter.removeOne(state.variables, action.payload.variableId);
   } else {
     // Variable is being set with empty name and doesn't have flags
     // set so can safely remove it
