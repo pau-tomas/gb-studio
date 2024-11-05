@@ -60,10 +60,11 @@ export const tempVariableCode = (variable: string) => {
  */
 
 export const globalVariableName = (
-  variable: string,
+  variableId: string,
   variablesLookup: VariablesLookup,
 ) => {
-  return variablesLookup[variable]?.name || globalVariableDefaultName(variable);
+  const variable = variablesLookup[variableId];
+  return variable?.name || globalVariableDefaultName(variableId);
 };
 
 export const globalVariableDefaultName = (variable: string) => {

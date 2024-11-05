@@ -1444,6 +1444,7 @@
   "FIELD_EXPORT_CSV": "Export .CSV",
   "FIELD_IS_ARRAY": "Is Array",
   "FIELD_ARRAY_SIZE": "Array Size",
+  "FIELD_INDEX": "Index",
 
   "// 7": "Asset Viewer ---------------------------------------------",
   "ASSET_SEARCH": "Search...",
@@ -1892,6 +1893,8 @@
   "EVENT_GROUP_DATA_TABLE": "Data Table",
   "EVENT_DATA_TABLE": "Data Table Lookup",
   "EVENT_DATA_TABLE_DESC": "Define a 2D array of static values that can be looked up by index, with each column loaded into a variable.",
+  "EVENT_ARRAY_GET_LABEL": "{variable} = {arrayVariable}[{index}]",
+  "EVENT_ARRAY_SET_LABEL": "{variable}[{index}] = {value}",
 
   "// 10": "Menu -----------------------------------------------------",
 
