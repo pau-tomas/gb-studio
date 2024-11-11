@@ -17,6 +17,7 @@ import {
 import { DialoguePreview } from "components/script/DialoguePreview";
 import { Constant } from "shared/lib/resources/types";
 import { SCREEN_HEIGHT, SCREEN_WIDTH } from "consts";
+import clamp from "shared/lib/helpers/clamp";
 
 const TILE_SIZE = 8;
 
@@ -37,6 +38,14 @@ const CameraPos = styled.div`
   width: 160px;
   height: 144px;
   outline: 4px solid red;
+  box-shadow: 0 0 1000px 1000px rgba(0, 0, 0, 0.6);
+`;
+
+const CameraMarker = styled.div<PosMarkerProps>`
+  position: absolute;
+  width: ${(props) => props.$tileWidth * 8}px;
+  height: ${(props) => props.$tileHeight * 8}px;
+  outline: 2px dashed red;
   box-shadow: 0 0 1000px 1000px rgba(0, 0, 0, 0.6);
 `;
 
@@ -274,6 +283,70 @@ export const SceneEventHelper: FC<SceneEventHelperProps> = ({ scene }) => {
         />
       </EventHelperWrapper>
     );
+  }
+
+  if (scriptEventDef.helper.type === "camera_props") {
+    const property = argValue(args[scriptEventDef.helper.property]);
+    const value =
+      ensureMaybeNumber(argValue(args[scriptEventDef.helper.value]), 0) ?? 0;
+
+    console.log(property);
+    if (property === "camera_deadzone_x") {
+      const clampedValue = clamp(value, 0, 40);
+      return (
+        <EventHelperWrapper>
+          <CameraMarker
+            $tileWidth={(16 + clampedValue * 2) / 8}
+            $tileHeight={18}
+            style={{
+              left: 80 - clampedValue - 8,
+              top: 0,
+            }}
+          />
+          <CameraPos />
+        </EventHelperWrapper>
+      );
+    }
+    if (property === "camera_deadzone_y") {
+      const clampedValue = clamp(value, 0, 40);
+      return (
+        <EventHelperWrapper>
+          <CameraMarker
+            $tileWidth={20}
+            $tileHeight={(16 + clampedValue * 2) / 8}
+            style={{
+              left: 0,
+              top: 72 - clampedValue - 8,
+            }}
+          />
+          <CameraPos />
+        </EventHelperWrapper>
+      );
+    }
+    if (property === "camera_offset_x") {
+      return (
+        <EventHelperWrapper>
+          <CameraPos
+            style={{
+              left: value * -1,
+              top: 0,
+            }}
+          />
+        </EventHelperWrapper>
+      );
+    }
+    if (property === "camera_offset_y") {
+      return (
+        <EventHelperWrapper>
+          <CameraPos
+            style={{
+              left: 0,
+              top: value * -1,
+            }}
+          />
+        </EventHelperWrapper>
+      );
+    }
   }
 
   if (scriptEventDef.helper.type === "position") {

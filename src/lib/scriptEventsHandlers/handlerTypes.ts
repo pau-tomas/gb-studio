@@ -62,6 +62,11 @@ export type ScriptEventHelperDef =
       x: string;
       y: string;
       location: string;
+    }
+  | {
+      type: "camera_props";
+      property: string;
+      value: string;
     };
 
 export type ScriptEventPresetValue = {

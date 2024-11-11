@@ -50,7 +50,7 @@ const fields = [
     description: l10n("FIELD_VALUE_SET_DESC"),
     type: "value",
     min: -128,
-    max: 127,
+    max: 128,
     defaultValue: {
       type: "number",
       value: 0,
@@ -72,4 +72,9 @@ module.exports = {
   fields,
   compile,
   allowedBeforeInitFade: true,
+  helper: {
+    type: "camera_props",
+    property: "property",
+    value: "value",
+  },
 };
