@@ -30,7 +30,7 @@ const variableToNavigatorItem = (
     : globalVariableDefaultName(variableCode);
   return {
     id: variableCode,
-    name: `${label}${variable?.isArray ? "[]" : ""}`,
+    name: `${label}${variable?.isArray ? `[${variable.size}]` : ""}`,
   };
 };
 
