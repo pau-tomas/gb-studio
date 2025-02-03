@@ -14,8 +14,14 @@ import {
   groupVariables,
   NamedVariable,
   namedVariablesByContext,
+  variableIsArray,
 } from "renderer/lib/variables";
-import { CheckIcon, PencilIcon } from "ui/icons/Icons";
+import {
+  CheckIcon,
+  LeftBracket,
+  PencilIcon,
+  RightBracket,
+} from "ui/icons/Icons";
 import { IMEInput } from "ui/form/IMEInput";
 import entitiesActions from "store/features/entities/entitiesActions";
 import l10n from "shared/lib/lang/l10n";
@@ -25,6 +31,8 @@ import { UnitsSelectButtonInputOverlay } from "./UnitsSelectButtonInputOverlay";
 import { UnitType } from "shared/lib/entities/entitiesTypes";
 import { useAppDispatch, useAppSelector } from "store/hooks";
 import { SingleValue } from "react-select";
+import ValueSelect from "components/forms/ValueSelect";
+import { ScriptValue } from "shared/lib/scriptValue/types";
 
 interface VariableSelectProps extends SelectCommonProps {
   id?: string;
@@ -42,6 +50,10 @@ export const VariableSelectWrapper = styled.div`
   position: relative;
   width: 100%;
   min-width: 78px;
+`;
+
+export const Wrapper = styled.div`
+  display: flex;
 `;
 
 const Select: typeof DefaultSelect = styled(DefaultSelect)`
@@ -126,6 +138,37 @@ const VariableRenameCompleteButton = styled.button`
     height: 12px;
     fill: #333;
   }
+`;
+
+export const VariableToken = styled.span`
+  background: ${(props) => props.theme.colors.token.variable};
+  box-shadow: 0 0 0px 1px ${(props) => props.theme.colors.token.variable};
+  border-radius: 5px;
+  color: ${(props) => props.theme.colors.input.background};
+`;
+
+export const VariableArrayIndexWrapper = styled.div`
+  padding: 4px;
+  border: 1px solid;
+  border-color: ${(props) => props.theme.colors.input.text};
+  clip-path: polygon(
+    0 0,
+    4% 0,
+    4% 2px,
+    96% 2px,
+    96% 0,
+    100% 0,
+    100% 4%,
+    100% 100%,
+    96% 100%,
+    96% calc(100% - 2px),
+    4% calc(100% - 2px),
+    4% 100%,
+    0 100%,
+    0 96%
+  );
+
+  display: flex;
 `;
 
 export const VariableSelect: FC<VariableSelectProps> = ({
@@ -253,6 +296,9 @@ export const VariableSelect: FC<VariableSelectProps> = ({
     }
   };
 
+  const isArray = variableIsArray(variablesLookup, currentValue?.value);
+  const [indexValue, setIndexValue] = useState<ScriptValue>();
+
   return (
     <VariableSelectWrapper onClick={onJumpToVariable}>
       {renameVisible ? (
@@ -266,33 +312,53 @@ export const VariableSelect: FC<VariableSelectProps> = ({
           autoFocus
         />
       ) : (
-        <Select
-          value={currentValue}
-          options={options}
-          onChange={(newValue: SingleValue<Option>) => {
-            if (newValue) {
-              onChange(newValue.value);
-            }
-          }}
-          {...selectProps}
-        />
+        <Wrapper>
+          <div
+            style={{
+              position: "relative",
+            }}
+          >
+            <Select
+              value={currentValue}
+              options={options}
+              onChange={(newValue: SingleValue<Option>) => {
+                if (newValue) {
+                  onChange(newValue.value);
+                }
+              }}
+              {...selectProps}
+            />
+
+            {canRename &&
+              (renameVisible ? (
+                <VariableRenameCompleteButton
+                  onClick={onRenameFinish}
+                  title={l10n("FIELD_RENAME")}
+                >
+                  <CheckIcon />
+                </VariableRenameCompleteButton>
+              ) : (
+                <VariableRenameButton
+                  onClick={onRenameStart}
+                  title={l10n("FIELD_RENAME")}
+                >
+                  <PencilIcon />
+                </VariableRenameButton>
+              ))}
+          </div>
+          {isArray && (
+            <VariableArrayIndexWrapper>
+              <ValueSelect
+                value={indexValue}
+                name={""}
+                entityId={""}
+                onChange={setIndexValue}
+              />
+            </VariableArrayIndexWrapper>
+          )}
+        </Wrapper>
       )}
-      {canRename &&
-        (renameVisible ? (
-          <VariableRenameCompleteButton
-            onClick={onRenameFinish}
-            title={l10n("FIELD_RENAME")}
-          >
-            <CheckIcon />
-          </VariableRenameCompleteButton>
-        ) : (
-          <VariableRenameButton
-            onClick={onRenameStart}
-            title={l10n("FIELD_RENAME")}
-          >
-            <PencilIcon />
-          </VariableRenameButton>
-        ))}
+
       {units && (
         <UnitsSelectButtonInputOverlay
           parentValue={(currentValue && currentValue.label) ?? ""}

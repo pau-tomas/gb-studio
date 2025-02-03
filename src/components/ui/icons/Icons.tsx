@@ -1120,6 +1120,28 @@ export const MagnifyIcon = () => (
   </svg>
 );
 
+export const LeftBracket = () => (
+  <svg
+    width="24"
+    height="24"
+    viewBox="0 0 24 24"
+    style={{ marginLeft: "-12px" }}
+  >
+    <path d="M22 5V3H16V21H22V19H18.4V5H22Z" />
+  </svg>
+);
+
+export const RightBracket = () => (
+  <svg
+    width="24"
+    height="24"
+    viewBox="0 0 24 24"
+    style={{ marginRight: "-12px" }}
+  >
+    <path d="M2 3H7V21H2V19H5V5H2V3Z" />
+  </svg>
+);
+
 export const SadIcon = () => (
   <svg width="1096" height="974" viewBox="0 0 1096 974" version="1.1">
     <defs>

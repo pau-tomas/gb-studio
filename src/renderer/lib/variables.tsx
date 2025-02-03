@@ -103,7 +103,7 @@ const namedEntityVariables = (
   );
 };
 
-const namedGlobalVariables = (
+export const namedGlobalVariables = (
   variablesLookup: VariablesLookup,
 ): NamedVariable[] => {
   return ([] as NamedVariable[]).concat(
@@ -112,6 +112,8 @@ const namedGlobalVariables = (
       code: globalVariableCode(variable),
       name: globalVariableName(variable, variablesLookup),
       group: l10n("FIELD_GLOBAL"),
+      isArray: variablesLookup[variable]?.isArray,
+      size: variablesLookup[variable]?.size,
     })),
   );
 };
@@ -145,4 +147,13 @@ export const nextVariable = (variable = "0") => {
     return `${start}${value}`;
   }
   return String(parseInt(variable, 10) + 1);
+};
+
+export const variableIsArray = (
+  variablesLookup: VariablesLookup,
+  variable?: string,
+) => {
+  return (
+    variable && variablesLookup[variable] && variablesLookup[variable].isArray
+  );
 };
