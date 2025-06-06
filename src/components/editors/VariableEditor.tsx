@@ -168,7 +168,7 @@ export const VariableEditor: FC<VariableEditorProps> = ({ id }) => {
 
   const onChangeFieldInput = <T extends keyof Variable>(
     key: T,
-    value: Variable[T]
+    value: Variable[T],
   ) => {
     console.log(">>>", key, value);
     dispatch(
@@ -177,7 +177,7 @@ export const VariableEditor: FC<VariableEditorProps> = ({ id }) => {
         changes: {
           [key]: value,
         },
-      })
+      }),
     );
   };
 
@@ -273,7 +273,7 @@ export const VariableEditor: FC<VariableEditorProps> = ({ id }) => {
                   onChangeFieldInput(
                     "size",
                     // Math.min(1, Math.max(255, castEventToInt(e, 1)))
-                    castEventToInt(e, 1)
+                    castEventToInt(e, 1),
                   )
                 }
               />

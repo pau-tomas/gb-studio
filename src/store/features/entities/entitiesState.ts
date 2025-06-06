@@ -3899,7 +3899,7 @@ const renameVariable: CaseReducer<
         action.payload.name.length > 0
           ? genEntitySymbol(
               state,
-              `var_${action.payload.name || action.payload.variableId}`
+              `var_${action.payload.name || action.payload.variableId}`,
             )
           : "",
     });

@@ -23,7 +23,7 @@ interface NavigatorItem {
 
 const variableToNavigatorItem = (
   variable: Variable | undefined,
-  variableCode: string
+  variableCode: string,
 ): NavigatorItem => {
   const label = variable?.name
     ? variable.name
@@ -49,7 +49,7 @@ export const NavigatorVariables: FC<NavigatorVariablesProps> = ({
 }) => {
   const [items, setItems] = useState<NavigatorItem[]>([]);
   const variablesLookup = useAppSelector((state) =>
-    variableSelectors.selectEntities(state)
+    variableSelectors.selectEntities(state),
   );
   const entityId = useAppSelector((state) => state.editor.entityId);
   const editorType = useAppSelector((state) => state.editor.type);
@@ -64,9 +64,9 @@ export const NavigatorVariables: FC<NavigatorVariablesProps> = ({
         .filter(
           (value) =>
             searchTermUpperCase.length === 0 ||
-            value.name.toLocaleUpperCase().includes(searchTermUpperCase)
+            value.name.toLocaleUpperCase().includes(searchTermUpperCase),
         )
-        .sort(sortByName)
+        .sort(sortByName),
     );
   }, [searchTerm, variablesLookup]);
 
@@ -82,7 +82,7 @@ export const NavigatorVariables: FC<NavigatorVariablesProps> = ({
         setRenameId(selectedId);
       }
     },
-    [selectedId]
+    [selectedId],
   );
 
   const onRenameComplete = useCallback(
@@ -92,12 +92,12 @@ export const NavigatorVariables: FC<NavigatorVariablesProps> = ({
           entitiesActions.renameVariable({
             variableId: renameId,
             name,
-          })
+          }),
         );
       }
       setRenameId("");
     },
-    [dispatch, renameId]
+    [dispatch, renameId],
   );
 
   const onRenameCancel = useCallback(() => {
