@@ -13,6 +13,9 @@ import { SplitPaneHeader } from "ui/splitpane/SplitPaneHeader";
 import { decHexVal } from "shared/lib/helpers/8bit";
 import l10n from "shared/lib/lang/l10n";
 import { DataLabel, DataRow } from "components/debugger/DebuggerState";
+import { DropdownButton } from "ui/buttons/DropdownButton";
+import { MenuItem } from "ui/menu/Menu";
+import API from "renderer/lib/api";
 
 const Content = styled.div`
   background: ${(props) => props.theme.colors.scripting.form.background};
@@ -168,12 +171,27 @@ const DebuggerVRAMPane = () => {
     };
   });
 
+  const onCopyAsPng = useCallback(() => {
+    API.clipboard.writeImage(vramPreview);
+  }, [vramPreview]);
+
   return (
     <>
       <SplitPaneHeader
         onToggle={onToggleCollapsed}
         collapsed={isCollapsed}
         variant="secondary"
+        buttons={
+          <DropdownButton
+            size="small"
+            variant="transparent"
+            menuDirection="right"
+          >
+            <MenuItem onClick={onCopyAsPng}>
+              {l10n("FIELD_COPY_AS_PNG")}
+            </MenuItem>
+          </DropdownButton>
+        }
       >
         VRAM
       </SplitPaneHeader>

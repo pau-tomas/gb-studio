@@ -1,6 +1,7 @@
 import { DMG_PALETTE } from "consts";
 import { colorizeSpriteData, chromaKeyData } from "shared/lib/helpers/color";
-import { ObjPalette } from "shared/lib/entities/entitiesTypes";
+import { MetaspriteTile, ObjPalette } from "shared/lib/entities/entitiesTypes";
+import { SpriteModeSetting } from "shared/lib/resources/types";
 
 // eslint-disable-next-line no-restricted-globals
 const workerCtx: Worker = self as unknown as Worker;
@@ -15,9 +16,25 @@ export interface MetaspriteCanvasResult {
   canvasImage: ImageBitmap;
 }
 
+interface MetaspriteCanvasWorkerMessageData {
+  id: number;
+  src: string;
+  width: number;
+  height: number;
+  tiles: MetaspriteTile[];
+  flipX: boolean;
+  palette: [string, string, string, string];
+  palettes: [string, string, string, string][];
+  previewAsMono: boolean | undefined;
+  colorCorrection: "none" | "default";
+  spriteMode: SpriteModeSetting;
+}
+
 const cache: Record<string, CacheRecord> = {};
 
-workerCtx.onmessage = async (evt) => {
+workerCtx.onmessage = async (
+  evt: MessageEvent<MetaspriteCanvasWorkerMessageData>,
+) => {
   const id = evt.data.id;
   const src = evt.data.src;
   const width = evt.data.width;

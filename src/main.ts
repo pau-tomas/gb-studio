@@ -7,6 +7,7 @@ import {
   nativeTheme,
   clipboard,
   protocol,
+  nativeImage,
 } from "electron";
 import windowStateKeeper from "electron-window-state";
 import settings from "electron-settings";
@@ -1345,6 +1346,11 @@ ipcMain.handle("clipboard:read-buffer", (_, format: string) => {
 
 ipcMain.handle("clipboard:write-text", (_, value: string) => {
   return clipboard.writeText(value);
+});
+
+ipcMain.handle("clipboard:write-image", (_, value: string) => {
+  const image = nativeImage.createFromDataURL(value);
+  return clipboard.writeImage(image);
 });
 
 ipcMain.handle(

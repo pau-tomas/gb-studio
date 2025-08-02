@@ -346,6 +346,8 @@ const APISetup = {
       ipcRenderer.invoke("clipboard:write-text", value),
     writeBuffer: (format: string, buffer: Buffer): Promise<void> =>
       ipcRenderer.invoke("clipboard:write-buffer", format, buffer),
+    writeImage: (value: string): Promise<void> =>
+      ipcRenderer.invoke("clipboard:write-image", value),
   },
   debugger: {
     pause: () => ipcRenderer.invoke("debugger:pause"),
