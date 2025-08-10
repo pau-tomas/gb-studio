@@ -73,6 +73,7 @@ import ValueSelect, {
 import {
   isConstScriptValue,
   isScriptValue,
+  VariableArray,
 } from "shared/lib/scriptValue/types";
 import { FlagField } from "ui/form/FlagField";
 import { FlagSelect } from "components/forms/FlagSelect";
@@ -563,13 +564,24 @@ const ScriptEventFormInput = ({
     }
     return (
       <OffscreenSkeletonInput>
-        <VariableSelect
-          name={id}
-          value={String(value || fallbackValue || "0")}
-          entityId={entityId}
-          onChange={onChangeField}
-          allowRename={allowRename}
-        />
+        {typeof value === "string" ? (
+          <VariableSelect
+            name={id}
+            value={String(value || fallbackValue || "0")}
+            entityId={entityId}
+            onChange={onChangeField}
+            allowRename={allowRename}
+          />
+        ) : (
+          <VariableSelect
+            name={id}
+            value={String((value as VariableArray).id || fallbackValue || "0")}
+            entityId={entityId}
+            onChange={onChangeField}
+            allowRename={allowRename}
+            indexValue={(value as VariableArray).index}
+          />
+        )}
       </OffscreenSkeletonInput>
     );
   } else if (type === "direction") {

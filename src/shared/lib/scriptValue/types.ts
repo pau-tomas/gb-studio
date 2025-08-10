@@ -161,7 +161,17 @@ export type ConstScriptValueAtom =
       value: string;
     };
 
-export type ScriptValue = RPNOperation | RPNUnaryOperation | ScriptValueAtom;
+export type VariableArray = {
+  type: "array";
+  id: string;
+  index: ScriptValue;
+};
+
+export type ScriptValue =
+  | RPNOperation
+  | RPNUnaryOperation
+  | VariableArray
+  | ScriptValueAtom;
 
 export type ConstScriptValue = ConstScriptValueAtom;
 
@@ -179,7 +189,8 @@ type OptimisedScriptValueAtom = Exclude<
 export type OptimisedScriptValue =
   | RPNOperationWithOptimisedValues
   | RPNUnaryOperationWithOptimisedValue
-  | OptimisedScriptValueAtom;
+  | OptimisedScriptValueAtom
+  | OptimisedVariableArray;
 
 type RPNOperationWithOptimisedValues = {
   type: ValueOperatorType;
@@ -190,6 +201,12 @@ type RPNOperationWithOptimisedValues = {
 type RPNUnaryOperationWithOptimisedValue = {
   type: ValueUnaryOperatorType;
   value: OptimisedScriptValue;
+};
+
+type OptimisedVariableArray = {
+  type: "array";
+  id: string;
+  index: OptimisedScriptValue;
 };
 
 const validProperties = [
@@ -261,6 +278,9 @@ export const isScriptValue = (value: unknown): value is ScriptValue => {
   }
   if (isUnaryOperation(scriptValue)) {
     return isScriptValue(scriptValue.value) || !scriptValue.value;
+  }
+  if (isVariableArray(scriptValue)) {
+    return true;
   }
   if (scriptValue.type === "indirect") {
     return true;
@@ -338,6 +358,25 @@ export const isValueNumber = (
   return false;
 };
 
+export const isVariableArray = (
+  value?: ScriptValue,
+): value is VariableArray => {
+  if (!value || typeof value !== "object") {
+    return false;
+  }
+  const scriptValue = value as ScriptValue;
+
+  // Is an array
+  if (
+    scriptValue.type === "array" &&
+    typeof scriptValue.id === "string" &&
+    scriptValue.index !== undefined
+  ) {
+    return true;
+  }
+  return false;
+};
+
 export type PrecompiledValueFetch = {
   local: string;
   value:
@@ -355,6 +394,10 @@ export type PrecompiledValueFetch = {
       }
     | {
         type: "engineField";
+        value: string;
+      }
+    | {
+        type: "const";
         value: string;
       };
 };
@@ -382,6 +425,18 @@ export type PrecompiledValueRPNOperation =
     }
   | {
       type: "indirect";
+      value: string;
+    }
+  | {
+      type: "variableIndex";
+      value: string;
+    }
+  | {
+      type: "setLocal";
+      value: string;
+    }
+  | {
+      type: "indirectLocal";
       value: string;
     }
   | {

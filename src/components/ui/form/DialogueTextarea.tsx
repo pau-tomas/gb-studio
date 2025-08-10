@@ -491,8 +491,13 @@ export const DialogueTextarea: FC<DialogueTextareaProps> = ({
                 name="replaceVar"
                 value={editMode.id}
                 allowRename={false}
+                showIndex={false}
                 entityId={entityId}
                 onChange={(newId) => {
+                  if (typeof newId !== "string") {
+                    // @TODO: Support arrays in dialogue
+                    return;
+                  }
                   let matches = 0;
                   const newVar = newId.padStart(2, "0");
                   const newValue = value.replace(

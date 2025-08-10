@@ -84,7 +84,7 @@ const TextIcon = styled.div`
 `;
 
 const iconLookup: Record<
-  ValueAtomType | ValueOperatorType | ValueUnaryOperatorType | "rnd",
+  ValueAtomType | ValueOperatorType | ValueUnaryOperatorType | "array" | "rnd",
   JSX.Element
 > = {
   // Value
@@ -93,6 +93,7 @@ const iconLookup: Record<
   direction: <CompassIcon />,
   variable: <VariableIcon />,
   indirect: <VariableIcon />,
+  array: <VariableIcon />,
   constant: <ConstantIcon />,
   expression: <ExpressionIcon />,
   engineField: <SettingsIcon />,
@@ -131,7 +132,7 @@ const iconLookup: Record<
 };
 
 const l10nKeyLookup: Record<
-  ValueAtomType | ValueOperatorType | ValueUnaryOperatorType | "rnd",
+  ValueAtomType | ValueOperatorType | ValueUnaryOperatorType | "array" | "rnd",
   L10NKey
 > = {
   // Value
@@ -140,6 +141,7 @@ const l10nKeyLookup: Record<
   direction: "FIELD_DIRECTION",
   variable: "FIELD_VARIABLE",
   indirect: "FIELD_VARIABLE",
+  array: "FIELD_VARIABLE",
   constant: "FIELD_CONSTANT",
   expression: "FIELD_EXPRESSION",
   engineField: "FIELD_ENGINE_FIELD",
@@ -1153,10 +1155,39 @@ const ValueSelect = ({
               value={value.value}
               allowRename
               onChange={(newValue) => {
-                onChange({
-                  type: "variable",
-                  value: newValue,
-                });
+                if (typeof newValue === "string") {
+                  onChange({
+                    type: "variable",
+                    value: newValue,
+                  });
+                } else {
+                  onChange(newValue);
+                }
+              }}
+            />
+          </InputGroup>
+        </ValueWrapper>
+      );
+    } else if (value.type === "array") {
+      return (
+        <ValueWrapper ref={previewRef} $isOver={isOver}>
+          <InputGroup ref={dropRef}>
+            <InputGroupPrepend>{dropdownButton}</InputGroupPrepend>
+            <VariableSelect
+              name={name}
+              entityId={entityId}
+              value={value.id}
+              allowRename
+              indexValue={value.index}
+              onChange={(newValue) => {
+                if (typeof newValue === "string") {
+                  onChange({
+                    type: "variable",
+                    value: newValue,
+                  });
+                } else {
+                  onChange(newValue);
+                }
               }}
             />
           </InputGroup>

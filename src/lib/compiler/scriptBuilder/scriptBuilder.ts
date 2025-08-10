@@ -2591,6 +2591,7 @@ class ScriptBuilder extends ScriptBuilderBase {
     const [rpnOps, fetchOps] = precompileScriptValue(
       optimiseScriptValue(value),
     );
+
     if (rpnOps.length === 1 && rpnOps[0].type === "number") {
       this._setVariableConst(variable, rpnOps[0].value);
     } else if (rpnOps.length === 1 && rpnOps[0].type === "variable") {
@@ -2600,6 +2601,7 @@ class ScriptBuilder extends ScriptBuilderBase {
       this._addComment(`-- Calculate value`);
       const rpn = this._rpn();
       this._performValueRPN(rpn, rpnOps, localsLookup);
+
       rpn.refSetVariable(variable).stop();
     }
     this._addNL();

@@ -2,7 +2,6 @@ export const castEventToInt = (
   event: React.ChangeEvent<HTMLInputElement>,
   fallbackValue: number,
 ): number => {
-  console.log(event);
   const el = event && event.currentTarget;
   let value = parseInt(el.value, 10);
   if (!el.value || Number.isNaN(value)) {

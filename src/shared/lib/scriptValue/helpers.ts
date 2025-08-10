@@ -15,6 +15,8 @@ import {
   RPNUnaryOperation,
   ScriptValueAtom,
   OptimisedScriptValue,
+  isVariableArray,
+  VariableArray,
 } from "./types";
 import { OperatorSymbol } from "shared/lib/rpn/types";
 import { subpxShiftForUnits } from "shared/lib/helpers/subpixels";
@@ -204,6 +206,11 @@ export const optimiseScriptValue = (
     };
   } else if (input.type === "expression") {
     return optimiseScriptValue(expressionToScriptValue(input.value));
+  } else if (isVariableArray(input)) {
+    return {
+      ...input,
+      index: optimiseScriptValue(input.index),
+    };
   }
   return input;
 };
@@ -420,7 +427,8 @@ export type MappedScriptValue<T> =
   | (Omit<RPNOperation, "valueA" | "valueB"> & {
       valueA: MappedScriptValue<T>;
       valueB: MappedScriptValue<T>;
-    });
+    })
+  | (Omit<VariableArray, "index"> & { index: MappedScriptValue<T> });
 
 export const mapScriptValueLeafNodes = <T>(
   input: ScriptValue,
@@ -440,6 +448,13 @@ export const mapScriptValueLeafNodes = <T>(
     return {
       ...input,
       value: mapped,
+    };
+  }
+  if (isVariableArray(input)) {
+    const mapped = input.index && mapScriptValueLeafNodes(input.index, fn);
+    return {
+      ...input,
+      index: mapped,
     };
   }
   return fn(input);
@@ -735,9 +750,46 @@ export const precompileOptimisedScriptValue = (
       type: "local",
       value: localName,
     });
+  } else if (isVariableArray(input)) {
+    const localName = `local_array_${input.id}_index_${fetchOperations.length}`;
+
+    fetchOperations.push({
+      local: localName,
+      value: {
+        type: "const",
+        value: "0",
+      },
+    });
+
+    rpnOperations.push({
+      type: "variableIndex",
+      value: input.id,
+    });
+
+    precompileScriptValue(
+      input.index,
+      localsLabel,
+      rpnOperations,
+      fetchOperations,
+    );
+
+    rpnOperations.push(
+      {
+        type: "add",
+      },
+      {
+        type: "setLocal",
+        value: localName,
+      },
+      {
+        type: "indirectLocal",
+        value: localName,
+      },
+    );
   } else {
     rpnOperations.push(input);
   }
+
   return [peepholeRPN(rpnOperations), fetchOperations];
 };
 
@@ -754,6 +806,8 @@ export const sortFetchOperations = (
         return `${symbol}::${value.value.type}`;
       } else if (value.value.type === "engineField") {
         return `engineField::${value.value.value}`;
+      } else if (value.value.type === "const") {
+        return `const::${value.value.value}`;
       }
       assertUnreachable(value.value);
       return "";

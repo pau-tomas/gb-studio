@@ -379,8 +379,14 @@ export const MathTextarea: FC<MathTextareaProps> = ({
                 name="replaceVar"
                 value={editMode.id}
                 allowRename={false}
+                showIndex={false}
                 entityId={entityId}
                 onChange={(newId) => {
+                  if (typeof newId !== "string") {
+                    // @TODO: Support arrays in math area
+                    return;
+                  }
+
                   let matches = 0;
                   const newValue = value.replace(varRegex, (match) => {
                     if (matches === editMode.index) {

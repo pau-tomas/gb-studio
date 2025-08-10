@@ -60,11 +60,18 @@ export type ScriptBuilderFunctionArg = {
   symbol: string;
 };
 
+type ScriptBuilderVariableArray = {
+  type: "array";
+  id: string;
+  index: any;
+};
+
 type ScriptBuilderSimpleVariable = string | number;
 
 export type ScriptBuilderVariable =
   | ScriptBuilderSimpleVariable
-  | ScriptBuilderFunctionArg;
+  | ScriptBuilderFunctionArg
+  | ScriptBuilderVariableArray;
 
 export type CameraProperty =
   | "camera_x"
@@ -258,6 +265,7 @@ export type RPNHandler = {
   ref: (variable: ScriptBuilderStackVariable) => RPNHandler;
   refInd: (variable: ScriptBuilderStackVariable) => RPNHandler;
   refVariable: (variable: ScriptBuilderVariable) => RPNHandler;
+  refSet: (variable: ScriptBuilderStackVariable) => RPNHandler;
   int8: (value: number | string) => RPNHandler;
   int16: (value: number | string) => RPNHandler;
   refMem: (type: RPNMemType, address: string) => RPNHandler;

@@ -16,12 +16,7 @@ import {
   namedVariablesByContext,
   variableIsArray,
 } from "renderer/lib/variables";
-import {
-  CheckIcon,
-  LeftBracket,
-  PencilIcon,
-  RightBracket,
-} from "ui/icons/Icons";
+import { CheckIcon, PencilIcon } from "ui/icons/Icons";
 import { IMEInput } from "ui/form/IMEInput";
 import entitiesActions from "store/features/entities/entitiesActions";
 import l10n from "shared/lib/lang/l10n";
@@ -32,7 +27,7 @@ import { UnitType } from "shared/lib/entities/entitiesTypes";
 import { useAppDispatch, useAppSelector } from "store/hooks";
 import { SingleValue } from "react-select";
 import ValueSelect from "components/forms/ValueSelect";
-import { ScriptValue } from "shared/lib/scriptValue/types";
+import { ScriptValue, VariableArray } from "shared/lib/scriptValue/types";
 
 interface VariableSelectProps extends SelectCommonProps {
   id?: string;
@@ -40,10 +35,12 @@ interface VariableSelectProps extends SelectCommonProps {
   value?: string;
   entityId: string;
   allowRename?: boolean;
-  onChange: (newValue: string) => void;
+  onChange: (newValue: string | VariableArray) => void;
   units?: UnitType;
   unitsAllowed?: UnitType[];
   onChangeUnits?: (newUnits: UnitType) => void;
+  indexValue?: ScriptValue;
+  showIndex?: boolean;
 }
 
 export const VariableSelectWrapper = styled.div`
@@ -179,6 +176,8 @@ export const VariableSelect: FC<VariableSelectProps> = ({
   units,
   unitsAllowed,
   onChangeUnits,
+  indexValue,
+  showIndex = true,
   ...selectProps
 }) => {
   const context = useContext(ScriptEditorContext);
@@ -297,7 +296,6 @@ export const VariableSelect: FC<VariableSelectProps> = ({
   };
 
   const isArray = variableIsArray(variablesLookup, currentValue?.value);
-  const [indexValue, setIndexValue] = useState<ScriptValue>();
 
   return (
     <VariableSelectWrapper onClick={onJumpToVariable}>
@@ -322,8 +320,22 @@ export const VariableSelect: FC<VariableSelectProps> = ({
               value={currentValue}
               options={options}
               onChange={(newValue: SingleValue<Option>) => {
-                if (newValue) {
-                  onChange(newValue.value);
+                const isArray = variableIsArray(
+                  variablesLookup,
+                  newValue?.value,
+                );
+                if (isArray) {
+                  if (newValue) {
+                    onChange({
+                      type: "array",
+                      id: newValue.value,
+                      index: indexValue ?? { type: "number", value: 0 },
+                    });
+                  }
+                } else {
+                  if (newValue) {
+                    onChange(newValue.value);
+                  }
                 }
               }}
               {...selectProps}
@@ -346,13 +358,24 @@ export const VariableSelect: FC<VariableSelectProps> = ({
                 </VariableRenameButton>
               ))}
           </div>
-          {isArray && (
+          {isArray && showIndex && (
             <VariableArrayIndexWrapper>
               <ValueSelect
                 value={indexValue}
-                name={""}
-                entityId={""}
-                onChange={setIndexValue}
+                name={`indexValue`}
+                entityId={entityId}
+                onChange={(newValue: ScriptValue) => {
+                  if (currentValue && newValue) {
+                    onChange({
+                      type: "array",
+                      id: currentValue?.value,
+                      index: {
+                        ...indexValue,
+                        ...newValue,
+                      },
+                    });
+                  }
+                }}
               />
             </VariableArrayIndexWrapper>
           )}

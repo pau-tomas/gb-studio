@@ -379,6 +379,9 @@ abstract class ScriptBuilderBase {
         return { type: "number", value: this.getActorIndex(id) };
       }
     }
+    if (typeof id === "object" && id.type === "array") {
+      throw new Error("Setting actor to Array not supported yet");
+    }
     return { type: "reference", symbol: id.symbol };
   }
 
@@ -1081,6 +1084,9 @@ abstract class ScriptBuilderBase {
           // Engine field not found so fallback to 0
           localsLookup[fetchOp.local] = [{ type: "number", value: 0 }];
         }
+      } else if (property === "const") {
+        const localVar = this._declareLocal(fetchOp.local, 1, true);
+        localsLookup[fetchOp.local] = localVar;
       } else {
         assertUnreachable(fetchOp.value);
       }
@@ -1153,6 +1159,30 @@ abstract class ScriptBuilderBase {
         }
         case "memU8": {
           rpn.refMem(".MEM_U8", rpnOp.value);
+          break;
+        }
+        case "indirectLocal": {
+          const local = localsLookup[rpnOp.value];
+          if (typeof local === "string") {
+            this._markLocalUse(local);
+            rpn.refInd(local);
+          } else {
+            throw new Error("Indirect local has to be a string");
+          }
+          break;
+        }
+        case "setLocal": {
+          const local = localsLookup[rpnOp.value];
+          if (typeof local === "string") {
+            this._markLocalUse(local);
+            rpn.refSet(local);
+          } else {
+            throw new Error("Set local has to be a string");
+          }
+          break;
+        }
+        case "variableIndex": {
+          rpn.int16(this.getVariableAlias(rpnOp.value));
           break;
         }
         default: {
@@ -2521,6 +2551,10 @@ extern void __mute_mask_${symbol};
 
     if (typeof variable === "number") {
       variable = String(variable);
+    }
+
+    if (typeof variable === "object") {
+      variable = String(variable.id);
     }
 
     // Lookup args if in V0-9 format

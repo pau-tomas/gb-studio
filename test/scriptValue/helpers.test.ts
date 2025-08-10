@@ -1341,6 +1341,63 @@ test("should sort fetch operations so that properties on same target/prop are gr
   ]);
 });
 
+test("should precompile an array with an index to list of required operations", () => {
+  const input: ScriptValue = {
+    type: "array",
+    id: "Array1",
+    index: {
+      type: "add",
+      valueA: {
+        type: "variable",
+        value: "L0",
+      },
+      valueB: {
+        type: "number",
+        value: 1,
+      },
+    },
+  };
+  expect(precompileScriptValue(input)).toEqual([
+    [
+      {
+        type: "variableIndex",
+        value: "Array1",
+      },
+      {
+        type: "variable",
+        value: "L0",
+      },
+      {
+        type: "number",
+        value: 1,
+      },
+      {
+        type: "add",
+      },
+      {
+        type: "add",
+      },
+      {
+        type: "setLocal",
+        value: "local_array_Array1_index_0",
+      },
+      {
+        type: "indirectLocal",
+        value: "local_array_Array1_index_0",
+      },
+    ],
+    [
+      {
+        local: "local_array_Array1_index_0",
+        value: {
+          type: "const",
+          value: "0",
+        },
+      },
+    ],
+  ]);
+});
+
 describe("walkScriptValue", () => {
   const logValues = (input: ScriptValue): string[] => {
     const values: string[] = [];

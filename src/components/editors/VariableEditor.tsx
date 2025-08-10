@@ -170,7 +170,6 @@ export const VariableEditor: FC<VariableEditorProps> = ({ id }) => {
     key: T,
     value: Variable[T],
   ) => {
-    console.log(">>>", key, value);
     dispatch(
       entitiesActions.editVariable({
         variableId: id,
