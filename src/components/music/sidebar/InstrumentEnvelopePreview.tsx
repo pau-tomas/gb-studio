@@ -51,14 +51,16 @@ export const InstrumentEnvelopePreview = ({
     const secLength = length === null ? 1 : length / 256;
     const centerLineY = height - PADDING - (7 / 15) * drawHeight;
 
-    const defaultColor = themeContext.colors.highlight;
+    const defaultColor = themeContext?.colors.highlight ?? "#fff";
+    const backgroundColor = themeContext?.colors.input.background ?? "#000";
+    const gridColor = themeContext?.colors.input.border ?? "#333";
 
-    ctx.fillStyle = "#000";
+    ctx.fillStyle = backgroundColor;
     ctx.fillRect(0, 0, width, height);
 
     // center line
     ctx.beginPath();
-    ctx.strokeStyle = "#333";
+    ctx.strokeStyle = gridColor;
     ctx.lineWidth = 1;
     ctx.moveTo(0, Math.round(centerLineY) + 0.5);
     ctx.lineTo(width, Math.round(centerLineY) + 0.5);

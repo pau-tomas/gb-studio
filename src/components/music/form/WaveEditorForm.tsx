@@ -76,7 +76,8 @@ export const WaveEditorForm = ({ waveId, onChange }: WaveEditorFormProps) => {
       return;
     }
 
-    const defaultColor = themeContext?.colors.highlight ?? "black";
+    const defaultColor = themeContext?.colors.highlight ?? "#fff";
+    const backgroundColor = themeContext?.colors.input.background ?? "#000";
 
     const getLayout = () => {
       const rect = canvas.getBoundingClientRect();
@@ -115,7 +116,7 @@ export const WaveEditorForm = ({ waveId, onChange }: WaveEditorFormProps) => {
     const clear = () => {
       const { width, height } = getLayout();
       ctx.clearRect(0, 0, width, height);
-      ctx.fillStyle = "#000";
+      ctx.fillStyle = backgroundColor;
       ctx.fillRect(0, 0, width, height);
     };
 
@@ -280,7 +281,14 @@ export const WaveEditorForm = ({ waveId, onChange }: WaveEditorFormProps) => {
       window.removeEventListener("touchcancel", handleTouchEnd);
       window.removeEventListener("resize", handleResize);
     };
-  }, [onEditWave, songWave, themeContext?.colors.highlight, wavesLength]);
+  }, [
+    onEditWave,
+    songWave,
+    themeContext?.colors.background,
+    themeContext?.colors.highlight,
+    themeContext?.colors.input.background,
+    wavesLength,
+  ]);
 
   return (
     <>
