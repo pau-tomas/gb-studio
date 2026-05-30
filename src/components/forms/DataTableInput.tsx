@@ -11,7 +11,7 @@ import {
   ScriptDataTable,
   ScriptDataTableRow,
 } from "shared/lib/scriptDataTable/types";
-import { ConstScriptValue } from "shared/lib/scriptValue/types";
+import { ConstScriptValue, VariableArray } from "shared/lib/scriptValue/types";
 import { getNextVariableId } from "shared/lib/variables/variableNames";
 import { constantSelectors } from "store/features/entities/entitiesState";
 import { useAppStore } from "store/hooks";
@@ -268,7 +268,10 @@ interface DataTableColumnHeaderProps {
   colIndex: number;
   canRemoveColumn: boolean;
   entityId: string;
-  onUpdateVariable: (colIndex: number, variable: string) => void;
+  onUpdateVariable: (
+    colIndex: number,
+    variable: string | VariableArray,
+  ) => void;
   onRemoveColumn: (colIndex: number) => void;
 }
 
@@ -453,7 +456,7 @@ export const DataTableInput = ({
   }, [onChange, table]);
 
   const updateVariable = useCallback(
-    (colIndex: number, newVariable: string) => {
+    (colIndex: number, newVariable: string | VariableArray) => {
       updateTable((currentTable) => ({
         ...currentTable,
         variables: currentTable.variables.map((variable, index) =>
@@ -599,17 +602,21 @@ export const DataTableInput = ({
                   }
                 />
               </th>
-              {table.variables.map((variable, colIndex) => (
-                <DataTableColumnHeader
-                  key={colIndex}
-                  variable={variable}
-                  colIndex={colIndex}
-                  canRemoveColumn={table.variables.length > 1}
-                  entityId={entityId}
-                  onUpdateVariable={updateVariable}
-                  onRemoveColumn={removeColumn}
-                />
-              ))}
+              {table.variables.map((variable, colIndex) =>
+                typeof variable === "string" ? (
+                  <DataTableColumnHeader
+                    key={colIndex}
+                    variable={variable}
+                    colIndex={colIndex}
+                    canRemoveColumn={table.variables.length > 1}
+                    entityId={entityId}
+                    onUpdateVariable={updateVariable}
+                    onRemoveColumn={removeColumn}
+                  />
+                ) : (
+                  <>TEST</>
+                ),
+              )}
               <th>
                 <Button onClick={addColumn} title={l10n("FIELD_ADD_COLUMN")}>
                   +

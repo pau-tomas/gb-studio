@@ -1,6 +1,7 @@
 import {
   ConstScriptValue,
   isConstScriptValue,
+  VariableArray,
 } from "shared/lib/scriptValue/types";
 
 export type ScriptDataTableRow = {
@@ -10,7 +11,7 @@ export type ScriptDataTableRow = {
 
 export type ScriptDataTable = {
   label?: string;
-  variables: string[];
+  variables: (string | VariableArray)[];
   rows: ScriptDataTableRow[];
 };
 
