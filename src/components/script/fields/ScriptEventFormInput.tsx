@@ -81,9 +81,16 @@ import { SingleValue } from "react-select";
 import ConstantValueSelect from "components/forms/ConstantValueSelect";
 import { EngineFieldType } from "store/features/engine/engineState";
 import { OverlaySpeedSelect } from "components/forms/OverlaySpeedSelect";
-import { ActorDirection, CollisionGroup } from "shared/lib/resources/types";
+import {
+  ActorDirection,
+  CollisionGroup,
+  MonoBGPPalette,
+  MonoOBJPalette,
+} from "shared/lib/resources/types";
 import { DataTableInput } from "components/forms/DataTableInput";
 import { isScriptDataTable } from "shared/lib/scriptDataTable/types";
+import { DMGPaletteSelectButton } from "components/forms/DMGPaletteSelectButton";
+import { defaultProjectSettings } from "consts";
 
 interface ScriptEventFormInputProps {
   id: string;
@@ -533,6 +540,50 @@ const ScriptEventFormInput = ({
         />
       </OffscreenSkeletonInput>
     );
+  } else if (type === "dmgpalette") {
+    if (field.dmgPaletteType === "obp0" || field.dmgPaletteType === "obp1") {
+      const defaultValue =
+        field.dmgPaletteType === "obp0"
+          ? defaultProjectSettings.defaultMonoOBP0
+          : defaultProjectSettings.defaultMonoOBP1;
+
+      const label = field.dmgPaletteType === "obp0" ? "OBP0" : "OBP1";
+      return (
+        <OffscreenSkeletonInput>
+          <DMGPaletteSelectButton
+            name={field.dmgPaletteType ?? "obp0"}
+            label={label}
+            variant="select"
+            value={(value ?? defaultValue) as MonoOBJPalette}
+            isSpritePalette={true}
+            onChange={onChangeField}
+            isOptional={true}
+            canKeep
+            canRestore
+            defaultValue={defaultValue}
+          />
+        </OffscreenSkeletonInput>
+      );
+    } else {
+      return (
+        <OffscreenSkeletonInput>
+          <DMGPaletteSelectButton
+            name={field.dmgPaletteType ?? "bgp"}
+            variant="select"
+            label={"BGP"}
+            value={
+              (value ?? defaultProjectSettings.defaultMonoBGP) as MonoBGPPalette
+            }
+            isSpritePalette={false}
+            onChange={onChangeField}
+            isOptional={true}
+            canKeep
+            canRestore
+            defaultValue={defaultProjectSettings.defaultMonoBGP}
+          />
+        </OffscreenSkeletonInput>
+      );
+    }
   } else if (type === "sprite") {
     return (
       <OffscreenSkeletonInput>

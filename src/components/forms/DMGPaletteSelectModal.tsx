@@ -15,6 +15,8 @@ type DMGPaletteSelectModalProps = {
   name: string;
   label?: string;
   showName?: boolean;
+  canKeep?: boolean;
+  canRestore?: boolean;
 } & (
   | {
       isSpritePalette: true;
@@ -64,6 +66,8 @@ export const DMGPaletteSelectModal = ({
   showName,
   onChange,
   onReset,
+  canKeep,
+  canRestore = true,
   isSpritePalette,
   onBlur,
 }: DMGPaletteSelectModalProps) => {
@@ -123,6 +127,14 @@ export const DMGPaletteSelectModal = ({
     [onReset],
   );
 
+  const onUnsetBtn = useCallback(
+    (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+      e.preventDefault();
+      // onChange(undefined);
+    },
+    [onChange],
+  );
+
   const fields = isSpritePalette ? [0, 1, 2] : [0, 1, 2, 3];
 
   return (
@@ -171,9 +183,16 @@ export const DMGPaletteSelectModal = ({
         </InputGrid>
       </FormRow>
       <FormRow>
-        <Button size="small" onClick={onResetBtn}>
-          {l10n("FIELD_RESTORE_DEFAULT")}
-        </Button>
+        {canKeep && (
+          <Button size="small" onClick={onUnsetBtn}>
+            {l10n("FIELD_DONT_MODIFY")}
+          </Button>
+        )}
+        {canRestore && (
+          <Button size="small" onClick={onResetBtn}>
+            {l10n("FIELD_RESTORE_DEFAULT")}
+          </Button>
+        )}
       </FormRow>
     </Form>
   );

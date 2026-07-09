@@ -12,16 +12,20 @@ import { components } from "react-select";
 type DMGPaletteSelectButtonVariant = "default" | "select";
 
 type PaletteKind =
-  | { isSpritePalette: true; value: MonoOBJPalette }
-  | { isSpritePalette?: false; value: MonoBGPPalette };
+  | { isSpritePalette: true; value: MonoOBJPalette | "keep" | "restore" }
+  | { isSpritePalette?: false; value: MonoBGPPalette | "keep" | "restore" };
 
 type Optionality<T> =
   | {
       isOptional: true;
-      defaultValue?: undefined;
+      defaultValue?: Exclude<T, "keep" | "restore"> | undefined;
       onChange: (value: T | undefined) => void;
     }
-  | { isOptional?: false; defaultValue: T; onChange: (value: T) => void };
+  | {
+      isOptional?: false;
+      defaultValue: Exclude<T, "keep" | "restore">;
+      onChange: (value: T) => void;
+    };
 
 type PaletteProps<K extends PaletteKind> = K extends { value: infer V }
   ? K & Optionality<V>
@@ -32,9 +36,17 @@ type DMGPaletteSelectButtonProps = {
   label?: string;
   showName?: boolean;
   variant?: DMGPaletteSelectButtonVariant;
+  canKeep?: boolean;
+  canRestore?: boolean;
 } & (
-  | PaletteProps<{ isSpritePalette: true; value: MonoOBJPalette }>
-  | PaletteProps<{ isSpritePalette?: false; value: MonoBGPPalette }>
+  | PaletteProps<{
+      isSpritePalette: true;
+      value: MonoOBJPalette | "keep" | "restore";
+    }>
+  | PaletteProps<{
+      isSpritePalette?: false;
+      value: MonoBGPPalette | "keep" | "restore";
+    }>
 );
 
 const Wrapper = styled.div`
@@ -134,6 +146,8 @@ export const DMGPaletteSelectButton = ({
   onChange,
   isOptional,
   defaultValue,
+  canKeep,
+  canRestore,
   variant = "default",
 }: DMGPaletteSelectButtonProps) => {
   const buttonRef = useRef<HTMLButtonElement>(null);
@@ -212,6 +226,12 @@ export const DMGPaletteSelectButton = ({
   };
 
   const currentColors = useMemo(() => {
+    if (value === "keep") {
+      return [];
+    }
+    if (value === "restore") {
+      return [];
+    }
     if (isSpritePalette) {
       return [
         DMG_PALETTE.colors[value[0]],
@@ -228,6 +248,9 @@ export const DMGPaletteSelectButton = ({
     ];
   }, [isSpritePalette, value]);
 
+  const paletteValue =
+    value !== "keep" && value !== "restore" ? value : defaultValue;
+
   return (
     <Wrapper>
       {variant === "default" && label && <LabelOuter>{label}</LabelOuter>}
@@ -242,6 +265,7 @@ export const DMGPaletteSelectButton = ({
         }
         $variant={variant}
       >
+        {!canRestore && value === "keep" && "Dont modify"}
         <PaletteBlock
           type={isSpritePalette ? "sprite" : "tile"}
           colors={currentColors}
@@ -286,9 +310,11 @@ export const DMGPaletteSelectButton = ({
               <DMGPaletteSelectModal
                 name={name}
                 label={label}
-                value={value}
+                value={paletteValue}
                 isSpritePalette
                 onChange={onChange}
+                canKeep={canKeep}
+                canRestore={canRestore}
                 onBlur={closeMenu}
                 onReset={onReset}
                 showName={variant === "default"}
@@ -297,8 +323,10 @@ export const DMGPaletteSelectButton = ({
               <DMGPaletteSelectModal
                 name={name}
                 label={label}
-                value={value}
+                value={paletteValue}
                 onChange={onChange}
+                canKeep={canKeep}
+                canRestore={canRestore}
                 onBlur={closeMenu}
                 onReset={onReset}
                 showName={variant === "default"}

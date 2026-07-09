@@ -300,6 +300,7 @@ export interface ScriptEventFieldSchema {
   allowDefault?: boolean;
   allowMultiple?: boolean;
   paletteType?: "background" | "ui" | "emote" | "sprite" | "sgb";
+  dmgPaletteType?: "bgp" | "obp0" | "obp1";
   paletteIndex?: number;
   canKeep?: boolean;
   canRestore?: boolean;
