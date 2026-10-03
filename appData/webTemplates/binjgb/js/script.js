@@ -184,14 +184,14 @@ class Emulator {
     this.module = module;
     this.romDataPtr = this.module._malloc(romBuffer.byteLength);
     makeWasmBuffer(this.module, this.romDataPtr, romBuffer.byteLength).set(
-      new Uint8Array(romBuffer)
+      new Uint8Array(romBuffer),
     );
     this.e = this.module._emulator_new_simple(
       this.romDataPtr,
       romBuffer.byteLength,
       Audio.ctx.sampleRate,
       AUDIO_FRAMES,
-      toBinjgbColorCorrection(webConfig.colorCorrection)
+      toBinjgbColorCorrection(webConfig.colorCorrection),
     );
     if (this.e == 0) {
       throw new Error("Invalid ROM.");
@@ -236,7 +236,7 @@ class Emulator {
     const buffer = makeWasmBuffer(
       this.module,
       this.module._get_file_data_ptr(fileDataPtr),
-      this.module._get_file_data_size(fileDataPtr)
+      this.module._get_file_data_size(fileDataPtr),
     );
     const result = cb(fileDataPtr, buffer);
     this.module._file_data_delete(fileDataPtr);
@@ -584,7 +584,7 @@ class Emulator {
   unbindKeys() {
     window.removeEventListener("keydown", this.boundKeyDown);
     window.removeEventListener("keyup", this.boundKeyUp);
-    window.removeEventListener("blur", this.boundWindowBlur); 
+    window.removeEventListener("blur", this.boundWindowBlur);
   }
 
   keyDown(event) {
@@ -624,7 +624,7 @@ class Emulator {
       this.autoRewind = false;
       vm.paused = false;
     }
-  }  
+  }
 
   keyRewind(isKeyDown) {
     if (!ENABLE_REWIND) {
@@ -693,9 +693,9 @@ class Emulator {
     this.module._set_joyp_A(this.e, set);
   }
   serialCallback(_x) {
-      // CM: Added a noop here to prevent binjgb throwing an error when
-      // data is sent on link cable, can update this later
-      // to send logs to GB Studio debugger
+    // CM: Added a noop here to prevent binjgb throwing an error when
+    // data is sent on link cable, can update this later
+    // to send logs to GB Studio debugger
   }
 }
 
@@ -928,7 +928,7 @@ class Gamepad {
       // Start polling the gamepad for input
       this.gp.timerID = setInterval(
         () => this.update(),
-        GAMEPAD_POLLING_INTERVAL
+        GAMEPAD_POLLING_INTERVAL,
       );
     }
   }
@@ -998,7 +998,7 @@ class Gamepad {
     // When a gamepad disconnects, shut down polling for input
     window.addEventListener(
       "gamepaddisconnected",
-      this.boundGamepadDisconnected
+      this.boundGamepadDisconnected,
     );
   }
 
@@ -1008,7 +1008,7 @@ class Gamepad {
     window.removeEventListener("gamepadconnected", this.boundGamepadConnected);
     window.removeEventListener(
       "gamepaddisconnected",
-      this.boundGamepadDisconnected
+      this.boundGamepadDisconnected,
     );
   }
 }
@@ -1020,7 +1020,7 @@ class Audio {
     this.buffer = makeWasmBuffer(
       this.module,
       this.module._get_audio_buffer_ptr(e),
-      this.module._get_audio_buffer_capacity(e)
+      this.module._get_audio_buffer_capacity(e),
     );
     this.startSec = 0;
     this.resume();
@@ -1071,7 +1071,7 @@ class Audio {
           this.startSec.toFixed(2) +
           " < " +
           nowSec.toFixed(2) +
-          ")"
+          ")",
       );
       this.startSec = nowPlusLatency;
     }
@@ -1113,12 +1113,12 @@ class Video {
     this.buffer = makeWasmBuffer(
       this.module,
       this.module._get_frame_buffer_ptr(e),
-      this.module._get_frame_buffer_size(e)
+      this.module._get_frame_buffer_size(e),
     );
     this.sgbBuffer = makeWasmBuffer(
       this.module,
       this.module._get_sgb_frame_buffer_ptr(e),
-      this.module._get_sgb_frame_buffer_size(e)
+      this.module._get_sgb_frame_buffer_size(e),
     );
   }
 
@@ -1137,7 +1137,7 @@ class Canvas2DRenderer {
     this.imageData = this.ctx.createImageData(SCREEN_WIDTH, SCREEN_HEIGHT);
     this.sgbImageData = this.ctx.createImageData(
       SGB_SCREEN_WIDTH,
-      SGB_SCREEN_HEIGHT
+      SGB_SCREEN_HEIGHT,
     );
 
     this.overlayCanvas = document.createElement("canvas");
@@ -1189,7 +1189,7 @@ class WebGLRenderer {
         void main(void) {
           gl_Position = vec4(aPos, 0.0, 1.0);
           vTexCoord = aTexCoord;
-        }`
+        }`,
     );
     const fragmentShader = compileShader(
       gl.FRAGMENT_SHADER,
@@ -1197,7 +1197,7 @@ class WebGLRenderer {
         uniform sampler2D uSampler;
         void main(void) {
           gl_FragColor = texture2D(uSampler, vTexCoord);
-        }`
+        }`,
     );
 
     const program = gl.createProgram();
@@ -1306,7 +1306,7 @@ class WebGLRenderer {
       0,
       gl.RGBA,
       gl.UNSIGNED_BYTE,
-      null
+      null,
     );
     gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.NEAREST);
     gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.NEAREST);
@@ -1325,7 +1325,7 @@ class WebGLRenderer {
       SCREEN_HEIGHT,
       gl.RGBA,
       gl.UNSIGNED_BYTE,
-      buffer
+      buffer,
     );
 
     gl.bindTexture(gl.TEXTURE_2D, this.sgbFbTexture);
@@ -1338,7 +1338,7 @@ class WebGLRenderer {
       SGB_SCREEN_HEIGHT,
       gl.RGBA,
       gl.UNSIGNED_BYTE,
-      sgbBuffer
+      sgbBuffer,
     );
   }
 
@@ -1373,7 +1373,7 @@ class Rewind {
     this.bufferPtr = this.module._rewind_new_simple(
       e,
       REWIND_FRAMES_PER_BASE_STATE,
-      REWIND_BUFFER_CAPACITY
+      REWIND_BUFFER_CAPACITY,
     );
     this.module._emulator_set_default_joypad_callback(e, this.joypadBufferPtr);
   }
@@ -1406,7 +1406,7 @@ class Rewind {
     this.statePtr = this.module._rewind_begin(
       this.e,
       this.bufferPtr,
-      this.joypadBufferPtr
+      this.joypadBufferPtr,
     );
   }
 
@@ -1421,7 +1421,7 @@ class Rewind {
     if (!this.isRewinding) return;
     this.module._emulator_set_default_joypad_callback(
       this.e,
-      this.joypadBufferPtr
+      this.joypadBufferPtr,
     );
     this.module._rewind_end(this.statePtr);
     this.statePtr = 0;

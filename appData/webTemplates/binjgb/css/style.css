@@ -1,8 +1,9 @@
 body {
   background: #031921;
   color: #fff;
-  font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue",
-    Helvetica, Arial, "Lucida Grande", sans-serif;
+  font-family:
+    "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica,
+    Arial, "Lucida Grande", sans-serif;
   font-weight: 300;
   margin: 0;
   padding: 0;
@@ -321,16 +322,16 @@ body {
 }
 
 #debug {
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  padding:10px;
-  position:fixed;
-  top:0px;
-  left:0px;
-  right:0px;
-  bottom:0px;
-  background:rgba(0,0,0,0.5);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 10px;
+  position: fixed;
+  top: 0px;
+  left: 0px;
+  right: 0px;
+  bottom: 0px;
+  background: rgba(0, 0, 0, 0.5);
 }
 
 #debug div {
@@ -340,7 +341,9 @@ body {
   border-radius: 4px;
   transform: position;
   font-size: 11px;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+  font-family:
+    -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial,
+    sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
   display: flex;
   align-items: center;
 }

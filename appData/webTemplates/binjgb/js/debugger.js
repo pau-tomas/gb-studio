@@ -18,7 +18,7 @@ const toAddrHex = (value) =>
 
 const parseDebuggerSymbol = (input) => {
   const match = input.match(
-    /GBVM\$([^$]+)\$([^$]+)\$([^$]+)\$([^$]+)\$([^$]+)\$([^$]+)/
+    /GBVM\$([^$]+)\$([^$]+)\$([^$]+)\$([^$]+)\$([^$]+)\$([^$]+)/,
   );
   if (!match) {
     return undefined;
@@ -103,7 +103,7 @@ class Debug {
             let stackString = "";
             for (var i = ctxStackBaseAddr; i < ctxStackPtrAddr + 4; i += 2) {
               stackString += `${i === ctxStackPtrAddr ? "->" : "  "}${toAddrHex(
-                i
+                i,
               )}: ${debug.readMemInt16(i)}\n`;
             }
 
@@ -147,7 +147,7 @@ class Debug {
               currentCtxData.closestSymbol !==
                 currentCtxData.prevClosestSymbol &&
               this.breakpoints.includes(
-                currentCtxData.closestGBVMSymbol.scriptEventId
+                currentCtxData.closestGBVMSymbol.scriptEventId,
               )
             ) {
               this.pauseOnVMStep = true;
@@ -174,7 +174,7 @@ class Debug {
               if (this.prevGlobals.length > 0) {
                 // Check if watched has change
                 const modified = !this.prevGlobals.every(
-                  (v, i) => v === globals[i]
+                  (v, i) => v === globals[i],
                 );
                 if (modified) {
                   const changedVariable = this.watchedVariables.find(
@@ -234,7 +234,7 @@ class Debug {
     pauseOnScriptChanged,
     pauseOnWatchedVarChanged,
     breakpoints,
-    watchedVariables
+    watchedVariables,
   ) {
     this.memoryMap = memoryMap;
     this.globalVariables = globalVariables;
@@ -390,7 +390,7 @@ class Debug {
   readVariables(addr, size) {
     const ptr = this.module._emulator_get_wram_ptr(this.e) - 0xc000;
     return new Int16Array(
-      this.module.HEAP8.buffer.slice(ptr + addr, ptr + addr + size * 2)
+      this.module.HEAP8.buffer.slice(ptr + addr, ptr + addr + size * 2),
     );
   }
 
@@ -484,7 +484,7 @@ class Debug {
     const currentSceneAddr = this.memoryMap[CURRENT_SCENE_SYMBOL];
     return this.getSymbol(
       this.readMem(currentSceneAddr),
-      this.readMemInt16(currentSceneAddr + 1)
+      this.readMemInt16(currentSceneAddr + 1),
     );
   }
 
@@ -531,7 +531,7 @@ let ready = setInterval(() => {
             data.pauseOnScriptChanged,
             data.pauseOnWatchedVariableChanged,
             data.breakpoints,
-            data.watchedVariables
+            data.watchedVariables,
           );
 
           setInterval(() => {
@@ -587,7 +587,7 @@ let ready = setInterval(() => {
           debug.setWatchedVariables(data);
           break;
         case "set-background-preview-type":
-          debug.setBackgroundPreviewType(data)
+          debug.setBackgroundPreviewType(data);
           break;
         default:
         // console.warn(event);
