@@ -95,6 +95,7 @@ interface BuildMenuProps {
   midiInputState?: MusicMidiState;
   midiInputAvailable?: boolean;
   midiInputVisible?: boolean;
+  emulatorWindowRunning?: boolean;
 }
 
 const buildMidiInputSubmenu = (
@@ -141,6 +142,7 @@ const buildMenu = async ({
   midiInputState = defaultMusicMidiState,
   midiInputAvailable = false,
   midiInputVisible = false,
+  emulatorWindowRunning = false,
 }: BuildMenuProps) => {
   const settings = await settingsGetAll();
   const pluginThemes = themeManager.getPluginThemes();
@@ -633,6 +635,15 @@ const buildMenu = async ({
           } satisfies MenuItemConstructorOptions,
         ]
       : []),
+    ...(emulatorWindowRunning
+      ? [
+          {
+            label: "Emulator",
+            submenu: buildMidiInputSubmenu(midiInputState, midiInputAvailable),
+          } satisfies MenuItemConstructorOptions,
+        ]
+      : []),
+
     {
       role: "window",
       label: l10n("MENU_WINDOW"),

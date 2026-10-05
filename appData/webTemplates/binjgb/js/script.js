@@ -113,6 +113,7 @@ class VM {
       minTicks: 0,
       maxTicks: 0,
     };
+    this.printerEnabled = false;
     setInterval(() => {
       if (this.extRamUpdated) {
         this.updateExtRam();
@@ -201,6 +202,7 @@ class Emulator {
     this.audio = new Audio(module, this.e);
     this.video = new Video(module, this.e, $("canvas"));
     this.rewind = new Rewind(module, this.e);
+    this.printer = new Printer(module, this.e, $("#printer"));
     this.rewindIntervalId = 0;
 
     this.lastRafSec = 0;
@@ -497,6 +499,7 @@ class Emulator {
       " ": this.keyPause.bind(this),
       "[": this.keyPrevPalette.bind(this),
       "]": this.keyNextPalette.bind(this),
+      p: this.keyTogglePrinter.bind(this),
     };
 
     const customControls = webConfig.customControls || {};
@@ -665,6 +668,19 @@ class Emulator {
     if (isKeyDown) {
       vm.palIdx = (vm.palIdx + 1) % PALETTES.length;
       emulator.setBuiltinPalette(vm.palIdx);
+    }
+  }
+
+  keyTogglePrinter(isKeyDown) {
+    if (!emulator) return;
+    if (isKeyDown) {
+      if (!vm.printerEnabled) {
+        emulator.printer.enablePrinter();
+        vm.printerEnabled = true;
+      } else {
+        emulator.printer.disablePrinter();
+        vm.printerEnabled = false;
+      }
     }
   }
 
@@ -1425,5 +1441,130 @@ class Rewind {
     );
     this.module._rewind_end(this.statePtr);
     this.statePtr = 0;
+  }
+}
+
+class Printer {
+  constructor(module, e, el) {
+    this.module = module;
+    this.e = e;
+    this.el = el;
+
+    this.callbackPtr = this.module.addFunction(
+      (pixelsPtr, height, topMargin, bottomMargin, exposure) => {
+        if (height === 0) return;
+
+        const canvas = document.createElement("canvas");
+        canvas.width = SCREEN_WIDTH;
+        canvas.height = height + topMargin + bottomMargin;
+        canvas.style.height = `${height + topMargin + bottomMargin}px`;
+
+        const ctx = canvas.getContext("2d");
+        const imgData = ctx.createImageData(SCREEN_WIDTH, height);
+        const buffer = makeWasmBuffer(
+          this.module,
+          pixelsPtr,
+          SCREEN_WIDTH * height * 4,
+        );
+        imgData.data.set(buffer);
+        ctx.putImageData(imgData, 0, topMargin);
+
+        const scrollBottom =
+          this.el.scrollHeight - this.el.clientHeight - this.el.scrollTop;
+        const previousHeight = this.el.offsetHeight;
+        const wasFeeding = this.feedFrame != null;
+
+        cancelAnimationFrame(this.feedFrame);
+        this.feedFrame = null;
+
+        this.el.appendChild(canvas);
+        const addedHeight = this.el.offsetHeight - previousHeight;
+
+        if (this.el.matches(":hover")) {
+          const start = this.el.scrollTop;
+          const target = this.el.scrollHeight - this.el.clientHeight;
+          const distance =
+            scrollBottom <= 2 || (wasFeeding && this.feedFollowing)
+              ? Math.max(0, target - start)
+              : 0;
+
+          const translation = (this.feedTranslation || 0) + addedHeight;
+          const total = translation + distance;
+          const startedAt = performance.now();
+
+          this.feedFollowing =
+            scrollBottom <= 8 || (wasFeeding && this.feedFollowing);
+          this.feedTranslation = translation;
+
+          if (total > 0) {
+            this.el.style.transform = `translateY(${translation}px)`;
+
+            const feed = (now) => {
+              const moveDuration = 60;
+              const pauseDuration = 400;
+              const cycleDuration = moveDuration + pauseDuration;
+              const elapsed = now - startedAt;
+
+              const rows = Math.floor(elapsed / cycleDuration);
+              const progress = Math.min(
+                1,
+                (elapsed % cycleDuration) / moveDuration,
+              );
+
+              const advanced = Math.min(total, (rows + progress) * 8);
+
+              this.feedTranslation = Math.max(0, translation - advanced);
+              this.el.style.transform = `translateY(${this.feedTranslation}px)`;
+
+              this.el.scrollTo({
+                top: start + Math.max(0, advanced - translation),
+                behavior: "instant",
+              });
+
+              if (advanced < total) {
+                this.feedFrame = requestAnimationFrame(feed);
+              } else {
+                this.feedFrame = null;
+                this.feedTranslation = 0;
+                this.feedFollowing = false;
+                this.el.style.removeProperty("transform");
+              }
+            };
+
+            this.feedFrame = requestAnimationFrame(feed);
+          }
+        } else {
+          this.feedTranslation = 0;
+          this.feedFollowing = false;
+          this.el.style.removeProperty("transform");
+
+          this.el.animate(
+            [
+              { transform: "translateY(calc(100% - 6px))" },
+              { transform: "translateY(calc(100% - 36px))" },
+              { transform: "translateY(calc(100% - 3px))" },
+              { transform: "translateY(calc(100% - 6px))" },
+            ],
+            { duration: 1000, easing: "ease-in" },
+          );
+        }
+      },
+      "viiiii",
+    );
+  }
+
+  destroy() {
+    this.disablePrinter();
+    this.module.removeFunction(this.callbackPtr);
+  }
+
+  enablePrinter() {
+    this.el.style.display = "flex";
+    this.module._emulator_set_accessory_printer(this.e, this.callbackPtr);
+  }
+
+  disablePrinter() {
+    this.el.style.display = "none";
+    this.module._emulator_set_accessory_none(this.e);
   }
 }

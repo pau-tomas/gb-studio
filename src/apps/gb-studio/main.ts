@@ -744,7 +744,10 @@ export const createPlay = async (
   playWindow.on("closed", () => {
     playWindow = null;
     sendToProjectWindow("debugger:disconnected");
+    refreshMenu();
   });
+
+  refreshMenu();
 };
 
 export const createMusic = async (
@@ -2628,6 +2631,7 @@ const refreshMenu = () => {
     midiInputAvailable: !!projectWindow,
     midiInputVisible:
       !!projectWindow && projectWindowNavigationSection === "music",
+    emulatorWindowRunning: !!playWindow,
   });
 };
 
